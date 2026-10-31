@@ -22,6 +22,10 @@ var hp := 40
 var coins := 0
 var potions := 2
 var deck: Array = []
+var chapter := 1
+var flags := {}
+var next_energy := 0   # 다음 전투 첫 차례 기력 보너스
+var next_guard := 0    # 다음 전투 시작 막기
 
 var current: Control
 var board: Control  # 전투 동안 보드를 숨겨 두었다가 되돌림
@@ -57,6 +61,21 @@ func _debug_capture() -> void:
 		"battle":
 			start_board()
 			start_battle(args.get("enemy", "pojol"), Callable())
+			if args.has("auto"):
+				var bs = current
+				await get_tree().create_timer(3.0).timeout
+				for k in 3:
+					var kids: Array = bs.card_row.get_children()
+					for b in kids:
+						if not b.disabled:
+							b.pressed.emit(); break
+					await get_tree().create_timer(1.0).timeout
+				bs._end_my_turn()
+		"walk":
+			start_board()
+			await get_tree().create_timer(2.0).timeout
+			var kids: Array = board.card_row.get_children()
+			kids[0].pressed.emit()
 		"bag":
 			deck.append({"id": "jumeok", "lv": 2})
 			start_board()
@@ -72,6 +91,10 @@ func _debug_capture() -> void:
 			start_board()
 			var t: Dictionary = GameData.TALKS[int(args.get("n", "0"))]
 			popup(t["text"], "고맙습니다", Callable(), t["who"], t["pic"])
+		"event":
+			start_board()
+			await get_tree().create_timer(0.5).timeout
+			dialog_chain(GameData.STORY2 if args.get("n", "1") == "2" else GameData.STORY1, Callable())
 		"over":
 			start_board()
 			game_over("해가 저물었다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n순라꾼에게 붙잡히고 말았다…", "sunra")
@@ -100,6 +123,7 @@ func show_title() -> void:
 func new_game() -> void:
 	ask_name(func():
 		max_hp = 40; hp = 40; coins = 0; potions = 2
+		chapter = 1; flags = {}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
 		play_story(GameData.PROLOGUE, start_board))
 
@@ -117,6 +141,7 @@ func play_story(lines: Array, on_done: Callable) -> void:
 
 func start_board() -> void:
 	hp = max_hp
+	next_energy = 0; next_guard = 0
 	board = BoardScreen.new()
 	_swap(board)
 
@@ -145,6 +170,7 @@ func game_over(reason: String, pic := "") -> void:
 		if board:
 			board.queue_free(); board = null
 		current = null
+		max_hp = 40; coins = 0; potions = 2
 		start_board(), "", pic)
 
 # ── 이름 ────────────────────────────────────────────────
@@ -208,6 +234,53 @@ func ask_name(cb: Callable) -> void:
 		layer.queue_free()
 		if cb.is_valid():
 			cb.call())
+
+func token_name() -> String:
+	return "token_hero" if chapter < 2 else "token_disguise"
+
+## 팝업으로 이어지는 짧은 이야기. line: {who, pic, text, bg, choices:[{text,set}], if, ifnot}
+func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
+	while i < lines.size():
+		var ln: Dictionary = lines[i]
+		if ln.has("if") and not flags.has(ln["if"]):
+			i += 1; continue
+		if ln.has("ifnot") and flags.has(ln["ifnot"]):
+			i += 1; continue
+		break
+	if i >= lines.size():
+		if cb.is_valid():
+			cb.call()
+		return
+	var line: Dictionary = lines[i]
+	var nbg: String = line.get("bg", bg)
+	var next := func(): dialog_chain(lines, cb, i + 1, nbg)
+	if line.has("choices"):
+		popup_choices(line["text"], line["choices"], func(k: int):
+			var st: String = line["choices"][k].get("set", "")
+			if st != "":
+				flags[st] = true
+			next.call(), fmt(line.get("who", "")), line.get("pic", ""), nbg)
+	else:
+		popup(line["text"], "다음", next, fmt(line.get("who", "")), line.get("pic", ""), nbg)
+
+func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic := "", bg := "") -> void:
+	var o := _overlay(title, bg, pic)
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	var l := make_label(fmt(text), 30)
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.custom_minimum_size = Vector2(540, 0)
+	l.add_theme_constant_override("line_spacing", 8)
+	vb.add_child(l)
+	for k in choices.size():
+		var b := make_button(fmt(choices[k]["text"]), 28)
+		b.custom_minimum_size = Vector2(0, 92)
+		vb.add_child(b)
+		var idx := k
+		b.pressed.connect(func():
+			layer.queue_free()
+			cb.call(idx))
 
 # ── 그림 불러오기 ───────────────────────────────────────
 func ui(name: String) -> Texture2D:
@@ -378,7 +451,7 @@ func _overlay(title: String, bg := "", pic := "") -> Array:
 		r.offset_top = 40; r.offset_left = 30; r.offset_right = -30
 		r.modulate.a = 0.0
 		layer.add_child(r)
-		create_tween().tween_property(r, "modulate:a", 1.0, 0.25)
+		create_tween().tween_property(r, "modulate:a", 1.0, 0.4)
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	if pt:
@@ -398,7 +471,7 @@ func _overlay(title: String, bg := "", pic := "") -> Array:
 	panel.modulate.a = 0.0
 	panel.pivot_offset = Vector2(300, 300)
 	var tw := create_tween()
-	tw.tween_property(panel, "modulate:a", 1.0, 0.18)
+	tw.tween_property(panel, "modulate:a", 1.0, 0.3)
 	return [layer, vb]
 
 func _note(text: String, color := INK_SOFT) -> Label:
@@ -415,7 +488,7 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 	var l := make_label(fmt(text), 30)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.custom_minimum_size = Vector2(520, 0)
+	l.custom_minimum_size = Vector2(540, 0)
 	l.add_theme_constant_override("line_spacing", 8)
 	vb.add_child(l)
 	var b := make_button(button_text)

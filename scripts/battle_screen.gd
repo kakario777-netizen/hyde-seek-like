@@ -1,31 +1,44 @@
 extends Control
-## 카드 전투: 적 공격 게이지가 차기 전에 기력을 써서 카드를 낸다
+## 차례제 상소 전투
+## 내 차례: 기력 3으로 상소(카드)를 낸다 → "차례 넘기기" → 상대 차례: 예고한 행동을 한다.
+## 상대는 차례마다 기세가 한 칸씩 오르고, 다 차면 필살기를 쓴다. 고춧가루·곁치기로 기세를 꺾는다.
 
 var main
 var enemy_id := "walpae"
 var on_win: Callable
 
-const MAX_ENERGY := 3
-const ENERGY_TIME := 1.1   # 기력 1칸 차는 시간(초)
-const HAND_SIZE := 4
+const BASE_ENERGY := 3
+const HAND_SIZE := 5
+const BEAT := 0.55          # 연출 한 박자
 
 var enemy: Dictionary
 var e_hp := 0
-var e_gauge := 0.0
-var energy := 2.0
+var e_block := 0
+var e_charge := 0
+var e_move_idx := 0
+var intent: Dictionary
+var energy := 0
 var shield := 0
-var running := false
+var turn := 0
+var my_turn := false
+var over := false
+var draw_pile: Array = []
+var discard: Array = []
 var hand: Array = []
 
 var enemy_sprite: TextureRect
 var enemy_base := Vector2.ZERO
 var e_hp_bar: ProgressBar
-var e_gauge_bar: ProgressBar
 var e_hp_lbl: Label
+var e_block_lbl: Label
+var charge_row: HBoxContainer
+var intent_lbl: Label
 var p_hp_bar: ProgressBar
 var p_hp_lbl: Label
 var energy_lbl: Label
 var shield_lbl: Label
+var potion_btn: Button
+var end_btn: Button
 var flash: ColorRect
 var card_row: HBoxContainer
 var banner: Label
@@ -37,86 +50,117 @@ func _ready() -> void:
 	var bg := TextureRect.new()
 	var bt: Texture2D = main.backdrop("alley")
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
-	bg.modulate = Color.WHITE if bt else Color(0.3, 0.27, 0.3)
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	bg.anchor_right = 1.0; bg.anchor_bottom = 0.6
+	bg.anchor_right = 1.0; bg.anchor_bottom = 1.0
 	add_child(bg)
+	var low := ColorRect.new()
+	low.color = Color(0.1, 0.06, 0.04, 0.72)
+	low.anchor_top = 0.6; low.anchor_right = 1.0; low.anchor_bottom = 1.0
+	low.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(low)
 
-	# 적 (일러스트가 없으면 먹 그림 아이콘)
 	var et: Texture2D = main.illust(enemy["sprite"])
-	enemy_sprite = main.tex_rect(et if et else main.icon(enemy["sprite"]), Vector2(520, 650) if et else Vector2(360, 360))
+	enemy_sprite = main.tex_rect(et if et else main.icon(enemy_id), Vector2(560, 700) if et else Vector2(360, 360))
+	enemy_sprite.pivot_offset = enemy_sprite.size * Vector2(0.5, 1.0)
 	add_child(enemy_sprite)
 
+	# 상대 정보
 	var top := PanelContainer.new()
 	top.add_theme_stylebox_override("panel", main.bar_style())
 	top.anchor_right = 1.0
-	top.offset_left = 6; top.offset_right = -6; top.offset_top = 6
+	top.offset_left = 4; top.offset_right = -4; top.offset_top = 4
 	add_child(top)
 	var tv := VBoxContainer.new()
-	tv.add_theme_constant_override("separation", 6)
+	tv.add_theme_constant_override("separation", 4)
 	top.add_child(tv)
-	tv.add_child(main.make_label(enemy["name"], 36, main.GOLD, true))
-	e_hp_bar = _bar(Color("a8261c"), 30)
+	var nrow := HBoxContainer.new()
+	tv.add_child(nrow)
+	var nm: Label = main.make_label(enemy["name"], 36, main.GOLD, true)
+	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	nrow.add_child(nm)
+	e_block_lbl = main.make_label("", 26, Color("b8d4f0"), true)
+	nrow.add_child(e_block_lbl)
+	e_hp_bar = _bar(Color("a8261c"), 28)
 	tv.add_child(e_hp_bar)
-	e_hp_lbl = main.make_label("", 24, main.LIGHT)
+	e_hp_lbl = main.make_label("", 22, main.LIGHT)
 	tv.add_child(e_hp_lbl)
-	tv.add_child(main.make_label("공격 준비", 24, Color("e9c9a0")))
-	e_gauge_bar = _bar(Color("d98a2a"), 22)
-	tv.add_child(e_gauge_bar)
+	var crow := HBoxContainer.new()
+	crow.add_theme_constant_override("separation", 8)
+	tv.add_child(crow)
+	crow.add_child(main.make_label("기세", 24, Color("e9c9a0"), true))
+	charge_row = HBoxContainer.new()
+	charge_row.add_theme_constant_override("separation", 6)
+	charge_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	crow.add_child(charge_row)
+	for i in int(enemy["charge"]):
+		var seg := Panel.new()
+		seg.custom_minimum_size = Vector2(0, 20)
+		seg.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		seg.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		charge_row.add_child(seg)
 
-	# 주인공 정보
+	# 상대 예고
+	var ip := PanelContainer.new()
+	ip.add_theme_stylebox_override("panel", main.plaque_style())
+	ip.anchor_left = 0.5; ip.anchor_right = 0.5
+	ip.anchor_top = 0.6; ip.anchor_bottom = 0.6
+	ip.offset_top = -126; ip.offset_left = -250; ip.offset_right = 250; ip.offset_bottom = -56
+	add_child(ip)
+	intent_lbl = main.make_label("", 28, main.GOLD, true)
+	intent_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ip.add_child(intent_lbl)
+
+	# 나
 	var pp := PanelContainer.new()
 	pp.add_theme_stylebox_override("panel", main.bar_style())
 	pp.anchor_top = 0.6; pp.anchor_right = 1.0; pp.anchor_bottom = 0.6
-	pp.offset_left = 6; pp.offset_right = -6; pp.offset_top = -40
+	pp.offset_left = 4; pp.offset_right = -4; pp.offset_top = -40
 	add_child(pp)
 	var hb := HBoxContainer.new()
-	hb.add_theme_constant_override("separation", 18)
+	hb.add_theme_constant_override("separation", 14)
 	pp.add_child(hb)
-	var face_tex: Texture2D = main.illust("face_token")
-	var face := PanelContainer.new()
-	var fsb := StyleBoxFlat.new()
-	fsb.bg_color = Color("9a2c22"); fsb.border_color = main.GOLD; fsb.set_border_width_all(4); fsb.set_corner_radius_all(60)
-	face.add_theme_stylebox_override("panel", fsb)
-	face.custom_minimum_size = Vector2(110, 110)
-	var fl: Label = main.make_label(main.hero_name.left(1), 54, main.GOLD, true)
-	fl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	fl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	face.add_child(fl)
-	if face_tex:
-		hb.add_child(main.tex_rect(face_tex, Vector2(120, 120)))
-	else:
-		hb.add_child(face)
+	var face: Texture2D = main.illust("face_hero" if main.chapter < 2 else "face_token")
+	if face:
+		var fr: TextureRect = main.tex_rect(face, Vector2(116, 116))
+		fr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		hb.add_child(fr)
 	var info := VBoxContainer.new()
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	info.add_theme_constant_override("separation", 4)
+	info.add_theme_constant_override("separation", 2)
 	hb.add_child(info)
-	info.add_child(main.make_label(main.alias(), 32, main.GOLD, true))
-	p_hp_bar = _bar(Color("4f7a4a"), 26)
-	info.add_child(p_hp_bar)
-	p_hp_lbl = main.make_label("", 24, main.LIGHT)
-	info.add_child(p_hp_lbl)
-	var row := HBoxContainer.new()
-	info.add_child(row)
-	energy_lbl = main.make_label("", 30, Color("f0c040"), true)
-	energy_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_child(energy_lbl)
+	var r1 := HBoxContainer.new()
+	info.add_child(r1)
+	var me: Label = main.make_label(main.hero_name if main.chapter < 2 else main.alias(), 30, main.GOLD, true)
+	me.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r1.add_child(me)
 	shield_lbl = main.make_label("", 26, Color("b8d4f0"), true)
-	row.add_child(shield_lbl)
+	r1.add_child(shield_lbl)
+	p_hp_bar = _bar(Color("4f7a4a"), 24)
+	info.add_child(p_hp_bar)
+	p_hp_lbl = main.make_label("", 22, main.LIGHT)
+	info.add_child(p_hp_lbl)
+	energy_lbl = main.make_label("", 30, Color("f0c040"), true)
+	info.add_child(energy_lbl)
+	var btns := VBoxContainer.new()
+	btns.add_theme_constant_override("separation", 6)
+	hb.add_child(btns)
+	end_btn = main.make_button("차례\n넘기기", 24)
+	end_btn.custom_minimum_size = Vector2(132, 100)
+	btns.add_child(end_btn)
+	end_btn.pressed.connect(_end_my_turn)
+	potion_btn = main.make_button("", 22)
+	potion_btn.custom_minimum_size = Vector2(132, 62)
+	btns.add_child(potion_btn)
+	potion_btn.pressed.connect(_use_potion)
 
-	# 손패 (상소문)
+	# 손패
 	card_row = HBoxContainer.new()
 	card_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	card_row.add_theme_constant_override("separation", 10)
+	card_row.add_theme_constant_override("separation", 6)
 	card_row.anchor_top = 1.0; card_row.anchor_bottom = 1.0; card_row.anchor_right = 1.0
-	card_row.offset_top = -306; card_row.offset_bottom = -16
+	card_row.offset_top = -306; card_row.offset_bottom = -14
 	add_child(card_row)
-	for i in HAND_SIZE:
-		hand.append({})
-		card_row.add_child(Button.new())
-	for i in HAND_SIZE:
-		_draw_card(i)
 
 	flash = ColorRect.new()
 	flash.color = Color(0.7, 0.08, 0.05, 0.0)
@@ -124,22 +168,32 @@ func _ready() -> void:
 	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(flash)
 
-	banner = main.ink_text(main.make_label("맞서 싸워라!", 84, main.LIGHT, true), 20)
+	banner = main.ink_text(main.make_label("", 80, main.LIGHT, true), 20)
 	banner.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(banner)
 
+	for e in main.deck:
+		draw_pile.append(e)
+	draw_pile.shuffle()
+	_pick_intent()
 	resized.connect(_layout)
 	_layout()
 	_refresh()
-	var tw := create_tween()
-	tw.tween_interval(0.8)
-	tw.tween_property(banner, "modulate:a", 0.0, 0.3)
-	tw.tween_callback(func(): running = true)
+	_start.call_deferred()
+
+func _start() -> void:
+	await _show_banner("맞서 싸워라!")
+	shield = main.next_guard
+	main.next_guard = 0
+	var bonus: int = main.next_energy
+	main.next_energy = 0
+	_begin_my_turn(bonus)
 
 func _layout() -> void:
-	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.6 - enemy_sprite.size.y - 10).floor()
+	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.6 - enemy_sprite.size.y - 60).floor()
 	enemy_sprite.position = enemy_base
 
 func _bar(col: Color, h: int) -> ProgressBar:
@@ -151,133 +205,238 @@ func _bar(col: Color, h: int) -> ProgressBar:
 	bgs.set_corner_radius_all(4)
 	var fs := StyleBoxFlat.new()
 	fs.bg_color = col; fs.set_corner_radius_all(3)
-	fs.border_color = Color(col.lightened(0.3), 0.6); fs.border_width_top = 3
 	b.add_theme_stylebox_override("background", bgs)
 	b.add_theme_stylebox_override("fill", fs)
 	b.max_value = 1.0
 	b.step = 0.0
 	return b
 
-# ── 카드 ────────────────────────────────────────────────
-func _draw_card(slot: int) -> void:
-	var pool: Array = main.deck.duplicate()
-	if main.potions > 0:
-		pool.append({"id": "yak", "lv": 1})
-		pool.append({"id": "yak", "lv": 1})
-	var entry: Dictionary = pool.pick_random()
-	hand[slot] = entry
-	var old: Button = card_row.get_child(slot)
-	var b: Button = main.card_button(entry, 170, 284)
-	card_row.add_child(b)
-	card_row.move_child(b, slot)
-	old.queue_free()
-	card_row.remove_child(old)
-	b.pressed.connect(func(): _play(slot))
-	b.pivot_offset = b.custom_minimum_size / 2
-	b.scale = Vector2(0.6, 0.6)
-	create_tween().tween_property(b, "scale", Vector2.ONE, 0.15)
+func _show_banner(text: String) -> void:
+	banner.text = text
+	banner.modulate.a = 0.0
+	var tw := create_tween()
+	tw.tween_property(banner, "modulate:a", 1.0, 0.25)
+	tw.tween_interval(0.55)
+	tw.tween_property(banner, "modulate:a", 0.0, 0.3)
+	await tw.finished
 
-func _play(slot: int) -> void:
-	if not running:
+# ── 상대 예고 ───────────────────────────────────────────
+func _pick_intent() -> void:
+	if e_charge >= int(enemy["charge"]):
+		intent = enemy["heavy"].duplicate()
+		intent["heavy"] = true
+	else:
+		var moves: Array = enemy["moves"]
+		intent = moves[e_move_idx % moves.size()].duplicate()
+
+func _intent_text() -> String:
+	var s := "다음 수: %s · " % intent["n"]
+	if intent["t"] == "atk":
+		s += "공격 %d" % intent["v"]
+	else:
+		s += "막기 %d" % intent["v"]
+	if intent.get("heavy", false):
+		s = "필살! " + s
+	return s
+
+# ── 내 차례 ─────────────────────────────────────────────
+func _begin_my_turn(bonus := 0) -> void:
+	if over:
 		return
-	var entry: Dictionary = hand[slot]
-	var c: Dictionary = GameData.stats(entry["id"], entry["lv"])
-	if energy < c["cost"]:
+	turn += 1
+	if turn > 1:
+		shield = 0
+		await _show_banner("나의 차례")
+	energy = BASE_ENERGY + bonus
+	for i in HAND_SIZE:
+		_draw_one()
+		await get_tree().create_timer(0.13).timeout
+	my_turn = true
+	_refresh()
+
+func _draw_one() -> void:
+	if draw_pile.is_empty():
+		draw_pile = discard.duplicate()
+		discard.clear()
+		draw_pile.shuffle()
+	if draw_pile.is_empty():
 		return
-	if c.get("potion", false) and main.potions <= 0:
-		_draw_card(slot); return
-	energy -= c["cost"]
+	var e: Dictionary = draw_pile.pop_back()
+	hand.append(e)
+	var b: Button = main.card_button(e, 134, 286)
+	b.modulate.a = 0.0
+	card_row.add_child(b)
+	b.pressed.connect(func(): _play(b, e))
+	create_tween().tween_property(b, "modulate:a", 1.0, 0.22)
+	_refresh()
+
+func _play(b: Button, e: Dictionary) -> void:
+	if not my_turn or over:
+		return
+	var c: Dictionary = GameData.stats(e["id"], e["lv"])
+	if energy < int(c["cost"]):
+		return
+	my_turn = false
+	energy -= int(c["cost"])
+	var hi := hand.find(e)
+	if hi >= 0:
+		hand.remove_at(hi)
+	discard.append(e)
+	_refresh()
+	var tw := create_tween()
+	tw.tween_property(b, "modulate", Color(1.3, 1.2, 1.0, 0.0), 0.3)
+	await tw.finished
+	card_row.remove_child(b)
+	b.queue_free()
 	if c.has("dmg"):
-		e_hp = max(0, e_hp - int(c["dmg"]))
-		_float_text("-%d" % c["dmg"], enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 40), Color("ffdf6a"))
-		_shake_enemy()
+		_hit_enemy(int(c["dmg"]))
 	if c.has("block"):
 		shield += int(c["block"])
-		_float_text("막기 +%d" % c["block"], Vector2(size.x / 2, size.y * 0.6), Color("9fc3e8"))
-	if c.has("heal"):
-		main.potions -= 1
-		main.hp = min(main.max_hp, main.hp + int(c["heal"]))
-		_float_text("+%d" % c["heal"], Vector2(size.x / 2, size.y * 0.6), Color("8fd0a0"))
+		_float_text("막기 +%d" % c["block"], Vector2(size.x / 2, size.y * 0.62), Color("b8d4f0"))
 	if c.has("slow"):
-		e_gauge = max(0.0, e_gauge - float(c["slow"]))
+		var before := e_charge
+		e_charge = max(0, e_charge - int(c["slow"]))
+		if before != e_charge:
+			_float_text("기세가 꺾였다!", Vector2(size.x / 2, size.y * 0.22), Color("f0c040"))
+		_pick_intent()
 	if c.has("coin"):
 		main.coins += int(c["coin"])
-		_float_text("엽전 +%d" % c["coin"], Vector2(size.x / 2 + 80, size.y * 0.5), Color("f0c040"))
-	_draw_card(slot)
-	_refresh()
+		_float_text("엽전 +%d" % c["coin"], Vector2(size.x / 2 + 80, size.y * 0.45), Color("f0c040"))
+	await get_tree().create_timer(0.4).timeout
 	if e_hp <= 0:
 		_win()
-
-func _process(delta: float) -> void:
-	if not running:
 		return
-	energy = min(float(MAX_ENERGY), energy + delta / ENERGY_TIME)
-	e_gauge += delta / float(enemy["period"])
-	if e_gauge >= 1.0:
-		e_gauge = 0.0
-		_enemy_attack()
+	my_turn = true
 	_refresh()
 
-func _enemy_attack() -> void:
-	var dmg: int = max(0, int(enemy["atk"]) - shield)
-	var blocked: int = int(enemy["atk"]) - dmg
-	shield = 0
-	main.hp = max(0, main.hp - dmg)
+func _hit_enemy(dmg: int) -> void:
+	var through := dmg
+	if e_block > 0:
+		var absorbed: int = min(e_block, dmg)
+		e_block -= absorbed
+		through = dmg - absorbed
+	e_hp = max(0, e_hp - through)
+	_float_text("-%d" % through if through > 0 else "막혔다", enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 120), Color("ffdf6a"))
+	enemy_sprite.modulate = Color(1.7, 1.6, 1.5)
 	var tw := create_tween()
-	tw.tween_property(enemy_sprite, "position", enemy_base + Vector2(0, 40), 0.08)
-	tw.tween_property(enemy_sprite, "position", enemy_base, 0.15)
-	if dmg > 0:
-		flash.color.a = 0.45
-		create_tween().tween_property(flash, "color:a", 0.0, 0.35)
-		_float_text("-%d" % dmg, Vector2(size.x / 2, size.y * 0.6), Color("ff6a5a"))
-	else:
-		_float_text("막아냈다! (%d)" % blocked, Vector2(size.x / 2, size.y * 0.6), Color("9fc3e8"))
-	if main.hp <= 0 and running:
-		running = false
-		main.game_over(main.fmt("{alias|은} 그만 쓰러지고 말았다…"))
+	tw.tween_property(enemy_sprite, "position", enemy_base + Vector2(18, 0), 0.06)
+	tw.tween_property(enemy_sprite, "position", enemy_base - Vector2(14, 0), 0.08)
+	tw.tween_property(enemy_sprite, "position", enemy_base, 0.08)
+	tw.parallel().tween_property(enemy_sprite, "modulate", Color.WHITE, 0.25)
+	_refresh()
 
+func _use_potion() -> void:
+	if not my_turn or over or main.potions <= 0 or main.hp >= main.max_hp:
+		return
+	main.potions -= 1
+	main.hp = min(main.max_hp, main.hp + 12)
+	_float_text("+12", Vector2(size.x / 2, size.y * 0.62), Color("8fd0a0"))
+	_refresh()
+
+func _end_my_turn() -> void:
+	if not my_turn or over:
+		return
+	my_turn = false
+	_refresh()
+	var kids := card_row.get_children()
+	for i in kids.size():
+		create_tween().tween_property(kids[i], "modulate:a", 0.0, 0.2).set_delay(i * 0.05)
+	await get_tree().create_timer(0.5).timeout
+	for b in kids:
+		card_row.remove_child(b)
+		b.queue_free()
+	discard.append_array(hand)
+	hand.clear()
+	_refresh()
+	_enemy_turn()
+
+# ── 상대 차례 ───────────────────────────────────────────
+func _enemy_turn() -> void:
+	await _show_banner("상대의 차례")
+	e_block = 0
+	var act := intent
+	_float_text(act["n"] + "!", Vector2(size.x / 2, size.y * 0.25), Color("ff9a80") if act.get("heavy", false) else main.LIGHT)
+	await get_tree().create_timer(BEAT).timeout
+	if act["t"] == "atk":
+		var tw := create_tween()
+		tw.tween_property(enemy_sprite, "scale", Vector2(1.06, 1.06), 0.18)
+		tw.parallel().tween_property(enemy_sprite, "position", enemy_base + Vector2(0, 36), 0.18)
+		tw.tween_property(enemy_sprite, "scale", Vector2.ONE, 0.22)
+		tw.parallel().tween_property(enemy_sprite, "position", enemy_base, 0.22)
+		await get_tree().create_timer(0.18).timeout
+		var dmg: int = int(act["v"])
+		var blocked: int = min(shield, dmg)
+		shield -= blocked
+		dmg -= blocked
+		main.hp = max(0, main.hp - dmg)
+		if dmg > 0:
+			flash.color.a = 0.45 if act.get("heavy", false) else 0.3
+			create_tween().tween_property(flash, "color:a", 0.0, 0.45)
+			_float_text("-%d" % dmg, Vector2(size.x / 2, size.y * 0.66), Color("ff6a5a"))
+		else:
+			_float_text("모두 막아냈다!", Vector2(size.x / 2, size.y * 0.66), Color("b8d4f0"))
+	else:
+		e_block += int(act["v"])
+		_float_text("막기 +%d" % act["v"], enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 160), Color("b8d4f0"))
+	if act.get("heavy", false):
+		e_charge = 0
+	else:
+		e_charge += 1
+		e_move_idx += 1
+	_pick_intent()
+	_refresh()
+	await get_tree().create_timer(BEAT).timeout
+	if main.hp <= 0:
+		over = true
+		main.game_over(main.fmt("{name|은} 그만 쓰러지고 말았다…"))
+		return
+	_begin_my_turn()
+
+# ── 끝 ──────────────────────────────────────────────────
 func _win() -> void:
-	running = false
+	over = true
 	main.coins += int(enemy["coin"])
 	var tw := create_tween()
-	tw.tween_property(enemy_sprite, "modulate:a", 0.0, 0.5)
-	tw.tween_callback(func():
-		main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d냥)" % [enemy["name"], enemy["coin"]], "전리품 챙기기", func():
-			main.choose_reward(func():
-				main.end_battle(self)
-				if on_win.is_valid():
-					on_win.call())))
+	tw.tween_property(enemy_sprite, "modulate:a", 0.0, 0.7)
+	await tw.finished
+	await _show_banner("승리!")
+	main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d냥)" % [enemy["name"], enemy["coin"]], "전리품 챙기기", func():
+		main.choose_reward(func():
+			main.end_battle(self)
+			if on_win.is_valid():
+				on_win.call()))
 
 func _refresh() -> void:
 	e_hp_bar.value = float(e_hp) / float(enemy["hp"])
 	e_hp_lbl.text = "체력 %d / %d" % [e_hp, enemy["hp"]]
-	e_gauge_bar.value = e_gauge
+	e_block_lbl.text = "막기 %d" % e_block if e_block > 0 else ""
+	for i in charge_row.get_child_count():
+		var seg: Panel = charge_row.get_child(i)
+		var sb := StyleBoxFlat.new()
+		sb.set_corner_radius_all(3)
+		sb.border_color = main.GOLD; sb.set_border_width_all(2)
+		sb.bg_color = Color("d9602a") if i < e_charge else Color("2a1a10")
+		seg.add_theme_stylebox_override("panel", sb)
+	intent_lbl.text = _intent_text()
+	intent_lbl.add_theme_color_override("font_color", Color("ff9a80") if intent.get("heavy", false) else main.GOLD)
 	p_hp_bar.value = float(main.hp) / float(main.max_hp)
-	p_hp_lbl.text = "체력 %d / %d    약병 %d" % [main.hp, main.max_hp, main.potions]
-	var full := int(energy)
-	energy_lbl.text = "기력 " + "●".repeat(full) + "○".repeat(MAX_ENERGY - full)
+	p_hp_lbl.text = "체력 %d / %d · 남은 상소 %d" % [main.hp, main.max_hp, draw_pile.size()]
+	energy_lbl.text = "기력 " + "●".repeat(energy) + "○".repeat(max(0, BASE_ENERGY - energy))
 	shield_lbl.text = "막기 %d" % shield if shield > 0 else ""
-	for i in HAND_SIZE:
-		var b: Button = card_row.get_child(i)
-		if not hand[i].is_empty():
-			b.disabled = energy < GameData.CARDS[hand[i]["id"]]["cost"] or not running
-
-# ── 연출 ────────────────────────────────────────────────
-func _shake_enemy() -> void:
-	enemy_sprite.modulate = Color(1.6, 1.6, 1.6)
-	var tw := create_tween()
-	tw.tween_property(enemy_sprite, "position", enemy_base + Vector2(14, 0), 0.04)
-	tw.tween_property(enemy_sprite, "position", enemy_base - Vector2(14, 0), 0.06)
-	tw.tween_property(enemy_sprite, "position", enemy_base, 0.04)
-	tw.parallel().tween_property(enemy_sprite, "modulate", Color.WHITE, 0.15)
+	potion_btn.text = "약병 %d" % main.potions
+	potion_btn.disabled = not my_turn or main.potions <= 0
+	end_btn.disabled = not my_turn
+	var kids := card_row.get_children()
+	for i in kids.size():
+		if i < hand.size():
+			kids[i].disabled = not my_turn or energy < int(GameData.CARDS[hand[i]["id"]]["cost"])
 
 func _float_text(t: String, at: Vector2, col: Color) -> void:
-	var l: Label = main.make_label(t, 44, col, true)
-	l.add_theme_color_override("font_outline_color", main.INK)
-	l.add_theme_constant_override("outline_size", 12)
+	var l: Label = main.ink_text(main.make_label(t, 44, col, true), 12)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(l)
-	l.position = at - Vector2(60, 0)
+	l.position = at - Vector2(80, 0)
 	var tw := create_tween()
-	tw.tween_property(l, "position:y", at.y - 90, 0.6)
-	tw.parallel().tween_property(l, "modulate:a", 0.0, 0.6).set_delay(0.25)
+	tw.tween_property(l, "position:y", at.y - 100, 0.9)
+	tw.parallel().tween_property(l, "modulate:a", 0.0, 0.9).set_delay(0.4)
 	tw.tween_callback(l.queue_free)

@@ -236,6 +236,9 @@ def main():
     yeopjeon(96, ("#e0705a", "#7a1e16")).save(os.path.join(UI, "node_enemy.png"))
     yeopjeon(120, ("#f6e09a", "#a07818"), "#9a2c22").save(os.path.join(UI, "node_goal.png"))
     yeopjeon(96, ("#a8b8a0", "#4a5a40")).save(os.path.join(UI, "node_done.png"))
+    yeopjeon(96, ("#9fd0b0", "#2e6a4a")).save(os.path.join(UI, "node_buff.png"))
+    yeopjeon(96, ("#a890b8", "#4a2e5a")).save(os.path.join(UI, "node_debuff.png"))
+    yeopjeon(96, ("#9aa8c8", "#2e3a6a")).save(os.path.join(UI, "node_story.png"))
 
     ICONS = {
         "jumeok": "skoll__fist.svg", "baldda": "delapouite__high-kick.svg", "pum": "willdabeast__round-shield.svg",
@@ -244,9 +247,11 @@ def main():
         "item": "delapouite__mortar.svg", "shop": "delapouite__shop.svg", "goal": "delapouite__house.svg",
         "coin": "delapouite__two-coins.svg", "bag": "lorc__scroll-unfurled.svg", "pojol": "lorc__spear-hook.svg",
         "walpae": "skoll__spiked-bat.svg", "lantern": "lorc__paper-lantern.svg",
+        "buff": "lorc__sun.svg", "debuff": "lorc__moon.svg", "trap": "lorc__foot-trip.svg",
+        "rest": "delapouite__tavern-sign.svg", "story": "delapouite__scroll-quill.svg", "potion": "lorc__corked-tube.svg",
     }
     for k, (name, fn) in enumerate(ICONS.items()):
-        col = "#a8261c" if name in ("gochu", "pojol", "walpae", "seal") else "#231a14"
+        col = "#a8261c" if name in ("gochu", "pojol", "walpae", "trap") else ("#2e6a4a" if name == "buff" else ("#4a2e5a" if name == "debuff" else "#231a14"))
         ink_icon(os.path.join(RAW, "icons", fn), 256, col, seed=k).save(os.path.join(UI, "icons", name + ".png"))
 
     # 보드: 수선전도(首善全圖)
@@ -257,7 +262,6 @@ def main():
     crop = crop.resize((1400, round(1400 * crop.height / crop.width)), Image.LANCZOS)
     vignette(crop, 0.5, (70, 45, 20)).convert("RGB").save(os.path.join(UI, "board_map.jpg"), quality=88)
     print("ui done", crop.size)
-    make_board_path()
 
 def make_board_path():
     """수선전도 위 이동 경로: 북촌 약방 → 종로(운종가) → 청계천 → 남산 아래 별채 (0~1 좌표)"""

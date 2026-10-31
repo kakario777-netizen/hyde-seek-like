@@ -55,7 +55,7 @@ func _ready() -> void:
 	vb.add_child(start)
 	start.pressed.connect(main.new_game)
 
-	var ver: Label = main.ink_text(main.make_label("v0.4 일러스트 판", 24, Color("e0d0b0")), 6)
+	var ver: Label = main.ink_text(main.make_label("v0.5 제1장 확장판", 24, Color("e0d0b0")), 6)
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(ver)
 	var cr: Label = main.ink_text(main.make_label("지도 수선전도(퍼블릭 도메인) · 아이콘 game-icons.net(CC BY 3.0)\n질감 ambientCG(CC0) · 글꼴 송명·고운바탕(OFL)", 18, Color("cbb898")), 4)

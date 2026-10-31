@@ -18,7 +18,7 @@ var waiting_choice := false
 var ended := false
 var last_pose := ""
 
-const TYPE_SPEED := 38.0  # 초당 글자 수
+const TYPE_SPEED := 28.0  # 초당 글자 수
 const BOX_H := 520
 
 func _ready() -> void:
