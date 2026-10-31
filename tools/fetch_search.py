@@ -8,22 +8,21 @@ UA = {"User-Agent": "HanyangHideGame/0.3 (asset research; github.com/kakario777-
 log = []
 
 def get(url, binary=True):
-    for i in range(3):
+    for i in range(2):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=20) as r:
                 d = r.read()
                 return d if binary else d.decode("utf-8", "replace")
         except Exception as e:
             log.append(f"FAIL {url[:120]} {e}")
-            time.sleep(3 + i * 4)
+            time.sleep(2)
     return None
 
 cands = []
 
 # Openverse (CC 라이선스 모음: 플리커·위키미디어 등)
-OV = ["hanbok anime", "hanbok illustration", "hanbok girl drawing", "joseon illustration", "korean traditional anime girl",
-      "hanbok manga", "korean historical drama illustration", "hanok illustration night", "hanok painting", "joseon painting",
-      "anime girl traditional", "visual novel character", "anime boy hanfu", "hanfu illustration", "shin yun-bok", "kim hong-do"]
+OV = ["hanbok anime", "hanbok illustration", "hanbok drawing", "joseon illustration", "hanbok manga",
+      "hanok illustration", "anime girl kimono", "visual novel sprite", "hanfu illustration", "anime character traditional"]
 for q in OV:
     t = get("https://api.openverse.org/v1/images/?" + urllib.parse.urlencode(
         {"q": q, "license_type": "commercial,modification", "page_size": 20}), binary=False)
@@ -64,13 +63,15 @@ for c in cands:
         continue
     seen.add(c["id"]); items.append(c)
 thumbs = []
-for i, c in enumerate(items):
+for i, c in enumerate(items[:260]):
+    print(i, flush=True)
     d = get(c["thumb"])
-    time.sleep(0.3)
     try:
         im = Image.open(io.BytesIO(d)).convert("RGB"); im.thumbnail((200, 200)); thumbs.append((i, im))
     except Exception:
         pass
+    if i % 40 == 0:
+        print("thumb", i, flush=True)
 cols = 8
 for s in range(0, len(thumbs), 48):
     part = thumbs[s:s + 48]
