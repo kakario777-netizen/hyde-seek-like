@@ -2,6 +2,7 @@ extends Control
 ## 대동여지도 보드: 행보 상소를 골라 한 칸씩 이동. 지도는 말을 따라 움직이고 손가락으로 끌어 볼 수 있다.
 
 var main
+var restore: Dictionary = {}   # 불러오기한 진행 상태
 
 const DAY_LIMIT := 30
 const STEP_VALUES := [1, 2, 2, 3, 3, 4]
@@ -39,6 +40,12 @@ func _ready() -> void:
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/board1.json"))
 	nodes = data["nodes"]
 	map_scale = data.get("scale", 1.8)
+	if not restore.is_empty():
+		pos = int(restore.get("pos", 0))
+		days_left = int(restore.get("days_left", DAY_LIMIT))
+		talk_idx = int(restore.get("talk_idx", 0))
+		for k in restore.get("cleared", []):
+			cleared[int(k)] = true
 
 	var bt: Texture2D = main.backdrop("street_ink")
 	if bt:
@@ -89,6 +96,8 @@ func _ready() -> void:
 		m.position = _node_px(i)
 		world.add_child(m)
 		markers[i] = m
+		if cleared.has(i):
+			m.modulate = Color(0.7, 0.68, 0.65, 0.6)
 
 	token = _make_token()
 	token.position = _node_px(pos)
@@ -101,9 +110,23 @@ func _ready() -> void:
 func _intro() -> void:
 	busy = true
 	_update_hud()
+	path_layer.queue_redraw()
 	await get_tree().create_timer(0.6).timeout
+	# 불러온 자리가 아직 처리 안 된 사건 칸이면 바로 이어서 처리
+	if pos > 0 and not cleared.has(pos) and _ntype(pos) != "empty":
+		_resolve()
+		return
 	_deal()
 	busy = false
+
+func get_state() -> Dictionary:
+	return {"pos": pos, "days_left": days_left, "talk_idx": talk_idx, "cleared": cleared.keys()}
+
+func place_name() -> String:
+	for i in range(pos, -1, -1):
+		if nodes[i].has("name"):
+			return nodes[i]["name"]
+	return ""
 
 # ── 칸 표식 ─────────────────────────────────────────────
 func _node_px(i: int) -> Vector2:
@@ -233,6 +256,12 @@ func _build_hud() -> void:
 	me.custom_minimum_size = Vector2(70, 66)
 	head.add_child(me)
 	me.pressed.connect(func(): _focus(_node_px(pos)))
+	var menu: Button = main.make_button("메뉴", 26)
+	menu.custom_minimum_size = Vector2(110, 66)
+	head.add_child(menu)
+	menu.pressed.connect(func():
+		if not busy:
+			main.open_menu())
 	var bag: Button = main.make_button("보따리", 26)
 	bag.custom_minimum_size = Vector2(140, 66)
 	head.add_child(bag)
@@ -253,11 +282,7 @@ func _update_hud() -> void:
 	day_label.text = "남은 날  %d일" % days_left
 	day_label.add_theme_color_override("font_color", main.LIGHT if days_left > 7 else Color("ff8a70"))
 	hp_label.text = "체력 %d/%d · 엽전 %d · 약병 %d" % [main.hp, main.max_hp, main.coins, main.potions]
-	var here := ""
-	for i in range(pos, -1, -1):
-		if nodes[i].has("name"):
-			here = nodes[i]["name"]; break
-	place_label.text = "%s 부근 · 화엄골까지 %d칸" % [here, nodes.size() - 1 - pos]
+	place_label.text = "%s 부근 · 화엄골까지 %d칸" % [place_name(), nodes.size() - 1 - pos]
 
 func _build_tray() -> void:
 	tray = PanelContainer.new()

@@ -18,38 +18,57 @@ def tint(img, col):
     return ImageChops.multiply(g, Image.new("RGB", g.size, col[:3]))
 
 # ── 한지 ────────────────────────────────────────────────
-def make_hanji(size=1024, base="#f3e7cc", seed=1):
-    r = random.Random(seed)
-    src = Image.open(os.path.join(RAW, "textures", "Paper001_Color.jpg")).convert("RGB")
-    src = src.crop((0, 0, 1536, 1536)).resize((size, size), Image.LANCZOS)
-    src = ImageEnhance.Contrast(src).enhance(2.2)
-    mott = Image.open(os.path.join(RAW, "textures", "Paper003_Color.jpg")).convert("L").resize((size, size), Image.LANCZOS)
-    mott = ImageEnhance.Contrast(mott).enhance(1.6)
-    img = tint(src, C(base))
-    arr = np.asarray(img).astype(np.float32)
-    m = (np.asarray(mott).astype(np.float32) / 255.0 - 0.8) * 26
-    arr += m[..., None]
-    img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
-    # 닥나무 섬유 결
-    fib = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+def make_hanji(size=1024, base="#f1e5c9", seed=1):
+    """깨끗한 한지: 수채화지의 고운 결 + 구름 같은 닥섬유 농담. 점·선 없이."""
+    r = np.random.default_rng(seed)
+    grain = Image.open(os.path.join(RAW, "textures", "Paper001_Color.jpg")).convert("L")
+    grain = grain.crop((0, 0, 1400, 1400)).resize((size, size), Image.LANCZOS)
+    g = np.asarray(grain).astype(np.float32)
+    g = (g - g.mean()) / (g.std() + 1e-6)
+    cloud = Image.open(os.path.join(RAW, "textures", "Paper003_Color.jpg")).convert("L").resize((size, size), Image.LANCZOS)
+    cloud = cloud.filter(ImageFilter.GaussianBlur(6))
+    c = np.asarray(cloud).astype(np.float32)
+    c = (c - c.mean()) / (c.std() + 1e-6)
+    # 아주 큰 농담(손으로 뜬 종이의 두께 차이)
+    big = Image.fromarray((r.random((8, 8)) * 255).astype(np.uint8)).resize((size, size), Image.BICUBIC).filter(ImageFilter.GaussianBlur(size / 10))
+    bg = np.asarray(big).astype(np.float32); bg = (bg - bg.mean()) / (bg.std() + 1e-6)
+    lum = 2.2 * g + 3.0 * c + 3.5 * bg
+    col = np.array(C(base)[:3], np.float32)
+    arr = np.clip(col[None, None, :] + lum[..., None] * np.array([1.0, 0.95, 0.85]), 0, 255)
+    img = Image.fromarray(arr.astype(np.uint8)).convert("RGBA")
+    # 밝은 닥섬유 결: 아주 옅고 부드럽게
+    fib = Image.new("L", (size, size), 0)
     d = ImageDraw.Draw(fib)
+    rr = random.Random(seed)
     for _ in range(int(size * 0.9)):
-        x, y = r.uniform(0, size), r.uniform(0, size)
-        ang = r.uniform(0, math.pi * 2); L = r.uniform(10, 70)
+        x, y = rr.uniform(0, size), rr.uniform(0, size)
+        ang = rr.uniform(0, math.pi * 2); L = rr.uniform(30, 110)
         pts = []
-        for k in range(8):
-            ang += r.uniform(-0.35, 0.35)
-            x += math.cos(ang) * L / 8; y += math.sin(ang) * L / 8
+        for k in range(10):
+            ang += rr.uniform(-0.25, 0.25)
+            x += math.cos(ang) * L / 10; y += math.sin(ang) * L / 10
             pts.append((x, y))
-        dark = r.random() < 0.55
-        d.line(pts, fill=(120, 95, 60, r.randint(18, 45)) if dark else (255, 252, 240, r.randint(40, 90)), width=1)
-    fib = fib.filter(ImageFilter.GaussianBlur(0.4))
-    img = img.convert("RGBA"); img.alpha_composite(fib)
-    # 작은 티끌
-    d = ImageDraw.Draw(img)
-    for _ in range(size // 6):
-        x, y = r.randrange(size), r.randrange(size); s = r.choice([1, 1, 1, 2])
-        d.ellipse([x, y, x + s, y + s], fill=(110, 85, 55, r.randint(40, 110)))
+        d.line(pts, fill=rr.randint(40, 90), width=2)
+    fib = fib.filter(ImageFilter.GaussianBlur(1.6))
+    light = Image.new("RGBA", (size, size), (255, 251, 238, 0))
+    light.putalpha(fib.point(lambda v: int(v * 0.75)))
+    img.alpha_composite(light)
+    # 옅은 갈색 닥섬유 (가늘고 길게, 흐리게)
+    fib2 = Image.new("L", (size, size), 0)
+    d2 = ImageDraw.Draw(fib2)
+    for _ in range(int(size * 0.25)):
+        x, y = rr.uniform(0, size), rr.uniform(0, size)
+        ang = rr.uniform(0, math.pi * 2); L = rr.uniform(40, 140)
+        pts = []
+        for k in range(12):
+            ang += rr.uniform(-0.2, 0.2)
+            x += math.cos(ang) * L / 12; y += math.sin(ang) * L / 12
+            pts.append((x, y))
+        d2.line(pts, fill=rr.randint(30, 70), width=1)
+    fib2 = fib2.filter(ImageFilter.GaussianBlur(0.9))
+    dark = Image.new("RGBA", (size, size), (150, 120, 80, 0))
+    dark.putalpha(fib2.point(lambda v: int(v * 0.55)))
+    img.alpha_composite(dark)
     return img
 
 def vignette(img, strength=0.35, col=(120, 85, 45)):
@@ -222,7 +241,7 @@ def yeopjeon(size, metal=("#d8b260", "#8a6420"), hole="#2a1d1a", mark=None):
 
 def main():
     hanji = make_hanji(1024)
-    vignette(hanji, 0.25).save(os.path.join(UI, "hanji.png"))
+    vignette(hanji, 0.18).save(os.path.join(UI, "hanji.png"))
     make_hanji(1024, "#e9dab8", seed=4).save(os.path.join(UI, "hanji_dark.png"))
     frame(320, 320, 30, 72, hanji).save(os.path.join(UI, "panel.png"))
     frame(220, 140, 12, 34, hanji, inner_line=False).save(os.path.join(UI, "button.png"))

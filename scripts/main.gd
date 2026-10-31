@@ -3,6 +3,7 @@ extends Control
 
 var TITLE_FONT: FontFile = load("res://assets/fonts/SongMyung-Regular.ttf")
 var BODY_FONT: FontFile = load("res://assets/fonts/GowunBatang-Bold.ttf")
+var HANJA_FONT: FontFile = load("res://assets/fonts/Hanja-Subset.otf")
 const StoryScreen := preload("res://scripts/story_screen.gd")
 const BoardScreen := preload("res://scripts/board_screen.gd")
 const BattleScreen := preload("res://scripts/battle_screen.gd")
@@ -31,7 +32,8 @@ var current: Control
 var board: Control  # 전투 동안 보드를 숨겨 두었다가 되돌림
 
 func _ready() -> void:
-	TITLE_FONT.fallbacks = [BODY_FONT]
+	BODY_FONT.fallbacks = [HANJA_FONT]
+	TITLE_FONT.fallbacks = [BODY_FONT, HANJA_FONT]
 	var bg := TextureRect.new()
 	bg.texture = ui("hanji_dark")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -40,6 +42,7 @@ func _ready() -> void:
 	bg.modulate = Color(0.45, 0.36, 0.3)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
+	_setup_autosave()
 	show_title()
 	_debug_capture()
 
@@ -95,6 +98,21 @@ func _debug_capture() -> void:
 			start_board()
 			await get_tree().create_timer(0.5).timeout
 			dialog_chain(GameData.STORY2 if args.get("n", "1") == "2" else GameData.STORY1, Callable())
+		"menu":
+			start_board()
+			await get_tree().create_timer(1.0).timeout
+			save_game("1")
+			open_slots("load")
+		"loadtest":
+			coins = 7; hero_name = "수정"; alias_name = "막동"
+			start_board()
+			await get_tree().create_timer(1.5).timeout
+			board.pos = 12; board.days_left = 20
+			save_game("2")
+			hero_name = "x"; coins = 0
+			load_game("2")
+			await get_tree().create_timer(1.5).timeout
+			print("LOADTEST ", hero_name, " ", alias_name, " ", coins, " pos=", board.pos, " days=", board.days_left)
 		"over":
 			start_board()
 			game_over("해가 저물었다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n순라꾼에게 붙잡히고 말았다…", "sunra")
@@ -125,6 +143,7 @@ func new_game() -> void:
 		max_hp = 40; hp = 40; coins = 0; potions = 2
 		chapter = 1; flags = {}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
+		phase = "prologue"
 		play_story(GameData.PROLOGUE, start_board))
 
 func make_deck(ids: Array) -> Array:
@@ -143,12 +162,15 @@ func start_board() -> void:
 	hp = max_hp
 	next_energy = 0; next_guard = 0
 	board = BoardScreen.new()
+	phase = "board"
 	_swap(board)
+	autosave.call_deferred("자동 저장")
 
 func start_battle(enemy_id: String, on_win: Callable) -> void:
 	var b := BattleScreen.new()
 	b.enemy_id = enemy_id
 	b.on_win = on_win
+	autosave()
 	_swap(b, true)
 
 func end_battle(battle: Control) -> void:
@@ -156,12 +178,16 @@ func end_battle(battle: Control) -> void:
 	current = board
 	board.process_mode = Node.PROCESS_MODE_INHERIT
 	board.show()
+	autosave.call_deferred()
 
 func chapter_clear() -> void:
 	if board:
 		board.queue_free(); board = null
 	current = null
-	play_story(GameData.CHAPTER1_END, show_title)
+	phase = "ending"
+	play_story(GameData.CHAPTER1_END, func():
+		phase = "title"
+		show_title())
 
 func game_over(reason: String, pic := "") -> void:
 	popup(reason + "\n\n다시 도전하시겠습니까?", "다시 하기", func():
@@ -174,8 +200,10 @@ func game_over(reason: String, pic := "") -> void:
 		start_board(), "", pic)
 
 # ── 이름 ────────────────────────────────────────────────
+var alias_name := ""
+
 func alias() -> String:
-	return hero_name.left(1) + "돌이"
+	return alias_name if alias_name != "" else hero_name.left(1) + "돌이"
 
 func _has_batchim(word: String) -> bool:
 	if word.is_empty():
@@ -197,40 +225,48 @@ func fmt(text: String) -> String:
 		out = out.replace(m.get_string(0), word + josa)
 	return out
 
-func ask_name(cb: Callable) -> void:
-	var o := _overlay("주인공의 이름")
-	var layer: CanvasLayer = o[0]
-	var vb: VBoxContainer = o[1]
-	vb.add_child(_note("누명을 쓰고 쫓기게 될 소녀의 이름을 지어 주세요.\n(한두 글자, 최대 네 글자)"))
+func _name_edit(text: String, max_len: int) -> LineEdit:
 	var edit := LineEdit.new()
-	edit.text = hero_name
-	edit.max_length = 4
+	edit.text = text
+	edit.max_length = max_len
 	edit.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	edit.custom_minimum_size = Vector2(360, 96)
+	edit.custom_minimum_size = Vector2(360, 92)
 	edit.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	edit.add_theme_font_override("font", TITLE_FONT)
-	edit.add_theme_font_size_override("font_size", 52)
+	edit.add_theme_font_size_override("font_size", 48)
 	edit.add_theme_color_override("font_color", INK)
 	edit.add_theme_color_override("caret_color", RED)
-	var sb := tex_box("button", 34, 18)
+	var sb := tex_box("button", 34, 16)
 	edit.add_theme_stylebox_override("normal", sb)
 	edit.add_theme_stylebox_override("focus", sb)
+	return edit
+
+func ask_name(cb: Callable) -> void:
+	var o := _overlay("이름 짓기")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	vb.add_child(_note("누명을 쓰고 쫓기게 될 소녀의 이름"))
+	var edit := _name_edit(hero_name, 4)
 	vb.add_child(edit)
-	var hint := _note("")
-	vb.add_child(hint)
-	var refresh := func(_t := ""):
-		var n := edit.text.strip_edges()
-		hint.text = "남장한 뒤 이름은 '%s'" % ((n.left(1) if n != "" else "?") + "돌이")
-	edit.text_changed.connect(refresh)
-	refresh.call()
+	vb.add_child(_note("사내아이로 변장했을 때 쓸 이름"))
+	var edit2 := _name_edit(alias(), 5)
+	vb.add_child(edit2)
+	var touched := {"v": alias_name != ""}
+	edit.text_changed.connect(func(t: String):
+		if not touched["v"]:
+			var n := t.strip_edges()
+			edit2.text = (n.left(1) if n != "" else "연") + "돌이")
+	edit2.text_changed.connect(func(_t): touched["v"] = true)
 	var ok := make_button("이 이름으로 시작", 32)
 	ok.custom_minimum_size = Vector2(0, 100)
 	vb.add_child(ok)
 	ok.pressed.connect(func():
 		var n := edit.text.strip_edges()
-		if n == "":
-			n = "연이"
-		hero_name = n
+		hero_name = n if n != "" else "연이"
+		var a2 := edit2.text.strip_edges()
+		alias_name = a2 if a2 != "" and a2 != hero_name.left(1) + "돌이" else ""
+		if a2 != "" and touched["v"]:
+			alias_name = a2
 		layer.queue_free()
 		if cb.is_valid():
 			cb.call())
@@ -525,15 +561,37 @@ func choose_reward(cb: Callable) -> void:
 	vb.add_child(skip)
 	skip.pressed.connect(done)
 
-# ── 보따리: 같은 상소 두 장을 합쳐 강화 ─────────────────
+# ── 엽전 표시 ───────────────────────────────────────────
+func coin_plaque() -> Array:
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", plaque_style())
+	p.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	var hb := HBoxContainer.new()
+	hb.add_theme_constant_override("separation", 10)
+	p.add_child(hb)
+	var ic := tex_rect(icon("coin"), Vector2(40, 40))
+	ic.modulate = Color(1.0, 0.85, 0.45)
+	hb.add_child(ic)
+	var l := make_label("", 32, GOLD, true)
+	hb.add_child(l)
+	var upd := func():
+		l.text = "가진 엽전 %d냥 · 약병 %d" % [coins, potions]
+	upd.call()
+	return [p, upd]
+
+# ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
+const UPGRADE_COST := [0, 6, 12]   # ★1→★2, ★2→★3
+
 func show_bag(cb := Callable()) -> void:
 	var o := _overlay("보따리")
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
+	var cp := coin_plaque()
+	vb.add_child(cp[0])
 	var info := _note("")
 	vb.add_child(info)
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(560, 860)
+	scroll.custom_minimum_size = Vector2(560, 760)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	vb.add_child(scroll)
 	var grid := GridContainer.new()
@@ -541,8 +599,11 @@ func show_bag(cb := Callable()) -> void:
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 10)
 	scroll.add_child(grid)
+	var up := make_button("", 28)
+	up.custom_minimum_size = Vector2(0, 86)
+	vb.add_child(up)
 	var close := make_button("닫기", 30)
-	close.custom_minimum_size = Vector2(0, 90)
+	close.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(close)
 	close.pressed.connect(func():
 		layer.queue_free()
@@ -552,36 +613,63 @@ func show_bag(cb := Callable()) -> void:
 	var rebuild := func(self_ref: Callable) -> void:
 		for ch in grid.get_children():
 			ch.queue_free()
-		deck.sort_custom(func(a, b): return a["id"] < b["id"] or (a["id"] == b["id"] and a["lv"] > b["lv"]))
-		info.text = "상소 %d장 · 같은 상소(같은 ★) 두 장을 차례로 누르면 합쳐집니다" % deck.size()
+		cp[1].call()
+		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 합쳐집니다" % deck.size()
 		if state["msg"] != "":
 			info.text = state["msg"]
+		var sel: int = state["sel"]
+		if sel >= 0 and sel < deck.size():
+			var lv: int = int(deck[sel]["lv"])
+			if lv >= GameData.MAX_LV:
+				up.text = "이미 가장 강한 상소 (★3)"
+				up.disabled = true
+			else:
+				up.text = "단련하기  ★%d → ★%d  (엽전 %d냥)" % [lv, lv + 1, UPGRADE_COST[lv]]
+				up.disabled = coins < UPGRADE_COST[lv]
+		else:
+			up.text = "상소를 골라 단련하기"
+			up.disabled = true
 		for i in deck.size():
 			var b := card_button(deck[i], 132, 220)
-			if i == state["sel"]:
+			if i == sel:
 				b.modulate = Color(1.0, 0.82, 0.55)
 			grid.add_child(b)
 			var idx := i
 			b.pressed.connect(func():
 				_bag_tap(idx, state)
 				self_ref.call(self_ref))
+	up.pressed.connect(func():
+		var sel: int = state["sel"]
+		if sel < 0 or sel >= deck.size():
+			return
+		var lv: int = int(deck[sel]["lv"])
+		if lv >= GameData.MAX_LV or coins < UPGRADE_COST[lv]:
+			return
+		coins -= UPGRADE_COST[lv]
+		var id: String = deck[sel]["id"]
+		deck[sel] = {"id": id, "lv": lv + 1}
+		_sort_deck()
+		state["sel"] = -1
+		state["msg"] = "%s 단련 완료! %s" % [GameData.CARDS[id]["name"], "★".repeat(lv + 1)]
+		rebuild.call(rebuild))
+	_sort_deck()
 	rebuild.call(rebuild)
+
+func _sort_deck() -> void:
+	deck.sort_custom(func(a, b): return a["id"] < b["id"] or (a["id"] == b["id"] and int(a["lv"]) > int(b["lv"])))
 
 func _bag_tap(i: int, state: Dictionary) -> void:
 	var sel: int = state["sel"]
 	state["msg"] = ""
 	if sel == -1 or sel == i:
 		state["sel"] = -1 if sel == i else i
-		if state["sel"] != -1:
-			state["msg"] = "합칠 같은 상소를 하나 더 누르십시오"
 		return
 	var a: Dictionary = deck[sel]
 	var b: Dictionary = deck[i]
-	if a["id"] != b["id"] or a["lv"] != b["lv"]:
+	if a["id"] != b["id"] or int(a["lv"]) != int(b["lv"]):
 		state["sel"] = i
-		state["msg"] = "같은 이름, 같은 ★ 상소끼리만 합칠 수 있습니다"
 		return
-	if a["lv"] >= GameData.MAX_LV:
+	if int(a["lv"]) >= GameData.MAX_LV:
 		state["sel"] = -1
 		state["msg"] = "이미 가장 강한 상소입니다 (★3)"
 		return
@@ -589,28 +677,28 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 		state["sel"] = -1
 		state["msg"] = "보따리에 상소가 %d장은 남아 있어야 합니다" % GameData.MIN_DECK
 		return
-	var nlv: int = a["lv"] + 1
+	var nlv: int = int(a["lv"]) + 1
 	var id: String = a["id"]
 	for k in [max(sel, i), min(sel, i)]:
 		deck.remove_at(k)
 	deck.append({"id": id, "lv": nlv})
+	_sort_deck()
 	state["sel"] = -1
 	state["msg"] = "%s %s 완성!" % [GameData.CARDS[id]["name"], "★".repeat(nlv)]
 
-# ── 운종가 장터 ─────────────────────────────────────────
+# ── 장터 ────────────────────────────────────────────────
 const CARD_PRICE := 4
 const POTION_PRICE := 3
 
 func open_shop(cb: Callable) -> void:
-	var o := _overlay("운종가 장터", "jangteo")
+	var o := _overlay("장터", "jangteo")
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var money := _note("", RED)
-	vb.add_child(money)
-	var refresh := func():
-		money.text = "가진 엽전 %d냥 · 약병 %d개" % [coins, potions]
-	refresh.call()
-	vb.add_child(_note("상소 %d냥 · 약병 %d냥" % [CARD_PRICE, POTION_PRICE]))
+	var cp := coin_plaque()
+	vb.add_child(cp[0])
+	var refresh: Callable = cp[1]
+	var msg := _note("상소 한 장 %d냥 · 약병 %d냥 · 단련 6~12냥" % [CARD_PRICE, POTION_PRICE])
+	vb.add_child(msg)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
 	row.add_theme_constant_override("separation", 12)
@@ -621,7 +709,7 @@ func open_shop(cb: Callable) -> void:
 		row.add_child(b)
 		b.pressed.connect(func():
 			if coins < CARD_PRICE:
-				money.text = "엽전이 모자랍니다"
+				msg.text = "엽전이 모자랍니다"
 				return
 			coins -= CARD_PRICE
 			deck.append(e)
@@ -632,15 +720,15 @@ func open_shop(cb: Callable) -> void:
 	vb.add_child(pot)
 	pot.pressed.connect(func():
 		if coins < POTION_PRICE:
-			money.text = "엽전이 모자랍니다"
+			msg.text = "엽전이 모자랍니다"
 			return
 		coins -= POTION_PRICE
 		potions += 1
 		refresh.call())
-	var bag := make_button("보따리 열기", 28)
+	var bag := make_button("보따리 열기 · 상소 단련", 28)
 	bag.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(bag)
-	bag.pressed.connect(func(): show_bag())
+	bag.pressed.connect(func(): show_bag(refresh))
 	var leave := make_button("장터를 떠난다", 28)
 	leave.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(leave)
@@ -648,3 +736,173 @@ func open_shop(cb: Callable) -> void:
 		layer.queue_free()
 		if cb.is_valid():
 			cb.call())
+
+# ── 저장 / 불러오기 ─────────────────────────────────────
+const SLOTS := ["auto", "1", "2", "3"]
+const AUTOSAVE_SEC := 300.0
+var phase := "title"     # title / prologue / board / ending
+var autosave_timer: Timer
+
+func _setup_autosave() -> void:
+	autosave_timer = Timer.new()
+	autosave_timer.wait_time = AUTOSAVE_SEC
+	autosave_timer.autostart = true
+	autosave_timer.timeout.connect(func(): autosave("5분 자동 저장"))
+	add_child(autosave_timer)
+	get_tree().set_auto_accept_quit(false)
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_WM_CLOSE_REQUEST, NOTIFICATION_WM_GO_BACK_REQUEST:
+			autosave("종료 자동 저장")
+			get_tree().quit()
+		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT:
+			autosave("화면 전환 자동 저장")
+
+func _save_path(slot: String) -> String:
+	return "user://save_%s.json" % slot
+
+func snapshot() -> Dictionary:
+	var d := {"ver": 1, "phase": phase, "hero_name": hero_name, "alias_name": alias_name, "max_hp": max_hp, "hp": hp,
+		"coins": coins, "potions": potions, "deck": deck, "chapter": chapter, "flags": flags,
+		"next_energy": next_energy, "next_guard": next_guard,
+		"time": Time.get_datetime_string_from_system(false, true)}
+	if board and is_instance_valid(board):
+		d["board"] = board.get_state()
+		d["place"] = board.place_name()
+	return d
+
+func can_save() -> bool:
+	return phase == "board" or phase == "prologue"
+
+func save_game(slot: String) -> bool:
+	if not can_save():
+		return false
+	var f := FileAccess.open(_save_path(slot), FileAccess.WRITE)
+	if f == null:
+		return false
+	f.store_string(JSON.stringify(snapshot()))
+	f.close()
+	return true
+
+func autosave(reason := "") -> void:
+	if save_game("auto") and reason != "":
+		_toast(reason)
+
+func read_save(slot: String) -> Dictionary:
+	if not FileAccess.file_exists(_save_path(slot)):
+		return {}
+	var d = JSON.parse_string(FileAccess.get_file_as_string(_save_path(slot)))
+	return d if d is Dictionary else {}
+
+func has_any_save() -> bool:
+	for s in SLOTS:
+		if FileAccess.file_exists(_save_path(s)):
+			return true
+	return false
+
+func load_game(slot: String) -> void:
+	var d := read_save(slot)
+	if d.is_empty():
+		return
+	hero_name = d.get("hero_name", "연이"); alias_name = d.get("alias_name", "")
+	max_hp = int(d.get("max_hp", 40)); hp = int(d.get("hp", max_hp))
+	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))
+	chapter = int(d.get("chapter", 1)); flags = d.get("flags", {})
+	next_energy = int(d.get("next_energy", 0)); next_guard = int(d.get("next_guard", 0))
+	deck = []
+	for e in d.get("deck", []):
+		deck.append({"id": str(e["id"]), "lv": int(e["lv"])})
+	if deck.is_empty():
+		deck = make_deck(GameData.START_DECK)
+	if board:
+		board.queue_free(); board = null
+	if d.get("phase", "") == "board" and d.has("board"):
+		phase = "board"
+		board = BoardScreen.new()
+		board.restore = d["board"]
+		_swap(board)
+	else:
+		phase = "prologue"
+		play_story(GameData.PROLOGUE, start_board)
+
+func _slot_label(slot: String) -> String:
+	var d := read_save(slot)
+	var head := "자동 저장" if slot == "auto" else "%s번 칸" % slot
+	if d.is_empty():
+		return "%s\n— 비어 있음 —" % head
+	var where := "서장(序章)" if d.get("phase", "") != "board" else "제%d장 · %s · 남은 날 %d일" % [int(d.get("chapter", 1)), d.get("place", ""), int(d.get("board", {}).get("days_left", 0))]
+	return "%s · %s\n%s · %s" % [head, d.get("hero_name", ""), where, str(d.get("time", "")).replace("T", " ").left(16)]
+
+## mode: "save" 또는 "load"
+func open_slots(mode: String, cb := Callable()) -> void:
+	var o := _overlay("저장하기" if mode == "save" else "불러오기")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	var msg := _note("5분마다, 그리고 앱을 닫거나 다른 화면으로 넘어갈 때 자동 저장됩니다.")
+	vb.add_child(msg)
+	for s in SLOTS:
+		if mode == "save" and s == "auto":
+			continue
+		var b := make_button(_slot_label(s), 24)
+		b.custom_minimum_size = Vector2(560, 110)
+		b.disabled = mode == "load" and read_save(s).is_empty()
+		vb.add_child(b)
+		var slot: String = s
+		b.pressed.connect(func():
+			if mode == "save":
+				if save_game(slot):
+					b.text = _slot_label(slot)
+					msg.text = "%s번 칸에 저장했습니다." % slot
+			else:
+				layer.queue_free()
+				load_game(slot))
+	var close := make_button("닫기", 28)
+	close.custom_minimum_size = Vector2(0, 86)
+	vb.add_child(close)
+	close.pressed.connect(func():
+		layer.queue_free()
+		if cb.is_valid():
+			cb.call())
+
+func open_menu() -> void:
+	var o := _overlay("메뉴")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	for item in [["저장하기", "save"], ["불러오기", "load"], ["처음 화면으로", "title"], ["닫기", "close"]]:
+		var b := make_button(item[0], 30)
+		b.custom_minimum_size = Vector2(460, 92)
+		vb.add_child(b)
+		var act: String = item[1]
+		b.pressed.connect(func():
+			layer.queue_free()
+			_menu_act(act))
+
+func _menu_act(act: String) -> void:
+	match act:
+		"save": open_slots("save")
+		"load": open_slots("load")
+		"title":
+			autosave()
+			phase = "title"
+			show_title()
+
+func _toast(text: String) -> void:
+	var layer := CanvasLayer.new()
+	layer.layer = 20
+	add_child(layer)
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", plaque_style())
+	p.anchor_left = 0.5; p.anchor_right = 0.5
+	p.offset_left = -200; p.offset_right = 200; p.offset_top = 200
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(p)
+	var l := make_label(text, 26, GOLD, true)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	p.add_child(l)
+	p.modulate.a = 0.0
+	var tw := create_tween()
+	tw.tween_property(p, "modulate:a", 1.0, 0.3)
+	tw.tween_interval(1.4)
+	tw.tween_property(p, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(layer.queue_free)
