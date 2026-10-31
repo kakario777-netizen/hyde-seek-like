@@ -21,7 +21,7 @@ def get(u, binary=True):
 OK_LIC = re.compile(r"(CC0|CC-BY 3|CC-BY 4|OGA-BY|Public Domain|public domain|CC BY 3|CC BY 4|CC BY-SA|CC-BY-SA|PD)", re.I)
 
 # 1) OpenGameArt 효과음 묶음 (모두 CC0)
-OGA_SFX = ["50-rpg-sound-effects", "51-ui-sound-effects-buttons-switches-and-clicks", "37-hitspunches",
+OGA_SFX = ["kenney-impact-sounds", "impact-sounds", "kenney-interface-sounds", "interface-sounds", "kenney-rpg-audio", "rpg-audio", "kenney-casino-audio", "50-rpg-sound-effects", "51-ui-sound-effects-buttons-switches-and-clicks", "37-hitspunches",
            "rpg-sound-pack", "80-cc0-rpg-sfx", "impact", "100-cc0-sfx", "footsteps-leather-cloth-armor",
            "coin-sounds", "inventory-sound-effects", "punches-hits-swords-and-squishes", "bell-gong-sounds",
            "fantasy-sound-effects-library", "book-page-flip", "paper-sounds"]
@@ -29,7 +29,13 @@ def oga(page, kind):
     html = get("https://opengameart.org/content/" + page, binary=False)
     if not html:
         return
-    lic = ", ".join(sorted(set(re.findall(r'class="license-name">([^<]+)<', html)))) or "?"
+    lics = set()
+    for u in re.findall(r'href="(https?://(?:creativecommons\.org|opengameart\.org/content/oga)[^"]+)"', html):
+        if "publicdomain/zero" in u: lics.add("CC0")
+        elif "/by-sa/" in u: lics.add("CC-BY-SA")
+        elif "/by/" in u: lics.add("CC-BY")
+        elif "oga-by" in u: lics.add("OGA-BY")
+    lic = ", ".join(sorted(lics)) or "?"
     title = re.search(r"<title>([^<|]+)", html)
     files = re.findall(r'href="(https://opengameart\.org/sites/default/files/[^"]+\.(?:zip|ogg|wav|mp3|flac))"', html)
     log.append(f"OGA {page} lic={lic} files={len(files)}")
@@ -60,8 +66,8 @@ for p in OGA_SFX:
     except Exception as e:
         log.append(f"ERR {p} {e}")
 
-# 2) OpenGameArt 음악 검색 (동양풍)
-for q in ["korean", "oriental", "asian", "japanese", "chinese", "zen", "eastern", "koto", "erhu", "shakuhachi", "taiko"]:
+# 2) OpenGameArt 음악 검색 (동양풍) — 이번에는 생략(국악풍은 직접 합성)
+for q in [] and ["korean", "oriental", "asian", "japanese", "chinese", "zen", "eastern", "koto", "erhu", "shakuhachi", "taiko"]:
     url = ("https://opengameart.org/art-search-advanced?keys=" + urllib.parse.quote(q) +
            "&field_art_type_tid%5B%5D=12&sort_by=count&sort_order=DESC&items_per_page=24")
     html = get(url, binary=False)
@@ -75,8 +81,8 @@ for q in ["korean", "oriental", "asian", "japanese", "chinese", "zen", "eastern"
         except Exception as e:
             log.append(f"ERR {pg} {e}")
 
-# 3) 위키미디어 공용 국악 녹음 (퍼블릭 도메인 / CC)
-for q in ["gayageum", "haegeum", "daegeum", "geomungo", "piri korean", "janggu", "buk drum korean", "Korean traditional music",
+# 3) 위키미디어 공용 국악 녹음 — 생략
+for q in [] and ["gayageum", "haegeum", "daegeum", "geomungo", "piri korean", "janggu", "buk drum korean", "Korean traditional music",
           "sanjo", "jing gong korean", "kkwaenggwari", "Arirang instrumental", "pansori"]:
     if out_of_time():
         break
