@@ -30,6 +30,16 @@ func _ready() -> void:
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/board1.json"))
 	nodes = data["nodes"]
 
+	var bt: Texture2D = main.backdrop("street_ink")
+	if bt:
+		var bgr := TextureRect.new()
+		bgr.texture = bt
+		bgr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		bgr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		bgr.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		bgr.modulate = Color(0.55, 0.5, 0.48)
+		bgr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(bgr)
 	map_frame = PanelContainer.new()
 	var fs: StyleBoxTexture = main.tex_box("panel", 74, 26)
 	map_frame.add_theme_stylebox_override("panel", fs)
@@ -259,7 +269,7 @@ func _resolve() -> void:
 				main.coins += talk["coin"]; extra += "\n\n(엽전 +%d냥)" % talk["coin"]
 			if talk.has("potion"):
 				main.potions += talk["potion"]; extra += "\n\n(약병 +%d)" % talk["potion"]
-			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"])
+			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"], talk.get("pic", ""))
 		"item":
 			cleared[pos] = true
 			_dim_marker(pos)
@@ -273,12 +283,12 @@ func _resolve() -> void:
 				main.start_battle(t, func():
 					cleared[idx] = true
 					_dim_marker(idx)
-					_end_turn()), e["name"])
+					_end_turn()), e["name"], t)
 		"shop":
 			main.popup("운종가 장터에 들어섰다.\n엽전으로 상소와 약병을 살 수 있다.", "둘러본다", func():
-				main.open_shop(_end_turn), "운종가")
+				main.open_shop(_end_turn), "운종가", "", "jangteo")
 		"goal":
-			main.popup("남산 아래, 허 의원의 별채에 도착했다!", "들어간다", main.chapter_clear, "남산 별채")
+			main.popup("남산 아래, 허 의원의 별채에 도착했다!", "들어간다", main.chapter_clear, "남산 별채", "", "byeolchae")
 		_:
 			_end_turn()
 
@@ -289,7 +299,7 @@ func _dim_marker(i: int) -> void:
 func _end_turn() -> void:
 	_update_hud()
 	if turns_left <= 0:
-		main.game_over("해가 저물었다.\n통금 순라꾼들에게 붙잡히고 말았다…")
+		main.game_over("해가 저물었다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n순라꾼에게 붙잡히고 말았다…", "sunra")
 		return
 	busy = false
 	hint_label.text = "행보 상소를 고르십시오"

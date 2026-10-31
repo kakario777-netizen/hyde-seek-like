@@ -52,6 +52,7 @@ func _debug_capture() -> void:
 	match args["capture"]:
 		"name": ask_name(Callable())
 		"story": play_story(GameData.PROLOGUE.slice(int(args.get("from", "5"))), show_title)
+		"end": play_story(GameData.CHAPTER1_END.slice(int(args.get("from", "0"))), show_title)
 		"board": start_board()
 		"battle":
 			start_board()
@@ -67,6 +68,13 @@ func _debug_capture() -> void:
 		"reward":
 			start_board()
 			choose_reward(Callable())
+		"talk":
+			start_board()
+			var t: Dictionary = GameData.TALKS[int(args.get("n", "0"))]
+			popup(t["text"], "고맙습니다", Callable(), t["who"], t["pic"])
+		"over":
+			start_board()
+			game_over("해가 저물었다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n순라꾼에게 붙잡히고 말았다…", "sunra")
 	await get_tree().create_timer(float(args.get("wait", "1.6"))).timeout
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(args.get("out", "user://shot.png"))
@@ -130,14 +138,14 @@ func chapter_clear() -> void:
 	current = null
 	play_story(GameData.CHAPTER1_END, show_title)
 
-func game_over(reason: String) -> void:
+func game_over(reason: String, pic := "") -> void:
 	popup(reason + "\n\n다시 도전하시겠습니까?", "다시 하기", func():
 		if board and current != board:
 			current.queue_free()
 		if board:
 			board.queue_free(); board = null
 		current = null
-		start_board())
+		start_board(), "", pic)
 
 # ── 이름 ────────────────────────────────────────────────
 func alias() -> String:
@@ -212,7 +220,7 @@ func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 
-const BG_FALLBACK := {"alley": "jangteo"}
+const BG_FALLBACK := {}
 
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name
@@ -343,16 +351,39 @@ func step_card(v: int, w := 196, h := 270) -> Button:
 	return b
 
 # ── 겹창 ────────────────────────────────────────────────
-func _overlay(title: String) -> Array:
+## bg: 뒤에 깔 배경 그림 이름, pic: 위쪽에 세울 인물 일러스트 이름
+func _overlay(title: String, bg := "", pic := "") -> Array:
 	var layer := CanvasLayer.new()
 	layer.layer = 10
 	add_child(layer)
+	var bt: Texture2D = backdrop(bg) if bg != "" else null
+	if bt:
+		var b := TextureRect.new()
+		b.texture = bt
+		b.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		b.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		b.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		layer.add_child(b)
 	var dim := ColorRect.new()
-	dim.color = Color(0.08, 0.05, 0.03, 0.62)
+	dim.color = Color(0.08, 0.05, 0.03, 0.3 if bt else 0.62)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(dim)
+	var pt: Texture2D = illust(pic) if pic != "" else null
+	if pt:
+		var r := TextureRect.new()
+		r.texture = pt
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		r.anchor_right = 1.0; r.anchor_bottom = 0.66
+		r.offset_top = 40; r.offset_left = 30; r.offset_right = -30
+		r.modulate.a = 0.0
+		layer.add_child(r)
+		create_tween().tween_property(r, "modulate:a", 1.0, 0.25)
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	if pt:
+		center.anchor_top = 0.5
+		center.offset_bottom = -20
 	layer.add_child(center)
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", panel_style())
@@ -377,8 +408,8 @@ func _note(text: String, color := INK_SOFT) -> Label:
 	l.custom_minimum_size = Vector2(540, 0)
 	return l
 
-func popup(text: String, button_text := "확인", cb := Callable(), title := "") -> void:
-	var o := _overlay(title)
+func popup(text: String, button_text := "확인", cb := Callable(), title := "", pic := "", bg := "") -> void:
+	var o := _overlay(title, bg, pic)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var l := make_label(fmt(text), 30)
@@ -498,7 +529,7 @@ const CARD_PRICE := 4
 const POTION_PRICE := 3
 
 func open_shop(cb: Callable) -> void:
-	var o := _overlay("운종가 장터")
+	var o := _overlay("운종가 장터", "jangteo")
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var money := _note("", RED)

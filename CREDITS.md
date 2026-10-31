@@ -8,3 +8,4 @@
 | 글꼴 | 송명(Song Myung), 고운바탕(Gowun Batang) — Google Fonts | SIL OFL 1.1 |
 
 가공 스크립트: `tools/gen_ui.py` (원본은 `assets-raw` 브랜치)
+| 인물 일러스트·배경 그림 | 제작자 직접 제공 (`assets/chars`, `assets/bg`) | — |
