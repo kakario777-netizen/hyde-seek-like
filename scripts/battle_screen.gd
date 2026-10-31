@@ -74,6 +74,7 @@ func _ready() -> void:
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 18)
 	pp.add_child(hb)
+	var face_tex: Texture2D = main.illust("face_token")
 	var face := PanelContainer.new()
 	var fsb := StyleBoxFlat.new()
 	fsb.bg_color = Color("9a2c22"); fsb.border_color = main.GOLD; fsb.set_border_width_all(4); fsb.set_corner_radius_all(60)
@@ -83,7 +84,10 @@ func _ready() -> void:
 	fl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	fl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	face.add_child(fl)
-	hb.add_child(face)
+	if face_tex:
+		hb.add_child(main.tex_rect(face_tex, Vector2(120, 120)))
+	else:
+		hb.add_child(face)
 	var info := VBoxContainer.new()
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	info.add_theme_constant_override("separation", 4)

@@ -91,6 +91,15 @@ func _ready() -> void:
 func _make_token() -> Control:
 	var root := Control.new()
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var face: Texture2D = main.illust("face_token")
+	if face:
+		var fr: TextureRect = main.tex_rect(face, Vector2(88, 88))
+		fr.position = Vector2(-44, -100)
+		root.add_child(fr)
+		var pin0 := ColorRect.new()
+		pin0.color = Color("d9b45a"); pin0.size = Vector2(6, 16); pin0.position = Vector2(-3, -14)
+		root.add_child(pin0)
+		return root
 	var p := PanelContainer.new()
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color("9a2c22"); sb.border_color = Color("d9b45a"); sb.set_border_width_all(5)

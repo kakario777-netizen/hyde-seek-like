@@ -12,11 +12,18 @@ func _ready() -> void:
 	bg.modulate = Color(0.62, 0.55, 0.5) if main.backdrop("title") == null else Color.WHITE
 	add_child(bg)
 
+	var shadow: Texture2D = main.illust("shadow")
+	if shadow:
+		var sh: TextureRect = main.tex_rect(shadow, Vector2(900, 1300))
+		sh.anchor_left = 0.5; sh.anchor_right = 0.5; sh.anchor_top = 1.0; sh.anchor_bottom = 1.0
+		sh.offset_left = -330; sh.offset_right = 570; sh.offset_top = -1480; sh.offset_bottom = -180
+		sh.modulate = Color(0.55, 0.4, 0.42, 0.75)
+		add_child(sh)
 	var hero: Texture2D = main.illust("hero")
 	if hero:
 		var h: TextureRect = main.tex_rect(hero, Vector2(720, 1100))
 		h.anchor_left = 0.5; h.anchor_right = 0.5; h.anchor_top = 1.0; h.anchor_bottom = 1.0
-		h.offset_left = -360; h.offset_right = 360; h.offset_top = -1100; h.offset_bottom = 0
+		h.offset_left = -470; h.offset_right = 250; h.offset_top = -1080; h.offset_bottom = 20
 		h.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		add_child(h)
 

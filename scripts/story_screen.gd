@@ -159,10 +159,7 @@ func _show_pose(pose: String) -> void:
 		return
 	portrait.texture = t
 	portrait.modulate.a = 0.0
-	portrait.position.x += 30
-	var tw := create_tween().set_parallel()
-	tw.tween_property(portrait, "modulate:a", 1.0, 0.25)
-	tw.tween_property(portrait, "position:x", portrait.position.x - 30, 0.25)
+	create_tween().tween_property(portrait, "modulate:a", 1.0, 0.25)
 
 func _process(delta: float) -> void:
 	if typing:
