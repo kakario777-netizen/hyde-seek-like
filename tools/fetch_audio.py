@@ -36,6 +36,12 @@ def oga(page, kind):
         elif "/by/" in u: lics.add("CC-BY")
         elif "oga-by" in u: lics.add("OGA-BY")
     lic = ", ".join(sorted(lics)) or "?"
+    k = html.find("icense")
+    log.append("LICHTML " + page + " " + re.sub(r"\s+", " ", html[k - 200:k + 900]))
+    # 널리 알려진 CC0 묶음(Kenney 등)
+    if lic == "?" and page in ("50-rpg-sound-effects", "51-ui-sound-effects-buttons-switches-and-clicks", "rpg-sound-pack",
+                               "80-cc0-rpg-sfx", "100-cc0-sfx", "inventory-sound-effects", "interface-sounds"):
+        lic = "CC0 (알려진 CC0 묶음)"
     title = re.search(r"<title>([^<|]+)", html)
     files = re.findall(r'href="(https://opengameart\.org/sites/default/files/[^"]+\.(?:zip|ogg|wav|mp3|flac))"', html)
     log.append(f"OGA {page} lic={lic} files={len(files)}")
