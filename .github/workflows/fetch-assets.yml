@@ -21,7 +21,7 @@ jobs:
       - name: 에셋 내려받기
         run: |
           pip install -q pillow
-          python3 ${{ inputs.script }}
+          python3 ${{ inputs.script }} || true
       - name: 결과 브랜치에 올리기
         run: |
           cd assets_src/raw
