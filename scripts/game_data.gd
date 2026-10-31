@@ -6,27 +6,28 @@ class_name GameData
 # choices: [{text, goto}] / label: 이동 표식 / goto: 다음 표식 / end: 끝
 const PROLOGUE := [
 	{"bg": "yakbang", "who": "", "text": "조선, 한양.\n밤비가 막 그친 새벽녘."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "의원님, 부탁하신 감초랑 당귀 다 챙겨 왔어요…\n…의원님?"},
+	{"who": "", "text": "{name|은} 허 의원의 약방에서 약재 심부름을 하며 사는 열다섯 살 소녀다."},
+	{"who": "{name}", "pose": "hero", "text": "의원님, 부탁하신 감초랑 당귀 다 챙겨 왔어요…\n…의원님?"},
 	{"who": "", "text": "약방 문은 부서져 있었고, 바닥엔 깨진 약병과 쏟아진 약재가 어지럽게 흩어져 있었다."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "이게… 무슨 일이야.\n의원님은 어디 가신 거지?"},
-	{"who": "포졸", "pose": "bust_pojol", "text": "저 아이다!\n약방을 털고 의원을 해친 범인이 저기 있다!"},
-	{"who": "연이", "pose": "bust_yeoni", "text": "네? 아, 아니에요!\n저는 방금 막 왔다고요!",
+	{"who": "{name}", "pose": "hero", "text": "이게… 무슨 일이야.\n의원님은 어디 가신 거지?"},
+	{"who": "포졸", "pose": "pojol", "text": "저 아이다!\n약방을 털고 의원을 해친 범인이 저기 있다!"},
+	{"who": "{name}", "pose": "hero", "text": "네? 아, 아니에요!\n저는 방금 막 왔다고요!",
 		"choices": [{"text": "그대로 뒷문으로 달아난다", "goto": "run"}, {"text": "억울하다고 해명한다", "goto": "explain"}]},
-	{"label": "explain", "who": "포졸", "pose": "bust_pojol", "text": "변명은 포도청에서 실컷 해라!\n오랏줄을 가져와!"},
-	{"who": "연이", "pose": "bust_yeoni", "text": "(안 돼… 지금 잡히면 아무도 내 말을 안 믿어 줄 거야.)", "goto": "run"},
-	{"label": "run", "bg": "alley", "who": "", "text": "연이는 뒷문을 박차고 어둑한 골목으로 내달렸다."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "헉, 헉… 이대로 다니면 금방 붙잡히겠어.\n머리를 감추고 사내아이처럼 하고 다니자."},
-	{"who": "", "text": "연이는 댕기를 풀어 패랭이 속에 감추었다.\n이제부터 이름은 '연돌이'다."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "의원님은 요즘 '흑심단'이라는 약 얘기만 하셨어.\n그 약이랑 분명 관련이 있을 거야."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "남산 아래 의원님 별채…\n거기에 가면 뭔가 알 수 있을지도 몰라!"},
+	{"label": "explain", "who": "포졸", "pose": "pojol", "text": "변명은 포도청에서 실컷 해라!\n오랏줄을 가져와!"},
+	{"who": "{name}", "pose": "hero", "text": "(안 돼… 지금 잡히면 아무도 내 말을 안 믿어 줄 거야.)", "goto": "run"},
+	{"label": "run", "bg": "alley", "who": "", "text": "{name|은} 뒷문을 박차고 어둑한 골목으로 내달렸다."},
+	{"who": "{name}", "pose": "hero", "text": "헉, 헉… 이대로 다니면 금방 붙잡히겠어.\n머리를 감추고 사내아이처럼 하고 다니자."},
+	{"who": "", "text": "{name|은} 댕기를 풀어 패랭이 속에 감추었다.\n이제부터 이름은 '{alias}'다."},
+	{"who": "{name}", "pose": "hero", "text": "의원님은 요즘 '흑심단'이라는 약 얘기만 하셨어.\n그 약이랑 분명 관련이 있을 거야."},
+	{"who": "{name}", "pose": "hero", "text": "남산 아래 의원님 별채…\n거기에 가면 뭔가 알 수 있을지도 몰라!"},
 	{"who": "", "text": "【목표】\n날이 저물기 전에 종로를 빠져나가\n남산 아래 허 의원의 별채에 닿아라.", "end": true},
 ]
 
 const CHAPTER1_END := [
-	{"bg": "yakbang", "who": "", "text": "별채 안은 고요했다.\n서안 위에 펼쳐진 낡은 의서 한 권만이 연이를 기다리고 있었다."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "의원님 글씨다…\n'흑심단을 먹은 자는 해가 지면 다른 사람이 된다'…?"},
+	{"bg": "yakbang", "who": "", "text": "별채 안은 고요했다.\n서안 위에 펼쳐진 낡은 의서 한 권만이 {name|을} 기다리고 있었다."},
+	{"who": "{name}", "pose": "hero", "text": "의원님 글씨다…\n'흑심단을 먹은 자는 해가 지면 다른 사람이 된다'…?"},
 	{"who": "", "text": "그때, 별채 담 너머로 낯선 사내의 낮은 웃음소리가 들려왔다."},
-	{"who": "연이", "pose": "bust_yeoni", "text": "누, 누구세요…?"},
+	{"who": "{name}", "pose": "hero", "text": "누, 누구세요…?"},
 	{"who": "", "text": "― 제1장 「누명」 끝 ―\n다음 장에서 계속됩니다.", "end": true},
 ]
 
@@ -75,6 +76,7 @@ static func stats(id: String, lv: int) -> Dictionary:
 	if c.has("coin"): lines.append("엽전 +%d" % c["coin"])
 	c["desc"] = "\n".join(PackedStringArray(lines))
 	c["lv"] = lv
+	c["icon_ui"] = id
 	return c
 
 # ── 적 ──────────────────────────────────────────────────

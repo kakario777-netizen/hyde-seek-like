@@ -20,7 +20,7 @@ window/handheld/orientation=1
 
 [gui]
 
-theme/custom_font="res://assets/fonts/NotoSansKR-Bold.otf"
+theme/custom_font="res://assets/fonts/GowunBatang-Bold.ttf"
 theme/default_font_size=26
 
 [input_devices]

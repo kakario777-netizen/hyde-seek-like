@@ -1,5 +1,5 @@
 extends Control
-## 대화·선택지로 진행되는 이야기 화면
+## 대화·선택지로 진행되는 이야기 화면 (일러스트 + 한지 대화창)
 
 var main
 var lines: Array = []
@@ -16,65 +16,56 @@ var choice_box: VBoxContainer
 var typing := false
 var waiting_choice := false
 var ended := false
+var last_pose := ""
 
-const TYPE_SPEED := 40.0  # 초당 글자 수
+const TYPE_SPEED := 38.0  # 초당 글자 수
+const BOX_H := 520
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	var dark := ColorRect.new()
-	dark.color = Color("120d10")
-	dark.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	dark.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(dark)
-
 	bg = TextureRect.new()
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	bg.anchor_right = 1.0
-	bg.anchor_bottom = 0.62
+	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 
-	portrait = main.pixel_rect("bust_yeoni", 10)
-	portrait.anchor_top = 1.0
-	portrait.anchor_bottom = 1.0
-	portrait.anchor_left = 0.5
-	portrait.anchor_right = 0.5
-	portrait.offset_left = -200
-	portrait.offset_right = 200
-	portrait.offset_bottom = -556
-	portrait.offset_top = -556 - 360
+	portrait = TextureRect.new()
+	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	portrait.anchor_left = 0.5; portrait.anchor_right = 0.5
+	portrait.anchor_top = 1.0; portrait.anchor_bottom = 1.0
+	portrait.offset_left = -380; portrait.offset_right = 380
+	portrait.offset_top = -BOX_H - 980; portrait.offset_bottom = -BOX_H + 60
+	portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(portrait)
 
 	# 대화창
 	var box := PanelContainer.new()
-	box.add_theme_stylebox_override("panel", main.paper_box())
+	box.add_theme_stylebox_override("panel", main.panel_style())
 	box.anchor_left = 0.0; box.anchor_right = 1.0
 	box.anchor_top = 1.0; box.anchor_bottom = 1.0
-	box.offset_left = 20; box.offset_right = -20
-	box.offset_top = -560; box.offset_bottom = -40
+	box.offset_left = 8; box.offset_right = -8
+	box.offset_top = -BOX_H; box.offset_bottom = -16
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
 	var vb := VBoxContainer.new()
-	vb.add_theme_constant_override("separation", 14)
+	vb.add_theme_constant_override("separation", 12)
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(vb)
 
 	name_tag = PanelContainer.new()
-	var ns: StyleBoxFlat = main.paper_box(main.RED, main.INK, 3)
-	ns.set_content_margin_all(10)
-	ns.content_margin_left = 20; ns.content_margin_right = 20
-	name_tag.add_theme_stylebox_override("panel", ns)
+	name_tag.add_theme_stylebox_override("panel", main.plaque_style())
 	name_tag.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	name_tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vb.add_child(name_tag)
-	name_lbl = main.make_label("", 28, Color("f4ead2"), true)
+	name_lbl = main.make_label("", 32, main.GOLD, true)
 	name_tag.add_child(name_lbl)
 
-	text_lbl = main.make_label("", 32)
+	text_lbl = main.make_label("", 33)
 	text_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	text_lbl.add_theme_constant_override("line_spacing", 10)
+	text_lbl.add_theme_constant_override("line_spacing", 12)
 	vb.add_child(text_lbl)
 
 	arrow = main.make_label("▼", 26, main.RED)
@@ -82,16 +73,26 @@ func _ready() -> void:
 	vb.add_child(arrow)
 
 	choice_box = VBoxContainer.new()
-	choice_box.add_theme_constant_override("separation", 18)
+	choice_box.add_theme_constant_override("separation", 16)
 	choice_box.anchor_left = 0.0; choice_box.anchor_right = 1.0
 	choice_box.anchor_top = 0.0; choice_box.anchor_bottom = 1.0
-	choice_box.offset_left = 60; choice_box.offset_right = -60
-	choice_box.offset_bottom = -600
+	choice_box.offset_left = 50; choice_box.offset_right = -50
+	choice_box.offset_bottom = -BOX_H - 40
 	choice_box.alignment = BoxContainer.ALIGNMENT_END
 	choice_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(choice_box)
 
+	_set_bg("yakbang")
 	_next()
+
+func _set_bg(name: String) -> void:
+	var t: Texture2D = main.backdrop(name)
+	if t:
+		bg.texture = t
+		bg.modulate = Color.WHITE
+	else:
+		bg.texture = load("res://assets/ui/board_map.jpg")
+		bg.modulate = Color(0.35, 0.3, 0.28)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -109,14 +110,17 @@ func _advance() -> void:
 		return
 	var line: Dictionary = lines[idx]
 	if line.get("end", false):
-		ended = true
-		if on_done.is_valid():
-			on_done.call()
+		_finish()
 		return
 	if line.has("goto"):
 		_jump(line["goto"])
 	else:
 		_next()
+
+func _finish() -> void:
+	ended = true
+	if on_done.is_valid():
+		on_done.call()
 
 func _jump(label: String) -> void:
 	for i in lines.size():
@@ -128,25 +132,37 @@ func _jump(label: String) -> void:
 func _next() -> void:
 	idx += 1
 	if idx >= lines.size():
-		ended = true
-		if on_done.is_valid():
-			on_done.call()
+		_finish()
 		return
 	var line: Dictionary = lines[idx]
 	if line.has("bg"):
-		bg.texture = main.tex("bg_" + line["bg"])
-	var who: String = line.get("who", "")
+		_set_bg(line["bg"])
+	var who: String = main.fmt(line.get("who", ""))
 	name_tag.visible = who != ""
 	name_lbl.text = who
 	if line.has("pose"):
-		portrait.texture = main.tex(line["pose"])
-		portrait.show()
+		_show_pose(line["pose"])
 	elif who == "":
-		portrait.hide()
-	text_lbl.text = line["text"]
+		_show_pose("")
+	text_lbl.text = main.fmt(line["text"])
 	text_lbl.visible_characters = 0
 	typing = true
 	arrow.modulate.a = 0.0
+
+func _show_pose(pose: String) -> void:
+	if pose == last_pose:
+		return
+	last_pose = pose
+	var t: Texture2D = main.illust(pose) if pose != "" else null
+	if t == null:
+		create_tween().tween_property(portrait, "modulate:a", 0.0, 0.15)
+		return
+	portrait.texture = t
+	portrait.modulate.a = 0.0
+	portrait.position.x += 30
+	var tw := create_tween().set_parallel()
+	tw.tween_property(portrait, "modulate:a", 1.0, 0.25)
+	tw.tween_property(portrait, "position:x", portrait.position.x - 30, 0.25)
 
 func _process(delta: float) -> void:
 	if typing:
@@ -164,8 +180,8 @@ func _after_typed() -> void:
 		waiting_choice = true
 		arrow.modulate.a = 0.0
 		for c in line["choices"]:
-			var b: Button = main.make_button(c["text"], 30)
-			b.custom_minimum_size = Vector2(0, 96)
+			var b: Button = main.make_button(main.fmt(c["text"]), 32)
+			b.custom_minimum_size = Vector2(0, 110)
 			choice_box.add_child(b)
 			var target: String = c["goto"]
 			b.pressed.connect(func(): _choose(target))

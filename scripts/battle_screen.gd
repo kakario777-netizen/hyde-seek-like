@@ -34,72 +34,79 @@ func _ready() -> void:
 	enemy = GameData.ENEMIES[enemy_id]
 	e_hp = enemy["hp"]
 
-	var dark := ColorRect.new()
-	dark.color = Color("1b1418")
-	dark.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(dark)
-
 	var bg := TextureRect.new()
-	bg.texture = main.tex("bg_alley")
+	var bt: Texture2D = main.backdrop("alley")
+	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
+	bg.modulate = Color.WHITE if bt else Color(0.3, 0.27, 0.3)
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	bg.anchor_right = 1.0; bg.anchor_bottom = 0.56
+	bg.anchor_right = 1.0; bg.anchor_bottom = 0.6
 	add_child(bg)
 
-	# 적
-	enemy_sprite = main.pixel_rect(enemy["sprite"], 11)
+	# 적 (일러스트가 없으면 먹 그림 아이콘)
+	var et: Texture2D = main.illust(enemy["sprite"])
+	enemy_sprite = main.tex_rect(et if et else main.icon(enemy["sprite"]), Vector2(560, 760) if et else Vector2(360, 360))
 	add_child(enemy_sprite)
 
-	var top := VBoxContainer.new()
+	var top := PanelContainer.new()
+	top.add_theme_stylebox_override("panel", main.bar_style())
 	top.anchor_right = 1.0
-	top.offset_left = 40; top.offset_right = -40; top.offset_top = 40
-	top.add_theme_constant_override("separation", 8)
+	top.offset_left = 6; top.offset_right = -6; top.offset_top = 6
 	add_child(top)
-	var ename: Label = main.make_label(enemy["name"], 34, Color("f4ead2"), true)
-	ename.add_theme_color_override("font_outline_color", main.INK)
-	ename.add_theme_constant_override("outline_size", 10)
-	top.add_child(ename)
-	e_hp_bar = _bar(Color("c0392b"), 30)
-	top.add_child(e_hp_bar)
-	e_hp_lbl = main.make_label("", 22, Color("f4ead2"))
-	top.add_child(e_hp_lbl)
-	var gl: Label = main.make_label("공격 준비", 22, Color("e8d6a8"))
-	top.add_child(gl)
-	e_gauge_bar = _bar(Color("e8a33a"), 20)
-	top.add_child(e_gauge_bar)
+	var tv := VBoxContainer.new()
+	tv.add_theme_constant_override("separation", 6)
+	top.add_child(tv)
+	tv.add_child(main.make_label(enemy["name"], 36, main.GOLD, true))
+	e_hp_bar = _bar(Color("a8261c"), 30)
+	tv.add_child(e_hp_bar)
+	e_hp_lbl = main.make_label("", 24, main.LIGHT)
+	tv.add_child(e_hp_lbl)
+	tv.add_child(main.make_label("공격 준비", 24, Color("e9c9a0")))
+	e_gauge_bar = _bar(Color("d98a2a"), 22)
+	tv.add_child(e_gauge_bar)
 
 	# 주인공 정보
 	var pp := PanelContainer.new()
-	var sb: StyleBoxFlat = main.paper_box(Color("2a1d1a"), Color("d4a84a"), 3)
-	sb.shadow_size = 0
-	pp.add_theme_stylebox_override("panel", sb)
-	pp.anchor_top = 0.56; pp.anchor_right = 1.0; pp.anchor_bottom = 0.56
-	pp.offset_left = 12; pp.offset_right = -12; pp.offset_top = 12
+	pp.add_theme_stylebox_override("panel", main.bar_style())
+	pp.anchor_top = 0.6; pp.anchor_right = 1.0; pp.anchor_bottom = 0.6
+	pp.offset_left = 6; pp.offset_right = -6; pp.offset_top = -40
 	add_child(pp)
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 18)
 	pp.add_child(hb)
-	hb.add_child(main.pixel_rect("token_yeoni", 7))
+	var face := PanelContainer.new()
+	var fsb := StyleBoxFlat.new()
+	fsb.bg_color = Color("9a2c22"); fsb.border_color = main.GOLD; fsb.set_border_width_all(4); fsb.set_corner_radius_all(60)
+	face.add_theme_stylebox_override("panel", fsb)
+	face.custom_minimum_size = Vector2(110, 110)
+	var fl: Label = main.make_label(main.hero_name.left(1), 54, main.GOLD, true)
+	fl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	fl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	face.add_child(fl)
+	hb.add_child(face)
 	var info := VBoxContainer.new()
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	info.add_theme_constant_override("separation", 6)
+	info.add_theme_constant_override("separation", 4)
 	hb.add_child(info)
-	info.add_child(main.make_label("연돌이", 28, Color("f4ead2"), true))
-	p_hp_bar = _bar(Color("4f9a6a"), 26)
+	info.add_child(main.make_label(main.alias(), 32, main.GOLD, true))
+	p_hp_bar = _bar(Color("4f7a4a"), 26)
 	info.add_child(p_hp_bar)
-	p_hp_lbl = main.make_label("", 22, Color("f4ead2"))
+	p_hp_lbl = main.make_label("", 24, main.LIGHT)
 	info.add_child(p_hp_lbl)
-	energy_lbl = main.make_label("", 30, Color("f0c040"))
-	info.add_child(energy_lbl)
-	shield_lbl = main.make_label("", 22, Color("9fc3e8"))
-	info.add_child(shield_lbl)
+	var row := HBoxContainer.new()
+	info.add_child(row)
+	energy_lbl = main.make_label("", 30, Color("f0c040"), true)
+	energy_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(energy_lbl)
+	shield_lbl = main.make_label("", 26, Color("b8d4f0"), true)
+	row.add_child(shield_lbl)
 
-	# 손패
+	# 손패 (상소문)
 	card_row = HBoxContainer.new()
 	card_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	card_row.add_theme_constant_override("separation", 12)
+	card_row.add_theme_constant_override("separation", 10)
 	card_row.anchor_top = 1.0; card_row.anchor_bottom = 1.0; card_row.anchor_right = 1.0
-	card_row.offset_top = -300; card_row.offset_bottom = -24
+	card_row.offset_top = -306; card_row.offset_bottom = -16
 	add_child(card_row)
 	for i in HAND_SIZE:
 		hand.append({})
@@ -108,14 +115,12 @@ func _ready() -> void:
 		_draw_card(i)
 
 	flash = ColorRect.new()
-	flash.color = Color(0.8, 0.1, 0.1, 0.0)
+	flash.color = Color(0.7, 0.08, 0.05, 0.0)
 	flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(flash)
 
-	banner = main.make_label("맞서 싸워라!", 64, Color("f4ead2"), true)
-	banner.add_theme_color_override("font_outline_color", main.INK)
-	banner.add_theme_constant_override("outline_size", 16)
+	banner = main.ink_text(main.make_label("맞서 싸워라!", 84, main.LIGHT, true), 20)
 	banner.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -130,7 +135,7 @@ func _ready() -> void:
 	tw.tween_callback(func(): running = true)
 
 func _layout() -> void:
-	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.56 - enemy_sprite.size.y - 10).floor()
+	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.6 - enemy_sprite.size.y - 20).floor()
 	enemy_sprite.position = enemy_base
 
 func _bar(col: Color, h: int) -> ProgressBar:
@@ -138,9 +143,11 @@ func _bar(col: Color, h: int) -> ProgressBar:
 	b.show_percentage = false
 	b.custom_minimum_size = Vector2(0, h)
 	var bgs := StyleBoxFlat.new()
-	bgs.bg_color = Color("1b1418"); bgs.border_color = main.INK; bgs.set_border_width_all(3)
+	bgs.bg_color = Color("2a1a10"); bgs.border_color = main.GOLD; bgs.set_border_width_all(3)
+	bgs.set_corner_radius_all(4)
 	var fs := StyleBoxFlat.new()
-	fs.bg_color = col
+	fs.bg_color = col; fs.set_corner_radius_all(3)
+	fs.border_color = Color(col.lightened(0.3), 0.6); fs.border_width_top = 3
 	b.add_theme_stylebox_override("background", bgs)
 	b.add_theme_stylebox_override("fill", fs)
 	b.max_value = 1.0
@@ -156,7 +163,7 @@ func _draw_card(slot: int) -> void:
 	var entry: Dictionary = pool.pick_random()
 	hand[slot] = entry
 	var old: Button = card_row.get_child(slot)
-	var b: Button = main.card_button(entry, 162, 270)
+	var b: Button = main.card_button(entry, 170, 284)
 	card_row.add_child(b)
 	card_row.move_child(b, slot)
 	old.queue_free()
@@ -223,7 +230,7 @@ func _enemy_attack() -> void:
 		_float_text("막아냈다! (%d)" % blocked, Vector2(size.x / 2, size.y * 0.6), Color("9fc3e8"))
 	if main.hp <= 0 and running:
 		running = false
-		main.game_over("연돌이는 그만 쓰러지고 말았다…")
+		main.game_over(main.fmt("{alias|은} 그만 쓰러지고 말았다…"))
 
 func _win() -> void:
 	running = false
@@ -231,7 +238,7 @@ func _win() -> void:
 	var tw := create_tween()
 	tw.tween_property(enemy_sprite, "modulate:a", 0.0, 0.5)
 	tw.tween_callback(func():
-		main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d)" % [enemy["name"], enemy["coin"]], "전리품 챙기기", func():
+		main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d냥)" % [enemy["name"], enemy["coin"]], "전리품 챙기기", func():
 			main.choose_reward(func():
 				main.end_battle(self)
 				if on_win.is_valid():
@@ -245,7 +252,7 @@ func _refresh() -> void:
 	p_hp_lbl.text = "체력 %d / %d    약병 %d" % [main.hp, main.max_hp, main.potions]
 	var full := int(energy)
 	energy_lbl.text = "기력 " + "●".repeat(full) + "○".repeat(MAX_ENERGY - full)
-	shield_lbl.text = "막기 %d" % shield if shield > 0 else " "
+	shield_lbl.text = "막기 %d" % shield if shield > 0 else ""
 	for i in HAND_SIZE:
 		var b: Button = card_row.get_child(i)
 		if not hand[i].is_empty():
