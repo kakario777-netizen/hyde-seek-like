@@ -1,0 +1,24 @@
+name: 원본 에셋 받기
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 에셋 내려받기
+        run: python3 tools/fetch_assets.py
+      - name: assets-raw 브랜치에 올리기
+        run: |
+          cd assets_src/raw
+          git init -q -b assets-raw
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -qm "원본 에셋 $(date +%F)"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" assets-raw
