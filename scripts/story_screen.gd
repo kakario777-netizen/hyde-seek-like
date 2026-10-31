@@ -35,15 +35,15 @@ func _ready() -> void:
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(bg)
 
-	portrait = main.pixel_rect("yeoni", 10)
+	portrait = main.pixel_rect("bust_yeoni", 10)
 	portrait.anchor_top = 1.0
 	portrait.anchor_bottom = 1.0
 	portrait.anchor_left = 0.5
 	portrait.anchor_right = 0.5
-	portrait.offset_left = -120
-	portrait.offset_right = 120
+	portrait.offset_left = -200
+	portrait.offset_right = 200
 	portrait.offset_bottom = -556
-	portrait.offset_top = -556 - 320
+	portrait.offset_top = -556 - 360
 	add_child(portrait)
 
 	# 대화창

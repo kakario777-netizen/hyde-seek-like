@@ -54,6 +54,7 @@ func _ready() -> void:
 			"talk": icon = "node_talk"
 			"item": icon = "node_item"
 			"goal": icon = "node_goal"; sc = 5
+			"shop": icon = "node_shop"; sc = 5
 			"pojol": icon = "token_pojol"
 			"walpae": icon = "token_walpae"
 		if icon == "":
@@ -87,7 +88,7 @@ func _draw_nodes(c: Control) -> void:
 		var col := Color("efe3c8")
 		if t in ["pojol", "walpae"] and not cleared.has(i):
 			col = Color("c0392b")
-		elif t == "start" or t == "goal":
+		elif t == "start" or t == "goal" or t == "shop":
 			col = Color("d4a84a")
 		c.draw_rect(Rect2(p - Vector2(14, 10), Vector2(28, 20)), Color("5a4a36"))
 		c.draw_rect(Rect2(p - Vector2(10, 7), Vector2(20, 14)), col)
@@ -111,8 +112,17 @@ func _build_hud() -> void:
 	var vb := VBoxContainer.new()
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_child(vb)
+	var head := HBoxContainer.new()
+	vb.add_child(head)
 	var title: Label = main.make_label("제1장  누명  ·  종로에서 남산까지", 26, Color("e8d6a8"), true)
-	vb.add_child(title)
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(title)
+	var bag: Button = main.make_button("보따리", 24)
+	bag.custom_minimum_size = Vector2(130, 60)
+	head.add_child(bag)
+	bag.pressed.connect(func():
+		if not busy:
+			main.show_bag())
 	hud_label = main.make_label("", 26, Color("f4ead2"))
 	vb.add_child(hud_label)
 	hp_label = main.make_label("", 26, Color("f4ead2"))
@@ -225,6 +235,9 @@ func _resolve() -> void:
 					cleared[idx] = true
 					_hide_marker(idx)
 					_end_turn()))
+		"shop":
+			main.popup("운종가 장터에 들어섰다.\n엽전으로 카드와 약병을 살 수 있다.", "둘러본다", func():
+				main.open_shop(_end_turn))
 		"goal":
 			main.popup("남산 아래, 허 의원의 별채에 도착했다!", "들어간다", main.chapter_clear)
 		_:

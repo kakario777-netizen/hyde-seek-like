@@ -224,6 +224,60 @@ ICONS = {
 for name, (rows, pal) in ICONS.items():
     save(icon(rows, pal), name)
 
+
+# ---------------------------------------------------------------- 상반신 초상화 (40x36, 이야기 장면용)
+BUST_YEONI = [
+    "....................", "................kkkk", "...............khhhh", "..............khhhhh",
+    "..............khhhhh", "..............khhhhh", ".........kkkkkkhhhhh", "......kkkhhhhhhhhhhh",
+    "....kkhhhhhhhhhhhhhh", "...kHHHHHHHHHHHHHHHH", "....kkkkkkkkkkkkkkkk", ".........kbbbbbbbbbb",
+    "........kbbbbbbbbbbb", ".......kbbbbssssssss", ".......kbbbsssssssss", ".......kbbsssbbsssss",
+    ".......kbsssssssssss", ".......kbssssewsssss", ".......kbsssseesssss", ".......kbsssssssssss",
+    ".......kbsppssssssss", "........kssssssssssm", ".........kssssssssss", "..........kkssssssss",
+    "............kkkkksss", "........kkwwwwwkssss", "......kkwwwwwwwwksss", ".....kwwwwwwwwwwwkss",
+    "....kwwwwwwwwwwwwwkr", "...kwwwwwwwwwwwwwrrr", "..kWwwwwwwwwwwwwwwrr", "..kWwwwwwwwwwwwwwwwr",
+    ".kWWwwwwwwwwwwwwwwwr", ".kWWwwwwwwwwwwwwwwwr", ".kWWwwwwwwwwwwwwwwwr", "kWWWwwwwwwwwwwwwwwwr",
+]
+BUST_POJOL = [
+    "..................yy", ".................yyy", "..................yy", "...............kkkkk",
+    "..............kfffff", ".............kfFffff", ".............kffffff", "............kfffffff",
+    "....kkkkkkkkkfffffff", "..kkFFFFFFFFFFFFFFFF", "...kkkkkkkkkkkkkkkkk", ".........kbbbbbbbbbb",
+    "........kbssssssssss", ".......kbsssssssssss", ".......kbssbbbbsssss", ".......kbssssssbbsss",
+    ".......kssssseesssss", ".......kssssssssssss", ".......ksssssssssSss", "........kssssbbbbbbs",
+    "........ksssbsssssmm", ".........kssssssssss", "..........kkssssbbbb", "............kkkkbbbb",
+    "..........kcccckkbbb", "........kkccccccwkbb", "......kkcccccccwwkkk", ".....kcCcccccccwwwww",
+    "....kcCccccccccwwwww", "...kcCcccccccccrrrrr", "..kcCccccccccccrrrrr", "..kcCcccccccccccrrrr",
+    ".kcCcccccccccccccccc", ".kcCcccccccccccccccc", ".kcCcccccccccccccccc", "kcCccccccccccccccccc",
+]
+BUST_WALPAE = [
+    "....................", "..................kk", ".................kbb", ".................kbb",
+    "..................kb", "..............kkkkbb", "...........kkkbbbbbb", ".........kkbbbbbbbbb",
+    "........kbbbbbbbbbbb", "........kggggggggggg", "........kGgggggggggg", ".......kbbssssssssss",
+    ".......kbsbbbbssssss", ".......kbssssbbsssss", ".......kssssseesssss", ".......ksssxssssssss",
+    ".......kssssxsssssSs", "........kssssssssSss", "........ksDsDsDsDsss", "........kDsDsDsDmmmm",
+    ".........kDsDsDsDsDs", "..........kkDsDsDsDs", "............kkkkksss", "..........kkvvvvksss",
+    "........kkvvvvvvkSss", "......kkvvVvvvvvksss", ".....kvvvVvvvvvvksss", "....kvvvVvvvvvvvkSss",
+    "...kvvvVvvvvvvvvksss", "..kvvvVvvvvvvvvvksss", "..kvvVvvvvvvvvvvkSss", ".kvvvVvvvvvvvvvvksss",
+    ".kvvVvvvvvvvvvvvkggg", ".kvvVvvvvvvvvvvvkggg", "kvvvVvvvvvvvvvvvkggg", "kvvvVvvvvvvvvvvvkggg",
+]
+for rows in (BUST_YEONI, BUST_POJOL, BUST_WALPAE):
+    for r in rows:
+        assert len(r) == 20, r
+save(sprite(BUST_YEONI, dict(YEONI_PAL, w="#efe8d8", m="#a8443a"), 40, 36), "bust_yeoni")
+save(sprite(BUST_POJOL, dict(POJOL_PAL, m="#7a2e2a"), 40, 36), "bust_pojol")
+save(sprite(BUST_WALPAE, dict(WALPAE_PAL, x="#a8443a", D="#c79a7c", m="#5a2a24", G="#5e5650"), 40, 36), "bust_walpae")
+
+ICONS["card_nalchi"] = (["................", "...........kk...", "..........kyyk..", "..........kyYk..",
+                         "...........kk...", "....ksssk.......", "...kssssskk.....", "..kSsssssssk....",
+                         "..kSSsskssssk...", "...kSSsk.kSsk...", "....kkk...kk....", "................",
+                         "................", "................", "................", "................"],
+                        {"k": "#241a18", "y": "#d4a84a", "Y": "#f0d070", "s": "#f2c9a0", "S": "#d39f7c"})
+ICONS["node_shop"] = (["............", "kkkkkkkkkkkk", "kRwRwRwRwRwk", "kkkkkkkkkkkk", ".k........k.",
+                       ".k.yy.gg..k.", ".kkkkkkkkkk.", ".kwwwwwwwwk.", ".kkkkkkkkkk.", ".k........k.", "............", "............"],
+                      {"k": "#241a18", "R": "#b8352f", "w": "#efe3c8", "y": "#d4a84a", "g": "#4f9a6a"})
+for name in ("card_nalchi", "node_shop"):
+    rows, pal = ICONS[name]
+    save(icon(rows, pal), name)
+
 # ---------------------------------------------------------------- 배경 공용 그리기
 def rect(d, x0, y0, x1, y1, col):
     if x1 < x0 or y1 < y0:
@@ -386,6 +440,7 @@ def make_board():
     for i in (10, 19): types[i] = "pojol"
     for i in (3, 8, 13, 17): types[i] = "talk"
     for i in (7, 12, 21): types[i] = "item"
+    types[11] = "shop"
     with open(os.path.join(DATA, "board1.json"), "w", encoding="utf-8") as f:
         json.dump({"size": [W, H], "nodes": [{"x": x, "y": y, "type": t} for (x, y), t in zip(nodes, types)]},
                   f, ensure_ascii=False, indent=1)

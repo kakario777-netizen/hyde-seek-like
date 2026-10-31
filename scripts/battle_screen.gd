@@ -102,12 +102,9 @@ func _ready() -> void:
 	card_row.offset_top = -300; card_row.offset_bottom = -24
 	add_child(card_row)
 	for i in HAND_SIZE:
-		hand.append("")
-		var b: Button = main.make_button("", 22)
-		b.custom_minimum_size = Vector2(162, 270)
-		card_row.add_child(b)
-		var slot := i
-		b.pressed.connect(func(): _play(slot))
+		hand.append({})
+		card_row.add_child(Button.new())
+	for i in HAND_SIZE:
 		_draw_card(i)
 
 	flash = ColorRect.new()
@@ -154,33 +151,17 @@ func _bar(col: Color, h: int) -> ProgressBar:
 func _draw_card(slot: int) -> void:
 	var pool: Array = main.deck.duplicate()
 	if main.potions > 0:
-		pool.append("yak"); pool.append("yak")
-	var id: String = pool.pick_random()
-	hand[slot] = id
-	var c: Dictionary = GameData.CARDS[id]
-	var b: Button = card_row.get_child(slot)
-	for ch in b.get_children():
-		ch.queue_free()
-	var vb := VBoxContainer.new()
-	vb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	vb.offset_top = 10; vb.offset_bottom = -10
-	vb.alignment = BoxContainer.ALIGNMENT_CENTER
-	vb.add_theme_constant_override("separation", 6)
-	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	b.add_child(vb)
-	var cost: Label = main.make_label("●".repeat(c["cost"]), 22, Color("c08a1a"))
-	cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(cost)
-	var ic := CenterContainer.new()
-	ic.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	ic.add_child(main.pixel_rect(c["icon"], 5))
-	vb.add_child(ic)
-	var nm: Label = main.make_label(c["name"], 26, main.INK, true)
-	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(nm)
-	var ds: Label = main.make_label(c["desc"], 20, Color("5a4030"))
-	ds.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	vb.add_child(ds)
+		pool.append({"id": "yak", "lv": 1})
+		pool.append({"id": "yak", "lv": 1})
+	var entry: Dictionary = pool.pick_random()
+	hand[slot] = entry
+	var old: Button = card_row.get_child(slot)
+	var b: Button = main.card_button(entry, 162, 270)
+	card_row.add_child(b)
+	card_row.move_child(b, slot)
+	old.queue_free()
+	card_row.remove_child(old)
+	b.pressed.connect(func(): _play(slot))
 	b.pivot_offset = b.custom_minimum_size / 2
 	b.scale = Vector2(0.6, 0.6)
 	create_tween().tween_property(b, "scale", Vector2.ONE, 0.15)
@@ -188,8 +169,8 @@ func _draw_card(slot: int) -> void:
 func _play(slot: int) -> void:
 	if not running:
 		return
-	var id: String = hand[slot]
-	var c: Dictionary = GameData.CARDS[id]
+	var entry: Dictionary = hand[slot]
+	var c: Dictionary = GameData.stats(entry["id"], entry["lv"])
 	if energy < c["cost"]:
 		return
 	if c.get("potion", false) and main.potions <= 0:
@@ -208,6 +189,9 @@ func _play(slot: int) -> void:
 		_float_text("+%d" % c["heal"], Vector2(size.x / 2, size.y * 0.6), Color("8fd0a0"))
 	if c.has("slow"):
 		e_gauge = max(0.0, e_gauge - float(c["slow"]))
+	if c.has("coin"):
+		main.coins += int(c["coin"])
+		_float_text("엽전 +%d" % c["coin"], Vector2(size.x / 2 + 80, size.y * 0.5), Color("f0c040"))
 	_draw_card(slot)
 	_refresh()
 	if e_hp <= 0:
@@ -237,7 +221,7 @@ func _enemy_attack() -> void:
 		_float_text("-%d" % dmg, Vector2(size.x / 2, size.y * 0.6), Color("ff6a5a"))
 	else:
 		_float_text("막아냈다! (%d)" % blocked, Vector2(size.x / 2, size.y * 0.6), Color("9fc3e8"))
-	if main.hp <= 0:
+	if main.hp <= 0 and running:
 		running = false
 		main.game_over("연돌이는 그만 쓰러지고 말았다…")
 
@@ -247,10 +231,11 @@ func _win() -> void:
 	var tw := create_tween()
 	tw.tween_property(enemy_sprite, "modulate:a", 0.0, 0.5)
 	tw.tween_callback(func():
-		main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d)" % [enemy["name"], enemy["coin"]], "길을 계속 간다", func():
-			main.end_battle(self)
-			if on_win.is_valid():
-				on_win.call()))
+		main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d)" % [enemy["name"], enemy["coin"]], "전리품 챙기기", func():
+			main.choose_reward(func():
+				main.end_battle(self)
+				if on_win.is_valid():
+					on_win.call())))
 
 func _refresh() -> void:
 	e_hp_bar.value = float(e_hp) / float(enemy["hp"])
@@ -263,8 +248,8 @@ func _refresh() -> void:
 	shield_lbl.text = "막기 %d" % shield if shield > 0 else " "
 	for i in HAND_SIZE:
 		var b: Button = card_row.get_child(i)
-		if hand[i] != "":
-			b.disabled = energy < GameData.CARDS[hand[i]]["cost"] or not running
+		if not hand[i].is_empty():
+			b.disabled = energy < GameData.CARDS[hand[i]["id"]]["cost"] or not running
 
 # ── 연출 ────────────────────────────────────────────────
 func _shake_enemy() -> void:

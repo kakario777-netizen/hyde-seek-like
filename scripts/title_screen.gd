@@ -38,6 +38,6 @@ func _ready() -> void:
 	vb.add_child(start)
 	start.pressed.connect(main.new_game)
 
-	var ver: Label = main.make_label("v0.1 뼈대 빌드", 22, Color("a89a80"))
+	var ver: Label = main.make_label("v0.2 카드 합성·장터", 22, Color("a89a80"))
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(ver)
