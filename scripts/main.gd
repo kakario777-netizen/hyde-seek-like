@@ -212,8 +212,12 @@ func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 
+const BG_FALLBACK := {"alley": "jangteo"}
+
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name
+	if not ResourceLoader.exists(p) and BG_FALLBACK.has(name):
+		p = "res://assets/bg/%s.jpg" % BG_FALLBACK[name]
 	return load(p) if ResourceLoader.exists(p) else null
 
 func tex_rect(t: Texture2D, sz: Vector2) -> TextureRect:

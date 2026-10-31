@@ -17,7 +17,7 @@ func _ready() -> void:
 		var sh: TextureRect = main.tex_rect(shadow, Vector2(900, 1300))
 		sh.anchor_left = 0.5; sh.anchor_right = 0.5; sh.anchor_top = 1.0; sh.anchor_bottom = 1.0
 		sh.offset_left = -330; sh.offset_right = 570; sh.offset_top = -1480; sh.offset_bottom = -180
-		sh.modulate = Color(0.55, 0.4, 0.42, 0.75)
+		sh.modulate = Color(0.6, 0.45, 0.5, 0.5)
 		add_child(sh)
 	var hero: Texture2D = main.illust("hero")
 	if hero:

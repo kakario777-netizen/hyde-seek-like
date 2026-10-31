@@ -45,7 +45,7 @@ func _ready() -> void:
 
 	# 적 (일러스트가 없으면 먹 그림 아이콘)
 	var et: Texture2D = main.illust(enemy["sprite"])
-	enemy_sprite = main.tex_rect(et if et else main.icon(enemy["sprite"]), Vector2(560, 760) if et else Vector2(360, 360))
+	enemy_sprite = main.tex_rect(et if et else main.icon(enemy["sprite"]), Vector2(520, 650) if et else Vector2(360, 360))
 	add_child(enemy_sprite)
 
 	var top := PanelContainer.new()
@@ -139,7 +139,7 @@ func _ready() -> void:
 	tw.tween_callback(func(): running = true)
 
 func _layout() -> void:
-	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.6 - enemy_sprite.size.y - 20).floor()
+	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.6 - enemy_sprite.size.y - 10).floor()
 	enemy_sprite.position = enemy_base
 
 func _bar(col: Color, h: int) -> ProgressBar:
