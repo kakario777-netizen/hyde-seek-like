@@ -9,3 +9,6 @@
 
 가공 스크립트: `tools/gen_ui.py` (원본은 `assets-raw` 브랜치)
 | 인물 일러스트·배경 그림 | 제작자 직접 제공 (`assets/chars`, `assets/bg`) | — |
+| 효과음 (때리기·발소리·종이·엽전·약병 등) | OpenGameArt — Kenney 「50 RPG Sound Effects」, 「80 CC0 RPG SFX」·「100 CC0 SFX」(rubberduck), 「RPG Sound Pack」(artisticdude) | CC0 |
+| 배경음·국악 효과음 (가야금·대금·장구·북·징) | `tools/gen_audio.py`로 직접 합성 (평조·계면조 5음계) | — |
+| 설정용 글꼴 | 나눔명조, 연성, 고운돋움 — Google Fonts | SIL OFL 1.1 |

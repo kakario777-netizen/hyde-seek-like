@@ -108,6 +108,7 @@ func _ready() -> void:
 	_intro.call_deferred()
 
 func _intro() -> void:
+	main.bgm("travel")
 	busy = true
 	_update_hud()
 	path_layer.queue_redraw()
@@ -328,6 +329,7 @@ func _play(steps: int, chosen: Button) -> void:
 		c.disabled = true
 		if c != chosen:
 			create_tween().tween_property(c, "modulate:a", 0.25, 0.25)
+	main.sfx("card_play")
 	var lift := create_tween().set_parallel()
 	lift.tween_property(chosen, "scale", Vector2(1.12, 1.12), 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	lift.tween_property(chosen, "modulate", Color(1.15, 1.05, 0.9), 0.25)
@@ -347,6 +349,7 @@ func _play(steps: int, chosen: Button) -> void:
 		var tw := create_tween()
 		tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 34), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		tw.tween_callback(func(): main.sfx("step", -4.0))
 		tw.tween_property(token_pic, "scale", Vector2(1.08, 0.92), 0.06)
 		tw.tween_property(token_pic, "scale", Vector2.ONE, 0.08)
 		await tw.finished
@@ -369,6 +372,7 @@ func _resolve() -> void:
 			var talk: Dictionary = GameData.TALKS[talk_idx % GameData.TALKS.size()]
 			talk_idx += 1
 			var extra := ""
+			main.sfx("coin" if talk.has("coin") else "item")
 			if talk.has("coin"):
 				main.coins += talk["coin"]; extra += "\n\n(엽전 +%d냥)" % talk["coin"]
 			if talk.has("potion"):
@@ -377,6 +381,7 @@ func _resolve() -> void:
 		"item":
 			_clear(pos)
 			main.potions += 1
+			main.sfx("item")
 			main.popup("길섶에서 약초 주머니를 주웠다!\n다래가 금세 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "friend")
 		"buff":
 			_clear(pos)
@@ -398,6 +403,7 @@ func _resolve() -> void:
 			var e: Dictionary = GameData.ENEMIES[t]
 			var line := "포졸이 두 소녀를 수상하게 노려본다!\n\"거기 계집아이들, 잠깐 서 봐라!\"" if t == "pojol" else "왈패가 길을 턱 막아섰다!\n\"어이, 가진 거 다 내놓고 가라.\""
 			var idx := pos
+			main.sfx("alarm")
 			main.popup(line, "맞서 싸운다", func(): _fight(t, idx), e["name"], t)
 		"shop":
 			main.popup("대구 약령시.\n전국의 약재와 물건이 모이는 큰 장이 섰다.", "둘러본다", func():
@@ -414,6 +420,12 @@ func _fight(enemy: String, idx: int) -> void:
 		_end_turn())
 
 func _apply_event(ev: Dictionary) -> void:
+	if ev.has("battle"):
+		main.sfx("alarm")
+	elif ev.has("hp") or ev.has("day") or (ev.has("coin") and int(ev["coin"]) < 0):
+		main.sfx("bad")
+	else:
+		main.sfx("good")
 	if ev.has("heal"):
 		main.hp = min(main.max_hp, main.hp + int(ev["heal"]))
 	if ev.has("maxhp"):
@@ -445,7 +457,9 @@ func _dim_marker(i: int) -> void:
 
 func _end_turn() -> void:
 	_update_hud()
+	main.bgm("travel")
 	if days_left <= 0:
+		main.sfx("gong")
 		main.game_over("서른 날이 다 지났다.\n\"게 섰거라! 방에 붙은 그 계집아이로구나!\"\n뒤쫓아 온 순라꾼에게 붙잡히고 말았다…", "sunra")
 		return
 	busy = false

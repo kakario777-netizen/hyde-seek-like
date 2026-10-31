@@ -76,8 +76,14 @@ func _ready() -> void:
 	cont.disabled = not main.has_any_save()
 	vb.add_child(cont)
 	cont.pressed.connect(func(): main.open_slots("load"))
+	var setb: Button = main.make_button("설정", 30)
+	setb.custom_minimum_size = Vector2(420, 90)
+	setb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	vb.add_child(setb)
+	setb.pressed.connect(func(): main.open_settings())
+	main.bgm("title")
 
-	var ver: Label = main.ink_text(main.make_label("v0.6 저장 기능판", 24, Color("e0d0b0")), 6)
+	var ver: Label = main.ink_text(main.make_label("v0.7 소리·설정판", 24, Color("e0d0b0")), 6)
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(ver)
 	var cr: Label = main.ink_text(main.make_label("아이콘 game-icons.net(CC BY 3.0)\n질감 ambientCG(CC0) · 글꼴 송명·고운바탕(OFL)", 18, Color("cbb898")), 4)

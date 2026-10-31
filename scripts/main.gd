@@ -8,6 +8,7 @@ const StoryScreen := preload("res://scripts/story_screen.gd")
 const BoardScreen := preload("res://scripts/board_screen.gd")
 const BattleScreen := preload("res://scripts/battle_screen.gd")
 const TitleScreen := preload("res://scripts/title_screen.gd")
+const AudioMgr := preload("res://scripts/audio.gd")
 
 const INK := Color("231a14")
 const INK_SOFT := Color("5a4030")
@@ -31,9 +32,14 @@ var next_guard := 0    # 다음 전투 시작 막기
 var current: Control
 var board: Control  # 전투 동안 보드를 숨겨 두었다가 되돌림
 
+var audio: Node
+
 func _ready() -> void:
 	BODY_FONT.fallbacks = [HANJA_FONT]
 	TITLE_FONT.fallbacks = [BODY_FONT, HANJA_FONT]
+	audio = AudioMgr.new()
+	add_child(audio)
+	load_settings()
 	var bg := TextureRect.new()
 	bg.texture = ui("hanji_dark")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -58,6 +64,9 @@ func _debug_capture() -> void:
 	deck = make_deck(GameData.START_DECK)
 	match args["capture"]:
 		"name": ask_name(Callable())
+		"settings":
+			font_idx = int(args.get("font", "0")); apply_font()
+			open_settings()
 		"story": play_story(GameData.PROLOGUE.slice(int(args.get("from", "5"))), show_title)
 		"end": play_story(GameData.CHAPTER1_END.slice(int(args.get("from", "0"))), show_title)
 		"board": start_board()
@@ -392,7 +401,16 @@ func make_button(text: String, size := 30) -> Button:
 	b.add_theme_stylebox_override("focus", tex_box("button", 34, 22))
 	b.add_theme_stylebox_override("pressed", tex_box("button_pressed", 34, 22))
 	b.add_theme_stylebox_override("disabled", tex_box("button", 34, 22, Color(1, 1, 1, 0.55)))
+	b.pressed.connect(func(): sfx("click", -8.0))
 	return b
+
+func sfx(name: String, vol_db := 0.0) -> void:
+	if audio:
+		audio.sfx(name, vol_db)
+
+func bgm(name: String) -> void:
+	if audio:
+		audio.bgm(name)
 
 func ink_text(l: Label, outline := 10) -> Label:
 	l.add_theme_color_override("font_outline_color", INK)
@@ -504,6 +522,7 @@ func _overlay(title: String, bg := "", pic := "") -> Array:
 		var t := make_label(title, 42, RED, true)
 		t.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		vb.add_child(t)
+	sfx("scroll", -6.0)
 	panel.modulate.a = 0.0
 	panel.pivot_offset = Vector2(300, 300)
 	var tw := create_tween()
@@ -554,6 +573,7 @@ func choose_reward(cb: Callable) -> void:
 		var b := card_button(e, 172, 286)
 		row.add_child(b)
 		b.pressed.connect(func():
+			sfx("card_play")
 			deck.append(e)
 			done.call())
 	var skip := make_button("그냥 지나간다", 28)
@@ -646,6 +666,7 @@ func show_bag(cb := Callable()) -> void:
 		if lv >= GameData.MAX_LV or coins < UPGRADE_COST[lv]:
 			return
 		coins -= UPGRADE_COST[lv]
+		sfx("upgrade")
 		var id: String = deck[sel]["id"]
 		deck[sel] = {"id": id, "lv": lv + 1}
 		_sort_deck()
@@ -682,6 +703,7 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 	for k in [max(sel, i), min(sel, i)]:
 		deck.remove_at(k)
 	deck.append({"id": id, "lv": nlv})
+	sfx("upgrade")
 	_sort_deck()
 	state["sel"] = -1
 	state["msg"] = "%s %s 완성!" % [GameData.CARDS[id]["name"], "★".repeat(nlv)]
@@ -712,6 +734,7 @@ func open_shop(cb: Callable) -> void:
 				msg.text = "엽전이 모자랍니다"
 				return
 			coins -= CARD_PRICE
+			sfx("coin")
 			deck.append(e)
 			b.disabled = true
 			refresh.call())
@@ -723,6 +746,7 @@ func open_shop(cb: Callable) -> void:
 			msg.text = "엽전이 모자랍니다"
 			return
 		coins -= POTION_PRICE
+		sfx("coin")
 		potions += 1
 		refresh.call())
 	var bag := make_button("보따리 열기 · 상소 단련", 28)
@@ -869,7 +893,7 @@ func open_menu() -> void:
 	var o := _overlay("메뉴")
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	for item in [["저장하기", "save"], ["불러오기", "load"], ["처음 화면으로", "title"], ["닫기", "close"]]:
+	for item in [["저장하기", "save"], ["불러오기", "load"], ["설정", "settings"], ["처음 화면으로", "title"], ["닫기", "close"]]:
 		var b := make_button(item[0], 30)
 		b.custom_minimum_size = Vector2(460, 92)
 		vb.add_child(b)
@@ -882,12 +906,14 @@ func _menu_act(act: String) -> void:
 	match act:
 		"save": open_slots("save")
 		"load": open_slots("load")
+		"settings": open_settings()
 		"title":
 			autosave()
 			phase = "title"
 			show_title()
 
 func _toast(text: String) -> void:
+	sfx("save", -10.0)
 	var layer := CanvasLayer.new()
 	layer.layer = 20
 	add_child(layer)
@@ -906,3 +932,154 @@ func _toast(text: String) -> void:
 	tw.tween_interval(1.4)
 	tw.tween_property(p, "modulate:a", 0.0, 0.4)
 	tw.tween_callback(layer.queue_free)
+
+# ── 설정 (글꼴·소리·대사 속도) ──────────────────────────
+const FONTS := [
+	{"name": "고운바탕 (기본 · 붓 명조)", "path": "res://assets/fonts/GowunBatang-Bold.ttf"},
+	{"name": "나눔명조 (단정한 명조)", "path": "res://assets/fonts/NanumMyeongjo-Bold.ttf"},
+	{"name": "연성 (붓글씨 느낌)", "path": "res://assets/fonts/YeonSung-Regular.ttf"},
+	{"name": "고운돋움 (읽기 쉬운 고딕)", "path": "res://assets/fonts/GowunDodum-Regular.ttf"},
+	{"name": "휴대폰 기본 글꼴", "path": "system"},
+]
+const TEXT_SPEEDS := [["느리게", 18.0], ["보통", 28.0], ["빠르게", 45.0], ["즉시", 999.0]]
+var font_idx := 0
+var text_speed_idx := 1
+
+func text_speed() -> float:
+	return TEXT_SPEEDS[text_speed_idx][1]
+
+func _font_for(i: int) -> Font:
+	var path: String = FONTS[i]["path"]
+	var f: Font
+	if path == "system":
+		var sf := SystemFont.new()
+		sf.font_names = PackedStringArray(["sans-serif", "Noto Sans CJK KR", "Roboto"])
+		f = sf
+	elif ResourceLoader.exists(path):
+		f = load(path)
+	else:
+		f = BODY_FONT
+	if f is FontFile or f is SystemFont:
+		f.fallbacks = [BODY_FONT, HANJA_FONT] if f != BODY_FONT else [HANJA_FONT]
+	return f
+
+func apply_font() -> void:
+	var f := _font_for(font_idx)
+	ThemeDB.fallback_font = f
+	var dt := ThemeDB.get_default_theme()
+	if dt:
+		dt.default_font = f
+	var pt := ThemeDB.get_project_theme()
+	if pt:
+		pt.default_font = f
+	get_tree().root.propagate_notification(Control.NOTIFICATION_THEME_CHANGED)
+
+func load_settings() -> void:
+	var path := "user://settings.json"
+	if FileAccess.file_exists(path):
+		var d = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if d is Dictionary:
+			font_idx = clampi(int(d.get("font", 0)), 0, FONTS.size() - 1)
+			text_speed_idx = clampi(int(d.get("speed", 1)), 0, TEXT_SPEEDS.size() - 1)
+			audio.bgm_volume = float(d.get("bgm", 0.7))
+			audio.sfx_volume = float(d.get("sfx", 0.9))
+	audio.apply_volume()
+	apply_font()
+
+func save_settings() -> void:
+	var f := FileAccess.open("user://settings.json", FileAccess.WRITE)
+	if f:
+		f.store_string(JSON.stringify({"font": font_idx, "speed": text_speed_idx, "bgm": audio.bgm_volume, "sfx": audio.sfx_volume}))
+
+func _slider(value: float, cb: Callable) -> HSlider:
+	var s := HSlider.new()
+	s.min_value = 0.0; s.max_value = 1.0; s.step = 0.05; s.value = value
+	s.custom_minimum_size = Vector2(380, 56)
+	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var g := StyleBoxFlat.new()
+	g.bg_color = Color("6e4a2e"); g.set_corner_radius_all(6); g.content_margin_top = 8; g.content_margin_bottom = 8
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = RED; fill.set_corner_radius_all(6); fill.content_margin_top = 8; fill.content_margin_bottom = 8
+	s.add_theme_stylebox_override("slider", g)
+	s.add_theme_stylebox_override("grabber_area", fill)
+	s.add_theme_stylebox_override("grabber_area_highlight", fill)
+	var img: Image = ui("node").get_image()
+	img.resize(48, 48, Image.INTERPOLATE_LANCZOS)
+	var knob := ImageTexture.create_from_image(img)
+	s.add_theme_icon_override("grabber", knob)
+	s.add_theme_icon_override("grabber_highlight", knob)
+	s.value_changed.connect(cb)
+	return s
+
+func open_settings(cb := Callable()) -> void:
+	var o := _overlay("설정")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	vb.add_child(_note("글꼴", RED))
+	var sample := make_label("", 30)
+	sample.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sample.custom_minimum_size = Vector2(540, 0)
+	var font_btns: Array = []
+	for i in FONTS.size():
+		var b := make_button("", 24)
+		b.custom_minimum_size = Vector2(540, 66)
+		vb.add_child(b)
+		font_btns.append(b)
+		var idx := i
+		b.pressed.connect(func():
+			font_idx = idx
+			apply_font()
+			_refresh_settings(font_btns, sample))
+	vb.add_child(sample)
+	_refresh_settings(font_btns, sample)
+
+	vb.add_child(_note("대사 속도", RED))
+	var sp := HBoxContainer.new()
+	sp.add_theme_constant_override("separation", 8)
+	sp.alignment = BoxContainer.ALIGNMENT_CENTER
+	vb.add_child(sp)
+	var sp_btns: Array = []
+	for i in TEXT_SPEEDS.size():
+		var b := make_button(TEXT_SPEEDS[i][0], 24)
+		b.custom_minimum_size = Vector2(128, 64)
+		sp.add_child(b)
+		sp_btns.append(b)
+		var idx := i
+		b.pressed.connect(func():
+			text_speed_idx = idx
+			for k in sp_btns.size():
+				sp_btns[k].modulate = Color(1, 0.8, 0.55) if k == text_speed_idx else Color.WHITE)
+	for k in sp_btns.size():
+		sp_btns[k].modulate = Color(1, 0.8, 0.55) if k == text_speed_idx else Color.WHITE
+
+	for row in [["배경음", "bgm"], ["효과음", "sfx"]]:
+		var hb := HBoxContainer.new()
+		hb.add_theme_constant_override("separation", 14)
+		vb.add_child(hb)
+		var l := make_label(row[0], 28, RED, true)
+		l.custom_minimum_size = Vector2(110, 0)
+		hb.add_child(l)
+		var key: String = row[1]
+		hb.add_child(_slider(audio.bgm_volume if key == "bgm" else audio.sfx_volume, func(v: float):
+			if key == "bgm":
+				audio.bgm_volume = v
+			else:
+				audio.sfx_volume = v
+				sfx("coin")
+			audio.apply_volume()))
+
+	var close := make_button("닫기", 30)
+	close.custom_minimum_size = Vector2(0, 86)
+	vb.add_child(close)
+	close.pressed.connect(func():
+		save_settings()
+		layer.queue_free()
+		if cb.is_valid():
+			cb.call())
+
+func _refresh_settings(btns: Array, sample: Label) -> void:
+	for i in btns.size():
+		btns[i].text = ("● " if i == font_idx else "") + FONTS[i]["name"]
+		btns[i].modulate = Color(1, 0.8, 0.55) if i == font_idx else Color.WHITE
+	sample.add_theme_font_override("font", _font_for(font_idx))
+	sample.text = "약방 문은 부서져 있었다. 흑심단(黑心丹)…"

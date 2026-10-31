@@ -85,7 +85,10 @@ func _ready() -> void:
 	_set_bg("yakbang")
 	_next()
 
+const BG_MUSIC := {"alley": "night", "title": "story", "yakbang": "story", "jangteo": "story", "byeolchae": "night", "street_ink": "story"}
+
 func _set_bg(name: String) -> void:
+	main.bgm(BG_MUSIC.get(name, "story"))
 	var t: Texture2D = main.backdrop(name)
 	if t:
 		bg.texture = t
@@ -103,6 +106,8 @@ func _gui_input(event: InputEvent) -> void:
 func _advance() -> void:
 	if waiting_choice or ended:
 		return
+	if not typing:
+		main.sfx("page", -6.0)
 	if typing:
 		typing = false
 		text_lbl.visible_ratio = 1.0
@@ -146,6 +151,7 @@ func _next() -> void:
 		_show_pose("")
 	text_lbl.text = main.fmt(line["text"])
 	text_lbl.visible_characters = 0
+	type_acc = 0.0
 	typing = true
 	arrow.modulate.a = 0.0
 
@@ -153,6 +159,9 @@ func _show_pose(pose: String) -> void:
 	if pose == last_pose:
 		return
 	last_pose = pose
+	if pose == "shadow":
+		main.bgm("night")
+		main.sfx("gong", -4.0)
 	var t: Texture2D = main.illust(pose) if pose != "" else null
 	if t == null:
 		create_tween().tween_property(portrait, "modulate:a", 0.0, 0.15)
@@ -161,9 +170,15 @@ func _show_pose(pose: String) -> void:
 	portrait.modulate.a = 0.0
 	create_tween().tween_property(portrait, "modulate:a", 1.0, 0.25)
 
+var type_acc := 0.0
+
 func _process(delta: float) -> void:
 	if typing:
-		text_lbl.visible_characters += max(1, int(TYPE_SPEED * delta + 0.5))
+		type_acc += main.text_speed() * delta
+		var n := int(type_acc)
+		if n > 0:
+			type_acc -= n
+			text_lbl.visible_characters += n
 		if text_lbl.visible_characters >= text_lbl.get_total_character_count():
 			typing = false
 			text_lbl.visible_ratio = 1.0

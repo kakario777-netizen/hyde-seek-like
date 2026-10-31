@@ -184,7 +184,11 @@ func _ready() -> void:
 	_refresh()
 	_start.call_deferred()
 
+const HIT_SFX := {"jumeok": "punch", "baldda": "kick", "gyeot": "punch_heavy", "nalchi": "punch"}
+
 func _start() -> void:
+	main.bgm("battle")
+	main.sfx("drum_start")
 	await _show_banner("맞서 싸워라!")
 	shield = main.next_guard
 	main.next_guard = 0
@@ -263,6 +267,7 @@ func _draw_one() -> void:
 		return
 	var e: Dictionary = draw_pile.pop_back()
 	hand.append(e)
+	main.sfx("card_draw", -8.0)
 	var b: Button = main.card_button(e, 134, 286)
 	b.modulate.a = 0.0
 	card_row.add_child(b)
@@ -289,13 +294,16 @@ func _play(b: Button, e: Dictionary) -> void:
 	card_row.remove_child(b)
 	b.queue_free()
 	if c.has("dmg"):
+		main.sfx(HIT_SFX.get(e["id"], "punch"))
 		_hit_enemy(int(c["dmg"]))
 	if c.has("block"):
 		shield += int(c["block"])
+		main.sfx("block")
 		_float_text("막기 +%d" % c["block"], Vector2(size.x / 2, size.y * 0.62), Color("b8d4f0"))
 	if c.has("slow"):
 		var before := e_charge
 		e_charge = max(0, e_charge - int(c["slow"]))
+		main.sfx("powder" if e["id"] == "gochu" else "whoosh")
 		if before != e_charge:
 			_float_text("기세가 꺾였다!", Vector2(size.x / 2, size.y * 0.22), Color("f0c040"))
 		_pick_intent()
@@ -330,6 +338,7 @@ func _use_potion() -> void:
 		return
 	main.potions -= 1
 	main.hp = min(main.max_hp, main.hp + 12)
+	main.sfx("potion")
 	_float_text("+12", Vector2(size.x / 2, size.y * 0.62), Color("8fd0a0"))
 	_refresh()
 
@@ -352,6 +361,7 @@ func _end_my_turn() -> void:
 
 # ── 상대 차례 ───────────────────────────────────────────
 func _enemy_turn() -> void:
+	main.sfx("whoosh", -6.0)
 	await _show_banner("상대의 차례")
 	e_block = 0
 	var act := intent
@@ -369,6 +379,7 @@ func _enemy_turn() -> void:
 		shield -= blocked
 		dmg -= blocked
 		main.hp = max(0, main.hp - dmg)
+		main.sfx("hurt_heavy" if act.get("heavy", false) else ("hurt" if dmg > 0 else "block"))
 		if dmg > 0:
 			flash.color.a = 0.45 if act.get("heavy", false) else 0.3
 			create_tween().tween_property(flash, "color:a", 0.0, 0.45)
@@ -377,6 +388,7 @@ func _enemy_turn() -> void:
 			_float_text("모두 막아냈다!", Vector2(size.x / 2, size.y * 0.66), Color("b8d4f0"))
 	else:
 		e_block += int(act["v"])
+		main.sfx("block")
 		_float_text("막기 +%d" % act["v"], enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 160), Color("b8d4f0"))
 	if act.get("heavy", false):
 		e_charge = 0
@@ -388,6 +400,7 @@ func _enemy_turn() -> void:
 	await get_tree().create_timer(BEAT).timeout
 	if main.hp <= 0:
 		over = true
+		main.sfx("gong")
 		main.game_over(main.fmt("{name|은} 그만 쓰러지고 말았다…"))
 		return
 	_begin_my_turn()
@@ -395,6 +408,7 @@ func _enemy_turn() -> void:
 # ── 끝 ──────────────────────────────────────────────────
 func _win() -> void:
 	over = true
+	main.sfx("victory")
 	main.coins += int(enemy["coin"])
 	var tw := create_tween()
 	tw.tween_property(enemy_sprite, "modulate:a", 0.0, 0.7)
