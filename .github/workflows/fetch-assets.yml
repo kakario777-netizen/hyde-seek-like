@@ -2,6 +2,13 @@ name: 원본 에셋 받기
 
 on:
   workflow_dispatch:
+    inputs:
+      script:
+        description: 실행할 스크립트
+        default: tools/fetch_assets.py
+      branch:
+        description: 결과를 올릴 브랜치
+        default: assets-raw
 
 permissions:
   contents: write
@@ -12,13 +19,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: 에셋 내려받기
-        run: python3 tools/fetch_assets.py
-      - name: assets-raw 브랜치에 올리기
+        run: |
+          pip install -q pillow
+          python3 ${{ inputs.script }}
+      - name: 결과 브랜치에 올리기
         run: |
           cd assets_src/raw
-          git init -q -b assets-raw
+          git init -q -b "${{ inputs.branch }}"
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add -A
           git commit -qm "원본 에셋 $(date +%F)"
-          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" assets-raw
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" "${{ inputs.branch }}"
