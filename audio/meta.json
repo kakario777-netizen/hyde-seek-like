@@ -1,0 +1,51 @@
+[
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/interface-sounds",
+  "title": "Interface Sounds",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ },
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/50-rpg-sound-effects",
+  "title": "50 RPG sound effects",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ },
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks",
+  "title": "51 UI sound effects (buttons, switches and clicks)",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ },
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/rpg-sound-pack",
+  "title": "RPG Sound Pack",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ },
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/80-cc0-rpg-sfx",
+  "title": "80 CC0 RPG SFX",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ },
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/100-cc0-sfx",
+  "title": "100 CC0 SFX",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ },
+ {
+  "src": "opengameart",
+  "page": "https://opengameart.org/content/inventory-sound-effects",
+  "title": "Inventory Sound Effects",
+  "license": "CC0 (알려진 CC0 묶음)",
+  "kind": "sfx"
+ }
+]
