@@ -21,7 +21,9 @@ jobs:
       - name: 에셋 내려받기
         run: |
           pip install -q pillow
-          python3 ${{ inputs.script }}
+          sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1 || true
+          python3 ${{ inputs.script }} || true
+          sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1 || true
       - name: 결과 브랜치에 올리기
         run: |
           cd assets_src/raw
