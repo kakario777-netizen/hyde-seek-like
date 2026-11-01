@@ -413,7 +413,7 @@ func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 
-const BG_FALLBACK := {"den": "alley", "stream": "alley", "palace": "title", "vault": "byeolchae"}
+const BG_FALLBACK := {}
 
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name

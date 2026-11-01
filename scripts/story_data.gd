@@ -308,5 +308,4 @@ const ALLIES := {
 }
 
 ## 아직 그림이 없어 도트로 대신하는 인물 (진짜 그림이 오면 여기서 지운다)
-const PLACEHOLDERS := ["jongsagwan", "jongsagwan_blush", "seohwi", "seohwi_battle", "baegun", "baegun_boss",
-	"king", "darae_court", "hero_physician", "addict"]
+const PLACEHOLDERS: Array = []
