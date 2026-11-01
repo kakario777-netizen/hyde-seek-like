@@ -150,6 +150,8 @@ func _next() -> void:
 	elif who == "":
 		_show_pose("")
 	text_lbl.text = main.fmt(line["text"])
+	var goal: bool = line["text"].begins_with("【목표】")
+	text_lbl.add_theme_color_override("font_color", Color("6b3a1e") if goal else main.INK)
 	text_lbl.visible_characters = 0
 	type_acc = 0.0
 	typing = true
@@ -167,6 +169,10 @@ func _show_pose(pose: String) -> void:
 		create_tween().tween_property(portrait, "modulate:a", 0.0, 0.15)
 		return
 	portrait.texture = t
+	var old := portrait.get_node_or_null("PlaceholderTag")
+	if old:
+		old.queue_free()
+	main.tag_placeholder(portrait, pose)
 	portrait.modulate.a = 0.0
 	create_tween().tween_property(portrait, "modulate:a", 1.0, 0.25)
 

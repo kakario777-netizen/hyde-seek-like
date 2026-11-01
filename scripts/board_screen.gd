@@ -15,6 +15,7 @@ var nodes: Array = []
 var map_scale := 1.8
 var pos := 0
 var days_left := DAY_LIMIT
+var cfg: Dictionary = {}
 var busy := false
 var cleared := {}
 var talk_idx := 0
@@ -37,12 +38,14 @@ var hud: PanelContainer
 var tray: PanelContainer
 
 func _ready() -> void:
-	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/board1.json"))
+	cfg = main.ch_cfg()
+	days_left = int(cfg.get("days", DAY_LIMIT))
+	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/%s.json" % cfg.get("board", "board1")))
 	nodes = data["nodes"]
 	map_scale = data.get("scale", 1.8)
 	if not restore.is_empty():
 		pos = int(restore.get("pos", 0))
-		days_left = int(restore.get("days_left", DAY_LIMIT))
+		days_left = int(restore.get("days_left", days_left))
 		talk_idx = int(restore.get("talk_idx", 0))
 		for k in restore.get("cleared", []):
 			cleared[int(k)] = true
@@ -112,7 +115,10 @@ func _intro() -> void:
 	busy = true
 	_update_hud()
 	path_layer.queue_redraw()
+	await get_tree().process_frame
+	_focus(_node_px(pos), false)
 	await get_tree().create_timer(0.6).timeout
+	_focus(_node_px(pos), false)
 	# 불러온 자리가 아직 처리 안 된 사건 칸이면 바로 이어서 처리
 	if pos > 0 and not cleared.has(pos) and _ntype(pos) != "empty":
 		_resolve()
@@ -143,12 +149,12 @@ func _make_marker(i: int) -> Control:
 	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var coin_name := "node"
 	match t:
-		"pojol", "walpae", "trap": coin_name = "node_enemy"
+		"pojol", "walpae", "trap", "boss": coin_name = "node_enemy"
 		"start", "goal": coin_name = "node_goal"
 		"buff", "rest": coin_name = "node_buff"
 		"debuff": coin_name = "node_debuff"
 		"story": coin_name = "node_story"
-	var big := t in ["goal", "start", "story"]
+	var big := t in ["goal", "start", "story", "boss"]
 	var sz := Vector2(54, 54) if big else Vector2(40, 40)
 	var coin: TextureRect = main.tex_rect(main.ui(coin_name), sz)
 	coin.position = -sz / 2
@@ -157,6 +163,7 @@ func _make_marker(i: int) -> Control:
 	match t:
 		"talk", "item", "shop", "goal", "pojol", "walpae", "buff", "debuff", "trap", "rest", "story":
 			ic = t
+		"boss": ic = "walpae"
 	if ic != "":
 		var badge := PanelContainer.new()
 		var sb := StyleBoxFlat.new()
@@ -250,7 +257,7 @@ func _build_hud() -> void:
 	hud.add_child(vb)
 	var head := HBoxContainer.new()
 	vb.add_child(head)
-	var title: Label = main.make_label("제1장  누명", 34, main.GOLD, true)
+	var title: Label = main.make_label(cfg.get("title", "제1장  누명"), 34, main.GOLD, true)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title)
 	var me: Button = main.make_button("◎", 26)
@@ -283,7 +290,7 @@ func _update_hud() -> void:
 	day_label.text = "남은 날  %d일" % days_left
 	day_label.add_theme_color_override("font_color", main.LIGHT if days_left > 7 else Color("ff8a70"))
 	hp_label.text = "체력 %d/%d · 엽전 %d · 약병 %d" % [main.hp, main.max_hp, main.coins, main.potions]
-	place_label.text = "%s 부근 · 화엄골까지 %d칸" % [place_name(), nodes.size() - 1 - pos]
+	place_label.text = "%s 부근 · %s까지 %d칸" % [place_name(), cfg.get("goal", "화엄골"), nodes.size() - 1 - pos]
 
 func _build_tray() -> void:
 	tray = PanelContainer.new()
@@ -357,7 +364,7 @@ func _play(steps: int, chosen: Button) -> void:
 		_update_hud()
 		await get_tree().create_timer(STEP_PAUSE).timeout
 		var t := _ntype(pos)
-		if (t in ENEMY_TYPES or t == "story") and not cleared.has(pos):
+		if (t in ENEMY_TYPES or t == "story" or t == "boss") and not cleared.has(pos):
 			break   # 적이나 이야기 칸에서는 멈춘다
 	await get_tree().create_timer(LAND_PAUSE).timeout
 	_resolve()
@@ -369,7 +376,8 @@ func _resolve() -> void:
 	match t:
 		"talk":
 			_clear(pos)
-			var talk: Dictionary = GameData.TALKS[talk_idx % GameData.TALKS.size()]
+			var pool: Array = StoryData.TALKS.get(main.chapter, GameData.TALKS)
+			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
 			var extra := ""
 			main.sfx("coin" if talk.has("coin") else "item")
@@ -397,21 +405,53 @@ func _resolve() -> void:
 			_apply_event(GameData.REST)
 		"story":
 			_clear(pos)
-			var lines: Array = GameData.STORY1 if nodes[pos]["type"] == "story1" else GameData.STORY2
+			var lines: Array = StoryData.lines(nodes[pos].get("sid", nodes[pos]["type"]))
 			main.dialog_chain(lines, _end_turn)
-		"pojol", "walpae":
-			var e: Dictionary = GameData.ENEMIES[t]
-			var line := "포졸이 두 소녀를 수상하게 노려본다!\n\"거기 계집아이들, 잠깐 서 봐라!\"" if t == "pojol" else "왈패가 길을 턱 막아섰다!\n\"어이, 가진 거 다 내놓고 가라.\""
+		"boss":
+			var nd: Dictionary = nodes[pos]
 			var idx := pos
 			main.sfx("alarm")
-			main.popup(line, "맞서 싸운다", func(): _fight(t, idx), e["name"], t)
+			main.dialog_chain(StoryData.lines(nd.get("pre", "")), func():
+				main.start_battle(nd["battle"], func():
+					cleared[idx] = true
+					_dim_marker(idx)
+					main.dialog_chain(StoryData.lines(nd.get("post", "")), _end_turn)))
+		"pojol", "walpae":
+			var eid: String = StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t)
+			var e: Dictionary = GameData.ENEMIES[eid]
+			var line: String = ENEMY_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
+			if main.chapter == 1 and eid == "pojol":
+				line = "포졸이 두 소녀를 수상하게 노려본다!\n\"거기 계집아이들, 잠깐 서 봐라!\""
+			var idx := pos
+			main.sfx("alarm")
+			main.popup(line, "맞서 싸운다", func(): _fight(eid, idx), e["name"], e["sprite"])
 		"shop":
-			main.popup("대구 약령시.\n전국의 약재와 물건이 모이는 큰 장이 섰다.", "둘러본다", func():
-				main.open_shop(_end_turn), "약령시", "", "jangteo")
+			var sname: String = place_name() if nodes[pos].has("name") else "장터"
+			main.popup("%s.\n약재와 물건을 사고팔 수 있는 장이 섰다." % sname, "둘러본다", func():
+				main.open_shop(_end_turn), "장터", "", "jangteo")
 		"goal":
-			main.popup("안개 낀 계곡 끝, 대숲 속 초당이 보인다.\n지리산 화엄골에 도착했다!", "들어간다", main.chapter_clear, "화엄골", "friend", "byeolchae")
+			_reach_goal()
 		_:
 			_end_turn()
+
+const ENEMY_LINES := {
+	"pojol": "포졸이 수상하다는 듯 노려본다!\n\"거기 너, 잠깐 서 봐라!\"",
+	"walpae": "왈패가 길을 턱 막아섰다!\n\"어이, 가진 거 다 내놓고 가라.\"",
+	"rival": "흑룡파 왈패들이 몰려왔다!\n\"청안파 꼬마 의원이 너냐? 따라와라!\"",
+	"sanjeok": "고갯길 수풀에서 산적이 뛰쳐나왔다!\n\"가진 것 다 내놓고 가라!\"",
+	"mob": "청심보명단에 중독된 사내가 달려든다!\n\"약… 약을 내놔…!\"",
+}
+
+## 목적지: 이야기 → (싸움) → 장 끝
+func _reach_goal() -> void:
+	if cfg.has("goal_battle"):
+		main.sfx("alarm")
+		main.dialog_chain(StoryData.lines(cfg.get("goal_pre", "")), func():
+			main.start_battle(cfg["goal_battle"], main.chapter_clear,
+				{"lose_ok": cfg.get("goal_lose_ok", false), "ally": cfg.get("goal_ally", ""), "no_reward": true}))
+	else:
+		main.popup(cfg.get("goal_text", "목적지에 도착했다!"), "들어간다", main.chapter_clear,
+			cfg.get("goal_title", ""), cfg.get("goal_pic", ""), cfg.get("goal_bg", ""))
 
 func _fight(enemy: String, idx: int) -> void:
 	main.start_battle(enemy, func():
@@ -460,7 +500,7 @@ func _end_turn() -> void:
 	main.bgm("travel")
 	if days_left <= 0:
 		main.sfx("gong")
-		main.game_over("서른 날이 다 지났다.\n\"게 섰거라! 방에 붙은 그 계집아이로구나!\"\n뒤쫓아 온 순라꾼에게 붙잡히고 말았다…", "sunra")
+		main.game_over("기한이 다 지났다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n뒤쫓아 온 순라꾼에게 붙잡히고 말았다…", "sunra")
 		return
 	busy = false
 	_focus(_node_px(pos))

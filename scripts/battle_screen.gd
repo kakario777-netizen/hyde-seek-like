@@ -6,6 +6,9 @@ extends Control
 var main
 var enemy_id := "walpae"
 var on_win: Callable
+var opts: Dictionary = {}
+var ally: Dictionary = {}
+const BATTLE_BG := {"baegun": "vault", "darae": "vault", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -44,11 +47,18 @@ var card_row: HBoxContainer
 var banner: Label
 
 func _ready() -> void:
-	enemy = GameData.ENEMIES[enemy_id]
+	enemy = GameData.ENEMIES[enemy_id].duplicate(true)
+	# 장이 오를수록 잡졸은 조금씩 강해진다 (보스는 정해진 그대로)
+	if not enemy.get("boss", false) and main.chapter > 1:
+		var k: float = 1.0 + 0.12 * (main.chapter - 1)
+		enemy["hp"] = int(round(enemy["hp"] * k))
+		for mv in enemy["moves"] + [enemy["heavy"]]:
+			mv["v"] = int(round(mv["v"] * k))
 	e_hp = enemy["hp"]
+	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
 
 	var bg := TextureRect.new()
-	var bt: Texture2D = main.backdrop("alley")
+	var bt: Texture2D = main.backdrop(BATTLE_BG.get(enemy_id, "alley"))
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
@@ -64,6 +74,7 @@ func _ready() -> void:
 	enemy_sprite = main.tex_rect(et if et else main.icon(enemy_id), Vector2(560, 700) if et else Vector2(360, 360))
 	enemy_sprite.pivot_offset = enemy_sprite.size * Vector2(0.5, 1.0)
 	add_child(enemy_sprite)
+	main.tag_placeholder(enemy_sprite, enemy["sprite"])
 
 	# 상대 정보
 	var top := PanelContainer.new()
@@ -120,7 +131,7 @@ func _ready() -> void:
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 14)
 	pp.add_child(hb)
-	var face: Texture2D = main.illust("face_hero" if main.chapter < 2 else "face_token")
+	var face: Texture2D = main.illust(main.face_name())
 	if face:
 		var fr: TextureRect = main.tex_rect(face, Vector2(116, 116))
 		fr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -357,7 +368,24 @@ func _end_my_turn() -> void:
 	discard.append_array(hand)
 	hand.clear()
 	_refresh()
+	if not ally.is_empty():
+		await _ally_turn()
+		if e_hp <= 0:
+			_win()
+			return
 	_enemy_turn()
+
+func _ally_turn() -> void:
+	await _show_banner(ally["name"] + "의 차례")
+	_float_text(ally.get("line", ""), Vector2(size.x / 2, size.y * 0.25), Color("f0c040"))
+	await get_tree().create_timer(0.35).timeout
+	main.sfx("punch_heavy")
+	_hit_enemy(int(ally.get("dmg", 5)))
+	if ally.has("block"):
+		shield += int(ally["block"])
+		main.sfx("block")
+	_refresh()
+	await get_tree().create_timer(BEAT).timeout
 
 # ── 상대 차례 ───────────────────────────────────────────
 func _enemy_turn() -> void:
@@ -401,6 +429,13 @@ func _enemy_turn() -> void:
 	if main.hp <= 0:
 		over = true
 		main.sfx("gong")
+		if opts.get("lose_ok", false):
+			await _show_banner("패배…")
+			main.hp = max(1, main.max_hp / 2)
+			main.end_battle(self)
+			if on_win.is_valid():
+				on_win.call()
+			return
 		main.game_over(main.fmt("{name|은} 그만 쓰러지고 말았다…"))
 		return
 	_begin_my_turn()
@@ -414,6 +449,17 @@ func _win() -> void:
 	tw.tween_property(enemy_sprite, "modulate:a", 0.0, 0.7)
 	await tw.finished
 	await _show_banner("승리!")
+	if opts.get("no_reward", false):
+		if enemy["coin"] > 0:
+			main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d냥)" % [enemy["name"], enemy["coin"]], "계속", func():
+				main.end_battle(self)
+				if on_win.is_valid():
+					on_win.call())
+		else:
+			main.end_battle(self)
+			if on_win.is_valid():
+				on_win.call()
+		return
 	main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d냥)" % [enemy["name"], enemy["coin"]], "전리품 챙기기", func():
 		main.choose_reward(func():
 			main.end_battle(self)

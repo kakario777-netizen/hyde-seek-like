@@ -69,10 +69,21 @@ func _debug_capture() -> void:
 			open_settings()
 		"story": play_story(GameData.PROLOGUE.slice(int(args.get("from", "5"))), show_title)
 		"end": play_story(GameData.CHAPTER1_END.slice(int(args.get("from", "0"))), show_title)
-		"board": start_board()
+		"board":
+			chapter = int(args.get("ch", "1"))
+			start_board()
+		"chstory":
+			chapter = int(args.get("ch", "2"))
+			play_story(StoryData.lines(args.get("key", "CH2_INTRO")).slice(int(args.get("from", "0"))), show_title)
+		"chpop":
+			chapter = int(args.get("ch", "2"))
+			start_board()
+			await get_tree().create_timer(0.6).timeout
+			dialog_chain(StoryData.lines(args.get("key", "C2_DOGYEOL")).slice(int(args.get("from", "0"))), Callable())
 		"battle":
 			start_board()
-			start_battle(args.get("enemy", "pojol"), Callable())
+			chapter = int(args.get("ch", "1"))
+			start_battle(args.get("enemy", "pojol"), Callable(), {"ally": args.get("ally", ""), "lose_ok": args.has("lose")})
 			if args.has("auto"):
 				var bs = current
 				await get_tree().create_timer(3.0).timeout
@@ -153,7 +164,13 @@ func new_game() -> void:
 		chapter = 1; flags = {}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
 		phase = "prologue"
-		play_story(GameData.PROLOGUE, start_board))
+		play_story(chapter_lines("intro"), start_board))
+
+func ch_cfg() -> Dictionary:
+	return StoryData.CHAPTERS.get(chapter, StoryData.CHAPTERS[1])
+
+func chapter_lines(key: String) -> Array:
+	return StoryData.lines(ch_cfg().get(key, ""))
 
 func make_deck(ids: Array) -> Array:
 	var d := []
@@ -175,10 +192,12 @@ func start_board() -> void:
 	_swap(board)
 	autosave.call_deferred("자동 저장")
 
-func start_battle(enemy_id: String, on_win: Callable) -> void:
+## opts: {"lose_ok": 져도 이야기 진행, "ally": 동료 id}
+func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	var b := BattleScreen.new()
 	b.enemy_id = enemy_id
 	b.on_win = on_win
+	b.opts = opts
 	autosave()
 	_swap(b, true)
 
@@ -194,9 +213,31 @@ func chapter_clear() -> void:
 		board.queue_free(); board = null
 	current = null
 	phase = "ending"
-	play_story(GameData.CHAPTER1_END, func():
+	var cfg := ch_cfg()
+	play_story(chapter_lines("end"), func():
+		if cfg.has("end_battle"):
+			_end_duel(cfg)
+		else:
+			_next_chapter())
+
+## 장 끝의 싸움(예: 다래와의 다툼) — 이기든 지든 이야기는 이어진다
+func _end_duel(cfg: Dictionary) -> void:
+	var holder := Control.new()
+	board = holder
+	add_child(holder)
+	start_battle(cfg["end_battle"], func():
+		holder.queue_free(); board = null
+		play_story(StoryData.lines(cfg.get("end_after", "")), _next_chapter), {"lose_ok": true, "no_reward": true})
+
+func _next_chapter() -> void:
+	if StoryData.CHAPTERS.has(chapter + 1):
+		chapter += 1
+		phase = "prologue"
+		play_story(chapter_lines("intro"), start_board)
+		autosave.call_deferred("새 장 자동 저장")
+	else:
 		phase = "title"
-		show_title())
+		show_title()
 
 func game_over(reason: String, pic := "") -> void:
 	popup(reason + "\n\n다시 도전하시겠습니까?", "다시 하기", func():
@@ -281,7 +322,40 @@ func ask_name(cb: Callable) -> void:
 			cb.call())
 
 func token_name() -> String:
-	return "token_hero" if chapter < 2 else "token_disguise"
+	return "token_disguise" if chapter >= 2 and chapter <= 4 else "token_hero"
+
+func face_name() -> String:
+	return "face_token" if chapter >= 2 and chapter <= 4 else "face_hero"
+
+func is_placeholder(pic: String) -> bool:
+	return pic in StoryData.PLACEHOLDERS
+
+## "(준비중)" 표시 붙이기
+func tag_placeholder(parent: Control, pic: String) -> void:
+	if not is_placeholder(pic):
+		return
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", plaque_style())
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.top_level = false
+	p.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	p.offset_left = -90; p.offset_right = 90; p.offset_top = 8; p.offset_bottom = 68
+	var l := make_label("(준비중)", 26, GOLD, true)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	p.add_child(l)
+	p.name = "PlaceholderTag"
+	p.z_index = 5
+	parent.add_child(p)
+
+## 이야기 줄에 붙은 보상·효과 적용
+func apply_line_effects(line: Dictionary) -> void:
+	if line.has("coin"): coins += int(line["coin"])
+	if line.has("potion"): potions += int(line["potion"])
+	if line.has("guard"): next_guard += int(line["guard"])
+	if line.has("maxhp"): max_hp += int(line["maxhp"])
+	if line.has("heal"): hp = min(max_hp, hp + int(line["heal"]))
+	if line.has("coin") or line.has("potion") or line.has("maxhp"):
+		sfx("good")
 
 ## 팝업으로 이어지는 짧은 이야기. line: {who, pic, text, bg, choices:[{text,set}], if, ifnot}
 func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
@@ -298,6 +372,7 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 		return
 	var line: Dictionary = lines[i]
 	var nbg: String = line.get("bg", bg)
+	apply_line_effects(line)
 	var next := func(): dialog_chain(lines, cb, i + 1, nbg)
 	if line.has("choices"):
 		popup_choices(line["text"], line["choices"], func(k: int):
@@ -338,7 +413,7 @@ func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 
-const BG_FALLBACK := {}
+const BG_FALLBACK := {"den": "alley", "stream": "alley", "palace": "title", "vault": "byeolchae"}
 
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name
@@ -505,6 +580,7 @@ func _overlay(title: String, bg := "", pic := "") -> Array:
 		r.offset_top = 40; r.offset_left = 30; r.offset_right = -30
 		r.modulate.a = 0.0
 		layer.add_child(r)
+		tag_placeholder(r, pic)
 		create_tween().tween_property(r, "modulate:a", 1.0, 0.4)
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -848,14 +924,14 @@ func load_game(slot: String) -> void:
 		_swap(board)
 	else:
 		phase = "prologue"
-		play_story(GameData.PROLOGUE, start_board)
+		play_story(chapter_lines("intro"), start_board)
 
 func _slot_label(slot: String) -> String:
 	var d := read_save(slot)
 	var head := "자동 저장" if slot == "auto" else "%s번 칸" % slot
 	if d.is_empty():
 		return "%s\n— 비어 있음 —" % head
-	var where := "서장(序章)" if d.get("phase", "") != "board" else "제%d장 · %s · 남은 날 %d일" % [int(d.get("chapter", 1)), d.get("place", ""), int(d.get("board", {}).get("days_left", 0))]
+	var where := "제%d장 시작" % int(d.get("chapter", 1)) if d.get("phase", "") != "board" else "제%d장 · %s · 남은 날 %d일" % [int(d.get("chapter", 1)), d.get("place", ""), int(d.get("board", {}).get("days_left", 0))]
 	return "%s · %s\n%s · %s" % [head, d.get("hero_name", ""), where, str(d.get("time", "")).replace("T", " ").left(16)]
 
 ## mode: "save" 또는 "load"
