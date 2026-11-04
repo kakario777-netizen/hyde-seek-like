@@ -65,11 +65,6 @@ jobs:
       - name: 버전 번호 확인 (설치된 앱보다 커야 업데이트됨)
         run: grep -E "version/(code|name)" export_presets.cfg
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: hanyang-hide-apk
-          path: build/hanyang-hide.apk
-
       - name: 릴리스에 APK 올리기
         uses: softprops/action-gh-release@v2
         with:
