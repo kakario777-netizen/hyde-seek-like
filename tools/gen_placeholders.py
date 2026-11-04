@@ -84,6 +84,12 @@ def figure(o):
     return out.resize(((W + 2) * SC, (H + 2) * SC), Image.NEAREST)
 
 CHARS = {
+    "seohwi_dutch": {"robe": "#1e1a22", "robe2": "#efe8d8", "sash": "#6e4a2e", "hair": "#d8b45a", "eye": "#3a7ad0", "glasses": True, "bangs": True, "hat": "garima"},
+    "hero_adult": {"robe": "#c8566a", "robe2": "#f3e6c8", "sash": "#7a2e4a", "hair": "#4a2a1a", "long_hair": True, "hat": "bun", "blush": True},
+    "heo_ill": {"robe": "#d8d2c4", "robe2": "#efe8d8", "sash": "#8a8270", "hair": "#a8a49c", "beard": "#c8c4bc", "dark_eyes": True, "skin": "#e0c8b0"},
+    "dutch_child": {"robe": "#4a6aa0", "robe2": "#f3e6c8", "sash": "#a8443a", "hair": "#e8d080", "eye": "#3a7ad0", "bangs": True, "blush": True},
+    "haejeok": {"robe": "#5a4a3a", "robe2": "#a8443a", "sash": "#2a1d1a", "hair": "#2a1d1a", "hat": "messy", "arms": "fight", "beard": "#3a2a20"},
+    "rat": {"robe": "#6a6058", "robe2": "#4a4038", "sash": "#3a3028", "hair": "#4a4038", "skin": "#8a7a70", "eye": "#c0392b", "hat": "messy", "arms": "fight"},
     "jongsagwan": {"robe": "#1e1a22", "robe2": "#9a2c22", "sash": "#d9b45a", "hat": "gat", "tassel": "#c0392b", "badge": "#d9b45a"},
     "jongsagwan_blush": {"robe": "#1e1a22", "robe2": "#9a2c22", "sash": "#d9b45a", "hat": "gat", "tassel": "#c0392b", "badge": "#d9b45a", "blush": True},
     "seohwi": {"robe": "#2c3550", "robe2": "#efe8d8", "sash": "#9a2c22", "hair": "#d8b45a", "eye": "#3a7ad0", "glasses": True, "bangs": True},
@@ -96,7 +102,11 @@ CHARS = {
     "addict": {"robe": "#7a7468", "robe2": "#5a554c", "sash": "#4a4038", "hat": "messy", "dark_eyes": True, "skin": "#d8b89a"},
 }
 
+ONLY = ["seohwi_dutch", "hero_adult", "heo_ill", "dutch_child", "haejeok", "rat"]
+
 if __name__ == "__main__":
     for name, o in CHARS.items():
+        if name not in ONLY:
+            continue
         figure(o).save(os.path.join(OUT, name + ".png"))
         print(name)

@@ -1,0 +1,146 @@
+{
+ "id": "s3_1",
+ "name": "청계천 약재 심부름",
+ "tile": "wood",
+ "bg": "stream",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -1,
+   "type": "buff"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "spike"
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -3,
+   "type": "pojol"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -4,
+   "type": "talk"
+  },
+  {
+   "x": -9,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -6,
+   "type": "item"
+  },
+  {
+   "x": -11,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -6,
+   "type": "spike"
+  },
+  {
+   "x": -12,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -8,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -11,
+   "y": -4,
+   "at": 14,
+   "zone": [
+    13,
+    14,
+    15
+   ],
+   "kind": "walpae"
+  },
+  {
+   "x": -4,
+   "y": -1,
+   "at": 6,
+   "zone": [
+    5,
+    6,
+    7
+   ],
+   "kind": "walpae"
+  }
+ ]
+}

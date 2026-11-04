@@ -1,0 +1,167 @@
+{
+ "id": "s3_2",
+ "name": "종로 뒷골목",
+ "tile": "stone",
+ "bg": "alley",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -2,
+   "type": "talk"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "trap"
+  },
+  {
+   "x": -5,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "shop"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "spike"
+  },
+  {
+   "x": -7,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "pojol"
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -12,
+   "type": "spike"
+  },
+  {
+   "x": -9,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -13,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -8,
+   "y": -8,
+   "at": 15,
+   "zone": [
+    14,
+    15,
+    16
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -6,
+   "y": -2,
+   "at": 7,
+   "zone": [
+    6,
+    7,
+    8
+   ],
+   "kind": "walpae"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "at": 20,
+   "zone": [
+    19,
+    20,
+    21
+   ],
+   "kind": "walpae"
+  }
+ ]
+}

@@ -1,0 +1,144 @@
+{
+ "id": "s4_1",
+ "name": "비 오는 청계천",
+ "tile": "stone",
+ "bg": "stream",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -1,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -3,
+   "type": "item"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -5,
+   "type": "walpae"
+  },
+  {
+   "x": -3,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -5,
+   "type": "spike"
+  },
+  {
+   "x": -5,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -8,
+   "type": "spike"
+  },
+  {
+   "x": -5,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "debuff"
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "talk"
+  },
+  {
+   "x": -9,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -12,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -4,
+   "y": -9,
+   "at": 14,
+   "zone": [
+    13,
+    14,
+    15
+   ],
+   "kind": "walpae"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "at": 6,
+   "zone": [
+    6
+   ],
+   "kind": "pojol"
+  }
+ ]
+}

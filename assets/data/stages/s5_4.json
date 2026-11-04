@@ -1,0 +1,153 @@
+{
+ "id": "s5_4",
+ "name": "허 의원 약방으로",
+ "tile": "stone",
+ "bg": "yakbang",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -1,
+   "type": "spike"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -3,
+   "y": -3,
+   "type": "item"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "talk"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "spike"
+  },
+  {
+   "x": -6,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "walpae"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "type": "pojol"
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -10,
+   "type": "trap"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -12,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -3,
+   "y": -5,
+   "at": 7,
+   "zone": [
+    7
+   ],
+   "kind": "walpae"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "at": 20,
+   "zone": [
+    19,
+    20
+   ],
+   "kind": "walpae"
+  }
+ ]
+}

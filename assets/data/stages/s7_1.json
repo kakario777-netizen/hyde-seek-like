@@ -1,0 +1,144 @@
+{
+ "id": "s7_1",
+ "name": "역병 도는 마을",
+ "tile": "brick",
+ "bg": "holland",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "item"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "spike"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "talk"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "talk"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "pojol"
+  },
+  {
+   "x": -9,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -8,
+   "y": -9,
+   "at": 16,
+   "zone": [
+    15,
+    17
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -4,
+   "y": -3,
+   "at": 8,
+   "zone": [
+    8,
+    9
+   ],
+   "kind": "pojol"
+  }
+ ]
+}

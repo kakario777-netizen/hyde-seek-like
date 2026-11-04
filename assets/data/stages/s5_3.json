@@ -1,0 +1,156 @@
+{
+ "id": "s5_3",
+ "name": "궁궐 담장 아래",
+ "tile": "palace",
+ "bg": "palace",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -1,
+   "type": "spike"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -3,
+   "type": "buff"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "walpae"
+  },
+  {
+   "x": -7,
+   "y": -5,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "rest"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -11,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -10,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -4,
+   "y": -5,
+   "at": 8,
+   "zone": [
+    7,
+    8,
+    9
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "at": 13,
+   "zone": [
+    12,
+    14
+   ],
+   "kind": "walpae"
+  },
+  {
+   "x": -11,
+   "y": -6,
+   "at": 18,
+   "zone": [
+    17,
+    18,
+    19
+   ],
+   "kind": "pojol"
+  }
+ ]
+}

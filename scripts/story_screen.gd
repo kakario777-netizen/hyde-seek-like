@@ -136,17 +136,24 @@ func _jump(label: String) -> void:
 
 func _next() -> void:
 	idx += 1
+	while idx < lines.size():
+		var ln: Dictionary = lines[idx]
+		if (ln.has("if") and not main.flags.has(ln["if"])) or (ln.has("ifnot") and main.flags.has(ln["ifnot"])):
+			idx += 1
+			continue
+		break
 	if idx >= lines.size():
 		_finish()
 		return
 	var line: Dictionary = lines[idx]
+	main.apply_line_effects(line)
 	if line.has("bg"):
 		_set_bg(line["bg"])
 	var who: String = main.fmt(line.get("who", ""))
 	name_tag.visible = who != ""
 	name_lbl.text = who
-	if line.has("pose"):
-		_show_pose(line["pose"])
+	if line.has("pose") or line.has("pic"):
+		_show_pose(line.get("pose", line.get("pic", "")))
 	elif who == "":
 		_show_pose("")
 	text_lbl.text = main.fmt(line["text"])
@@ -201,11 +208,17 @@ func _after_typed() -> void:
 			var b: Button = main.make_button(main.fmt(c["text"]), 32)
 			b.custom_minimum_size = Vector2(0, 110)
 			choice_box.add_child(b)
-			var target: String = c["goto"]
-			b.pressed.connect(func(): _choose(target))
+			var target: String = c.get("goto", "")
+			var flag: String = c.get("set", "")
+			b.pressed.connect(func(): _choose(target, flag))
 
-func _choose(target: String) -> void:
+func _choose(target: String, flag := "") -> void:
 	for ch in choice_box.get_children():
 		ch.queue_free()
 	waiting_choice = false
-	_jump(target)
+	if flag != "":
+		main.flags[flag] = true
+	if target != "":
+		_jump(target)
+	else:
+		_next()

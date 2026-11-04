@@ -1,0 +1,153 @@
+{
+ "id": "s1_2",
+ "name": "문경새재 넘기",
+ "tile": "dirt",
+ "bg": "street_ink",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -1,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -3,
+   "type": "pojol"
+  },
+  {
+   "x": -3,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -3,
+   "type": "debuff"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -5,
+   "type": "buff"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "talk"
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "spike"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "spike"
+  },
+  {
+   "x": -10,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -13,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -3,
+   "y": -4,
+   "at": 6,
+   "zone": [
+    6
+   ],
+   "kind": "walpae"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "at": 16,
+   "zone": [
+    15,
+    17
+   ],
+   "kind": "walpae"
+  }
+ ]
+}

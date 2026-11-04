@@ -1,0 +1,145 @@
+{
+ "id": "s2_2",
+ "name": "열병 마을 지나기",
+ "tile": "grass",
+ "bg": "street_ink",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -2,
+   "type": "shop"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "talk"
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -5,
+   "type": "debuff"
+  },
+  {
+   "x": -8,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "spike"
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "pojol"
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "spike"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -7,
+   "y": -6,
+   "at": 14,
+   "zone": [
+    14,
+    15
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -7,
+   "y": -2,
+   "at": 8,
+   "zone": [
+    7,
+    8,
+    9
+   ],
+   "kind": "walpae"
+  }
+ ]
+}

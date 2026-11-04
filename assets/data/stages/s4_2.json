@@ -1,0 +1,165 @@
+{
+ "id": "s4_2",
+ "name": "군산 포구 뒤지기",
+ "tile": "wood",
+ "bg": "street_ink",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -1,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -2,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -5,
+   "type": "talk"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "trap"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "type": "spike"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -8,
+   "type": "shop"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -10,
+   "type": "pojol"
+  },
+  {
+   "x": -12,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -10,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -10,
+   "y": -7,
+   "at": 18,
+   "zone": [
+    17,
+    18
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "at": 12,
+   "zone": [
+    11,
+    12
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -1,
+   "y": -3,
+   "at": 5,
+   "zone": [
+    4,
+    5,
+    6
+   ],
+   "kind": "pojol"
+  }
+ ]
+}

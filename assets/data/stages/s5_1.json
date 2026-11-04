@@ -1,0 +1,125 @@
+{
+ "id": "s5_1",
+ "name": "내의원 환자 돌보기",
+ "tile": "palace",
+ "bg": "palace",
+ "turns": 9,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "talk"
+  },
+  {
+   "x": -4,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "spike"
+  },
+  {
+   "x": -4,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "spike"
+  },
+  {
+   "x": -8,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "item"
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -7,
+   "y": -4,
+   "at": 10,
+   "zone": [
+    9,
+    10,
+    11
+   ],
+   "kind": "pojol"
+  }
+ ]
+}

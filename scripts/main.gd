@@ -6,6 +6,7 @@ var BODY_FONT: FontFile = load("res://assets/fonts/GowunBatang-Bold.ttf")
 var HANJA_FONT: FontFile = load("res://assets/fonts/Hanja-Subset.otf")
 const StoryScreen := preload("res://scripts/story_screen.gd")
 const BoardScreen := preload("res://scripts/board_screen.gd")
+const StageScreen := preload("res://scripts/stage_screen.gd")
 const BattleScreen := preload("res://scripts/battle_screen.gd")
 const TitleScreen := preload("res://scripts/title_screen.gd")
 const AudioMgr := preload("res://scripts/audio.gd")
@@ -15,7 +16,7 @@ const INK_SOFT := Color("5a4030")
 const RED := Color("9a2c22")
 const GOLD := Color("d9b45a")
 const LIGHT := Color("f3e6c8")
-const STEP_WORD := ["", "한", "두", "세", "네", "다섯"]
+const STEP_WORD := ["", "한", "두", "세", "네", "다섯", "여섯"]
 
 # 진행 상태
 var hero_name := "연이"
@@ -25,6 +26,7 @@ var coins := 0
 var potions := 2
 var deck: Array = []
 var chapter := 1
+var stage_idx := 0
 var flags := {}
 var next_energy := 0   # 다음 전투 첫 차례 기력 보너스
 var next_guard := 0    # 다음 전투 시작 막기
@@ -71,7 +73,49 @@ func _debug_capture() -> void:
 		"end": play_story(GameData.CHAPTER1_END.slice(int(args.get("from", "0"))), show_title)
 		"board":
 			chapter = int(args.get("ch", "1"))
+			stage_idx = int(args.get("st", "0"))
 			start_board()
+		"flow":
+			# 자동으로 버튼·대사를 넘기며 흐름이 끊기지 않는지 확인
+			chapter = int(args.get("ch", "1"))
+			stage_idx = int(args.get("st", "0"))
+			start_board()
+			await get_tree().create_timer(1.5).timeout
+			if args.has("clear"):
+				board._stage_clear()
+			if args.has("chclear"):
+				chapter_clear()
+			for k in int(args.get("steps", "40")):
+				await get_tree().create_timer(0.5).timeout
+				var clicked := false
+				for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+					for b in l.find_children("*", "Button", true, false):
+						if b.is_visible_in_tree() and not b.disabled:
+							b.pressed.emit(); clicked = true; break
+					if clicked: break
+				if not clicked and current and current.has_method("_advance"):
+					current.typing = false
+					if current.waiting_choice:
+						for b in current.choice_box.get_children():
+							b.pressed.emit(); break
+					else:
+						current._advance()
+			print("FLOW chapter=", chapter, " stage=", stage_idx, " phase=", phase, " screen=", current.get_script().resource_path.get_file() if current else "none")
+		"stagewalk":
+			chapter = int(args.get("ch", "1"))
+			stage_idx = int(args.get("st", "0"))
+			start_board()
+			await get_tree().create_timer(1.0).timeout
+			if is_instance_valid(get_tree().root.find_child("Panel", true, false)):
+				pass
+			await get_tree().create_timer(1.2).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
+			board.busy = false
+			board._deal()
+			await get_tree().create_timer(0.8).timeout
+			if not args.has("still"):
+				board.card_row.get_child(0).pressed.emit()
 		"chstory":
 			chapter = int(args.get("ch", "2"))
 			play_story(StoryData.lines(args.get("key", "CH2_INTRO")).slice(int(args.get("from", "0"))), show_title)
@@ -161,7 +205,7 @@ func show_title() -> void:
 func new_game() -> void:
 	ask_name(func():
 		max_hp = 40; hp = 40; coins = 0; potions = 2
-		chapter = 1; flags = {}; next_energy = 0; next_guard = 0
+		chapter = 1; stage_idx = 0; flags = {}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
 		phase = "prologue"
 		play_story(chapter_lines("intro"), start_board))
@@ -187,7 +231,7 @@ func play_story(lines: Array, on_done: Callable) -> void:
 func start_board() -> void:
 	hp = max_hp
 	next_energy = 0; next_guard = 0
-	board = BoardScreen.new()
+	board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
 	phase = "board"
 	_swap(board)
 	autosave.call_deferred("자동 저장")
@@ -217,6 +261,10 @@ func chapter_clear() -> void:
 	play_story(chapter_lines("end"), func():
 		if cfg.has("end_battle"):
 			_end_duel(cfg)
+		elif cfg.has("epilogue"):
+			play_story(StoryData.lines(cfg["epilogue"]), func():
+				phase = "title"
+				show_title())
 		else:
 			_next_chapter())
 
@@ -229,9 +277,18 @@ func _end_duel(cfg: Dictionary) -> void:
 		holder.queue_free(); board = null
 		play_story(StoryData.lines(cfg.get("end_after", "")), _next_chapter), {"lose_ok": true, "no_reward": true})
 
+## 작은 맵 하나를 끝내고 다음 맵으로
+func next_stage() -> void:
+	stage_idx += 1
+	if board:
+		board.queue_free(); board = null
+	current = null
+	start_board()
+
 func _next_chapter() -> void:
 	if StoryData.CHAPTERS.has(chapter + 1):
 		chapter += 1
+		stage_idx = 0
 		phase = "prologue"
 		play_story(chapter_lines("intro"), start_board)
 		autosave.call_deferred("새 장 자동 저장")
@@ -321,11 +378,13 @@ func ask_name(cb: Callable) -> void:
 		if cb.is_valid():
 			cb.call())
 
+const DISGUISED := [2, 3, 4, 6, 7]
+
 func token_name() -> String:
-	return "token_disguise" if chapter >= 2 and chapter <= 4 else "token_hero"
+	return "token_disguise" if chapter in DISGUISED else "token_hero"
 
 func face_name() -> String:
-	return "face_token" if chapter >= 2 and chapter <= 4 else "face_hero"
+	return "face_token" if chapter in DISGUISED else "face_hero"
 
 func is_placeholder(pic: String) -> bool:
 	return pic in StoryData.PLACEHOLDERS
@@ -863,7 +922,7 @@ func _save_path(slot: String) -> String:
 	return "user://save_%s.json" % slot
 
 func snapshot() -> Dictionary:
-	var d := {"ver": 1, "phase": phase, "hero_name": hero_name, "alias_name": alias_name, "max_hp": max_hp, "hp": hp,
+	var d := {"ver": 2, "phase": phase, "stage_idx": stage_idx, "hero_name": hero_name, "alias_name": alias_name, "max_hp": max_hp, "hp": hp,
 		"coins": coins, "potions": potions, "deck": deck, "chapter": chapter, "flags": flags,
 		"next_energy": next_energy, "next_guard": next_guard,
 		"time": Time.get_datetime_string_from_system(false, true)}
@@ -909,6 +968,7 @@ func load_game(slot: String) -> void:
 	max_hp = int(d.get("max_hp", 40)); hp = int(d.get("hp", max_hp))
 	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))
 	chapter = int(d.get("chapter", 1)); flags = d.get("flags", {})
+	stage_idx = int(d.get("stage_idx", 0))
 	next_energy = int(d.get("next_energy", 0)); next_guard = int(d.get("next_guard", 0))
 	deck = []
 	for e in d.get("deck", []):
@@ -917,9 +977,9 @@ func load_game(slot: String) -> void:
 		deck = make_deck(GameData.START_DECK)
 	if board:
 		board.queue_free(); board = null
-	if d.get("phase", "") == "board" and d.has("board"):
+	if d.get("phase", "") == "board" and d.has("board") and int(d.get("ver", 1)) >= 2:
 		phase = "board"
-		board = BoardScreen.new()
+		board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
 		board.restore = d["board"]
 		_swap(board)
 	else:
@@ -931,7 +991,7 @@ func _slot_label(slot: String) -> String:
 	var head := "자동 저장" if slot == "auto" else "%s번 칸" % slot
 	if d.is_empty():
 		return "%s\n— 비어 있음 —" % head
-	var where := "제%d장 시작" % int(d.get("chapter", 1)) if d.get("phase", "") != "board" else "제%d장 · %s · 남은 날 %d일" % [int(d.get("chapter", 1)), d.get("place", ""), int(d.get("board", {}).get("days_left", 0))]
+	var where := "제%d장 시작" % int(d.get("chapter", 1)) if d.get("phase", "") != "board" else "제%d장 · %s" % [int(d.get("chapter", 1)), d.get("place", "")]
 	return "%s · %s\n%s · %s" % [head, d.get("hero_name", ""), where, str(d.get("time", "")).replace("T", " ").left(16)]
 
 ## mode: "save" 또는 "load"

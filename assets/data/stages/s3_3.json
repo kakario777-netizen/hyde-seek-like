@@ -1,0 +1,157 @@
+{
+ "id": "s3_3",
+ "name": "남산 아래 결투",
+ "tile": "dirt",
+ "bg": "title",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "spike"
+  },
+  {
+   "x": -4,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -1,
+   "type": "rest"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "walpae"
+  },
+  {
+   "x": -7,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -5,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -11,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -8,
+   "type": "boss",
+   "battle": "seohwi2",
+   "pre": "C3_BOSS",
+   "post": "C3_BOSS_WIN"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -9,
+   "type": "spike"
+  },
+  {
+   "x": -13,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -9,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -8,
+   "y": -4,
+   "at": 11,
+   "zone": [
+    10,
+    12
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -4,
+   "y": 1,
+   "at": 4,
+   "zone": [
+    3,
+    4
+   ],
+   "kind": "walpae"
+  }
+ ]
+}

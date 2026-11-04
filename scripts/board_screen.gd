@@ -5,7 +5,7 @@ var main
 var restore: Dictionary = {}   # 불러오기한 진행 상태
 
 const DAY_LIMIT := 30
-const STEP_VALUES := [1, 2, 2, 3, 3, 4]
+const STEP_VALUES := [1, 2, 3, 4, 5, 6]
 const ENEMY_TYPES := ["pojol", "walpae"]
 const HOP_TIME := 0.3      # 한 칸 뛰는 시간
 const STEP_PAUSE := 0.14   # 칸 사이 쉼
@@ -50,7 +50,7 @@ func _ready() -> void:
 		for k in restore.get("cleared", []):
 			cleared[int(k)] = true
 
-	var bt: Texture2D = main.backdrop("street_ink")
+	var bt: Texture2D = main.backdrop("title" if cfg.get("world", false) else "street_ink")
 	if bt:
 		var bgr := TextureRect.new()
 		bgr.texture = bt
@@ -376,7 +376,7 @@ func _resolve() -> void:
 	match t:
 		"talk":
 			_clear(pos)
-			var pool: Array = StoryData.TALKS.get(main.chapter, GameData.TALKS)
+			var pool: Array = StoryData.talks(main.chapter)
 			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
 			var extra := ""

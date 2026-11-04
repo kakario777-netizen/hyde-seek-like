@@ -83,7 +83,7 @@ func _ready() -> void:
 	setb.pressed.connect(func(): main.open_settings())
 	main.bgm("title")
 
-	var ver: Label = main.ink_text(main.make_label("v0.9 일러스트 완성판", 24, Color("e0d0b0")), 6)
+	var ver: Label = main.ink_text(main.make_label("v1.0 작은 맵·만리길판", 24, Color("e0d0b0")), 6)
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(ver)
 	var cr: Label = main.ink_text(main.make_label("아이콘 game-icons.net(CC BY 3.0)\n질감 ambientCG(CC0) · 글꼴 송명·고운바탕(OFL)", 18, Color("cbb898")), 4)

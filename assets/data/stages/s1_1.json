@@ -1,0 +1,145 @@
+{
+ "id": "s1_1",
+ "name": "운종가를 지나 도망치기",
+ "tile": "stone",
+ "bg": "jangteo",
+ "turns": 10,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "spike"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "item"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -5,
+   "type": "talk"
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -7,
+   "type": "spike"
+  },
+  {
+   "x": -5,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -9,
+   "type": "walpae"
+  },
+  {
+   "x": -7,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -11,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -12,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -6,
+   "y": -9,
+   "at": 16,
+   "zone": [
+    15,
+    17
+   ],
+   "kind": "pojol"
+  },
+  {
+   "x": -4,
+   "y": -8,
+   "at": 11,
+   "zone": [
+    10,
+    11,
+    12
+   ],
+   "kind": "walpae"
+  }
+ ]
+}
