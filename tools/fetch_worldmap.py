@@ -14,7 +14,7 @@ def get(u, b=True):
 for q in ["Kunyu Wanguo Quantu", "곤여만국전도", "Gonyeo mangukjeondo", "Cheonhado map", "Kangnido", "Ricci world map 1602"]:
     t = get("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode({
         "action": "query", "generator": "search", "gsrsearch": q, "gsrnamespace": 6, "gsrlimit": 5,
-        "prop": "imageinfo", "iiprop": "url|extmetadata|size", "iiurlwidth": 3000, "format": "json"}), False)
+        "prop": "imageinfo", "iiprop": "url|extmetadata|size", "iiurlwidth": 4000, "format": "json"}), False)
     time.sleep(3)
     if not t:
         continue
@@ -23,7 +23,7 @@ for q in ["Kunyu Wanguo Quantu", "곤여만국전도", "Gonyeo mangukjeondo", "C
         lic = ii.get("extmetadata", {}).get("LicenseShortName", {}).get("value", "?")
         url = ii.get("thumburl") or ii.get("url")
         log.append(f"FOUND {p['title']} {lic} {ii.get('width')}x{ii.get('height')}")
-        if url and ("Public domain" in lic or "PD" in lic) and url.lower().endswith((".jpg", ".jpeg", ".png")):
+        if url and ("Public domain" in lic or "PD" in lic) and url.split("?")[0].lower().endswith((".jpg", ".jpeg", ".png")) and "Kunyu Wanguo Quantu (" in p["title"] and "Middle" not in p["title"]:
             d = get(url); time.sleep(4)
             if d:
                 name = re.sub(r"[^0-9A-Za-z._-]+", "_", p["title"].replace("File:", ""))[-80:]
