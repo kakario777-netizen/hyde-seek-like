@@ -3,7 +3,7 @@
  "name": "청계천 약재 심부름",
  "tile": "wood",
  "bg": "stream",
- "turns": 10,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -28,7 +28,7 @@
   {
    "x": -3,
    "y": -1,
-   "type": "buff"
+   "type": "item"
   },
   {
    "x": -3,
@@ -38,39 +38,38 @@
   {
    "x": -4,
    "y": -2,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -2,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -6,
    "y": -2,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -6,
    "y": -3,
-   "type": "pojol"
-  },
-  {
-   "x": -6,
-   "y": -4,
    "type": "empty"
   },
   {
-   "x": -7,
+   "x": -6,
    "y": -4,
    "type": "empty",
    "herb": true
   },
   {
+   "x": -7,
+   "y": -4,
+   "type": "empty"
+  },
+  {
    "x": -8,
    "y": -4,
-   "type": "talk"
+   "type": "spike"
   },
   {
    "x": -9,
@@ -91,7 +90,7 @@
   {
    "x": -10,
    "y": -6,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -11,
@@ -101,7 +100,8 @@
   {
    "x": -12,
    "y": -6,
-   "type": "spike"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
@@ -111,36 +111,142 @@
   {
    "x": -12,
    "y": -8,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -13,
    "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -8,
+   "type": "spike"
+  },
+  {
+   "x": -15,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -8,
+   "type": "boss",
+   "battle": "dogyeol",
+   "pre": "C3_DG_FIGHT",
+   "post": "C3_DG_AFTER"
+  },
+  {
+   "x": -16,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -10,
+   "type": "shop"
+  },
+  {
+   "x": -18,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -10,
+   "type": "talk"
+  },
+  {
+   "x": -20,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -12,
+   "type": "pojol"
+  },
+  {
+   "x": -21,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -13,
+   "type": "buff"
+  },
+  {
+   "x": -22,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -16,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -11,
-   "y": -4,
-   "at": 14,
+   "x": -16,
+   "y": -10,
+   "at": 26,
    "zone": [
-    13,
-    14,
-    15
+    25,
+    26
    ],
-   "kind": "walpae"
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -11,
+   "y": -6,
+   "at": 17,
+   "zone": [
+    16,
+    17,
+    18
+   ],
+   "kind": "pojol",
+   "on_path": true
   },
   {
    "x": -4,
-   "y": -1,
+   "y": -2,
    "at": 6,
    "zone": [
     5,
-    6,
-    7
+    6
    ],
-   "kind": "walpae"
+   "kind": "walpae",
+   "on_path": true
   }
  ]
 }

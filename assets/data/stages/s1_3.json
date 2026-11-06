@@ -3,7 +3,7 @@
  "name": "백운 노인 찾아가기",
  "tile": "grass",
  "bg": "byeolchae",
- "turns": 10,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -23,8 +23,7 @@
   {
    "x": 0,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -1,
@@ -34,18 +33,17 @@
   {
    "x": -2,
    "y": -3,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -3,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -4,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -4,
@@ -55,7 +53,8 @@
   {
    "x": -4,
    "y": -5,
-   "type": "spike"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
@@ -70,13 +69,12 @@
   {
    "x": -5,
    "y": -7,
-   "type": "talk"
+   "type": "trap"
   },
   {
    "x": -6,
    "y": -7,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -6,
@@ -96,12 +94,13 @@
   {
    "x": -6,
    "y": -11,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -11,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -8,
@@ -111,7 +110,7 @@
   {
    "x": -8,
    "y": -12,
-   "type": "walpae"
+   "type": "talk"
   },
   {
    "x": -8,
@@ -126,30 +125,136 @@
   {
    "x": -8,
    "y": -15,
+   "type": "spike"
+  },
+  {
+   "x": -9,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -17,
+   "type": "pojol"
+  },
+  {
+   "x": -11,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -17,
+   "type": "talk"
+  },
+  {
+   "x": -14,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -19,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -14,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -21,
+   "type": "walpae"
+  },
+  {
+   "x": -15,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -23,
+   "type": "spike"
+  },
+  {
+   "x": -17,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -23,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -2,
-   "y": -4,
-   "at": 5,
+   "x": -8,
+   "y": -14,
+   "at": 22,
    "zone": [
-    4,
-    5,
-    6
+    21,
+    22,
+    23
    ],
-   "kind": "pojol"
+   "kind": "pojol",
+   "on_path": true
   },
   {
-   "x": -9,
-   "y": -11,
-   "at": 19,
+   "x": -1,
+   "y": -3,
+   "at": 4,
    "zone": [
-    18,
-    19
+    3,
+    4,
+    5
    ],
-   "kind": "walpae"
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -13,
+   "y": -17,
+   "at": 30,
+   "zone": [
+    29,
+    30
+   ],
+   "kind": "pojol",
+   "on_path": true
   }
  ]
 }

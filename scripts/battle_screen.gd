@@ -8,7 +8,7 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
-const BATTLE_BG := {"baegun": "vault", "darae": "vault", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
+const BATTLE_BG := {"haejeok": "sea", "dogyeol": "street_ink", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "vault", "darae": "vault", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -48,12 +48,17 @@ var banner: Label
 
 func _ready() -> void:
 	enemy = GameData.ENEMIES[enemy_id].duplicate(true)
-	# 장이 오를수록 잡졸은 조금씩 강해진다 (보스는 정해진 그대로)
-	if not enemy.get("boss", false) and main.chapter > 1:
-		var k: float = 1.0 + 0.12 * (main.chapter - 1)
-		enemy["hp"] = int(round(enemy["hp"] * k))
+	# 난이도: 전체적으로 더 단단하고 아프게 + 장이 오를수록 잡졸은 더 강해진다
+	var boss: bool = enemy.get("boss", false)
+	var hk: float = 1.3 if boss else 1.4
+	var dk: float = 1.2 if boss else 1.25
+	if not boss and main.chapter > 1:
+		hk *= 1.0 + 0.15 * (main.chapter - 1)
+		dk *= 1.0 + 0.12 * (main.chapter - 1)
+	if enemy_id != "darae":
+		enemy["hp"] = int(round(enemy["hp"] * hk))
 		for mv in enemy["moves"] + [enemy["heavy"]]:
-			mv["v"] = int(round(mv["v"] * k))
+			mv["v"] = int(round(mv["v"] * dk))
 	e_hp = enemy["hp"]
 	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
 
@@ -142,7 +147,7 @@ func _ready() -> void:
 	hb.add_child(info)
 	var r1 := HBoxContainer.new()
 	info.add_child(r1)
-	var me: Label = main.make_label(main.hero_name if main.chapter < 2 else main.alias(), 30, main.GOLD, true)
+	var me: Label = main.make_label(main.alias() if main.chapter in main.DISGUISED else main.hero_name, 30, main.GOLD, true)
 	me.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	r1.add_child(me)
 	shield_lbl = main.make_label("", 26, Color("b8d4f0"), true)

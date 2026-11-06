@@ -3,7 +3,7 @@
  "name": "열병 마을 지나기",
  "tile": "grass",
  "bg": "street_ink",
- "turns": 10,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -23,34 +23,34 @@
   {
    "x": -2,
    "y": -1,
-   "type": "empty"
+   "type": "item"
   },
   {
    "x": -2,
    "y": -2,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -2,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -2,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -2,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -6,
    "y": -2,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -6,
@@ -75,7 +75,7 @@
   {
    "x": -8,
    "y": -5,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -8,
@@ -85,18 +85,18 @@
   {
    "x": -8,
    "y": -7,
-   "type": "spike"
-  },
-  {
-   "x": -8,
-   "y": -8,
    "type": "empty",
    "herb": true
   },
   {
    "x": -8,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -8,
    "y": -9,
-   "type": "pojol"
+   "type": "spike"
   },
   {
    "x": -9,
@@ -106,40 +106,155 @@
   {
    "x": -10,
    "y": -9,
-   "type": "spike"
-  },
-  {
-   "x": -10,
-   "y": -10,
    "type": "empty"
   },
   {
    "x": -10,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
    "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "shop"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "debuff"
+  },
+  {
+   "x": -14,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -15,
+   "type": "talk"
+  },
+  {
+   "x": -14,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "pojol"
+  },
+  {
+   "x": -16,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -17,
+   "type": "spike"
+  },
+  {
+   "x": -16,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -20,
+   "type": "pojol"
+  },
+  {
+   "x": -20,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -20,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -7,
-   "y": -6,
-   "at": 14,
+   "x": -6,
+   "y": -5,
+   "at": 11,
    "zone": [
-    14,
-    15
+    11,
+    12
    ],
-   "kind": "pojol"
+   "kind": "pojol",
+   "on_path": true
   },
   {
-   "x": -7,
+   "x": -4,
    "y": -2,
-   "at": 8,
+   "at": 6,
    "zone": [
-    7,
-    8,
-    9
+    5,
+    6,
+    7
    ],
-   "kind": "walpae"
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -19,
+   "y": -18,
+   "at": 37,
+   "zone": [
+    36,
+    37,
+    38
+   ],
+   "kind": "walpae",
+   "on_path": true
   }
  ]
 }

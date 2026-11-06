@@ -3,7 +3,7 @@
  "name": "도적의 소굴 찾아가기",
  "tile": "cave",
  "bg": "vault",
- "turns": 11,
+ "turns": 17,
  "tiles": [
   {
    "x": 0,
@@ -23,28 +23,27 @@
   {
    "x": -3,
    "y": 0,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -3,
    "y": -1,
-   "type": "walpae"
-  },
-  {
-   "x": -3,
-   "y": -2,
    "type": "empty"
   },
   {
    "x": -3,
+   "y": -2,
+   "type": "spike"
+  },
+  {
+   "x": -3,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -4,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -54,48 +53,48 @@
   {
    "x": -5,
    "y": -4,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -5,
    "y": -5,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -6,
-   "type": "empty"
-  },
-  {
-   "x": -5,
-   "y": -7,
-   "type": "spike"
-  },
-  {
-   "x": -6,
-   "y": -7,
-   "type": "empty"
-  },
-  {
-   "x": -7,
-   "y": -7,
-   "type": "pojol"
-  },
-  {
-   "x": -8,
-   "y": -7,
    "type": "empty",
    "herb": true
   },
   {
+   "x": -5,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -7,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "empty"
+  },
+  {
    "x": -8,
    "y": -8,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -8,
@@ -116,7 +115,7 @@
   {
    "x": -10,
    "y": -11,
-   "type": "trap"
+   "type": "rest"
   },
   {
    "x": -11,
@@ -126,39 +125,148 @@
   {
    "x": -12,
    "y": -11,
-   "type": "spike"
-  },
-  {
-   "x": -12,
-   "y": -12,
    "type": "empty"
   },
   {
    "x": -12,
+   "y": -12,
+   "type": "trap"
+  },
+  {
+   "x": -12,
    "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "boss",
+   "battle": "baegun_mask",
+   "pre": "C4_MASK2",
+   "post": "C4_MASK2_FLEE"
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -15,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -17,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -17,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -17,
+   "type": "shop"
+  },
+  {
+   "x": -18,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -21,
+   "type": "spike"
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -23,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -5,
-   "y": -3,
-   "at": 9,
+   "x": -12,
+   "y": -11,
+   "at": 23,
    "zone": [
-    8,
-    9
+    22,
+    23
    ],
-   "kind": "walpae"
+   "kind": "pojol",
+   "on_path": true
   },
   {
-   "x": -10,
-   "y": -12,
-   "at": 21,
+   "x": -8,
+   "y": -7,
+   "at": 15,
    "zone": [
-    20,
-    22
+    14,
+    15,
+    16
    ],
-   "kind": "pojol"
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -17,
+   "y": -17,
+   "at": 34,
+   "zone": [
+    33,
+    34
+   ],
+   "kind": "pojol",
+   "on_path": true
   }
  ]
 }

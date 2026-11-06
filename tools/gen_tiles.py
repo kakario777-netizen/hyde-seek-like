@@ -121,17 +121,63 @@ def deco_herb():
     return im
 
 def deco_gate():
-    im = Image.new("RGBA", (TW, 170), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-    d.rectangle([28, 60, 40, 150], fill=C("#7a2a20")); d.rectangle([120, 60, 132, 150], fill=C("#7a2a20"))
-    d.rectangle([40, 70, 120, 150], fill=C("#5a3a22"))
-    d.line([(80, 70), (80, 150)], fill=C("#2a1a10"), width=3)
-    for y in (90, 120):
-        d.ellipse([70, y, 76, y + 6], fill=C("#d9b45a")); d.ellipse([84, y, 90, y + 6], fill=C("#d9b45a"))
-    d.polygon([(4, 62), (156, 62), (140, 34), (20, 34)], fill=C("#3a3e48"))
-    d.polygon([(0, 66), (12, 58), (148, 58), (160, 66), (150, 62), (10, 62)], fill=C("#2a2e36"))
-    d.rectangle([24, 26, 136, 34], fill=C("#2a2e36"))
-    d.rectangle([56, 40, 104, 54], fill=C("#1e1a22")); d.rectangle([60, 43, 100, 51], fill=C("#d9b45a"))
-    return im
+    """도착문: 단청 일주문 + 금빛 후광 (4배로 그려 줄여서 매끈하게, 결과 320x340)"""
+    from PIL import ImageFilter
+    import math
+    K = 8; W, H = 160 * K // 2, 170 * K // 2  # 640x680
+    s = lambda v: int(v * K / 2)
+    im = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0)); g = ImageDraw.Draw(glow)
+    for r in range(s(78), 0, -s(3)):
+        a = int(110 * (1 - r / s(78)) ** 1.6)
+        g.ellipse([W / 2 - r, s(98) - r * 1.1, W / 2 + r, s(98) + r * 1.1], fill=(255, 214, 120, a))
+    im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(s(4))))
+    d = ImageDraw.Draw(im)
+    OUT_ = C("#2a1610")
+    # 돌계단
+    for k, (w, y) in enumerate([(70, 160), (62, 154), (54, 148)]):
+        d.rounded_rectangle([W / 2 - s(w), s(y), W / 2 + s(w), s(y + 7)], s(2), fill=C(["#8f8a80", "#a49e92", "#b9b3a6"][k]), outline=OUT_, width=s(1))
+    # 기둥 (붉은 칠 + 밝은 면)
+    for x in (34, 112):
+        d.rounded_rectangle([s(x), s(58), s(x + 14), s(150)], s(3), fill=C("#b0302a"), outline=OUT_, width=s(1.2))
+        d.rectangle([s(x + 2), s(60), s(x + 5), s(148)], fill=C("#d9574a"))
+        d.rounded_rectangle([s(x - 3), s(140), s(x + 17), s(150)], s(2), fill=C("#9a948a"), outline=OUT_, width=s(1))
+    # 문 안쪽: 은은한 빛
+    inner = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ig = ImageDraw.Draw(inner)
+    ig.rectangle([s(48), s(70), s(112), s(148)], fill=(255, 236, 170, 150))
+    im.alpha_composite(inner.filter(ImageFilter.GaussianBlur(s(3))))
+    d = ImageDraw.Draw(im)
+    # 창방·단청 띠
+    d.rectangle([s(26), s(54), s(134), s(64)], fill=C("#2f7a5e"), outline=OUT_, width=s(1))
+    for i in range(9):
+        x = s(30 + i * 12)
+        d.ellipse([x, s(55.5), x + s(7), s(62.5)], fill=C("#e8c35a"), outline=C("#c0392b"), width=s(0.8))
+    d.rectangle([s(26), s(64), s(134), s(68)], fill=C("#2b5f9e"), outline=OUT_, width=s(0.8))
+    # 공포(받침)
+    for x in (30, 58, 88, 116):
+        d.rectangle([s(x), s(46), s(x + 14), s(54)], fill=C("#3a8a6a"), outline=OUT_, width=s(0.8))
+        d.rectangle([s(x + 3), s(48), s(x + 11), s(51)], fill=C("#e05a4a"))
+    # 기와지붕 (처마 끝이 치켜 올라감)
+    roof = [(s(2), s(40)), (s(14), s(46)), (s(80), s(44)), (s(146), s(46)), (s(158), s(40)),
+            (s(150), s(30)), (s(122), s(18)), (s(38), s(18)), (s(10), s(30))]
+    d.polygon(roof, fill=C("#34404e"), outline=OUT_, width=s(1.4))
+    for i in range(1, 14):
+        x = s(10 + i * 10.4)
+        d.line([(x, s(20)), (x + s(1), s(44))], fill=C("#4b5a6c"), width=s(1.6))
+    d.line([(s(14), s(46)), (s(80), s(44)), (s(146), s(46))], fill=C("#1d242c"), width=s(2))
+    d.rounded_rectangle([s(34), s(12), s(126), s(20)], s(3), fill=C("#283240"), outline=OUT_, width=s(1))
+    for x in (34, 126):
+        d.ellipse([s(x - 4), s(10), s(x + 4), s(18)], fill=C("#283240"), outline=OUT_, width=s(1))
+    d.line([(s(16), s(31)), (s(60), s(22))], fill=C("#7f93a8"), width=s(1.2))
+    # 현판
+    d.rounded_rectangle([s(62), s(66), s(98), s(80)], s(1.5), fill=C("#1e1a22"), outline=C("#d9b45a"), width=s(1.2))
+    d.line([(s(68), s(73)), (s(92), s(73))], fill=C("#f0d27a"), width=s(1.6))
+    # 반짝이
+    for (x, y, r) in [(20, 80, 2.2), (142, 70, 2.6), (128, 120, 1.8), (30, 128, 1.6), (80, 6, 2.0)]:
+        cx, cy, rr = s(x), s(y), s(r)
+        d.polygon([(cx, cy - rr * 2), (cx + rr * 0.5, cy), (cx, cy + rr * 2), (cx - rr * 0.5, cy)], fill=(255, 240, 180, 230))
+        d.polygon([(cx - rr * 2, cy), (cx, cy - rr * 0.5), (cx + rr * 2, cy), (cx, cy + rr * 0.5)], fill=(255, 240, 180, 230))
+    return im.resize((320, 340), Image.LANCZOS)
 
 def deco_coin_pile():
     im = Image.new("RGBA", (70, 60), (0, 0, 0, 0)); d = ImageDraw.Draw(im)

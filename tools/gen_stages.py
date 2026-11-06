@@ -5,7 +5,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "assets", "data", "stages")
 os.makedirs(OUT, exist_ok=True)
 
-def make(sid, name, tile, bg, length, seed, watchers=2, blockers=1, spikes=2, herbs=3, events=None, boss=None):
+def make(sid, name, tile, bg, length, seed, watchers=3, blockers=2, spikes=2, herbs=4, events=None, boss=None):
     r = random.Random(seed)
     path = [(0, 0)]
     d = r.choice([0, 1])
@@ -32,7 +32,7 @@ def make(sid, name, tile, bg, length, seed, watchers=2, blockers=1, spikes=2, he
                 used.add(i); return i
     tiles = [{"x": x, "y": y, "type": t} for (x, y), t in zip(path, types)]
     if boss:
-        i = n - 5; used.add(i); tiles[i].update({"type": "boss", **boss})
+        i = int(n * 0.62); used.add(i); tiles[i].update({"type": "boss", **boss})
     for _ in range(blockers):
         i = take(); tiles[i]["type"] = r.choice(["walpae", "pojol"])
     for ev in (events or []):
@@ -42,46 +42,50 @@ def make(sid, name, tile, bg, length, seed, watchers=2, blockers=1, spikes=2, he
     herb_at = []
     for _ in range(herbs):
         i = take(); tiles[i]["herb"] = True; herb_at.append(i)
-    # 감시꾼: 길 옆 칸에 서서 길 2~3칸을 붉게 지킨다 (그 칸에서 멈추면 싸움)
-    onpath = set(path); guards = []
-    cand = list(range(4, n - 3)); r.shuffle(cand)
+    # 감시꾼: 주인공이 가는 길 위에 서 있다. 지나가려면 멈춰서 싸워야 하고, 앞뒤 붉은 칸에 멈춰도 들킨다
+    guards = []
+    cand = [i for i in range(4, n - 3) if tiles[i]["type"] == "empty" and i not in used]
+    r.shuffle(cand)
     for i in cand:
         if len(guards) >= watchers:
             break
         if any(abs(i - g["at"]) < 5 for g in guards):
             continue
+        used.add(i)
         x, y = path[i]
-        side = [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]
-        side = [p for p in side if p not in onpath]
-        if not side:
-            continue
-        gx, gy = r.choice(side)
-        zone = [k for k in range(max(1, i - 1), min(n - 1, i + 2)) if tiles[k]["type"] in ("empty", "spike") or tiles[k].get("herb")]
-        guards.append({"x": gx, "y": gy, "at": i, "zone": zone, "kind": r.choice(["walpae", "pojol"])})
+        zone = [k for k in (i - 1, i, i + 1) if tiles[k]["type"] in ("empty", "spike") or tiles[k].get("herb")]
+        guards.append({"x": x, "y": y, "at": i, "zone": zone, "kind": r.choice(["walpae", "pojol"]), "on_path": True})
     turns = (n + 2) // 3 + 2
     data = {"id": sid, "name": name, "tile": tile, "bg": bg, "turns": turns, "tiles": tiles, "guards": guards}
     json.dump(data, open(os.path.join(OUT, sid + ".json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(sid, "tiles", n, "turns", turns, "guards", len(guards))
 
+DG = lambda pre, post: {"battle": "dogyeol", "pre": pre, "post": post}
+SH = lambda pre, post: {"battle": "shadow_s", "pre": pre, "post": post}
+BM = lambda pre, post: {"battle": "baegun_mask", "pre": pre, "post": post}
 S = [
-    ("s1_1", "운종가를 지나 도망치기", "stone", "jangteo", 22, 11, {"events": ["talk", "item"]}),
-    ("s1_2", "문경새재 넘기", "dirt", "street_ink", 24, 12, {"events": ["talk", "buff", "debuff"]}),
-    ("s1_3", "백운 노인 찾아가기", "grass", "byeolchae", 24, 13, {"events": ["rest", "trap", "talk"]}),
-    ("s2_1", "검문소 피해 가기", "dirt", "street_ink", 22, 21, {"events": ["talk", "buff"], "watchers": 3}),
-    ("s2_2", "열병 마을 지나기", "grass", "street_ink", 22, 22, {"events": ["shop", "debuff", "talk"]}),
-    ("s2_3", "한양 약방으로", "stone", "yakbang", 24, 23, {"events": ["rest", "trap", "talk"], "blockers": 2}),
-    ("s3_1", "청계천 약재 심부름", "wood", "stream", 22, 31, {"events": ["talk", "item", "buff"]}),
-    ("s3_2", "종로 뒷골목", "stone", "alley", 24, 32, {"events": ["shop", "trap", "talk"], "watchers": 3}),
-    ("s3_3", "남산 아래 결투", "dirt", "title", 24, 33, {"events": ["rest", "debuff"], "boss": {"battle": "seohwi2", "pre": "C3_BOSS", "post": "C3_BOSS_WIN"}}),
-    ("s4_1", "비 오는 청계천", "stone", "stream", 22, 41, {"events": ["talk", "debuff", "item"]}),
-    ("s4_2", "군산 포구 뒤지기", "wood", "street_ink", 24, 42, {"events": ["shop", "trap", "talk"], "watchers": 3}),
-    ("s4_3", "도적의 소굴 찾아가기", "cave", "vault", 26, 43, {"events": ["rest", "trap", "buff"], "blockers": 2, "spikes": 3}),
-    ("s5_1", "내의원 환자 돌보기", "palace", "palace", 20, 51, {"events": ["talk", "item"], "watchers": 1, "blockers": 0}),
-    ("s5_2", "종로에서 약재 구하기", "stone", "jangteo", 22, 52, {"events": ["shop", "talk", "debuff"]}),
-    ("s5_3", "궁궐 담장 아래", "palace", "palace", 22, 53, {"events": ["rest", "buff"], "watchers": 3}),
-    ("s5_4", "허 의원 약방으로", "stone", "yakbang", 24, 54, {"events": ["trap", "item", "talk"], "blockers": 2, "spikes": 3}),
-    ("s7_1", "역병 도는 마을", "brick", "holland", 22, 71, {"events": ["talk", "item", "talk"]}),
-    ("s7_2", "풍차 언덕 약초밭", "grass", "holland", 24, 72, {"events": ["rest", "shop", "debuff"], "herbs": 4}),
+    ("s1_1", "운종가를 지나 도망치기", "stone", "jangteo", 40, 11, {"events": ["talk", "item", "shop", "talk", "buff"]}),
+    ("s1_2", "문경새재 넘기", "dirt", "street_ink", 42, 12, {"events": ["talk", "buff", "debuff", "shop", "rest"]}),
+    ("s1_3", "백운 노인 찾아가기", "grass", "byeolchae", 42, 13, {"events": ["rest", "trap", "talk", "shop", "talk"]}),
+    ("s2_1", "검문소 피해 가기", "dirt", "street_ink", 40, 21, {"events": ["talk", "buff", "shop", "trap"], "watchers": 4}),
+    ("s2_2", "열병 마을 지나기", "grass", "street_ink", 42, 22, {"events": ["shop", "debuff", "talk", "item", "talk"]}),
+    ("s2_3", "한양 약방으로", "stone", "yakbang", 44, 23, {"events": ["rest", "trap", "talk", "shop"], "blockers": 2, "boss": DG("C2_DG_FIGHT", "C2_DG_FLEE")}),
+    ("s3_1", "청계천 약재 심부름", "wood", "stream", 40, 31, {"events": ["talk", "item", "buff", "shop"], "boss": DG("C3_DG_FIGHT", "C3_DG_AFTER")}),
+    ("s3_2", "종로 뒷골목", "stone", "alley", 42, 32, {"events": ["shop", "trap", "talk", "rest"], "watchers": 4, "boss": SH("C3_SHADOW", "C3_SHADOW_FLEE")}),
+    ("s3_3", "남산 아래 결투", "dirt", "title", 42, 33, {"events": ["rest", "debuff", "shop", "talk"], "boss": {"battle": "seohwi2", "pre": "C3_BOSS", "post": "C3_BOSS_WIN"}}),
+    ("s4_1", "비 오는 청계천", "stone", "stream", 40, 41, {"events": ["talk", "debuff", "item", "shop"]}),
+    ("s4_2", "군산 포구 뒤지기", "wood", "street_ink", 42, 42, {"events": ["shop", "trap", "talk", "rest"], "watchers": 4, "boss": BM("C4_MASK1", "C4_MASK1_FLEE")}),
+    ("s4_3", "도적의 소굴 찾아가기", "cave", "vault", 44, 43, {"events": ["rest", "trap", "buff", "shop"], "blockers": 2, "spikes": 3, "boss": BM("C4_MASK2", "C4_MASK2_FLEE")}),
+    ("s5_1", "내의원 환자 돌보기", "palace", "palace", 36, 51, {"events": ["talk", "item", "shop", "talk"], "watchers": 2, "blockers": 1}),
+    ("s5_2", "종로에서 약재 구하기", "stone", "jangteo", 40, 52, {"events": ["shop", "talk", "debuff", "shop"]}),
+    ("s5_3", "궁궐 담장 아래", "palace", "palace", 40, 53, {"events": ["rest", "buff", "shop"], "watchers": 4, "boss": SH("C5_SHADOW", "C5_SHADOW_FLEE")}),
+    ("s5_4", "허 의원 약방으로", "stone", "yakbang", 44, 54, {"events": ["trap", "item", "talk", "shop"], "blockers": 2, "spikes": 3}),
+    ("s6_1", "다래와 북한산 오르기", "grass", "stream", 40, 61, {"events": ["talk", "talk", "item", "rest", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
+    ("s6_2", "산마루 약초밭으로", "dirt", "byeolchae", 42, 62, {"events": ["talk", "talk", "buff", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
+    ("s7_1", "역병 도는 마을", "brick", "holland", 40, 71, {"events": ["talk", "item", "talk", "shop"]}),
+    ("s7_2", "풍차 언덕 약초밭", "grass", "holland", 42, 72, {"events": ["rest", "shop", "debuff", "talk"], "herbs": 5}),
+    ("s9_1", "운종가에서 청계천까지", "stone", "jangteo", 40, 91, {"events": ["talk", "talk", "shop", "talk"], "watchers": 3}),
+    ("s9_2", "남산 아래 집터로", "grass", "byeolchae", 42, 92, {"events": ["talk", "talk", "rest", "shop"], "watchers": 3, "blockers": 2}),
 ]
 for sid, name, tile, bg, ln, seed, kw in S:
     make(sid, name, tile, bg, ln, seed, **kw)

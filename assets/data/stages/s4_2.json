@@ -3,7 +3,7 @@
  "name": "군산 포구 뒤지기",
  "tile": "wood",
  "bg": "street_ink",
- "turns": 10,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -23,8 +23,7 @@
   {
    "x": -2,
    "y": -1,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
@@ -34,8 +33,7 @@
   {
    "x": -2,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
@@ -45,7 +43,7 @@
   {
    "x": -3,
    "y": -4,
-   "type": "spike"
+   "type": "trap"
   },
   {
    "x": -4,
@@ -60,7 +58,7 @@
   {
    "x": -5,
    "y": -5,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -5,
@@ -70,23 +68,22 @@
   {
    "x": -6,
    "y": -6,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -7,
    "y": -6,
-   "type": "trap"
-  },
-  {
-   "x": -7,
-   "y": -7,
    "type": "empty"
   },
   {
    "x": -7,
+   "y": -7,
+   "type": "shop"
+  },
+  {
+   "x": -7,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -8,
@@ -96,17 +93,17 @@
   {
    "x": -9,
    "y": -8,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -8,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -11,
    "y": -8,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -11,
@@ -116,50 +113,163 @@
   {
    "x": -11,
    "y": -10,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -10,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -13,
    "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -15,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -11,
+   "type": "boss",
+   "battle": "baegun_mask",
+   "pre": "C4_MASK1",
+   "post": "C4_MASK1_FLEE"
+  },
+  {
+   "x": -15,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "walpae"
+  },
+  {
+   "x": -15,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -14,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -17,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -14,
+   "type": "spike"
+  },
+  {
+   "x": -19,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -15,
+   "type": "spike"
+  },
+  {
+   "x": -19,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -16,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -22,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -16,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -23,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -18,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -10,
-   "y": -7,
-   "at": 18,
+   "x": -2,
+   "y": -2,
+   "at": 4,
    "zone": [
-    17,
-    18
-   ],
-   "kind": "pojol"
-  },
-  {
-   "x": -6,
-   "y": -5,
-   "at": 12,
-   "zone": [
-    11,
-    12
-   ],
-   "kind": "pojol"
-  },
-  {
-   "x": -1,
-   "y": -3,
-   "at": 5,
-   "zone": [
+    3,
     4,
-    5,
-    6
+    5
    ],
-   "kind": "pojol"
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -17,
+   "y": -14,
+   "at": 31,
+   "zone": [
+    30,
+    31,
+    32
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -5,
+   "y": -5,
+   "at": 10,
+   "zone": [
+    9,
+    10,
+    11
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "at": 15,
+   "zone": [
+    15,
+    16
+   ],
+   "kind": "walpae",
+   "on_path": true
   }
  ]
 }

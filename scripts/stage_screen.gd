@@ -105,7 +105,8 @@ func _build_world() -> void:
 	for i in tiles.size():
 		cells.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "i": i})
 	for g in guards:
-		cells.append({"x": g["x"], "y": g["y"], "i": -1})
+		if not g.get("on_path", false):
+			cells.append({"x": g["x"], "y": g["y"], "i": -1})
 	var minx := 1e9; var maxx := -1e9; var miny := 1e9; var maxy := -1e9
 	for c in cells:
 		var p := Vector2((c["x"] - c["y"]) * TW / 2.0, (c["x"] + c["y"]) * TH / 2.0)
@@ -169,8 +170,8 @@ func _make_tile_ent(i: int) -> void:
 			s.position = Vector2(-TW / 2.0, -80)
 			root.add_child(s)
 		"goal":
-			var g: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_gate.png"), Vector2(TW, 170))
-			g.position = Vector2(-TW / 2.0, -150)
+			var g: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_gate.png"), Vector2(TW * 1.4, 238))
+			g.position = Vector2(-TW * 0.7, -210)
 			root.add_child(g)
 		"walpae", "pojol":
 			var eid := _enemy_id(typ)
@@ -179,7 +180,18 @@ func _make_tile_ent(i: int) -> void:
 		"boss":
 			root.add_child(_sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210))
 			root.add_child(_badge("walpae", Vector2(-22, -250), Color("ffb0a0")))
-		"talk", "item", "shop", "buff", "debuff", "trap", "rest":
+		"talk":
+			var tk: Dictionary = _talk_at(i)
+			var pic: String = tk.get("pic", WHO_PIC.get(tk.get("who", ""), ""))
+			if pic != "" and main.illust(pic) != null:
+				root.add_child(_sprite(pic, 165))
+				root.add_child(_badge("talk", Vector2(-24, -205), Color("f3e6c8")))
+			else:
+				root.add_child(_badge("talk", Vector2(-24, -70), Color("f3e6c8")))
+		"shop":
+			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
+			root.add_child(_badge("shop", Vector2(-24, -190), Color("f3e6c8")))
+		"item", "buff", "debuff", "trap", "rest":
 			root.add_child(_badge(typ, Vector2(-24, -70), Color("f3e6c8")))
 	if t.get("herb", false):
 		var h: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_herb.png"), Vector2(64, 78))
@@ -400,7 +412,12 @@ func _deal() -> void:
 
 # ── 이동 ────────────────────────────────────────────────
 func _blocks(i: int) -> bool:
-	return tiles[i]["type"] in BLOCKERS and not cleared.has(i)
+	if tiles[i]["type"] in BLOCKERS and not cleared.has(i):
+		return true
+	for gi in guards.size():
+		if guards[gi].get("on_path", false) and int(guards[gi]["at"]) == i and not guards_done.has(gi):
+			return true
+	return false
 
 func _play(steps: int, chosen: Button) -> void:
 	if busy:
@@ -434,11 +451,11 @@ func _play(steps: int, chosen: Button) -> void:
 		tw.tween_property(token_pic, "scale", Vector2.ONE, 0.08)
 		await tw.finished
 		overlay.queue_redraw()
-		_pick_herb(pos)
 		await get_tree().create_timer(STEP_PAUSE).timeout
 		if _blocks(pos):
 			break
 	await get_tree().create_timer(0.35).timeout
+	_pick_herb(pos)  # 약초는 그 칸에 딱 멈춰야 얻는다
 	_resolve()
 
 func _pick_herb(i: int) -> void:
@@ -454,6 +471,18 @@ func _pick_herb(i: int) -> void:
 	tw.tween_property(h, "position:y", h.position.y - 60, 0.4)
 	tw.tween_property(h, "modulate:a", 0.0, 0.4)
 	_update_hud()
+
+const WHO_PIC := {"약재 상인": "yakjae", "엿장수": "yeotjangsu", "주막 주모": "jumo", "주모": "jumo", "물장수": "muljangsu",
+	"포졸": "pojol", "백성": "addict", "다래": "friend", "순라꾼": "sunra", "청나라 약재상": "yakjae", "항구 주모": "jumo"}
+
+## 이 칸에서 만날 사람 (칸마다 정해져 있어 맵에 미리 보인다)
+func _talk_at(i: int) -> Dictionary:
+	var pool: Array = StoryData.talks(main.chapter)
+	var k := 0
+	for j in i:
+		if tiles[j]["type"] == "talk":
+			k += 1
+	return pool[(main.stage_idx * 3 + k) % pool.size()]
 
 func _resolve() -> void:
 	var t: String = tiles[pos]["type"]
@@ -487,8 +516,7 @@ func _resolve() -> void:
 			return
 		"talk":
 			_clear(pos)
-			var pool: Array = StoryData.talks(main.chapter)
-			var talk: Dictionary = pool[talk_idx % pool.size()]
+			var talk: Dictionary = _talk_at(pos)
 			talk_idx += 1
 			var extra := ""
 			main.sfx("coin" if talk.has("coin") else "item")

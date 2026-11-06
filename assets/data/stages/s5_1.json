@@ -3,7 +3,7 @@
  "name": "내의원 환자 돌보기",
  "tile": "palace",
  "bg": "palace",
- "turns": 9,
+ "turns": 14,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -33,34 +33,34 @@
   {
    "x": -4,
    "y": -1,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -2,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -3,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -4,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -6,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -6,
@@ -70,12 +70,13 @@
   {
    "x": -6,
    "y": -6,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -7,
    "y": -6,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -8,
@@ -85,41 +86,134 @@
   {
    "x": -8,
    "y": -7,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -8,
-   "type": "empty"
+   "type": "item"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -10,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -9,
    "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -11,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "spike"
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "talk"
+  },
+  {
+   "x": -15,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "pojol"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -16,
+   "type": "shop"
+  },
+  {
+   "x": -17,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -16,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -7,
-   "y": -4,
-   "at": 10,
+   "x": -12,
+   "y": -13,
+   "at": 25,
    "zone": [
-    9,
-    10,
-    11
+    24,
+    25,
+    26
    ],
-   "kind": "pojol"
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "at": 20,
+   "zone": [
+    19,
+    20,
+    21
+   ],
+   "kind": "pojol",
+   "on_path": true
   }
  ]
 }

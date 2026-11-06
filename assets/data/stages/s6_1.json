@@ -1,0 +1,241 @@
+{
+ "id": "s6_1",
+ "name": "다래와 북한산 오르기",
+ "tile": "grass",
+ "bg": "stream",
+ "turns": 16,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -1,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -2,
+   "type": "rest"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "shop"
+  },
+  {
+   "x": -4,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "talk"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -5,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "spike"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "item"
+  },
+  {
+   "x": -12,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -14,
+   "type": "talk"
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -14,
+   "type": "spike"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -17,
+   "type": "pojol"
+  },
+  {
+   "x": -17,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -17,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -20,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -12,
+   "y": -12,
+   "at": 24,
+   "zone": [
+    23,
+    24,
+    25
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "at": 30,
+   "zone": [
+    29,
+    30,
+    31
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}

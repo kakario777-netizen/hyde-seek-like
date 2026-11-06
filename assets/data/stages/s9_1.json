@@ -1,0 +1,249 @@
+{
+ "id": "s9_1",
+ "name": "운종가에서 청계천까지",
+ "tile": "stone",
+ "bg": "jangteo",
+ "turns": 16,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "pojol"
+  },
+  {
+   "x": -4,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -1,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "walpae"
+  },
+  {
+   "x": -6,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -2,
+   "type": "talk"
+  },
+  {
+   "x": -8,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -5,
+   "type": "spike"
+  },
+  {
+   "x": -8,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -12,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -9,
+   "type": "talk"
+  },
+  {
+   "x": -13,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -12,
+   "type": "spike"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -16,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "type": "talk"
+  },
+  {
+   "x": -16,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -16,
+   "type": "shop"
+  },
+  {
+   "x": -19,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -19,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -4,
+   "y": 0,
+   "at": 4,
+   "zone": [
+    4,
+    5
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -16,
+   "y": -16,
+   "at": 32,
+   "zone": [
+    32,
+    33
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "at": 27,
+   "zone": [
+    26,
+    27,
+    28
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}

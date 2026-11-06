@@ -13,6 +13,7 @@ const AudioMgr := preload("res://scripts/audio.gd")
 
 const INK := Color("231a14")
 const INK_SOFT := Color("5a4030")
+const GOAL_BROWN := Color("6b3a1e")
 const RED := Color("9a2c22")
 const GOLD := Color("d9b45a")
 const LIGHT := Color("f3e6c8")
@@ -239,6 +240,8 @@ func start_board() -> void:
 ## opts: {"lose_ok": 져도 이야기 진행, "ally": 동료 id}
 func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	var b := BattleScreen.new()
+	if not opts.has("ally") and ch_cfg().has("stage_ally"):
+		opts = opts.duplicate(); opts["ally"] = ch_cfg()["stage_ally"]
 	b.enemy_id = enemy_id
 	b.on_win = on_win
 	b.opts = opts
@@ -378,7 +381,7 @@ func ask_name(cb: Callable) -> void:
 		if cb.is_valid():
 			cb.call())
 
-const DISGUISED := [2, 3, 4, 6, 7]
+const DISGUISED := [2, 3, 4, 7, 8]
 
 func token_name() -> String:
 	return "token_disguise" if chapter in DISGUISED else "token_hero"
@@ -446,7 +449,7 @@ func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic 
 	var o := _overlay(title, bg, pic)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var l := make_label(fmt(text), 30)
+	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
@@ -675,7 +678,7 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 	var o := _overlay(title, bg, pic)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var l := make_label(fmt(text), 30)
+	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
