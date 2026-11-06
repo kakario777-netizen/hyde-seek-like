@@ -353,9 +353,10 @@ func _use_potion() -> void:
 	if not my_turn or over or main.potions <= 0 or main.hp >= main.max_hp:
 		return
 	main.potions -= 1
-	main.hp = min(main.max_hp, main.hp + 12)
+	var before: int = main.hp
+	main.hp = min(main.max_hp, main.hp + 40)
 	main.sfx("potion")
-	_float_text("+12", Vector2(size.x / 2, size.y * 0.62), Color("8fd0a0"))
+	_float_text("+%d" % (main.hp - before), Vector2(size.x / 2, size.y * 0.62), Color("8fd0a0"))
 	_refresh()
 
 func _end_my_turn() -> void:

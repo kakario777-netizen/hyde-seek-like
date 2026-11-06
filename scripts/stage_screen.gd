@@ -412,12 +412,7 @@ func _deal() -> void:
 
 # ── 이동 ────────────────────────────────────────────────
 func _blocks(i: int) -> bool:
-	if tiles[i]["type"] in BLOCKERS and not cleared.has(i):
-		return true
-	for gi in guards.size():
-		if guards[gi].get("on_path", false) and int(guards[gi]["at"]) == i and not guards_done.has(gi):
-			return true
-	return false
+	return tiles[i]["type"] in BLOCKERS and not cleared.has(i)
 
 func _play(steps: int, chosen: Button) -> void:
 	if busy:
@@ -494,10 +489,19 @@ func _resolve() -> void:
 			var e: Dictionary = GameData.ENEMIES[eid]
 			var idx := pos
 			main.sfx("alarm")
-			main.popup(BLOCK_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"]), "맞서 싸운다", func():
-				main.start_battle(eid, func():
-					_clear(idx)
-					_after_land(true)), e["name"], e["sprite"])
+			var talk: Array = [{"who": e["name"], "pic": e["sprite"], "text": BLOCK_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])}]
+			var disg: bool = main.chapter in main.DISGUISED
+			for ln in BLOCK_REPLY.get(eid, BLOCK_REPLY["_"]):
+				var l2: Dictionary = ln.duplicate()
+				if not disg:
+					l2["who"] = l2["who"].replace("{alias}", "{name}")
+					l2["pic"] = l2["pic"].replace("hero_disguise", "hero")
+				talk.append(l2)
+			main.dialog_chain(talk, func():
+				main.popup("피할 길이 없다. 맞서 싸우자!", "맞서 싸운다", func():
+					main.start_battle(eid, func():
+						_clear(idx)
+						_after_land(true)), e["name"], e["sprite"]))
 			return
 		"boss":
 			var nd: Dictionary = tiles[pos]
@@ -581,6 +585,19 @@ func _shake() -> void:
 	tw.tween_property(token, "position:x", token.position.x + 10, 0.05)
 	tw.tween_property(token, "position:x", token.position.x - 10, 0.08)
 	tw.tween_property(token, "position:x", token.position.x, 0.05)
+
+## 길막이와 마주쳤을 때 주고받는 짧은 이야기
+const BLOCK_REPLY := {
+	"_": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "(돌아갈 길도 없어… 여기서 물러설 순 없어!)"}],
+	"pojol": [{"who": "{alias}", "pic": "hero_disguise_sad", "text": "저는 그냥 약초 팔러 가는 길인데요…"},
+		{"who": "포졸", "pic": "pojol", "text": "약초꾼이 왜 그리 눈을 피해? 수상하다, 이리 와 봐라!"}],
+	"walpae": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "가진 거라곤 약초 몇 뿌리뿐이에요. 비켜 주세요."},
+		{"who": "왈패", "pic": "walpae", "text": "흐흐, 약초도 돈이지. 순순히 안 내놓겠다 이거냐?"}],
+	"mob": [{"who": "{name}", "pic": "hero_physician", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
+		{"who": "중독된 사내", "pic": "addict", "text": "약…! 그 약 냄새… 내놔아아!"}],
+	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병 도는 마을에 약을 가져가는 길이에요. 비켜요!"},
+		{"who": "뱃사람", "pic": "walpae", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],
+}
 
 const BLOCK_LINES := {
 	"pojol": "포졸이 길을 막아섰다!\n\"거기 너, 잠깐 서 봐라!\"",
