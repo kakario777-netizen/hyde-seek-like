@@ -424,7 +424,7 @@ func _resolve() -> void:
 				line = "포졸이 두 소녀를 수상하게 노려본다!\n\"거기 계집아이들, 잠깐 서 봐라!\""
 			var idx := pos
 			main.sfx("alarm")
-			main.popup(line, "맞서 싸운다", func(): _fight(eid, idx), e["name"], e["sprite"])
+			main.popup(line, "맞서 싸운다", func(): _fight(eid, idx), "전투", e["sprite"])
 		"shop":
 			var sname: String = place_name() if nodes[pos].has("name") else "장터"
 			main.popup("%s.\n약재와 물건을 사고팔 수 있는 장이 섰다." % sname, "둘러본다", func():

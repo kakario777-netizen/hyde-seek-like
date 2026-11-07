@@ -502,7 +502,12 @@ func _resolve() -> void:
 			var e: Dictionary = GameData.ENEMIES[eid]
 			var idx := pos
 			main.sfx("alarm")
-			var talk: Array = [{"who": e["name"], "pic": e["sprite"], "text": BLOCK_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])}]
+			var bl: String = BLOCK_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
+			var bparts: PackedStringArray = bl.split("\n", false, 1)
+			# 상황 설명은 이름 없이, 따옴표 대사만 그 사람 이름으로
+			var talk: Array = [{"who": "", "pic": e["sprite"], "text": bparts[0]}]
+			if bparts.size() > 1:
+				talk.append({"who": e["name"], "pic": e["sprite"], "text": bparts[1].replace("\"", "")})
 			var disg: bool = main.chapter in main.DISGUISED
 			for ln in BLOCK_REPLY.get(eid, BLOCK_REPLY["_"]):
 				var l2: Dictionary = ln.duplicate()
@@ -514,7 +519,7 @@ func _resolve() -> void:
 				main.popup("피할 길이 없다. 맞서 싸우자!", "맞서 싸운다", func():
 					main.start_battle(eid, func():
 						_clear(idx)
-						_after_land(true)), e["name"], e["sprite"]))
+						_after_land(true)), "전투", e["sprite"]))
 			return
 		"boss":
 			var nd: Dictionary = tiles[pos]
@@ -583,7 +588,7 @@ func _after_land(_fought: bool) -> void:
 					guards_done[g] = true
 					create_tween().tween_property(guard_nodes[g], "modulate:a", 0.0, 0.4)
 					overlay.queue_redraw()
-					_end_turn()), e["name"], e["sprite"])
+					_end_turn()), "전투", e["sprite"])
 			return
 	_end_turn()
 
