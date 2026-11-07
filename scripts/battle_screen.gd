@@ -71,7 +71,8 @@ func _ready() -> void:
 	add_child(bg)
 	var low := ColorRect.new()
 	low.color = Color(0.1, 0.06, 0.04, 0.72)
-	low.anchor_top = 0.6; low.anchor_right = 1.0; low.anchor_bottom = 1.0
+	low.anchor_top = 1.0; low.anchor_right = 1.0; low.anchor_bottom = 1.0
+	low.offset_top = -PANEL_TOP - 20
 	low.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(low)
 
@@ -120,8 +121,9 @@ func _ready() -> void:
 	var ip := PanelContainer.new()
 	ip.add_theme_stylebox_override("panel", main.plaque_style())
 	ip.anchor_left = 0.5; ip.anchor_right = 0.5
-	ip.anchor_top = 0.6; ip.anchor_bottom = 0.6
-	ip.offset_top = -126; ip.offset_left = -250; ip.offset_right = 250; ip.offset_bottom = -56
+	ip.anchor_top = 1.0; ip.anchor_bottom = 1.0
+	ip.offset_top = -PANEL_TOP - 96; ip.offset_left = -250; ip.offset_right = 250; ip.offset_bottom = -PANEL_TOP - 26
+	ip.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(ip)
 	intent_lbl = main.make_label("", 28, main.GOLD, true)
 	intent_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -130,8 +132,9 @@ func _ready() -> void:
 	# 나
 	var pp := PanelContainer.new()
 	pp.add_theme_stylebox_override("panel", main.bar_style())
-	pp.anchor_top = 0.6; pp.anchor_right = 1.0; pp.anchor_bottom = 0.6
-	pp.offset_left = 4; pp.offset_right = -4; pp.offset_top = -40
+	pp.anchor_top = 1.0; pp.anchor_right = 1.0; pp.anchor_bottom = 1.0
+	pp.offset_left = 4; pp.offset_right = -4; pp.offset_top = -PANEL_TOP; pp.offset_bottom = -CARD_H - 22
+	pp.mouse_filter = Control.MOUSE_FILTER_IGNORE  # 패널 빈 곳이 상소 터치를 가로채지 않게
 	add_child(pp)
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 14)
@@ -175,7 +178,7 @@ func _ready() -> void:
 	card_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	card_row.add_theme_constant_override("separation", 6)
 	card_row.anchor_top = 1.0; card_row.anchor_bottom = 1.0; card_row.anchor_right = 1.0
-	card_row.offset_top = -306; card_row.offset_bottom = -14
+	card_row.offset_top = -CARD_H - 14; card_row.offset_bottom = -14
 	add_child(card_row)
 
 	flash = ColorRect.new()
@@ -200,6 +203,9 @@ func _ready() -> void:
 	_refresh()
 	_start.call_deferred()
 
+const CARD_H := 286
+const PANEL_TOP := CARD_H + 22 + 196   # 화면 아래에서 내 정보 패널 윗변까지
+
 const HIT_SFX := {"jumeok": "punch", "baldda": "kick", "gyeot": "punch_heavy", "nalchi": "punch"}
 
 func _start() -> void:
@@ -213,7 +219,12 @@ func _start() -> void:
 	_begin_my_turn(bonus)
 
 func _layout() -> void:
-	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, size.y * 0.6 - enemy_sprite.size.y - 60).floor()
+	var bottom: float = size.y - PANEL_TOP - 100
+	if enemy_sprite.size.y > bottom - 150:
+		var k: float = (bottom - 150) / enemy_sprite.size.y
+		enemy_sprite.size *= k; enemy_sprite.custom_minimum_size = enemy_sprite.size
+		enemy_sprite.pivot_offset = enemy_sprite.size * Vector2(0.5, 1.0)
+	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, bottom - enemy_sprite.size.y).floor()
 	enemy_sprite.position = enemy_base
 
 func _bar(col: Color, h: int) -> ProgressBar:
@@ -284,7 +295,9 @@ func _draw_one() -> void:
 	var e: Dictionary = draw_pile.pop_back()
 	hand.append(e)
 	main.sfx("card_draw", -8.0)
-	var b: Button = main.card_button(e, 134, 286)
+	var w: int = 134 if hand.size() <= 5 else int((size.x - 12 - 6 * (hand.size() - 1)) / hand.size())
+	var b: Button = main.card_button(e, w, CARD_H)
+	b.set_meta("entry", e)
 	b.modulate.a = 0.0
 	card_row.add_child(b)
 	b.pressed.connect(func(): _play(b, e))
@@ -496,10 +509,13 @@ func _refresh() -> void:
 	potion_btn.text = "약병 %d" % main.potions
 	potion_btn.disabled = not my_turn or main.potions <= 0
 	end_btn.disabled = not my_turn
-	var kids := card_row.get_children()
-	for i in kids.size():
-		if i < hand.size():
-			kids[i].disabled = not my_turn or energy < int(GameData.CARDS[hand[i]["id"]]["cost"])
+	for k in card_row.get_children():
+		if k.has_meta("entry"):
+			var en: Dictionary = k.get_meta("entry")
+			var gone: bool = not hand.has(en)
+			k.disabled = gone or not my_turn
+			k.mouse_filter = Control.MOUSE_FILTER_IGNORE if gone else Control.MOUSE_FILTER_STOP
+			k.self_modulate = Color(1, 1, 1) if (gone or energy >= int(GameData.stats(en["id"], en["lv"])["cost"])) else Color(0.6, 0.6, 0.6)
 
 func _float_text(t: String, at: Vector2, col: Color) -> void:
 	var l: Label = main.ink_text(main.make_label(t, 44, col, true), 12)
