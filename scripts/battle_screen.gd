@@ -75,7 +75,10 @@ func _ready() -> void:
 	low.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(low)
 
-	var et: Texture2D = main.illust(enemy["sprite"])
+	# 데포르메가 있으면 무조건 데포르메로
+	var et: Texture2D = main.chibi_only(enemy["sprite"])
+	if et == null:
+		et = main.illust(enemy["sprite"])
 	enemy_sprite = main.tex_rect(et if et else main.icon(enemy_id), Vector2(560, 700) if et else Vector2(360, 360))
 	enemy_sprite.pivot_offset = enemy_sprite.size * Vector2(0.5, 1.0)
 	add_child(enemy_sprite)
