@@ -765,7 +765,7 @@ func coin_plaque() -> Array:
 	return [p, upd]
 
 # ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
-const UPGRADE_COST := [0, 6, 12]   # ★1→★2, ★2→★3
+const UPGRADE_COST := [0, 5, 5]   # 단련 한 번에 엽전 5냥
 
 func show_bag(cb := Callable()) -> void:
 	var o := _overlay("보따리")
@@ -889,7 +889,7 @@ func open_shop(cb: Callable) -> void:
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
 	var refresh: Callable = cp[1]
-	var msg := _note("상소 한 장 %d냥 · 약병 %d냥 · 단련 6~12냥" % [CARD_PRICE, POTION_PRICE])
+	var msg := _note("상소 한 장 %d냥 · 약병 %d냥 · 단련 5냥" % [CARD_PRICE, POTION_PRICE])
 	vb.add_child(msg)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
