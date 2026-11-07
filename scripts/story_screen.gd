@@ -155,7 +155,7 @@ func _next() -> void:
 		_show_pose(line.get("pose", line.get("pic", "")))
 	elif who == "":
 		_show_pose("")
-	text_lbl.text = main.fmt(line["text"])
+	text_lbl.text = main.sentence_breaks(main.fmt(line["text"]))
 	var goal: bool = line["text"].begins_with("【목표】")
 	text_lbl.add_theme_color_override("font_color", Color("6b3a1e") if goal else main.INK)
 	text_lbl.visible_characters = 0

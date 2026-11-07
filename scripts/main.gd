@@ -478,7 +478,7 @@ func icon(name: String) -> Texture2D:
 ## 맵 위에 서는 데포르메(SD) 그림. 없으면 null
 const CHIBI_OF := {"hero_adult": "hero_adult",
 	"seohwi": "seohwi", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_blush": "dogyeol",
-	"heo": "heo", "heo_ill": "heo", "baegun_boss": "baegun_boss", "addict": "addict", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
+	"heo": "heo", "heo_ill": "heo", "pojol_battle": "pojol", "friend_worried": "friend", "darae_court": "friend", "baegun_boss": "baegun_boss", "addict": "addict", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
 
 func chibi(name: String) -> Texture2D:
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
@@ -488,11 +488,17 @@ func chibi(name: String) -> Texture2D:
 	var q := "res://assets/mapfig/%s.png" % name
 	return load(q) if ResourceLoader.exists(q) else null
 
+## 대화창: 문장이 끝나면(마침표·물음표·느낌표) 다음 문장은 새 줄에서
+func sentence_breaks(t: String) -> String:
+	var re := RegEx.new()
+	re.compile("([.?!。]+[\"'」)]?) +(?=\\S)")
+	return re.sub(t, "$1\n", true)
+
 func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 
-const BG_FALLBACK := {}
+const BG_FALLBACK := {"yakbang_calm": "yakbang"}
 
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name

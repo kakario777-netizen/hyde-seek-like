@@ -276,7 +276,6 @@ func _begin_my_turn(bonus := 0) -> void:
 		return
 	turn += 1
 	if turn > 1:
-		shield = 0
 		await _show_banner("나의 차례")
 	energy = BASE_ENERGY + bonus
 	for i in HAND_SIZE:

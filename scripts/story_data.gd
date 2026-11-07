@@ -371,6 +371,11 @@ const CH7_INTRO := [
 ]
 
 const C7_MID := [
+	{"bg": "holland", "who": "", "text": "마을 어귀, 우물가에서 아이의 비명이 들렸다."},
+	{"who": "마을 아이", "pic": "dutch_child_sick", "text": "아파… 아파요… 큰 쥐가… 팔을 물었어요…"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "역병을 옮기는 쥐다. 물린 자리부터 열이 오를 거다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "상처부터 소주로 씻고, 쑥을 짓이겨 붙여 줘요. 열 내리는 약은 제가 달일게요.\n괜찮아, 금방 나을 거야. 언니가 꼭 낫게 해 줄게."},
+	{"who": "마을 아이", "pic": "dutch_child", "text": "…정말요? 고마워요, 동양 의원님."},
 	{"who": "", "bg": "holland", "text": "밤늦은 학교 교실. 앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
 	{"who": "", "pic": "dutch_child", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 돈 때문에 독을 팔던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
