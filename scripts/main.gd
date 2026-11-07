@@ -555,6 +555,7 @@ func make_button(text: String, size := 30) -> Button:
 	b.add_theme_stylebox_override("focus", tex_box("button", 34, 22))
 	b.add_theme_stylebox_override("pressed", tex_box("button_pressed", 34, 22))
 	b.add_theme_stylebox_override("disabled", tex_box("button", 34, 22, Color(1, 1, 1, 0.55)))
+	b.focus_mode = Control.FOCUS_NONE
 	b.pressed.connect(func(): sfx("click", -8.0))
 	return b
 
@@ -574,6 +575,8 @@ func ink_text(l: Label, outline := 10) -> Label:
 # ── 상소문 카드 ─────────────────────────────────────────
 func _sangso_button(paper: String, w: int, h: int) -> Button:
 	var b := Button.new()
+	b.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS  # 손가락을 대는 순간 눌림
+	b.focus_mode = Control.FOCUS_NONE
 	b.custom_minimum_size = Vector2(w, h)
 	for st in ["normal", "hover", "focus"]:
 		b.add_theme_stylebox_override(st, tex_box(paper, 0, 0))
@@ -892,23 +895,33 @@ func open_shop(cb: Callable) -> void:
 		row.add_child(b)
 		b.pressed.connect(func():
 			if coins < CARD_PRICE:
-				msg.text = "엽전이 모자랍니다"
+				msg.text = "엽전이 모자랍니다 (상소 %d냥)" % CARD_PRICE
+				msg.add_theme_color_override("font_color", RED)
+				b.pivot_offset = b.size / 2.0
+				var sh := create_tween()
+				sh.tween_property(b, "rotation", 0.06, 0.05); sh.tween_property(b, "rotation", -0.06, 0.08); sh.tween_property(b, "rotation", 0.0, 0.05)
 				return
 			coins -= CARD_PRICE
 			sfx("coin")
 			deck.append(e)
 			b.disabled = true
+			b.modulate = Color(0.55, 0.55, 0.55)
+			msg.text = "〈%s〉 상소를 샀습니다! 보따리에 넣었어요." % GameData.stats(e["id"], 1)["name"]
+			msg.add_theme_color_override("font_color", INK_SOFT)
 			refresh.call())
 	var pot := make_button("약병 사기 (%d냥)" % POTION_PRICE, 28)
 	pot.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(pot)
 	pot.pressed.connect(func():
 		if coins < POTION_PRICE:
-			msg.text = "엽전이 모자랍니다"
+			msg.text = "엽전이 모자랍니다 (약병 %d냥)" % POTION_PRICE
+			msg.add_theme_color_override("font_color", RED)
 			return
 		coins -= POTION_PRICE
 		sfx("coin")
 		potions += 1
+		msg.text = "약병을 샀습니다! (지금 %d병)" % potions
+		msg.add_theme_color_override("font_color", INK_SOFT)
 		refresh.call())
 	var bag := make_button("보따리 열기 · 상소 단련", 28)
 	bag.custom_minimum_size = Vector2(0, 86)

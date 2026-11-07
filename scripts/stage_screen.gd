@@ -312,9 +312,8 @@ func _focus(target: Vector2, animate := true, dur := 0.45) -> void:
 func _on_view_input(e: InputEvent) -> void:
 	if busy:
 		return
-	if e is InputEventScreenDrag:
-		world.position = _clamp_world(world.position + e.relative)
-	elif e is InputEventMouseMotion and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
+	# 터치 끌기는 마우스 움직임으로도 같이 들어와 두 배로 움직였음 → 하나만 사용
+	if e is InputEventMouseMotion and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
 		world.position = _clamp_world(world.position + e.relative)
 
 # ── HUD ─────────────────────────────────────────────────

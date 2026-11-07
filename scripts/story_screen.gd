@@ -98,9 +98,8 @@ func _set_bg(name: String) -> void:
 		bg.modulate = Color(0.35, 0.3, 0.28)
 
 func _gui_input(event: InputEvent) -> void:
+	# 폰에서는 터치가 마우스 클릭으로도 한 번 더 들어온다 → 마우스 쪽만 받아 한 번만 넘김
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		_advance()
-	elif event is InputEventScreenTouch and event.pressed:
 		_advance()
 
 func _advance() -> void:
