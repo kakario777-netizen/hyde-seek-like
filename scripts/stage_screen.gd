@@ -150,7 +150,11 @@ func _build_world() -> void:
 	world.add_child(token)
 
 func _sprite(pic: String, h: float) -> TextureRect:
-	var t: Texture2D = main.illust(pic)
+	var t: Texture2D = main.chibi(pic)
+	if t != null:
+		h *= 0.82  # 데포르메는 머리가 커서 조금 작게
+	else:
+		t = main.illust(pic)
 	if t == null:
 		t = main.icon("walpae")
 	var w: float = h * t.get_width() / max(1.0, float(t.get_height()))
@@ -242,9 +246,16 @@ func _make_token() -> Control:
 	sh.size = Vector2(70, 22); sh.position = Vector2(-35, -10)
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
-	token_pic = main.tex_rect(main.illust(main.token_name()), Vector2(132, 140))
+	var tk: Texture2D = main.illust(main.token_name())
+	if not (main.chapter in main.DISGUISED) and main.chibi("hero") != null:
+		tk = main.chibi("hero")
+	token_pic = main.tex_rect(tk, Vector2(132, 140))
+	token_pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	token_pic.position = Vector2(-66, -132)
 	token_pic.pivot_offset = Vector2(66, 140)
+	if tk == main.chibi("hero"):
+		token_pic.custom_minimum_size = Vector2(150, 200); token_pic.size = Vector2(150, 200)
+		token_pic.position = Vector2(-75, -192); token_pic.pivot_offset = Vector2(75, 200)
 	root.add_child(token_pic)
 	return root
 

@@ -296,6 +296,10 @@ func _play(b: Button, e: Dictionary) -> void:
 		return
 	var c: Dictionary = GameData.stats(e["id"], e["lv"])
 	if energy < int(c["cost"]):
+		_float_text("기력이 모자라요", Vector2(size.x / 2, size.y * 0.62), Color("f0a080"))
+		var sh := create_tween()
+		sh.tween_property(b, "position:x", b.position.x + 10, 0.05)
+		sh.tween_property(b, "position:x", b.position.x, 0.05)
 		return
 	my_turn = false
 	energy -= int(c["cost"])
@@ -305,7 +309,7 @@ func _play(b: Button, e: Dictionary) -> void:
 	discard.append(e)
 	_refresh()
 	var tw := create_tween()
-	tw.tween_property(b, "modulate", Color(1.3, 1.2, 1.0, 0.0), 0.3)
+	tw.tween_property(b, "modulate", Color(1.3, 1.2, 1.0, 0.0), 0.16)
 	await tw.finished
 	card_row.remove_child(b)
 	b.queue_free()

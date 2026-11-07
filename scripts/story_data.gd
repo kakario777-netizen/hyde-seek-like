@@ -19,7 +19,8 @@ const CHAPTERS := {
 			{"map": "s2_3", "name": "한양 약방으로"}],
 		"goal_pre": "CH2_GOAL", "goal_battle": "seohwi", "goal_lose_ok": true},
 	3: {"title": "제3장  왈패 소굴", "goal": "왈패 소굴", "intro": "CH3_INTRO", "end": "CH3_END",
-		"stages": [{"map": "s3_1", "name": "청계천 약재 심부름", "after": "C3_DOGYEOL"},
+		"stages": [{"map": "s3_0", "name": "서휘와 흑룡파 몰아내기", "after": "C3_HEUK", "ally": "seohwi"},
+			{"map": "s3_1", "name": "청계천 약재 심부름", "after": "C3_DOGYEOL"},
 			{"map": "s3_2", "name": "종로 뒷골목", "after": "C3_TRUTH"},
 			{"map": "s3_3", "name": "남산 아래 결투"}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
@@ -128,21 +129,19 @@ const CH3_INTRO := [
 	{"who": "", "text": "청계천 수표교 아래, 비밀 창고.\n{alias}는 매일 아침 왈패들의 찢어진 이마를 꿰매고, 부러진 팔에 부목을 댔다."},
 	{"who": "왈패", "pose": "walpae", "text": "어이 꼬마 의원, 어제 준 고약 말이야… 진짜 하나도 안 아프더라.\n…고맙다."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "(무서운 사람들인 줄만 알았는데… 대부분 갈 곳 없는 아이들이었어.)"},
-	{"who": "서휘", "pose": "seohwi", "text": "놀랐나? 다들 역병에 부모를 잃었거나, 빚 때문에 쫓겨난 놈들이다.\n나도 마찬가지고. 푸른 눈의 혼혈아를 받아 주는 곳은 이 다리 밑뿐이었지."},
-	{"who": "서휘", "pose": "seohwi", "text": "그래서 너에게 맡길 일이 있다.\n'청심보명단(淸心保命丹)'. 기운을 북돋는 자양강장 환약이다. 이 처방대로 빚어라."},
+	{"who": "서휘", "pose": "seohwi", "text": "솜씨가 좋군, 의원.\n그런데 이 녀석들 상처, 절반은 흑룡파 놈들 짓이다."},
+	{"who": "서휘", "pose": "seohwi", "text": "흑룡파가 요즘 우리 구역 약한 놈들만 골라 털고 다니지.\n함께 가자, 의원. 치는 건 내가 하고, 다친 사람은 네가 고친다."},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "…다친 사람을 고치는 거라면, 갈게요."},
+	{"who": "서휘", "pose": "seohwi", "text": "그리고 너에게 맡길 일이 하나 더 있다.\n'청심보명단(淸心保命丹)'. 기운을 북돋는 자양강장 환약이다. 이 처방대로 빚어라."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "인삼, 녹용, 감초… 그리고 이건… 처음 보는 붉은 씨앗이네.\n그래도 처방은 훌륭해 보여. 이 정도면 몸이 약한 사람들한테 좋겠다."},
-	{"who": "", "text": "【목표】\n스물나흘 안에 한양 곳곳을 돌며 약재를 모으고\n청심보명단을 전한 뒤 왈패 소굴로 돌아와라.", "end": true},
+	{"who": "", "text": "【목표】\n서휘와 함께 흑룡파를 몰아내고,\n한양 곳곳을 돌며 약재를 모아 왈패 소굴로 돌아와라.", "end": true},
 ]
 
 const C3_DOGYEOL := [
-	{"who": "", "bg": "stream", "text": "청계천 둑길, 해 질 녘.\n약재 꾸러미를 안고 가던 {alias}의 앞을 누군가 막아섰다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "또 만났구나, 약초꾼.\n…아니, 이젠 청안파의 꼬마 의원이라지?"},
-	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "잡아가실 거면, 잡아가세요."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "그날 열병 마을에서 네가 밤새 아이들을 돌보는 걸 봤다.\n나는… 네가 그 흉악범이라고 믿지 않는다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "약방 사건엔 이상한 게 너무 많아. 돈궤를 연 손은 어른의 손이었고, 핏자국은 의원 본인 것이었다.\n…진짜 범인을 찾고 싶다. 도와주겠느냐?"},
-	{"who": "{alias}", "pic": "hero_disguise", "text": "…네. 저도 꼭 찾고 싶어요."},
-	{"who": "", "text": "돌아서는 {alias}의 뒷모습을 보며, 윤도결은 제 가슴께를 눌렀다."},
-	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "(…왜 이러지. 사내아이를 보고 가슴이 뛰다니.\n정신 차려라, 윤도결. 이러면 안 된다…)"},
+	{"bg": "street_ink", "who": "", "text": "그날 밤부터 한양 곳곳에 '패랭이 쓴 약초꾼'을 찾는 방이 새로 붙었다."},
+	{"who": "주막 주모", "pose": "jumo", "text": "꼬마 의원, 이리 숨어! 포졸들이 골목마다 뒤지고 있어."},
+	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "(이제 윤도결 나리는 내가 도망자라는 걸 알아. 더 조심해야 해…)"},
+	{"who": "주막 주모", "pose": "jumo", "text": "걱정 마. 우리 주막 사람들은 네가 공짜로 고쳐 준 걸 다 기억한다고."},
 ]
 
 const C3_TRUTH := [
@@ -194,16 +193,22 @@ const CH4_INTRO := [
 ]
 
 const C4_STREAM := [
-	{"who": "", "bg": "stream", "text": "한양을 떠나기 전날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
-	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "안 돼!"},
+	{"bg": "stream", "who": "", "text": "한양을 떠나기 전날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
+	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "안 돼!"},
 	{"who": "", "text": "{alias}는 망설임 없이 물에 뛰어들었다.\n아이를 둑으로 밀어 올린 순간, 거센 물살이 {alias}를 삼켰다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "{alias}!!"},
-	{"who": "", "text": "철릭을 벗어 던진 윤도결이 뒤따라 뛰어들었다.\n한참 뒤, 둑 위로 끌어올려진 {alias}의 패랭이는 이미 떠내려가고 없었다."},
-	{"who": "", "pic": "hero_sad", "text": "젖은 무명천 아래로 풀려 내린 긴 머리.\n가냘픈 어깨. 그리고 숨을 몰아쉬며 눈을 뜬 얼굴은…"},
-	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "…여, 여자였어…?\n그럼 네가… 방에 붙은 그 약방 계집아이…"},
-	{"who": "{name}", "pic": "hero_sad", "text": "…제 이름은 {name}예요.\n속여서 죄송해요. 하지만 의원님을 해친 건 정말 제가 아니에요."},
-	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "(그동안 사내아이를 마음에 둔 줄 알고 얼마나 괴로웠는데…\n…다행이다. 정말, 다행이야.)"},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "알고 있다. 넌 범인이 아니야. 내가 증명해 주마.\n…그러니까, 다시는 그렇게 혼자 물에 뛰어들지 마라."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "{alias}!!"},
+	{"who": "", "text": "철릭을 벗어 던진 윤도결이 뒤따라 뛰어들었다.\n한참 뒤 둑 위로 끌어올린 {alias}는… 숨을 쉬지 않았다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "정신 차려! …숨을 안 쉬어. 안 돼, 이렇게 보낼 순 없다!"},
+	{"who": "", "text": "윤도결은 망설임 없이 {alias}의 가슴을 누르고, 입으로 숨을 불어 넣었다.\n한 번, 두 번, 세 번—"},
+	{"who": "", "pose": "hero_sad", "text": "콜록, 콜록…! {alias}가 물을 토해 내며 눈을 떴다.\n떠내려간 패랭이, 젖은 무명천 아래로 풀려 내린 긴 머리, 가냘픈 어깨…"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…여, 여자였어…?\n네가… 방에 붙은 그 약방 계집아이였구나."},
+	{"who": "{name}", "pose": "hero_sad", "text": "…제 이름은 {name}예요.\n속여서 죄송해요. 하지만 의원님을 해친 건 정말 제가 아니에요."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…아이를 구하겠다고 제 목숨도 내던지는 사람이 의원을 해쳤을 리 없지.\n열병 마을에서 밤새 아이들을 돌보던 것도 너였고."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "약방 사건엔 이상한 게 너무 많았다. 돈궤를 연 손은 어른의 손이었고, 핏자국은 의원 본인 것이었지.\n…이제 확신한다. 넌 범인이 아니야. 내가 증명해 주마."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "그, 그리고… 방금 그건 숨을 살리려던 것뿐이다! 오해하지 마라!"},
+	{"who": "{name}", "pose": "hero_surprised", "text": "…네? 무슨… 아."},
+	{"who": "", "text": "그날 이후, 윤도결은 {name}를 볼 때마다 남몰래 가슴께를 누르곤 했다."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "(…진정해라, 윤도결. 심장이 왜 이리 시끄러운 거냐.)"},
 	{"who": "", "text": "(윤도결이 몰래 뒤를 봐주기로 했다. 다음 전투 시작 시 막기 10)", "guard": 10},
 ]
 
@@ -418,14 +423,16 @@ const C2_DG_FLEE := [
 ]
 
 const C3_DG_FIGHT := [
-	{"bg": "stream", "who": "", "text": "청계천 다리 위.\n약재 꾸러미를 든 {alias} 앞에 철릭 자락이 펄럭였다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "이번엔 고춧가루도 없겠지.\n포도청 종사관 윤도결, 오늘은 반드시 너를 데려간다."},
+	{"bg": "stream", "who": "", "text": "청계천 다리 위.\n약재 꾸러미를 든 {alias} 앞을 포졸들이 에워쌌다."},
+	{"who": "포졸", "pic": "pojol", "text": "나리! 이놈입니다, 패랭이 쓴 약초꾼!\n운종가에서 고춧가루를 뿌리고 달아난 바로 그 일행이랍니다."},
+	{"who": "포졸", "pic": "pojol", "text": "검문소에서 놓친 놈도, 고갯길에서 놓친 놈도 이놈이었습지요.\n방에 붙은 약방 사건 도망자와 한패가 틀림없습니다!"},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "…그랬군. 네가 바로 그 도망자였어.\n두 번이나 속았다. 세 번은 없다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "저는 아무 죄도 없어요!"},
 ]
 
 const C3_DG_AFTER := [
-	{"who": "윤도결", "pic": "jongsagwan", "text": "…졌군. 다치게 하지 않으려고 주먹을 거두는 놈이라니.\n흉악범의 주먹이 아니야."},
-	{"who": "", "text": "윤도결은 칼을 거두고 한참 동안 {alias}를 바라보았다."},
+	{"who": "", "text": "{alias}는 포졸들 사이를 빠져나가 다리 밑으로 몸을 날렸다."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "놓쳤군…\n(도망자… 그런데 왜 그 아이 손에선 피 냄새가 아니라 약초 냄새가 날까.)"},
 ]
 
 const C3_SHADOW := [
@@ -549,6 +556,20 @@ const CH9_END := [
 	{"bg": "byeolchae", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
 ]
 
+const C3_HEUK := [
+	{"bg": "alley", "who": "", "text": "흑룡파 왈패들이 꽁무니를 빼고 달아난 골목.\n서휘가 피 묻은 주먹을 털었다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "가만있어 봐요. 손등 찢어졌잖아요."},
+	{"who": "", "text": "{alias}는 서휘의 손에 고약을 바르고 무명천을 감아 주었다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "…이상해요. 아까 흑룡파한테 맞은 아이를 업고 뛰던 거 봤어요.\n마음은 따뜻한 사람 같은데… 왜 청안파에서 도둑질을 해요?"},
+	{"who": "서휘", "pic": "seohwi", "text": "……"},
+	{"who": "", "text": "서휘는 한참을 머뭇거리다, 애체를 고쳐 쓰며 입을 열었다."},
+	{"who": "서휘", "pic": "seohwi", "text": "이 눈 색깔 말이다. 화란 뱃사람이던 아비가 남기고 간 거지.\n어릴 땐 서당 문턱도 못 넘었다. '양귀(洋鬼) 새끼'라고 돌을 맞았지."},
+	{"who": "서휘", "pic": "seohwi", "text": "품을 팔려 해도 아무도 써 주지 않더군. 배가 고파 떡 한 조각을 훔친 게 시작이었다.\n…그러다 보니, 나 같은 놈들이 하나둘 모여 청안파가 됐다."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "…그랬구나. 미안해요, 함부로 물어서."},
+	{"who": "서휘", "pic": "seohwi", "text": "사과할 건 없다. 처음으로 누가 '왜'냐고 물어봐 줬으니까.\n…다들 그냥 '역시 그럴 줄 알았다'고만 했지."},
+	{"who": "", "text": "다리 밑 소굴로 돌아가는 서휘의 발걸음은 어쩐지 조금 가벼워 보였다."},
+]
+
 const TALKS := {
 	2: [
 		{"who": "엿장수", "pic": "yeotjangsu", "text": "어이 총각들! 엿 하나 물고 가.\n…요새 한양에 '푸른 눈 왈패'가 설친다더구먼. 조심하라고.", "coin": 2},
@@ -605,6 +626,7 @@ const TALKS_EXTRA := {
 }
 
 const ALL := {
+	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C2_PLAGUE": C2_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,

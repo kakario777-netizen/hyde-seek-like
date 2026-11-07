@@ -240,8 +240,12 @@ func start_board() -> void:
 ## opts: {"lose_ok": 져도 이야기 진행, "ally": 동료 id}
 func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	var b := BattleScreen.new()
-	if not opts.has("ally") and ch_cfg().has("stage_ally"):
-		opts = opts.duplicate(); opts["ally"] = ch_cfg()["stage_ally"]
+	if not opts.has("ally"):
+		var st: Array = ch_cfg().get("stages", [])
+		if stage_idx < st.size() and st[stage_idx].has("ally"):
+			opts = opts.duplicate(); opts["ally"] = st[stage_idx]["ally"]
+		elif ch_cfg().has("stage_ally"):
+			opts = opts.duplicate(); opts["ally"] = ch_cfg()["stage_ally"]
 	b.enemy_id = enemy_id
 	b.on_win = on_win
 	b.opts = opts
@@ -471,6 +475,15 @@ func ui(name: String) -> Texture2D:
 func icon(name: String) -> Texture2D:
 	return load("res://assets/ui/icons/%s.png" % name)
 
+## 맵 위에 서는 데포르메(SD) 그림. 없으면 null
+const CHIBI_OF := {"hero": "hero", "hero_angry": "hero", "hero_sad": "hero", "hero_surprised": "hero", "hero_physician": "hero",
+	"seohwi": "seohwi", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_blush": "dogyeol",
+	"heo": "heo", "heo_ill": "heo", "baegun_boss": "baegun_boss", "addict": "addict", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
+
+func chibi(name: String) -> Texture2D:
+	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
+	return load(p) if ResourceLoader.exists(p) else null
+
 func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
@@ -584,6 +597,7 @@ func card_button(entry: Dictionary, w := 162, h := 270) -> Button:
 	var c: Dictionary = GameData.stats(entry["id"], entry["lv"])
 	var paper := "sangso" if entry["lv"] == 1 else ("sangso_gold" if entry["lv"] == 2 else "sangso_red")
 	var b := _sangso_button(paper, w, h)
+	b.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS  # 손가락이 조금 움직여도 눌리게
 	var vb := _card_box(b)
 	var s := h / 270.0
 	var cost := make_label("기력 " + "●".repeat(c["cost"]), int(18 * s), RED)
@@ -751,8 +765,10 @@ func show_bag(cb := Callable()) -> void:
 	var scroll := ScrollContainer.new()
 	scroll.custom_minimum_size = Vector2(560, 760)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.scroll_deadzone = 18
 	vb.add_child(scroll)
 	var grid := GridContainer.new()
+	grid.mouse_filter = Control.MOUSE_FILTER_PASS
 	grid.columns = 4
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 10)
@@ -789,6 +805,9 @@ func show_bag(cb := Callable()) -> void:
 			up.disabled = true
 		for i in deck.size():
 			var b := card_button(deck[i], 132, 220)
+			# 스크롤 안의 상소: 끌면 스크롤, 떼면 선택
+			b.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
+			b.mouse_filter = Control.MOUSE_FILTER_PASS
 			if i == sel:
 				b.modulate = Color(1.0, 0.82, 0.55)
 			grid.add_child(b)
