@@ -15,7 +15,7 @@ const CHAPTERS := {
 		"end_battle": "shadow_s", "end_after": "CH1_AFTER_SHADOW"},
 	2: {"title": "제2장  남장", "goal": "한양 약방", "intro": "CH2_INTRO", "end": "CH2_END",
 		"stages": [{"map": "s2_1", "name": "검문소 피해 가기", "after": "C2_DOGYEOL"},
-			{"map": "s2_2", "name": "열병 마을 지나기", "after": "C2_PLAGUE"},
+			{"map": "s2_2", "name": "새재 너머 주막거리"},
 			{"map": "s2_3", "name": "한양 약방으로"}],
 		"goal_pre": "CH2_GOAL", "goal_battle": "seohwi", "goal_lose_ok": true},
 	3: {"title": "제3장  왈패 소굴", "goal": "왈패 소굴", "intro": "CH3_INTRO", "end": "CH3_END",
@@ -25,7 +25,8 @@ const CHAPTERS := {
 			{"map": "s3_3", "name": "남산 아래 결투"}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "화엄골 지하", "intro": "CH4_INTRO", "end": "CH4_END",
-		"stages": [{"map": "s4_1", "name": "비 오는 청계천", "after": "C4_STREAM"},
+		"stages": [{"map": "s4_0", "name": "성 밖 병든 마을", "after": "C4_PLAGUE"},
+			{"map": "s4_1", "name": "비 오는 청계천", "after": "C4_STREAM"},
 			{"map": "s4_2", "name": "군산 포구 뒤지기", "after": "C4_CLUE"},
 			{"map": "s4_3", "name": "도적의 소굴 찾아가기"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
@@ -88,15 +89,15 @@ const C2_DOGYEOL := [
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…나 아니라고요. 정말로.)"},
 ]
 
-const C2_PLAGUE := [
-	{"who": "", "bg": "street_ink", "text": "작은 마을 하나가 열병에 신음하고 있었다.\n의원은 이미 도망가고, 아이들만 거적 위에 누워 있었다."},
-	{"who": "다래", "pic": "friend_worried", "text": "{alias}, 그냥 지나가자. 포졸들이 바로 뒤에 있어!"},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…의원님이라면 그냥 지나치지 않으셨을 거야.\n다래야, 쑥이랑 금은화 좀 캐다 줘. 이 열은 내릴 수 있어.",
-		"choices": [{"text": "밤새 아이들을 돌본다", "set": "c2_healed"}, {"text": "약만 지어 주고 서둘러 떠난다", "set": ""}]},
-	{"if": "c2_healed", "who": "", "text": "{alias}는 밤새 아이들의 이마를 식히고 약을 달였다.\n새벽녘, 열이 내린 아이가 처음으로 웃었다."},
-	{"who": "", "text": "그 모습을, 마을 어귀 나무 그늘에서 누군가 말없이 지켜보고 있었다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "(…저 약초꾼, 손놀림이 보통 약초꾼이 아니다.\n어디서 저런 의술을 배웠지? 수상하군.)"},
-	{"if": "c2_healed", "who": "", "text": "(보너스: 마을 사람들이 고맙다며 엽전과 약병을 쥐여 주었다.)", "coin": 6, "potion": 1},
+const C4_PLAGUE := [
+	{"bg": "street_ink", "who": "", "text": "한양을 떠나기 전, 성 밖 작은 마을.\n열병이 돌아 의원은 도망가고, 아이와 노인들만 거적 위에 누워 있었다."},
+	{"who": "서휘", "pic": "seohwi", "text": "의원, 우리 갈 길이 바쁘다. 포졸들도 아직 너를 찾고 있고."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…의원님이라면 그냥 지나치지 않으셨을 거예요.\n쑥이랑 금은화부터 구해 주세요. 오늘 밤은 여기 있을래요."},
+	{"who": "", "text": "{alias}는 밤새 아이들의 이마를 식히고 약을 달였다.\n새벽녘, 열이 내린 아이가 처음으로 웃었다."},
+	{"who": "", "text": "그 모습을, 마을 어귀 큰 느티나무 뒤에서 누군가 숨죽여 지켜보고 있었다."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "(…밤새 한숨도 안 자고, 값도 안 받고.\n저렇게 고운 마음을 가진 아이가… 정말 사람을 해쳤을까?)"},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "(…아니다. 도망자는 도망자다. 흔들리지 마라, 윤도결.)"},
+	{"who": "", "text": "(마을 사람들이 고맙다며 엽전과 약병을 쥐여 주었다.)", "coin": 6, "potion": 1},
 ]
 
 const CH2_GOAL := [
@@ -411,13 +412,13 @@ const CH1_AFTER_SHADOW := [
 
 const C2_DG_FIGHT := [
 	{"bg": "street_ink", "who": "", "text": "한양 도성이 멀리 보이는 고갯길.\n붉은 술 전립 사이로 검은 철릭이 길을 막았다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "거기 서라, 약초꾼. 한양 문턱까지 따라왔다.\n열병 마을에서 본 그 손놀림, 약초꾼 솜씨가 아니었다. 패랭이를 벗어 봐라."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "거기 서라, 약초꾼. 한양 문턱까지 따라왔다.\n…가만, 사내아이치곤 손이 참 곱구나. 패랭이를 벗어 봐라."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "(벗으면 끝이야…) 싫어요! 길 비켜 주세요!"},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "그렇다면 힘으로 확인하겠다."},
 ]
 
 const C2_DG_FLEE := [
-	{"who": "", "text": "다래가 던진 고춧가루 주머니가 터지고, 매운 연기가 길을 덮었다."},
+	{"who": "", "text": "윤도결이 무릎을 꿇은 틈에, {alias}는 허리춤의 고춧가루 주머니를 힘껏 던졌다.\n매운 연기가 고갯길을 덮었다."},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "콜록… 고춧가루냐…!\n…놓쳤군. 저 녀석, 대체 정체가 뭐냐."},
 	{"who": "다래", "pic": "friend", "text": "{alias}, 지금이야! 뛰어!"},
 ]
@@ -628,7 +629,7 @@ const TALKS_EXTRA := {
 const ALL := {
 	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
-	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C2_PLAGUE": C2_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
+	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
