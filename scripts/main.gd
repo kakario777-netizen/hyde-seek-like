@@ -476,13 +476,17 @@ func icon(name: String) -> Texture2D:
 	return load("res://assets/ui/icons/%s.png" % name)
 
 ## 맵 위에 서는 데포르메(SD) 그림. 없으면 null
-const CHIBI_OF := {"hero": "hero", "hero_angry": "hero", "hero_sad": "hero", "hero_surprised": "hero", "hero_physician": "hero",
+const CHIBI_OF := {"hero_adult": "hero_adult",
 	"seohwi": "seohwi", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_blush": "dogyeol",
 	"heo": "heo", "heo_ill": "heo", "baegun_boss": "baegun_boss", "addict": "addict", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
 
 func chibi(name: String) -> Texture2D:
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
-	return load(p) if ResourceLoader.exists(p) else null
+	if ResourceLoader.exists(p):
+		return load(p)
+	# 데포르메가 없으면 여백을 잘라 낸 전신 그림 (키를 맞추기 위해)
+	var q := "res://assets/mapfig/%s.png" % name
+	return load(q) if ResourceLoader.exists(q) else null
 
 func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name

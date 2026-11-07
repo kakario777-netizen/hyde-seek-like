@@ -149,11 +149,12 @@ func _build_world() -> void:
 	token.position = tile_center(pos)
 	world.add_child(token)
 
+## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
+const MAP_H := 150.0
 func _sprite(pic: String, h: float) -> TextureRect:
+	h = MAP_H * (1.15 if h >= 200 else 1.0)
 	var t: Texture2D = main.chibi(pic)
-	if t != null:
-		h *= 0.82  # 데포르메는 머리가 커서 조금 작게
-	else:
+	if t == null:
 		t = main.illust(pic)
 	if t == null:
 		t = main.icon("walpae")
@@ -189,12 +190,12 @@ func _make_tile_ent(i: int) -> void:
 			var pic: String = tk.get("pic", WHO_PIC.get(tk.get("who", ""), ""))
 			if pic != "" and main.illust(pic) != null:
 				root.add_child(_sprite(pic, 165))
-				root.add_child(_badge("talk", Vector2(-24, -205), Color("f3e6c8")))
+				root.add_child(_badge("talk", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 			else:
 				root.add_child(_badge("talk", Vector2(-24, -70), Color("f3e6c8")))
 		"shop":
 			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
-			root.add_child(_badge("shop", Vector2(-24, -190), Color("f3e6c8")))
+			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"item", "buff", "debuff", "trap", "rest":
 			root.add_child(_badge(typ, Vector2(-24, -70), Color("f3e6c8")))
 	if t.get("herb", false):
@@ -247,15 +248,16 @@ func _make_token() -> Control:
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
 	var tk: Texture2D = main.illust(main.token_name())
-	if not (main.chapter in main.DISGUISED) and main.chibi("hero") != null:
-		tk = main.chibi("hero")
+	if main.chapter >= 9 and main.chibi("hero_adult") != null:
+		tk = main.chibi("hero_adult")  # 어른이 된 뒤 서휘와 걷는 마지막 장
 	token_pic = main.tex_rect(tk, Vector2(132, 140))
 	token_pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	token_pic.position = Vector2(-66, -132)
 	token_pic.pivot_offset = Vector2(66, 140)
-	if tk == main.chibi("hero"):
-		token_pic.custom_minimum_size = Vector2(150, 200); token_pic.size = Vector2(150, 200)
-		token_pic.position = Vector2(-75, -192); token_pic.pivot_offset = Vector2(75, 200)
+	# 주인공 말도 다른 인물과 같은 키
+	var tw_: float = MAP_H * tk.get_width() / max(1.0, float(tk.get_height()))
+	token_pic.custom_minimum_size = Vector2(tw_, MAP_H); token_pic.size = Vector2(tw_, MAP_H)
+	token_pic.position = Vector2(-tw_ / 2.0, -MAP_H + 8); token_pic.pivot_offset = Vector2(tw_ / 2.0, MAP_H)
 	root.add_child(token_pic)
 	return root
 
