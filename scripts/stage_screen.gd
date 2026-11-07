@@ -170,8 +170,8 @@ func _make_tile_ent(i: int) -> void:
 			s.position = Vector2(-TW / 2.0, -80)
 			root.add_child(s)
 		"goal":
-			var g: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_gate.png"), Vector2(TW * 1.4, 238))
-			g.position = Vector2(-TW * 0.7, -210)
+			var g: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_gate.png"), Vector2(TW * 1.3, TW * 1.3))
+			g.position = Vector2(-TW * 0.65, -TW * 1.3 + 46)
 			root.add_child(g)
 		"walpae", "pojol":
 			var eid := _enemy_id(typ)

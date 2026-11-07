@@ -380,8 +380,8 @@ const CH7_END := [
 
 const EPILOGUE := [
 	{"bg": "family", "who": "", "text": "남산 아래, 작은 한옥 한 채.\n대문 위에는 '허씨 약방'이라는 현판이 걸렸다."},
-	{"who": "", "text": "마당엔 금빛 머리칼과 검은 머리칼의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
-	{"who": "다래", "pose": "darae_court", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
+	{"who": "", "pose": "children", "text": "마당엔 금빛 머리칼과 검은 머리칼의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
+	{"who": "다래", "pose": "darae_adult", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이오. 무슨 일 있으면 부르시오."},
 	{"who": "{name}", "pose": "hero_adult", "text": "의원님. 저, 잘 지내고 있어요.\n의원님이 주신 마음, 이렇게 계속 이어 가고 있어요."},
 	{"who": "", "text": "― 한양 숨바꼭질 · 완(完) ―\n\n끝까지 함께해 주셔서 고맙습니다."},
@@ -523,9 +523,9 @@ const CH9_INTRO := [
 	{"bg": "title", "who": "", "text": "― 마지막 장 「한양의 봄」 ―"},
 	{"who": "", "text": "몇 해가 흘렀다.\n열다섯 살 소녀는 어느덧 단아한 아가씨가 되어 있었다."},
 	{"who": "", "pose": "hero_adult", "text": "남장을 벗고, 다시 댕기를 맨 {name}.\n서휘와 함께 한양 숭례문을 들어섰다."},
-	{"who": "다래", "pose": "darae_court", "text": "{name}아아아!!\n진짜… 진짜 너야? 바보, 편지라도 좀 하지! 보고 싶었단 말이야!"},
+	{"who": "다래", "pose": "darae_adult", "text": "{name}아아아!!\n진짜… 진짜 너야? 바보, 편지라도 좀 하지! 보고 싶었단 말이야!"},
 	{"who": "{name}", "pose": "hero_adult", "text": "다래야! 나도 보고 싶었어.\n…그리고 소개할 사람이 있어. 아니, 너도 아는 사람이지만."},
-	{"who": "다래", "pose": "darae_court", "text": "그 도라지 말이야, 올봄에 꽃이 피었어!\n너 돌아오면 같이 캐려고 아껴 뒀지!"},
+	{"who": "다래", "pose": "darae_adult", "text": "그 도라지 말이야, 올봄에 꽃이 피었어!\n너 돌아오면 같이 캐려고 아껴 뒀지!"},
 	{"who": "", "text": "문 곁에는 포도대장 윤도결이 서 있었다.\n마치 그날부터 줄곧 거기 서 있었던 것처럼."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…돌아왔구나, {name}. 기다리겠다고 했었지.\n매일 아침 순찰 길을 일부러 이 문 앞으로 돌렸다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그런데, 혼인을 한다고?"},
@@ -633,4 +633,4 @@ const ALLIES := {
 }
 
 ## 아직 그림이 없어 도트로 대신하는 인물 (진짜 그림이 오면 여기서 지운다)
-const PLACEHOLDERS := ["seohwi_dutch", "hero_adult", "dutch_child", "rat", "sea", "holland", "wedding", "family"]
+const PLACEHOLDERS := []

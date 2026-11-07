@@ -208,7 +208,7 @@ const ENEMIES := {
 	"shadow": {"name": "검은 사내", "sprite": "shadow", "hp": 140, "coin": 0, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 11, "n": "검은 손아귀"}, {"t": "atk", "v": 13, "n": "어둠 찢기"}, {"t": "def", "v": 14, "n": "그림자 두르기"}],
 		"heavy": {"t": "atk", "v": 28, "n": "흑심 폭주"}},
-	"haejeok": {"name": "뱃사람 무뢰배", "sprite": "walpae", "hp": 34, "coin": 6, "charge": 3,
+	"haejeok": {"name": "뱃사람 무뢰배", "sprite": "baetsaram", "hp": 34, "coin": 6, "charge": 3,
 		"moves": [{"t": "atk", "v": 8, "n": "단검 찌르기"}, {"t": "def", "v": 8, "n": "몸 피하기"}, {"t": "atk", "v": 9, "n": "갈고리 휘두르기"}],
 		"heavy": {"t": "atk", "v": 17, "n": "선원 칼춤"}},
 	"rat": {"name": "역병 쥐떼", "sprite": "rat", "hp": 26, "coin": 2, "charge": 2,
