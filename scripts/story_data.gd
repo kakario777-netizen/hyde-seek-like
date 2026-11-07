@@ -24,11 +24,16 @@ const CHAPTERS := {
 			{"map": "s3_2", "name": "종로 뒷골목", "after": "C3_TRUTH"},
 			{"map": "s3_3", "name": "남산 아래 결투"}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
-	4: {"title": "제4장  대대장", "goal": "화엄골 지하", "intro": "CH4_INTRO", "end": "CH4_END",
+	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "name": "성 밖 병든 마을", "after": "C4_PLAGUE"},
 			{"map": "s4_1", "name": "비 오는 청계천", "after": "C4_STREAM"},
 			{"map": "s4_2", "name": "군산 포구 뒤지기", "after": "C4_CLUE"},
-			{"map": "s4_3", "name": "도적의 소굴 찾아가기"}],
+			{"map": "s4_3", "name": "화엄골 가는 길", "after": "C4_CASTLE"},
+			{"map": "s4_f1", "name": "백운의 성 1층 · 창고", "after": "C4_F1"},
+			{"map": "s4_f2", "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2"},
+			{"map": "s4_f3", "name": "백운의 성 3층 · 약 공방", "after": "C4_F3"},
+			{"map": "s4_f4", "name": "백운의 성 4층 · 보물고", "after": "C4_F4"},
+			{"map": "s4_f5", "name": "백운의 성 5층 · 천수각"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
@@ -224,7 +229,7 @@ const C4_CLUE := [
 ]
 
 const CH4_GOAL := [
-	{"who": "", "bg": "vault", "text": "화엄골 초당 아래, 대숲 바위틈에 숨겨진 석굴.\n안에는 은궤와 청심보명단 상자가 산처럼 쌓여 있었다."},
+	{"who": "", "bg": "vault", "text": "백운의 성 5층, 천수각.\n금칠한 기둥 사이로 화엄골 골짜기가 발아래 펼쳐졌다."},
 	{"who": "???", "pic": "baegun_boss", "text": "기어이 여기까지 왔구나. 서휘, 그리고… 허가 놈의 계집아이."},
 	{"who": "", "text": "삿갓이 벗겨졌다.\n하얗게 센 수염, 자애롭게 웃던 다래의 할아버지."},
 	{"who": "백운", "pic": "baegun_boss", "text": "흑심단은 원래 내 처방이었다. 마음의 검은 것을 떼어 내는 약?\n그건 허가 놈의 헛된 꿈이었지. 나는 그 약으로 사람을 길들이는 법을 알아냈을 뿐."},
@@ -234,7 +239,7 @@ const CH4_GOAL := [
 ]
 
 const CH4_END := [
-	{"bg": "vault", "who": "", "text": "백운이 무릎을 꿇었다.\n뒤따라온 윤도결과 포졸들이 노인을 오랏줄로 묶었다."},
+	{"bg": "vault", "who": "", "text": "백운이 무릎을 꿇었다.\n성 아래에서 뒤따라 올라온 윤도결과 포졸들이 노인을 오랏줄로 묶었다."},
 	{"who": "다래", "pose": "friend_worried", "text": "할아버지?! …{alias}, 너…\n우리 할아버지한테 무슨 짓을 한 거야!"},
 	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "다래야, 들어 봐. 할아버지가 청심보명단을…"},
 	{"who": "다래", "pose": "friend_worried", "text": "듣기 싫어! 너만 믿고 따라왔는데…\n결국 우리 할아버지를 포도청에 넘기려고 날 이용한 거잖아!", "end": true},
@@ -247,7 +252,7 @@ const CH4_AFTER_DUEL := [
 	{"who": "다래", "pose": "friend_worried", "text": "할아버지…\n…{alias}, 아니, {name}아. 미안해. 정말 미안해…"},
 	{"who": "{name}", "pose": "hero_sad", "text": "나도 미안해. 더 일찍 말했어야 했는데.\n…우리, 아직 친구지?"},
 	{"who": "다래", "pose": "friend", "text": "당연하지, 바보야!"},
-	{"who": "", "text": "석굴 입구에서 그 모습을 지켜보던 서휘가 깨진 애체를 고쳐 썼다."},
+	{"who": "", "text": "천수각 난간에서 그 모습을 지켜보던 서휘가 깨진 애체를 고쳐 썼다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…{name}이라. 이제야 진짜 이름을 듣는군.\n(독을 빚게 한 나를 끝까지 사람으로 대해 준 사람. …잊지 못하겠군.)"},
 	{"who": "", "text": "― 제4장 「대대장」 끝 ―", "end": true},
 ]
@@ -481,9 +486,9 @@ const C4_MASK2 := [
 ]
 
 const C4_MASK2_FLEE := [
-	{"who": "", "text": "삿갓이 반쯤 찢겨 나갔다.\n노인은 얼굴을 가린 채 대숲 속으로 몸을 날렸다."},
+	{"who": "", "text": "삿갓이 반쯤 찢겨 나갔다.\n노인은 얼굴을 가린 채 골짜기 쪽으로 몸을 날렸다."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "방금… 하얀 수염…\n그리고 웃을 때 부채처럼 접히던 그 눈가 주름…"},
-	{"who": "서휘", "pic": "seohwi", "text": "쫓자. 놈의 소굴이 이 산 어딘가에 있다."},
+	{"who": "서휘", "pic": "seohwi", "text": "쫓자. 놈의 소굴이 이 골짜기에 있다."},
 ]
 
 const C5_SHADOW := [
@@ -597,6 +602,84 @@ const C7_SICK := [
 	{"who": "", "text": "그날 이후, 둘 사이엔 말하지 않아도 알 수 있는 무언가가 생겼다."},
 ]
 
+const C4_CASTLE := [
+	{"bg": "title", "who": "", "text": "외나무다리를 건너 대숲을 빠져나오자, 화엄골 골짜기가 한눈에 들어왔다."},
+	{"who": "", "text": "다래의 고향, 조용하던 산골 마을 위로—\n붉은 기와를 다섯 겹으로 올린 거대한 성이 우뚝 솟아 있었다."},
+	{"who": "서휘", "pic": "seohwi", "text": "…장부에 적힌 은 수천 냥이 다 저기로 들어갔군.\n청심보명단으로 번 돈으로 제 성을 쌓다니."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "마을 사람들 말로는 오 층 꼭대기에 '백 노인'이 산대요.\n…층마다 지키는 자들이 있다고."},
+	{"who": "서휘", "pic": "seohwi", "text": "한 층씩 올라가자. 등은 내가 맡지."},
+	{"who": "", "text": "【목표】\n백운의 성 다섯 층을 차례로 올라\n꼭대기 천수각에 닿아라."},
+]
+
+const C4_F1_PRE := [
+	{"bg": "vault", "who": "", "text": "성 1층, 대문 안쪽 창고.\n철퇴를 든 거구가 길을 막아섰다."},
+	{"who": "성 문지기", "pic": "sunra", "text": "백 노인 어르신 성에 쥐새끼가 둘 들어왔구나.\n여기서 돌아가면 다리 하나는 남겨 주마."},
+]
+
+const C4_F1_POST := [
+	{"who": "성 문지기", "pic": "sunra", "text": "크윽… 위층 놈들은… 나보다 훨씬 독하다…"},
+]
+
+const C4_F1 := [
+	{"bg": "vault", "who": "", "text": "1층 창고엔 은궤와 곡식 섬이 천장까지 쌓여 있었다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 곡식 자루… 열병 마을에서 빼앗아 간 거예요.\n'구휼미'라고 찍혀 있어요."},
+	{"who": "서휘", "pic": "seohwi", "text": "굶는 사람들 입에서 빼앗은 쌀로 성을 쌓았군."},
+	{"who": "", "potion": 1, "text": "(창고 구석에서 쓸 만한 약재를 챙겼다: 약병 +1)"},
+]
+
+const C4_F2_PRE := [
+	{"bg": "den", "who": "", "text": "성 2층, 독안개가 깔린 긴 회랑.\n검은 용 문신의 사내가 쇠사슬을 끌며 나타났다."},
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "청안파 서휘! 다리 밑에서 못 끝낸 승부, 여기서 내자.\n백 노인 어르신이 네 목에 은 백 냥을 거셨거든."},
+]
+
+const C4_F2_POST := [
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "…크흑. 노인네 돈을 받은 게 잘못이었나…"},
+]
+
+const C4_F2 := [
+	{"who": "서휘", "pic": "seohwi", "text": "흑룡파가 우리 구역 아이들을 털고 다닌 것도…\n다 저 노인의 돈이었단 말이군."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "서휘… 괜찮아요?"},
+	{"who": "서휘", "pic": "seohwi", "text": "괜찮다. 오히려 속이 시원해.\n이제 누구를 쳐야 할지 분명해졌으니까."},
+]
+
+const C4_F3_PRE := [
+	{"bg": "den", "who": "", "text": "성 3층, 쓴 약 냄새가 진동하는 공방.\n눈이 풀린 일꾼들이 비틀거리며 다가왔다."},
+	{"who": "중독된 일꾼", "pic": "addict", "text": "약… 약을 더… 노인 어르신이… 일하면 약을 준다고…"},
+]
+
+const C4_F3_POST := [
+	{"who": "", "text": "일꾼들이 하나둘 쓰러지듯 주저앉았다."},
+]
+
+const C4_F3 := [
+	{"bg": "den", "who": "", "text": "공방 안쪽, 쇠사슬에 묶인 마을 사람들이 청심보명단을 빚고 있었다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 사람들, 다 화엄골 마을 사람들이에요…!\n약을 미끼로 붙잡아 두고 일을 시킨 거야."},
+	{"who": "", "text": "{alias}는 사슬을 풀고, 가지고 있던 해독 약재로 사람들의 손목을 짚어 가며 약을 먹였다."},
+	{"who": "마을 노인", "pic": "yakjae", "text": "고맙소, 젊은 의원…\n백 노인이 저리 변하기 전엔, 이 골짜기 사람들을 공짜로 고쳐 주던 분이었는데…"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…약보다 독을 먼저 알아보라던 할아버지. 그 가르침은 진짜였는데…)"},
+	{"who": "", "coin": 6, "potion": 1, "text": "(풀려난 사람들이 엽전과 약병을 건넸다)"},
+]
+
+const C4_F4_PRE := [
+	{"bg": "vault", "who": "", "text": "성 4층, 금빛 보물고.\n은궤 위에 삿갓 쓴 노인이 앉아 있었다."},
+	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "세 번째로구나, 아이들아.\n허나 이 위로는 한 발짝도 못 간다."},
+]
+
+const C4_F4_POST := [
+	{"who": "", "text": "노인은 또다시 연막약을 터뜨리고 위층 계단으로 몸을 날렸다."},
+	{"who": "서휘", "pic": "seohwi", "text": "놓치지 마라! 이제 꼭대기뿐이다!"},
+]
+
+const C4_F4 := [
+	{"bg": "vault", "who": "", "text": "그때, 아래층 계단에서 다급한 발소리가 들렸다."},
+	{"who": "다래", "pic": "friend_worried", "text": "{alias}! 여기 있었구나!\n마을 사람들이 그러는데 할아버지가 이 성에 붙잡혀 계신다고…"},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "다, 다래야…! 여긴 위험해. 아래에서 기다려."},
+	{"who": "다래", "pic": "friend_worried", "text": "싫어! 할아버지를 구하러 온 거야. 나도 갈 거야!"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…할아버지가 붙잡힌 게 아니라, 이 성의 주인이라고… 어떻게 말하지.)"},
+	{"who": "서휘", "pic": "seohwi", "text": "…의원. 말하지 않으면 더 큰 상처가 된다."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "…위에 올라가면, 다 보게 될 거예요."},
+]
+
 const TALKS := {
 	2: [
 		{"who": "엿장수", "pic": "yeotjangsu", "text": "어이 총각들! 엿 하나 물고 가.\n…요새 한양에 '푸른 눈 왈패'가 설친다더구먼. 조심하라고.", "coin": 2},
@@ -653,6 +736,7 @@ const TALKS_EXTRA := {
 }
 
 const ALL := {
+	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F4_PRE": C4_F4_PRE, "C4_F4_POST": C4_F4_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,

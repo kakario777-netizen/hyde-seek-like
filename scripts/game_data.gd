@@ -226,4 +226,13 @@ const ENEMIES := {
 	"baegun_mask": {"name": "삿갓 노인", "sprite": "baegun_boss", "hp": 72, "coin": 12, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 8, "n": "독침 날리기"}, {"t": "def", "v": 10, "n": "연막약"}, {"t": "atk", "v": 10, "n": "지팡이 후려치기"}],
 		"heavy": {"t": "atk", "v": 19, "n": "흑심 독무"}},
+	"gatekeeper": {"name": "성 문지기", "sprite": "sunra", "hp": 52, "coin": 8, "charge": 3, "boss": true,
+		"moves": [{"t": "atk", "v": 8, "n": "철퇴 휘두르기"}, {"t": "def", "v": 10, "n": "대문 막기"}, {"t": "atk", "v": 9, "n": "어깨로 들이받기"}],
+		"heavy": {"t": "atk", "v": 18, "n": "철퇴 내려찍기"}},
+	"heukdu": {"name": "흑룡파 두목", "sprite": "walpae", "hp": 60, "coin": 10, "charge": 3, "boss": true,
+		"moves": [{"t": "atk", "v": 9, "n": "쇠사슬 채찍"}, {"t": "def", "v": 9, "n": "버티기"}, {"t": "atk", "v": 7, "n": "독안개 뿌리기"}],
+		"heavy": {"t": "atk", "v": 19, "n": "흑룡 쇠사슬"}},
+	"mob_boss": {"name": "중독된 일꾼 무리", "sprite": "addict", "hp": 56, "coin": 6, "charge": 2, "boss": true,
+		"moves": [{"t": "atk", "v": 7, "n": "달려들기"}, {"t": "atk", "v": 8, "n": "할퀴기"}, {"t": "def", "v": 8, "n": "엉겨 붙기"}],
+		"heavy": {"t": "atk", "v": 16, "n": "한꺼번에 덮치기"}},
 }

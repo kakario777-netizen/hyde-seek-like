@@ -1,0 +1,244 @@
+{
+ "id": "s4_f3",
+ "name": "백운의 성 3층 · 약 공방",
+ "tile": "brick",
+ "bg": "den",
+ "turns": 14,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -1,
+   "type": "walpae"
+  },
+  {
+   "x": -2,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "talk"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "item"
+  },
+  {
+   "x": -8,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "debuff"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -9,
+   "type": "boss",
+   "battle": "mob_boss",
+   "pre": "C4_F3_PRE",
+   "post": "C4_F3_POST"
+  },
+  {
+   "x": -13,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -11,
+   "type": "spike"
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -11,
+   "type": "shop"
+  },
+  {
+   "x": -16,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -11,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -17,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -18,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -13,
+   "type": "pojol"
+  },
+  {
+   "x": -19,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -16,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -10,
+   "y": -8,
+   "at": 18,
+   "zone": [
+    17,
+    18
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -18,
+   "y": -13,
+   "at": 31,
+   "zone": [
+    30,
+    31
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "at": 25,
+   "zone": [
+    24,
+    25
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "at": 9,
+   "zone": [
+    8,
+    9,
+    10
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}

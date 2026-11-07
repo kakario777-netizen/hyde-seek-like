@@ -1,0 +1,222 @@
+{
+ "id": "s4_f1",
+ "name": "백운의 성 1층 · 창고",
+ "tile": "wood",
+ "bg": "vault",
+ "turns": 14,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": 0,
+   "type": "pojol"
+  },
+  {
+   "x": -4,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -3,
+   "type": "trap"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "spike"
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "shop"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -10,
+   "type": "boss",
+   "battle": "gatekeeper",
+   "pre": "C4_F1_PRE",
+   "post": "C4_F1_POST"
+  },
+  {
+   "x": -12,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -11,
+   "type": "walpae"
+  },
+  {
+   "x": -12,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -13,
+   "type": "spike"
+  },
+  {
+   "x": -16,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "type": "item"
+  },
+  {
+   "x": -16,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -17,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -7,
+   "y": -7,
+   "at": 14,
+   "zone": [
+    13,
+    14,
+    15
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -12,
+   "y": -12,
+   "at": 24,
+   "zone": [
+    24,
+    25
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -5,
+   "y": -3,
+   "at": 8,
+   "zone": [
+    7,
+    8
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}
