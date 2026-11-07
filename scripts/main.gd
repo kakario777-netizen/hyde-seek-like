@@ -480,11 +480,6 @@ const CHIBI_OF := {"hero_adult": "hero_adult",
 	"seohwi": "seohwi", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_blush": "dogyeol",
 	"heo": "heo", "heo_ill": "heo", "baegun_boss": "baegun_boss", "addict": "addict", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
 
-## 진짜 데포르메 그림만 (없으면 null, 전신 대체 없음)
-func chibi_only(name: String) -> Texture2D:
-	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
-	return load(p) if ResourceLoader.exists(p) else null
-
 func chibi(name: String) -> Texture2D:
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
 	if ResourceLoader.exists(p):
