@@ -45,7 +45,7 @@ const CHAPTERS := {
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
 		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID"},
-			{"map": "s7_2", "name": "풍차 언덕 약초밭"}],
+			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK"}],
 		"goal_text": "풍차 옆 언덕에 쓴 약초가 가득하다.\n이것이면 마을을 살릴 수 있다!", "goal_title": "풍차 언덕", "goal_pic": "seohwi_dutch", "goal_bg": "holland"},
 	9: {"title": "마지막 장  한양의 봄", "goal": "남산 아래 집터", "intro": "CH9_INTRO", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
@@ -383,6 +383,11 @@ const C7_MID := [
 
 const CH7_END := [
 	{"bg": "holland", "who": "", "text": "봄. 멈췄던 풍차가 다시 돌기 시작했다.\n마을 아이들이 튤립 꽃밭에서 뛰어놀았다."},
+	{"who": "", "text": "풍차 아래 언덕. 둘은 나란히 앉아 다시 도는 날개를 바라보았다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "있잖아요, 서휘. 한양에서 누명을 쓰고 쫓기던 때…\n세상에서 제일 불행한 아이가 나라고 생각했어요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "그런데 그 일이 없었으면 다래랑 길을 떠나지도, 다리 밑에서 당신을 만나지도 못했겠죠.\n…이제는 그때 일이 고마워요. 그 길 끝에 당신이 있었으니까."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "…나도 그렇다. 평생 이 푸른 눈을 원망하며 살았는데,\n이 눈 덕에 화란까지 와서… 너를 다시 만났지."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "불행이라 여긴 길이, 돌아보니 전부 너에게 오는 길이었군."},
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "{name}. 약속대로 제대로 말하겠다.\n…너와 함께 조선으로 돌아가고 싶다. 네 곁에 머물고 싶다."},
 	{"who": "{name}", "pose": "hero_disguise", "text": "…응. 나도.", "end": true},
 ]
@@ -574,6 +579,19 @@ const C3_HEUK := [
 	{"who": "", "text": "다리 밑 소굴로 돌아가는 서휘의 발걸음은 어쩐지 조금 가벼워 보였다."},
 ]
 
+const C7_SICK := [
+	{"bg": "holland", "who": "", "text": "약초밭에서 돌아온 날 밤, 서휘가 쓰러졌다.\n아이들을 돌보던 사이 역병이 옮은 것이었다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…괜찮다. 아이들부터… 살펴라."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "바보! 지금은 당신이 환자예요. 의원 말 들어요."},
+	{"who": "", "text": "{alias}는 언덕에서 캐 온 약초를 달여 밤새 서휘의 입술을 적셨다.\n젖은 수건을 갈고 식은땀을 닦으며, 거친 숨이 잦아들 때까지 손을 놓지 않았다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…다리 밑 소굴에서도… 네가 이렇게 밤새 아이들 곁을 지켰지.\n이제야… 그 손이 얼마나 따뜻한지 알겠군."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "말하지 말고 자요. 아침까지 여기 있을게요."},
+	{"who": "", "text": "새벽녘, 열이 내렸다.\n눈을 뜬 서휘가 맞잡은 두 손을 내려다보고 희미하게 웃었다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…밤새 이 손을 놓지 않았군."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "놓으면… 당신이 어디 가 버릴 것 같아서요."},
+	{"who": "", "text": "그날 이후, 둘 사이엔 말하지 않아도 알 수 있는 무언가가 생겼다."},
+]
+
 const TALKS := {
 	2: [
 		{"who": "엿장수", "pic": "yeotjangsu", "text": "어이 총각들! 엿 하나 물고 가.\n…요새 한양에 '푸른 눈 왈패'가 설친다더구먼. 조심하라고.", "coin": 2},
@@ -630,6 +648,7 @@ const TALKS_EXTRA := {
 }
 
 const ALL := {
+	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
