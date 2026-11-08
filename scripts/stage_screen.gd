@@ -527,6 +527,9 @@ func _randomize_layout(s: int) -> void:
 	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
 		for t in tiles:
 			var x = t["x"]; t["x"] = t["y"]; t["y"] = x
+	# 감시꾼은 반드시 자기 칸 위에 (뒤집은 뒤 좌표로 맞춤)
+	for g in guards:
+		g["x"] = tiles[int(g["at"])]["x"]; g["y"] = tiles[int(g["at"])]["y"]
 
 func _cheb(a: int, b: int) -> int:
 	return maxi(absi(int(tiles[a]["x"]) - int(tiles[b]["x"])), absi(int(tiles[a]["y"]) - int(tiles[b]["y"])))
