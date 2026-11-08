@@ -8,7 +8,7 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
-const BATTLE_BG := {"haejeok": "sea", "gatekeeper": "vault", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
+const BATTLE_BG := {"haejeok": "sea", "gatekeeper": "corridor", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -70,7 +70,7 @@ func _ready() -> void:
 	# 백운의 성 안에서 싸울 때는 그 층 배경(성 안) 그대로
 	if main.board != null and is_instance_valid(main.board) and "data" in main.board and main.board.data is Dictionary:
 		var sbg: String = main.board.data.get("bg", "")
-		if sbg in ["vault", "cheonsugak"] and not BATTLE_BG.has(enemy_id):
+		if sbg in ["vault", "corridor", "cheonsugak"] and not BATTLE_BG.has(enemy_id):
 			bgname = sbg
 	var bt: Texture2D = main.backdrop(bgname)
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
