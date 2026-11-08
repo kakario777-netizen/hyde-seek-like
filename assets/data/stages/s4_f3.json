@@ -2,7 +2,7 @@
  "id": "s4_f3",
  "name": "백운의 성 3층 · 약 공방",
  "tile": "brick",
- "bg": "den",
+ "bg": "vault",
  "turns": 17,
  "tiles": [
   {

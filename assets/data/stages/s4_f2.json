@@ -2,7 +2,7 @@
  "id": "s4_f2",
  "name": "백운의 성 2층 · 독안개 회랑",
  "tile": "cave",
- "bg": "den",
+ "bg": "vault",
  "turns": 17,
  "tiles": [
   {

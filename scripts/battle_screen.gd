@@ -66,7 +66,13 @@ func _ready() -> void:
 	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
 
 	var bg := TextureRect.new()
-	var bt: Texture2D = main.backdrop(BATTLE_BG.get(enemy_id, "alley"))
+	var bgname: String = BATTLE_BG.get(enemy_id, "alley")
+	# 백운의 성 안에서 싸울 때는 그 층 배경(성 안) 그대로
+	if main.board != null and is_instance_valid(main.board) and "data" in main.board and main.board.data is Dictionary:
+		var sbg: String = main.board.data.get("bg", "")
+		if sbg in ["vault", "cheonsugak"] and not BATTLE_BG.has(enemy_id):
+			bgname = sbg
+	var bt: Texture2D = main.backdrop(bgname)
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
