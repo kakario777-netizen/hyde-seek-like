@@ -35,6 +35,7 @@ var e_hp_bar: ProgressBar
 var e_hp_lbl: Label
 var e_block_lbl: Label
 var my_panel: Control
+var top_panel: Control
 var ip_panel: Control
 var charge_row: HBoxContainer
 var intent_lbl: Label
@@ -90,6 +91,8 @@ func _ready() -> void:
 	top.anchor_right = 1.0
 	top.offset_left = 4; top.offset_right = -4; top.offset_top = 4
 	add_child(top)
+	top_panel = top
+	top.resized.connect(_layout)
 	var tv := VBoxContainer.new()
 	tv.add_theme_constant_override("separation", 4)
 	top.add_child(tv)
@@ -234,10 +237,13 @@ func _layout() -> void:
 	# 내 정보 패널 윗변 = 화면 아래 - 상소 줄 - 패널 높이 (패널 높이가 아직 0이면 기본값)
 	var ph: float = my_panel.size.y if my_panel and my_panel.size.y > 40 else 196.0
 	var ptop: float = size.y - CARD_H - 22 - ph
+	# 다음 수 알림: 적 이름·체력 띠 바로 아래
+	var tbot: float = (top_panel.position.y + top_panel.size.y) if top_panel and top_panel.size.y > 20 else 150.0
 	if ip_panel:
-		ip_panel.position.y = ptop - ip_panel.size.y - 12
-	var bottom: float = ptop - 100
-	var room: float = max(220.0, bottom - 170)   # 위쪽 이름·체력 띠 아래 남는 높이
+		ip_panel.position.y = tbot + 8
+	# 적 그림: 발끝이 내 정보 패널 바로 위에 닿게
+	var bottom: float = ptop - 6
+	var room: float = max(220.0, bottom - (tbot + 8 + (ip_panel.size.y if ip_panel else 70) + 8))
 	var k: float = min(1.0, room / max(1.0, enemy_full.y))
 	var sz := enemy_full * k
 	enemy_sprite.custom_minimum_size = sz
