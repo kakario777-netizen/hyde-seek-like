@@ -806,7 +806,7 @@ func show_bag(cb := Callable()) -> void:
 		for ch in grid.get_children():
 			ch.queue_free()
 		cp[1].call()
-		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 합쳐집니다" % deck.size()
+		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 엽전 5냥에 합쳐집니다" % deck.size()
 		if state["msg"] != "":
 			info.text = state["msg"]
 		var sel: int = state["sel"]
@@ -878,6 +878,12 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 		state["sel"] = -1
 		state["msg"] = "보따리에 상소가 %d장은 남아 있어야 합니다" % GameData.MIN_DECK
 		return
+	var cost: int = UPGRADE_COST[int(a["lv"])]
+	if coins < cost:
+		state["sel"] = -1
+		state["msg"] = "엽전이 모자랍니다! (합치기 %d냥 · 지금 %d냥)" % [cost, coins]
+		return
+	coins -= cost
 	var nlv: int = int(a["lv"]) + 1
 	var id: String = a["id"]
 	for k in [max(sel, i), min(sel, i)]:
@@ -886,7 +892,7 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 	sfx("upgrade")
 	_sort_deck()
 	state["sel"] = -1
-	state["msg"] = "%s %s 완성!" % [GameData.CARDS[id]["name"], "★".repeat(nlv)]
+	state["msg"] = "%s %s 완성! (엽전 -%d냥)" % [GameData.CARDS[id]["name"], "★".repeat(nlv), cost]
 
 # ── 장터 ────────────────────────────────────────────────
 const CARD_PRICE := 4
