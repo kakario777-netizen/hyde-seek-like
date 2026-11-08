@@ -224,16 +224,26 @@ func _start() -> void:
 	main.next_energy = 0
 	_begin_my_turn(bonus)
 
+var enemy_full := Vector2.ZERO   # 적 그림 원래 크기 (줄일 때 기준)
+
 func _layout() -> void:
-	var ptop: float = my_panel.position.y if my_panel else size.y - PANEL_TOP
+	if size.y < 200:
+		return
+	if enemy_full == Vector2.ZERO:
+		enemy_full = enemy_sprite.custom_minimum_size if enemy_sprite.custom_minimum_size != Vector2.ZERO else enemy_sprite.size
+	# 내 정보 패널 윗변 = 화면 아래 - 상소 줄 - 패널 높이 (패널 높이가 아직 0이면 기본값)
+	var ph: float = my_panel.size.y if my_panel and my_panel.size.y > 40 else 196.0
+	var ptop: float = size.y - CARD_H - 22 - ph
 	if ip_panel:
 		ip_panel.position.y = ptop - ip_panel.size.y - 12
 	var bottom: float = ptop - 100
-	if enemy_sprite.size.y > bottom - 150:
-		var k: float = (bottom - 150) / enemy_sprite.size.y
-		enemy_sprite.size *= k; enemy_sprite.custom_minimum_size = enemy_sprite.size
-		enemy_sprite.pivot_offset = enemy_sprite.size * Vector2(0.5, 1.0)
-	enemy_base = Vector2((size.x - enemy_sprite.size.x) / 2.0, bottom - enemy_sprite.size.y).floor()
+	var room: float = max(220.0, bottom - 170)   # 위쪽 이름·체력 띠 아래 남는 높이
+	var k: float = min(1.0, room / max(1.0, enemy_full.y))
+	var sz := enemy_full * k
+	enemy_sprite.custom_minimum_size = sz
+	enemy_sprite.size = sz
+	enemy_sprite.pivot_offset = sz * Vector2(0.5, 1.0)
+	enemy_base = Vector2((size.x - sz.x) / 2.0, bottom - sz.y).floor()
 	enemy_sprite.position = enemy_base
 
 func _bar(col: Color, h: int) -> ProgressBar:

@@ -129,6 +129,10 @@ func _debug_capture() -> void:
 			start_board()
 			chapter = int(args.get("ch", "1"))
 			start_battle(args.get("enemy", "pojol"), Callable(), {"ally": args.get("ally", ""), "lose_ok": args.has("lose")})
+			if args.has("clean"):
+				await get_tree().create_timer(0.5).timeout
+				for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+					l.queue_free()
 			if args.has("auto"):
 				var bs = current
 				await get_tree().create_timer(3.0).timeout
@@ -875,8 +879,18 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 		state["msg"] = "이미 가장 강한 상소입니다 (★3)"
 		return
 	if deck.size() <= GameData.MIN_DECK:
+		# 상소가 너무 적으면 합치지 않고 고른 한 장만 엽전으로 단련
+		var c1: int = UPGRADE_COST[int(a["lv"])]
+		if coins < c1:
+			state["sel"] = -1
+			state["msg"] = "엽전이 모자랍니다! (단련 %d냥 · 지금 %d냥)" % [c1, coins]
+			return
+		coins -= c1
+		deck[i] = {"id": a["id"], "lv": int(a["lv"]) + 1}
+		sfx("upgrade")
+		_sort_deck()
 		state["sel"] = -1
-		state["msg"] = "보따리에 상소가 %d장은 남아 있어야 합니다" % GameData.MIN_DECK
+		state["msg"] = "%s %s 단련! (엽전 -%d냥)\n상소가 %d장뿐이라 합치지 않고 한 장만 올렸어요" % [GameData.CARDS[a["id"]]["name"], "★".repeat(int(a["lv"]) + 1), c1, deck.size()]
 		return
 	var cost: int = UPGRADE_COST[int(a["lv"])]
 	if coins < cost:
