@@ -328,7 +328,8 @@ func _randomize_layout(s: int) -> void:
 	guards = []
 	var cand: Array = []
 	for i in range(4, n - 3):
-		if tiles[i]["type"] == "empty" and not tiles[i].get("herb", false):
+		# 감시꾼 자리와 앞뒤 붉은 칸에는 약초가 없어야 함
+		if tiles[i]["type"] == "empty" and not tiles[i - 1].get("herb", false) and not tiles[i].get("herb", false) and not tiles[i + 1].get("herb", false):
 			cand.append(i)
 	for i in range(cand.size() - 1, 0, -1):
 		var j := rng.randi_range(0, i)
@@ -344,7 +345,7 @@ func _randomize_layout(s: int) -> void:
 			continue
 		var zone: Array = []
 		for z in [i - 1, i, i + 1]:
-			if tiles[z]["type"] in ["empty", "spike"]:
+			if tiles[z]["type"] in ["empty", "spike"] and not tiles[z].get("herb", false):
 				zone.append(z)
 		guards.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "at": i, "zone": zone,
 			"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
