@@ -48,7 +48,10 @@ jobs:
           done
 
       - name: 빌드 번호를 게임 안에 기록 (앱 안 업데이트 비교용)
-        run: echo "{\"build\": ${{ github.run_number }}, \"shell\": $(grep -oP 'const SHELL := \K[0-9]+' scripts/boot.gd)}" > build_info.json && cat build_info.json
+        run: |
+          SHELL_VER=$(grep -oP 'const SHELL := \K[0-9]+' scripts/boot.gd)
+          echo "{\"build\": ${{ github.run_number }}, \"shell\": $SHELL_VER}" > build_info.json
+          cat build_info.json
 
       - name: 버전 번호 자동 증가 (빌드마다 커져야 업데이트 설치 가능)
         run: sed -i "s/^version\/code=.*/version\/code=$((100 + ${{ github.run_number }}))/" export_presets.cfg
