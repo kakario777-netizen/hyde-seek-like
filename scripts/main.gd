@@ -775,7 +775,7 @@ func coin_plaque() -> Array:
 	return [p, upd]
 
 # ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
-const UPGRADE_COST := [0, 5, 5]   # 단련 한 번에 엽전 5냥
+const UPGRADE_COST := [0, 5, 10]   # ★1→★2 5냥, ★2→★3 10냥
 
 func show_bag(cb := Callable()) -> void:
 	var o := _overlay("보따리")
@@ -811,7 +811,7 @@ func show_bag(cb := Callable()) -> void:
 		for ch in grid.get_children():
 			ch.queue_free()
 		cp[1].call()
-		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 엽전 5냥에 합쳐집니다" % deck.size()
+		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 엽전(★2 5냥·★3 10냥)에 합쳐집니다" % deck.size()
 		if state["msg"] != "":
 			info.text = state["msg"]
 		var sel: int = state["sel"]
@@ -920,7 +920,7 @@ func open_shop(cb: Callable) -> void:
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
 	var refresh: Callable = cp[1]
-	var msg := _note("상소 한 장 %d냥 · 약병 %d냥 · 단련 5냥" % [CARD_PRICE, POTION_PRICE])
+	var msg := _note("상소 한 장 %d냥 · 약병 %d냥 · 단련 5~10냥" % [CARD_PRICE, POTION_PRICE])
 	vb.add_child(msg)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
