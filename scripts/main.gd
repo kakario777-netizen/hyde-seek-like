@@ -114,6 +114,10 @@ func _debug_capture() -> void:
 			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
 				l.queue_free()
 			board.busy = false
+			if args.has("fork"):
+				for i in board.tiles.size():
+					if board.tiles[i]["next"].size() > 1:
+						board.pos = i; board.token.position = board.tile_center(i); break
 			board._deal()
 			await get_tree().create_timer(0.8).timeout
 			if not args.has("still"):

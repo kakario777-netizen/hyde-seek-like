@@ -68,6 +68,16 @@ func _ready() -> void:
 			cleared[int(k)] = true
 		for k in restore.get("guards_done", []):
 			guards_done[int(k)] = true
+		for k in restore.get("visited", []):
+			visited[int(k)] = true
+		if pos >= tiles.size():
+			pos = main_len - 2
+		if not restore.has("visited"):
+			for i in mini(pos, main_len):
+				visited[i] = true
+	else:
+		turns_left = (main_len + 2) / 3 + 2
+	visited[pos] = true
 
 	var bgr := TextureRect.new()
 	bgr.texture = main.backdrop(data.get("bg", "street_ink"))
@@ -283,9 +293,12 @@ func _draw_overlay() -> void:
 			continue
 		for k in guards[gi]["zone"]:
 			overlay.draw_colored_polygon(_diamond(tile_center(int(k)), 6), Color(0.85, 0.15, 0.1, 0.45))
-	for i in tiles.size():
-		if i < pos:
+	for i in visited:
+		if i != pos:
 			overlay.draw_colored_polygon(_diamond(tile_center(i), 30), Color(0.15, 0.1, 0.05, 0.25))
+	for o in way_opts:
+		overlay.draw_colored_polygon(_diamond(tile_center(o), 4), Color(1, 0.85, 0.3, 0.45))
+		overlay.draw_polyline(_closed(_diamond(tile_center(o), 4)), Color(1, 0.9, 0.4, 1), 4.0)
 	overlay.draw_colored_polygon(_diamond(tile_center(pos), 4), Color(0.3, 0.85, 0.4, 0.4))
 	overlay.draw_polyline(_closed(_diamond(tile_center(pos), 4)), Color(0.5, 1, 0.6, 0.9), 3.0)
 
@@ -299,57 +312,218 @@ func _enemy_id(t: String) -> String:
 	return StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t)
 
 ## 들어올 때마다 길 모양·사건·적 배치를 새로 섞는다 (저장하면 같은 배치로 이어짐)
+## 칸 수는 그대로 두고, 길 2~3군데를 두 갈래로 갈라졌다 다시 합쳐지게 만든다.
 var map_seed := 0
+var main_len := 0          # 본길 칸 수 (0..main_len-1, 마지막이 대문)
+var dist_goal: Array = []  # 각 칸에서 대문까지 최단 칸 수
+var visited := {}
+var way_opts: Array = []
+signal way_chosen(i: int)
+
+func _d(arr: Array, i: int) -> Vector2i:
+	return Vector2i(int(arr[i + 1]["x"]) - int(arr[i]["x"]), int(arr[i + 1]["y"]) - int(arr[i]["y"]))
+
+func _shuffle(rng: RandomNumberGenerator, a: Array) -> void:
+	for i in range(a.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var tmp = a[i]; a[i] = a[j]; a[j] = tmp
+
+func nbrs(i: int) -> Array:
+	return tiles[i]["next"] + tiles[i]["prev"]
+
+func _bfs(from: Array, undirected: bool, back := false) -> Array:
+	var dist: Array = []
+	dist.resize(tiles.size()); dist.fill(9999)
+	var q: Array = []
+	for f in from:
+		dist[f] = 0; q.append(f)
+	while not q.is_empty():
+		var c: int = q.pop_front()
+		var ns: Array = nbrs(c) if undirected else (tiles[c]["prev"] if back else tiles[c]["next"])
+		for x in ns:
+			if dist[x] > dist[c] + 1:
+				dist[x] = dist[c] + 1; q.append(x)
+	return dist
+
 func _randomize_layout(s: int) -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = s
-	var n := tiles.size()
+	var orig: Array = tiles
+	var n := orig.size()
+	var boss_i := -1
+	for i in n:
+		if orig[i]["type"] == "boss":
+			boss_i = i
+	var stuff: Array = []
+	var herb_cnt := 0
+	for i in range(2, n - 2):
+		if orig[i]["type"] == "boss":
+			continue
+		stuff.append(orig[i]["type"])
+		if orig[i].get("herb", false):
+			herb_cnt += 1
+	# 갈림길 고르기: 꺾이는 모퉁이 하나를 사이에 둔 직사각형 → 반대쪽 두 변으로 도는 샛길
+	var corners: Array = []
+	for c in range(3, n - 3):
+		if _d(orig, c - 1) != _d(orig, c):
+			corners.append(c)
+	_shuffle(rng, corners)
+	var want := 2 + rng.randi() % 2
+	var forks: Array = []
+	var extra := 0
+	for minside in [2, 1]:
+		for c: int in corners:
+			if forks.size() >= want:
+				break
+			var kb := 0
+			var j: int = c - 1
+			while j >= 0 and _d(orig, j) == _d(orig, c - 1):
+				kb += 1; j -= 1
+			var ma := 0
+			j = c
+			while j < n - 1 and _d(orig, j) == _d(orig, c):
+				ma += 1; j += 1
+			var k := mini(kb, 2 + rng.randi() % 2)
+			var m := mini(ma, 2 + rng.randi() % 2)
+			if k < minside or m < minside or k + m < 3:
+				continue
+			var p: int = c - k
+			var q: int = c + m
+			if p < 3:
+				continue
+			var ex := extra + k + m - 1
+			var mlen := n - ex
+			var ok: bool = q <= mlen - 4 and (boss_i < 0 or (boss_i < mlen - 3 and (boss_i < p or boss_i > q)))
+			for f in forks:
+				if not (p > f["q"] + 1 or q < f["p"] - 1) or f["q"] > mlen - 4:
+					ok = false
+			if not ok:
+				continue
+			forks.append({"p": p, "q": q, "k": k, "m": m})
+			extra = ex
+	main_len = n - extra
+	var nt: Array = []
+	for i in main_len:
+		var t: Dictionary = orig[i].duplicate(true)
+		t["next"] = [i + 1] if i < main_len - 1 else []
+		t["main"] = true
+		if i == 0:
+			t["type"] = "start"
+		elif i == main_len - 1:
+			t["type"] = "goal"
+		elif t["type"] != "boss":
+			t["type"] = "empty"
+		t.erase("herb")
+		nt.append(t)
+	for f in forks:
+		var d1 := _d(orig, f["p"])
+		var d2 := _d(orig, f["q"] - 1)
+		var P := Vector2i(int(orig[f["p"]]["x"]), int(orig[f["p"]]["y"]))
+		var cells: Array = []
+		for jj in range(1, f["m"] + 1):
+			cells.append(P + d2 * jj)
+		for ii in range(1, f["k"]):
+			cells.append(P + d2 * f["m"] + d1 * ii)
+		var prev_i: int = f["p"]
+		for cc in cells:
+			var idx := nt.size()
+			nt.append({"x": cc.x, "y": cc.y, "type": "empty", "next": [], "main": false})
+			nt[prev_i]["next"].append(idx)
+			prev_i = idx
+		nt[prev_i]["next"].append(f["q"])
+	tiles = nt
+	for t in tiles:
+		t["prev"] = []
+	for i in tiles.size():
+		for x in tiles[i]["next"]:
+			tiles[x]["prev"].append(i)
+	# 사건을 본길·샛길 칸에 골고루 섞어 놓기
+	var slots: Array = []
+	for i in tiles.size():
+		if tiles[i]["main"] and (i < 2 or i > main_len - 3 or tiles[i]["type"] == "boss"):
+			continue
+		slots.append(i)
+	_shuffle(rng, stuff)
+	_shuffle(rng, slots)
+	for k2 in mini(slots.size(), stuff.size()):
+		tiles[slots[k2]]["type"] = stuff[k2]
+	# 약초는 본길에만 (어느 갈래로 가도 다 모을 수 있게)
+	var hc: Array = []
+	for i in range(2, main_len - 2):
+		if tiles[i]["type"] == "empty":
+			hc.append(i)
+	_shuffle(rng, hc)
+	for i in hc.slice(0, herb_cnt):
+		tiles[i]["herb"] = true
 	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
 		for t in tiles:
 			var x = t["x"]; t["x"] = t["y"]; t["y"] = x
-	var slots: Array = []
-	for i in range(2, n - 2):
-		if tiles[i]["type"] != "boss":
-			slots.append(i)
-	var stuff: Array = []
-	for i in slots:
-		stuff.append({"type": tiles[i]["type"], "herb": tiles[i].get("herb", false)})
-	for i in range(stuff.size() - 1, 0, -1):
-		var j := rng.randi_range(0, i)
-		var tmp = stuff[i]; stuff[i] = stuff[j]; stuff[j] = tmp
-	for k in slots.size():
-		var t: Dictionary = tiles[slots[k]]
-		t["type"] = stuff[k]["type"]
-		t.erase("herb")
-		if stuff[k]["herb"]:
-			t["herb"] = true
-	# 감시꾼도 길 위 빈칸에 새로 세움
-	var cnt := guards.size()
+	dist_goal = _bfs([main_len - 1], false, true)
+	var dist_start := _bfs([0], false)
+	# 감시꾼: 원래 수 + 2명. 길 위 빈칸에 서고 앞뒤 칸이 붉은 눈길
+	var cnt := guards.size() + 2
 	guards = []
 	var cand: Array = []
-	for i in range(4, n - 3):
-		# 감시꾼 자리와 앞뒤 붉은 칸에는 약초가 없어야 함
-		if tiles[i]["type"] == "empty" and tiles[i - 1]["type"] != "spike" and tiles[i + 1]["type"] != "spike" \
-				and not tiles[i - 1].get("herb", false) and not tiles[i].get("herb", false) and not tiles[i + 1].get("herb", false):
-			cand.append(i)
-	for i in range(cand.size() - 1, 0, -1):
-		var j := rng.randi_range(0, i)
-		var tmp = cand[i]; cand[i] = cand[j]; cand[j] = tmp
-	for i in cand:
-		if guards.size() >= cnt:
-			break
-		var ok := true
-		for g in guards:
-			if abs(int(g["at"]) - i) < 5:
-				ok = false
-		if not ok:
+	for i in tiles.size():
+		if tiles[i]["type"] != "empty" or tiles[i].get("herb", false) or dist_start[i] < 4 or dist_goal[i] < 3:
 			continue
-		var zone: Array = []
-		for z in [i - 1, i, i + 1]:
-			if tiles[z]["type"] == "empty" and not tiles[z].get("herb", false):
-				zone.append(z)
-		guards.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "at": i, "zone": zone,
-			"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
+		var clean := true
+		for z in nbrs(i):
+			if tiles[z]["type"] == "spike" or tiles[z].get("herb", false):
+				clean = false
+		if clean:
+			cand.append(i)
+	_shuffle(rng, cand)
+	var taken: Array = []
+	for gap in [4, 3, 2]:
+		for i in cand:
+			if guards.size() >= cnt:
+				break
+			if i in taken:
+				continue
+			var near := false
+			if not taken.is_empty():
+				var dd := _bfs(taken, true)
+				near = dd[i] < gap
+			if near:
+				continue
+			taken.append(i)
+			var zone: Array = [i]
+			for z in nbrs(i):
+				if tiles[z]["type"] == "empty" and not tiles[z].get("herb", false):
+					zone.append(z)
+			guards.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "at": i, "zone": zone,
+				"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
+
+## 갈림길: 두 갈래 중 하나 고르기
+func _choose_way(opts: Array) -> int:
+	way_opts = opts
+	overlay.queue_redraw()
+	_focus(tile_center(pos), true, 0.3)
+	hint_label.text = "갈림길입니다. 어느 길로 갈까요?"
+	var hidden: Array = []
+	for c in card_row.get_children():
+		if c.visible:
+			c.visible = false; hidden.append(c)
+	var sorted := opts.duplicate()
+	sorted.sort_custom(func(a, b): return tile_center(a).x < tile_center(b).x)
+	var btns: Array = []
+	for o in sorted:
+		var left: bool = tile_center(o).x < tile_center(pos).x
+		var b: Button = main.make_button("◀ 왼쪽 길" if left else "오른쪽 길 ▶", 30)
+		b.custom_minimum_size = Vector2(250, 120)
+		b.pressed.connect(func(): way_chosen.emit(o))
+		card_row.add_child(b)
+		btns.append(b)
+	var pick: int = await way_chosen
+	main.sfx("card_play")
+	for b in btns:
+		b.queue_free()
+	for c in hidden:
+		c.visible = true
+	way_opts = []
+	overlay.queue_redraw()
+	return pick
 
 # ── 배치 / 카메라 ───────────────────────────────────────
 func _layout() -> void:
@@ -469,7 +643,7 @@ func _intro() -> void:
 
 func get_state() -> Dictionary:
 	return {"seed": map_seed, "pos": pos, "turns": turns_left, "herbs": herbs_got, "talk_idx": talk_idx,
-		"cleared": cleared.keys(), "guards_done": guards_done.keys(), "days_left": turns_left}
+		"cleared": cleared.keys(), "guards_done": guards_done.keys(), "visited": visited.keys(), "days_left": turns_left}
 
 func place_name() -> String:
 	return stage_cfg.get("name", "")
@@ -488,7 +662,7 @@ func _deal() -> void:
 		var tw := create_tween().set_parallel()
 		tw.tween_property(b, "modulate:a", 1.0, 0.28).set_delay(0.1 + i * 0.15)
 		tw.tween_property(b, "scale", Vector2.ONE, 0.28).set_delay(0.1 + i * 0.15).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	hint_label.text = "행보 상소를 고르십시오 · 대문까지 %d칸" % (tiles.size() - 1 - pos)
+	hint_label.text = "행보 상소를 고르십시오 · 대문까지 %d칸" % dist_goal[pos]
 
 # ── 이동 ────────────────────────────────────────────────
 func _blocks(i: int) -> bool:
@@ -513,9 +687,14 @@ func _play(steps: int, chosen: Button) -> void:
 	_focus(tile_center(pos), true, 0.3)
 	await get_tree().create_timer(0.3).timeout
 	for s in steps:
-		if pos >= tiles.size() - 1:
+		var nx: Array = tiles[pos]["next"]
+		if nx.is_empty():
 			break
-		pos += 1
+		var nxt: int = nx[0]
+		if nx.size() > 1:
+			nxt = await _choose_way(nx)
+		pos = nxt
+		visited[pos] = true
 		var target := tile_center(pos)
 		_focus(target, true, HOP_TIME + STEP_PAUSE)
 		var tw := create_tween()
