@@ -235,4 +235,10 @@ const ENEMIES := {
 	"mob_boss": {"name": "중독된 일꾼 무리", "sprite": "addict", "hp": 56, "coin": 6, "charge": 2, "boss": true,
 		"moves": [{"t": "atk", "v": 7, "n": "달려들기"}, {"t": "atk", "v": 8, "n": "할퀴기"}, {"t": "def", "v": 8, "n": "엉겨 붙기"}],
 		"heavy": {"t": "atk", "v": 16, "n": "한꺼번에 덮치기"}},
+	"heukdu1": {"name": "흑룡파 두목", "sprite": "walpae", "hp": 40, "coin": 7, "charge": 3, "boss": true,
+		"moves": [{"t": "atk", "v": 7, "n": "쇠사슬 채찍"}, {"t": "def", "v": 7, "n": "버티기"}, {"t": "atk", "v": 6, "n": "발길질"}],
+		"heavy": {"t": "atk", "v": 14, "n": "흑룡 쇠사슬"}},
+	"heukdu2": {"name": "흑룡파 두목", "sprite": "walpae", "hp": 50, "coin": 9, "charge": 3, "boss": true,
+		"moves": [{"t": "atk", "v": 8, "n": "쇠사슬 채찍"}, {"t": "def", "v": 8, "n": "버티기"}, {"t": "atk", "v": 7, "n": "소금 뿌리기"}],
+		"heavy": {"t": "atk", "v": 16, "n": "흑룡 쇠사슬"}},
 }

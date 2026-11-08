@@ -21,6 +21,7 @@ const CHAPTERS := {
 	3: {"title": "제3장  왈패 소굴", "goal": "왈패 소굴", "intro": "CH3_INTRO", "end": "CH3_END",
 		"stages": [{"map": "s3_0", "name": "서휘와 흑룡파 몰아내기", "after": "C3_HEUK", "ally": "seohwi"},
 			{"map": "s3_1", "name": "청계천 약재 심부름", "after": "C3_DOGYEOL"},
+			{"map": "s3_k", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "name": "종로 뒷골목", "after": "C3_TRUTH"},
 			{"map": "s3_3", "name": "남산 아래 결투"}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
@@ -629,15 +630,15 @@ const C4_F1 := [
 
 const C4_F2_PRE := [
 	{"bg": "den", "who": "", "text": "성 2층, 독안개가 깔린 긴 회랑.\n검은 용 문신의 사내가 쇠사슬을 끌며 나타났다."},
-	{"who": "흑룡파 두목", "pic": "walpae", "text": "청안파 서휘! 다리 밑에서 못 끝낸 승부, 여기서 내자.\n백 노인 어르신이 네 목에 은 백 냥을 거셨거든."},
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "기다렸다, 청안파. 골목에서 한 번, 소금 창고에서 한 번…\n세 번째는 없다. 백 노인 어르신이 네 목에 은 백 냥을 거셨거든."},
 ]
 
 const C4_F2_POST := [
-	{"who": "흑룡파 두목", "pic": "walpae", "text": "…크흑. 노인네 돈을 받은 게 잘못이었나…"},
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "…크흑. 세 번을 다 지다니…\n노인네 돈을 받은 게 잘못이었나…"},
 ]
 
 const C4_F2 := [
-	{"who": "서휘", "pic": "seohwi", "text": "흑룡파가 우리 구역 아이들을 털고 다닌 것도…\n다 저 노인의 돈이었단 말이군."},
+	{"who": "서휘", "pic": "seohwi", "text": "아이들을 납치해 이 성으로 팔아넘긴 것도…\n다 저 노인의 돈이었단 말이군. 이제야 끝냈다."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "서휘… 괜찮아요?"},
 	{"who": "서휘", "pic": "seohwi", "text": "괜찮다. 오히려 속이 시원해.\n이제 누구를 쳐야 할지 분명해졌으니까."},
 ]
@@ -678,6 +679,40 @@ const C4_F4 := [
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…할아버지가 붙잡힌 게 아니라, 이 성의 주인이라고… 어떻게 말하지.)"},
 	{"who": "서휘", "pic": "seohwi", "text": "…의원. 말하지 않으면 더 큰 상처가 된다."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "…위에 올라가면, 다 보게 될 거예요."},
+]
+
+const C3_HK1_PRE := [
+	{"bg": "alley", "who": "", "text": "골목 끝 우물가.\n흑룡파 왈패들이 우는 아이들을 새끼줄로 엮어 끌고 가고 있었다."},
+	{"who": "아이", "text": "놔요! 엄마한테 갈 거야!"},
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "시끄럽다. 너희 같은 다리 밑 떨거지는 일할 데가 따로 있어.\n…어이, 청안파 서휘. 오랜만이군."},
+	{"who": "서휘", "pic": "seohwi", "text": "흑룡파 두목… 이번엔 아이들까지 끌고 가나."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "그 아이들 당장 놔줘요!"},
+]
+
+const C3_HK1_POST := [
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "쳇, 의원 나부랭이가 제법이군.\n오늘은 물러나 주지. 하지만 아이들은 또 데려간다. 값을 쳐주는 분이 계시거든."},
+	{"who": "", "text": "두목은 쇠사슬을 거두고 골목 너머로 사라졌다.\n풀려난 아이들이 {alias}의 바짓가랑이에 매달려 울었다."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(값을 쳐주는 분…? 아이들을 대체 어디로 데려가는 거지.)"},
+]
+
+const C3_HK2_PRE := [
+	{"bg": "den", "who": "", "text": "청계천 하류, 흑룡파가 숨어 지내는 낡은 소금 창고.\n안에서 아이들의 흐느낌이 새어 나왔다."},
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "또 왔군, 청안파. 이번엔 놓치지 않는다.\n이 아이들은 오늘 밤 배에 실어 남쪽 골짜기로 보낼 물건이다."},
+	{"who": "서휘", "pic": "seohwi", "text": "아이를 물건이라 부르는 놈은 용서 못 한다."},
+]
+
+const C3_HK2_POST := [
+	{"who": "흑룡파 두목", "pic": "walpae", "text": "크윽… 이번에도냐…!\n…두고 봐라. 백(白) 어르신 성에서 다시 만나면, 그땐 너희가 끝이다."},
+	{"who": "", "text": "두목은 창고 뒷문으로 달아나 강물에 뛰어들었다."},
+]
+
+const C3_HK2 := [
+	{"bg": "den", "who": "", "text": "창고 구석, 열 명 남짓한 아이들이 서로 끌어안고 떨고 있었다."},
+	{"who": "", "text": "{alias}는 하나하나 손목을 짚고, 다친 아이에겐 고약을 발라 주었다."},
+	{"who": "아이", "text": "형아… 저 아저씨들이 그랬어요. 산골 성에 가면 하루 종일 쓴 약을 빻아야 한다고…"},
+	{"who": "서휘", "pic": "seohwi", "text": "…산골 성. 백 어르신. 아이들을 일꾼으로 팔아넘기는 거였군."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "(약을 빻는 성… 청심보명단을 만드는 곳일까?)"},
+	{"who": "", "coin": 6, "potion": 1, "text": "(아이들의 부모가 고맙다며 엽전과 약병을 건넸다)"},
 ]
 
 const TALKS := {
@@ -736,6 +771,7 @@ const TALKS_EXTRA := {
 }
 
 const ALL := {
+	"C3_HK1_PRE": C3_HK1_PRE, "C3_HK1_POST": C3_HK1_POST, "C3_HK2_PRE": C3_HK2_PRE, "C3_HK2_POST": C3_HK2_POST, "C3_HK2": C3_HK2,
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F4_PRE": C4_F4_PRE, "C4_F4_POST": C4_F4_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
