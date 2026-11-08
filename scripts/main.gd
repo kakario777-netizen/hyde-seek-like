@@ -664,7 +664,7 @@ func _overlay(title: String, bg := "", pic := "") -> Array:
 	dim.color = Color(0.08, 0.05, 0.03, 0.3 if bt else 0.62)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(dim)
-	var pt: Texture2D = illust(pic) if pic != "" else null
+	var pt: Texture2D = illust(pic) if pic != "" and not (bg in ["wedding", "family"]) else null
 	if pt:
 		var r := TextureRect.new()
 		r.texture = pt

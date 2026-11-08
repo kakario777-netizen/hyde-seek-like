@@ -87,7 +87,14 @@ func _ready() -> void:
 
 const BG_MUSIC := {"alley": "night", "title": "story", "yakbang": "story", "jangteo": "story", "byeolchae": "night", "street_ink": "story"}
 
+## 인물이 그려진 장면 일러스트: 이 배경일 땐 전신 인물을 띄우지 않음
+const SCENE_ILLUST := ["wedding", "family"]
+var cur_bg := ""
+
 func _set_bg(name: String) -> void:
+	cur_bg = name
+	if name in SCENE_ILLUST:
+		_show_pose("")
 	main.bgm(BG_MUSIC.get(name, "story"))
 	var t: Texture2D = main.backdrop(name)
 	if t:
@@ -164,6 +171,8 @@ func _next() -> void:
 	arrow.modulate.a = 0.0
 
 func _show_pose(pose: String) -> void:
+	if cur_bg in SCENE_ILLUST:
+		pose = ""
 	if pose == last_pose:
 		return
 	last_pose = pose
