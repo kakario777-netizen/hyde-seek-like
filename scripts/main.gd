@@ -459,7 +459,7 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 		popup(line["text"], "다음", next, fmt(line.get("who", "")), line.get("pic", line.get("pose", "")), nbg)
 
 func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic := "", bg := "") -> void:
-	var o := _overlay(title, bg, pic)
+	var o := _overlay(title, bg, pic, true)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
@@ -657,7 +657,7 @@ func step_card(v: int, w := 196, h := 270) -> Button:
 
 # ── 겹창 ────────────────────────────────────────────────
 ## bg: 뒤에 깔 배경 그림 이름, pic: 위쪽에 세울 인물 일러스트 이름
-func _overlay(title: String, bg := "", pic := "") -> Array:
+func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	var layer := CanvasLayer.new()
 	layer.layer = 10
 	add_child(layer)
@@ -674,26 +674,47 @@ func _overlay(title: String, bg := "", pic := "") -> Array:
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(dim)
 	var pt: Texture2D = illust(pic) if pic != "" and not (bg in ["wedding", "family"]) else null
+	var fig: AspectRatioContainer = null
 	if pt:
+		# 인물은 발끝이 대화창 바로 위에 닿게 (아래 정렬)
+		fig = AspectRatioContainer.new()
+		fig.ratio = float(pt.get_width()) / max(1.0, float(pt.get_height()))
+		fig.stretch_mode = AspectRatioContainer.STRETCH_FIT
+		fig.alignment_vertical = AspectRatioContainer.ALIGNMENT_END
+		fig.anchor_right = 1.0; fig.anchor_bottom = 0.6
+		fig.offset_top = 40; fig.offset_left = 30; fig.offset_right = -30
+		fig.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var r := TextureRect.new()
 		r.texture = pt
 		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		r.anchor_right = 1.0; r.anchor_bottom = 0.66
-		r.offset_top = 40; r.offset_left = 30; r.offset_right = -30
-		r.modulate.a = 0.0
-		layer.add_child(r)
+		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		fig.add_child(r)
+		fig.modulate.a = 0.0
+		layer.add_child(fig)
 		tag_placeholder(r, pic)
-		create_tween().tween_property(r, "modulate:a", 1.0, 0.4)
-	var center := CenterContainer.new()
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	if pt:
-		center.anchor_top = 0.5
-		center.offset_bottom = -20
+		create_tween().tween_property(fig, "modulate:a", 1.0, 0.4)
+	var center: Container
+	if pt or bottom:
+		# 그림이 있는 대화창은 화면 맨 아래에
+		var col := VBoxContainer.new()
+		col.alignment = BoxContainer.ALIGNMENT_END
+		col.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		col.offset_bottom = -26
+		center = col
+	else:
+		center = CenterContainer.new()
+		center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(center)
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", panel_style())
+	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	center.add_child(panel)
+	if fig:
+		var fit := func():
+			if is_instance_valid(fig) and is_instance_valid(panel):
+				fig.offset_bottom = panel.global_position.y - fig.get_parent_area_size().y * fig.anchor_bottom + 6
+		panel.item_rect_changed.connect(fit)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 18)
 	panel.add_child(vb)
@@ -716,7 +737,7 @@ func _note(text: String, color := INK_SOFT) -> Label:
 	return l
 
 func popup(text: String, button_text := "확인", cb := Callable(), title := "", pic := "", bg := "") -> void:
-	var o := _overlay(title, bg, pic)
+	var o := _overlay(title, bg, pic, true)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)

@@ -78,6 +78,24 @@ func _ready() -> void:
 	else:
 		turns_left = (main_len + 2) / 3 + 2
 	visited[pos] = true
+	if "maptest" in OS.get_cmdline_user_args():
+		var cs: Array = []
+		for i in tiles.size():
+			if tiles[i]["type"] in ["walpae", "pojol", "talk", "shop", "boss"]:
+				cs.append(i)
+		for g in guards:
+			cs.append(int(g["at"]))
+		var bad := 0
+		for a in cs.size():
+			for b in range(a + 1, cs.size()):
+				if _cheb(cs[a], cs[b]) < 2:
+					bad += 1
+		var zc := {}
+		for g in guards:
+			for z in g["zone"]:
+				if zc.has(z): bad += 100
+				zc[z] = true
+		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
 
 	var bgr := TextureRect.new()
 	bgr.texture = main.backdrop(data.get("bg", "street_ink"))
@@ -437,20 +455,71 @@ func _randomize_layout(s: int) -> void:
 	for i in tiles.size():
 		for x in tiles[i]["next"]:
 			tiles[x]["prev"].append(i)
-	# 사건을 본길·샛길 칸에 골고루 섞어 놓기
+	dist_goal = _bfs([main_len - 1], false, true)
+	var dist_start := _bfs([0], false)
+	# ① 인물(길막이·말 걸 사람·장사꾼·감시꾼)을 길 전체에 고르게, 서로 한 칸 이상 띄워서
+	var chars: Array = []
+	var others: Array = []
+	for t in stuff:
+		if t in ["walpae", "pojol", "talk", "shop"]:
+			chars.append(t)
+		else:
+			others.append(t)
+	var gcnt := guards.size() + 2
+	for g in gcnt:
+		chars.append("guard")
+	_shuffle(rng, chars)
+	var occupied: Array = []   # [칸, 감시꾼인가]
+	if boss_i >= 0:
+		occupied.append([boss_i, false])
+	var reserved := {}         # 붉은 눈길 칸 (다른 것 못 놓음)
+	guards = []
+	var order: Array = range(tiles.size())
+	_shuffle(rng, order)
+	var span := float(main_len - 5)
+	for k in chars.size():
+		var kind: String = chars[k]
+		var target := 3.0 + (k + 0.5) * span / chars.size()
+		var best := -1
+		for gg in [4, 3]:   # 붉은 칸 사이에도 빈칸 하나 (안 되면 맞닿기까지만 허용, 겹침은 절대 안 됨)
+			var best_d := 1e9
+			for i in order:
+				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, gg):
+					continue
+				var dd: float = abs(dist_start[i] - target)
+				if dd < best_d:
+					best_d = dd; best = i
+			if best >= 0:
+				break
+		if best < 0:
+			continue
+		occupied.append([best, kind == "guard"])
+		if kind == "guard":
+			var zone: Array = [best]
+			for z in nbrs(best):
+				zone.append(z)
+			for z in zone:
+				reserved[z] = true
+			guards.append({"x": tiles[best]["x"], "y": tiles[best]["y"], "at": best, "zone": zone,
+				"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
+		else:
+			tiles[best]["type"] = kind
+	# ② 나머지 사건(이로운·해로운 칸, 함정 등)은 남은 빈칸에
 	var slots: Array = []
 	for i in tiles.size():
-		if tiles[i]["main"] and (i < 2 or i > main_len - 3 or tiles[i]["type"] == "boss"):
+		if tiles[i]["type"] != "empty" or reserved.has(i):
+			continue
+		if tiles[i]["main"] and (i < 2 or i > main_len - 3):
 			continue
 		slots.append(i)
-	_shuffle(rng, stuff)
+	_shuffle(rng, others)
 	_shuffle(rng, slots)
-	for k2 in mini(slots.size(), stuff.size()):
-		tiles[slots[k2]]["type"] = stuff[k2]
-	# 약초는 본길에만 (어느 갈래로 가도 다 모을 수 있게)
+	for k2 in mini(slots.size(), others.size()):
+		tiles[slots[k2]]["type"] = others[k2]
+	# ③ 약초는 본길에만 (어느 갈래로 가도 다 모을 수 있게), 붉은 칸은 피해서
 	var hc: Array = []
 	for i in range(2, main_len - 2):
-		if tiles[i]["type"] == "empty":
+		if tiles[i]["type"] == "empty" and not reserved.has(i):
 			hc.append(i)
 	_shuffle(rng, hc)
 	for i in hc.slice(0, herb_cnt):
@@ -458,42 +527,23 @@ func _randomize_layout(s: int) -> void:
 	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
 		for t in tiles:
 			var x = t["x"]; t["x"] = t["y"]; t["y"] = x
-	dist_goal = _bfs([main_len - 1], false, true)
-	var dist_start := _bfs([0], false)
-	# 감시꾼: 원래 수 + 2명. 길 위 빈칸에 서고 앞뒤 칸이 붉은 눈길
-	var cnt := guards.size() + 2
-	guards = []
-	var cand: Array = []
-	for i in tiles.size():
-		if tiles[i]["type"] != "empty" or tiles[i].get("herb", false) or dist_start[i] < 4 or dist_goal[i] < 3:
-			continue
-		var clean := true
+
+func _cheb(a: int, b: int) -> int:
+	return maxi(absi(int(tiles[a]["x"]) - int(tiles[b]["x"])), absi(int(tiles[a]["y"]) - int(tiles[b]["y"])))
+
+## 인물을 세워도 되는 칸인가: 다른 인물과 사이에 빈칸 하나 이상, 감시꾼끼리는 붉은 칸이 겹치지 않게
+func _char_ok(i: int, guard: bool, occupied: Array, reserved: Dictionary, dist_start: Array, gg := 4) -> bool:
+	if tiles[i]["type"] != "empty" or reserved.has(i) or dist_start[i] < 3 or dist_goal[i] < 2:
+		return false
+	for o in occupied:
+		var need := gg if (guard and o[1]) else 2   # 감시꾼끼리는 붉은 칸이 겹치지 않게 더 띄움
+		if _cheb(i, o[0]) < need:
+			return false
+	if guard:
 		for z in nbrs(i):
-			if tiles[z]["type"] == "spike" or tiles[z].get("herb", false):
-				clean = false
-		if clean:
-			cand.append(i)
-	_shuffle(rng, cand)
-	var taken: Array = []
-	for gap in [4, 3, 2]:
-		for i in cand:
-			if guards.size() >= cnt:
-				break
-			if i in taken:
-				continue
-			var near := false
-			if not taken.is_empty():
-				var dd := _bfs(taken, true)
-				near = dd[i] < gap
-			if near:
-				continue
-			taken.append(i)
-			var zone: Array = [i]
-			for z in nbrs(i):
-				if tiles[z]["type"] == "empty" and not tiles[z].get("herb", false):
-					zone.append(z)
-			guards.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "at": i, "zone": zone,
-				"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
+			if reserved.has(z) or tiles[z]["type"] in ["start", "goal", "boss"]:
+				return false
+	return true
 
 ## 갈림길: 두 갈래 중 하나 고르기
 func _choose_way(opts: Array) -> int:

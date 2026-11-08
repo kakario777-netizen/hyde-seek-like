@@ -201,7 +201,7 @@ const ENEMIES := {
 	"sanjeok": {"name": "고갯길 산적", "sprite": "walpae", "hp": 30, "coin": 5, "charge": 3,
 		"moves": [{"t": "atk", "v": 7, "n": "몽둥이질"}, {"t": "atk", "v": 5, "n": "멱살잡이"}, {"t": "def", "v": 7, "n": "버티기"}],
 		"heavy": {"t": "atk", "v": 14, "n": "통나무 휘두르기"}},
-	"rival": {"name": "흑룡파 왈패", "sprite": "walpae", "hp": 30, "coin": 4, "charge": 3,
+	"rival": {"name": "흑룡파 왈패", "sprite": "gatekeeper", "hp": 30, "coin": 4, "charge": 3,
 		"moves": [{"t": "atk", "v": 7, "n": "칼등 치기"}, {"t": "def", "v": 7, "n": "버티기"}, {"t": "atk", "v": 8, "n": "박치기"}],
 		"heavy": {"t": "atk", "v": 15, "n": "쇠사슬 휘두르기"}},
 	"mob": {"name": "청심보명단 중독자", "sprite": "addict", "hp": 28, "coin": 3, "charge": 2,
