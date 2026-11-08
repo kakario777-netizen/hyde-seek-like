@@ -3,7 +3,7 @@
  "name": "풍차 언덕 약초밭",
  "tile": "grass",
  "bg": "holland",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,8 @@
   {
    "x": -3,
    "y": 0,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
@@ -38,12 +39,12 @@
   {
    "x": -4,
    "y": -2,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -4,
    "y": -3,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -53,7 +54,7 @@
   {
    "x": -5,
    "y": -4,
-   "type": "pojol"
+   "type": "debuff"
   },
   {
    "x": -6,
@@ -63,7 +64,7 @@
   {
    "x": -6,
    "y": -5,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -6,
@@ -73,38 +74,38 @@
   {
    "x": -6,
    "y": -7,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -7,
    "y": -7,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -7,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -9,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
    "y": -7,
    "type": "empty",
    "herb": true
   },
   {
    "x": -10,
-   "y": -7,
-   "type": "empty"
-  },
-  {
-   "x": -10,
    "y": -8,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -9,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -10,
@@ -114,18 +115,17 @@
   {
    "x": -10,
    "y": -11,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -11,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -12,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -13,
@@ -135,13 +135,12 @@
   {
    "x": -14,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -14,
    "y": -12,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -14,
@@ -151,38 +150,39 @@
   {
    "x": -14,
    "y": -14,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -15,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -16,
    "y": -14,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -16,
-   "y": -14,
-   "type": "empty"
-  },
-  {
    "x": -17,
    "y": -14,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -17,
    "y": -16,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -17,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -17,
@@ -192,18 +192,18 @@
   {
    "x": -18,
    "y": -18,
-   "type": "empty",
-   "herb": true
+   "type": "walpae"
   },
   {
    "x": -19,
    "y": -18,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -20,
    "y": -18,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -21,
@@ -213,47 +213,85 @@
   {
    "x": -21,
    "y": -19,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -21,
    "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -21,
+   "type": "pojol"
+  },
+  {
+   "x": -21,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -22,
+   "type": "spike"
+  },
+  {
+   "x": -23,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -22,
+   "type": "debuff"
+  },
+  {
+   "x": -25,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -24,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -8,
-   "y": -7,
-   "at": 15,
+   "x": -10,
+   "y": -10,
+   "at": 20,
    "zone": [
-    14,
-    15,
-    16
+    20,
+    21
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -14,
-   "y": -11,
-   "at": 25,
+   "x": -7,
+   "y": -7,
+   "at": 14,
    "zone": [
-    24,
-    25,
-    26
+    14
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
    "x": -4,
-   "y": -4,
-   "at": 8,
+   "y": -3,
+   "at": 7,
    "zone": [
+    7,
     8
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   }
  ]

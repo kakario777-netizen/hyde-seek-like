@@ -3,7 +3,7 @@
  "name": "백운의 성 4층 · 보물고",
  "tile": "palace",
  "bg": "vault",
- "turns": 14,
+ "turns": 17,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -1,
    "y": -2,
-   "type": "buff"
+   "type": "shop"
   },
   {
    "x": -2,
@@ -33,23 +33,23 @@
   {
    "x": -3,
    "y": -2,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -3,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -3,
    "y": -4,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -4,
-   "type": "walpae"
+   "type": "pojol"
   },
   {
    "x": -5,
@@ -64,18 +64,18 @@
   {
    "x": -7,
    "y": -4,
+   "type": "debuff"
+  },
+  {
+   "x": -7,
+   "y": -5,
    "type": "empty",
    "herb": true
   },
   {
    "x": -7,
-   "y": -5,
-   "type": "empty"
-  },
-  {
-   "x": -7,
    "y": -6,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -8,
@@ -85,13 +85,12 @@
   {
    "x": -9,
    "y": -6,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -6,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -10,
@@ -111,25 +110,23 @@
   {
    "x": -12,
    "y": -8,
-   "type": "shop"
+   "type": "buff"
   },
   {
    "x": -13,
    "y": -8,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -14,
    "y": -8,
-   "type": "boss",
-   "battle": "baegun_mask",
-   "pre": "C4_F4_PRE",
-   "post": "C4_F4_POST"
+   "type": "empty"
   },
   {
    "x": -14,
    "y": -9,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -14,
@@ -139,7 +136,7 @@
   {
    "x": -14,
    "y": -11,
-   "type": "pojol"
+   "type": "debuff"
   },
   {
    "x": -15,
@@ -149,7 +146,10 @@
   {
    "x": -16,
    "y": -11,
-   "type": "empty"
+   "type": "boss",
+   "battle": "baegun_mask",
+   "pre": "C4_F4_PRE",
+   "post": "C4_F4_POST"
   },
   {
    "x": -17,
@@ -165,22 +165,22 @@
   {
    "x": -17,
    "y": -13,
-   "type": "rest"
+   "type": "pojol"
   },
   {
    "x": -17,
    "y": -14,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -17,
    "y": -15,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -15,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -19,
@@ -190,53 +190,89 @@
   {
    "x": -19,
    "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -17,
+   "type": "buff"
+  },
+  {
+   "x": -19,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -18,
+   "type": "buff"
+  },
+  {
+   "x": -21,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -18,
+   "type": "trap"
+  },
+  {
+   "x": -23,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -20,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -16,
-   "y": -11,
-   "at": 27,
+   "x": -19,
+   "y": -15,
+   "at": 34,
    "zone": [
-    26,
-    27,
-    28
+    34,
+    35
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "at": 9,
+   "zone": [
+    9,
+    10
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -11,
-   "y": -8,
-   "at": 19,
+   "x": -14,
+   "y": -10,
+   "at": 24,
    "zone": [
-    18,
-    19
+    24
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -3,
-   "y": -3,
-   "at": 6,
+   "x": -8,
+   "y": -6,
+   "at": 14,
    "zone": [
-    5,
-    6,
-    7
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -7,
-   "y": -5,
-   "at": 12,
-   "zone": [
-    11,
-    12,
-    13
+    14,
+    15
    ],
    "kind": "walpae",
    "on_path": true

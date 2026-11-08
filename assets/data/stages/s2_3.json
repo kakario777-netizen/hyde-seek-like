@@ -3,7 +3,7 @@
  "name": "한양 약방으로",
  "tile": "stone",
  "bg": "yakbang",
- "turns": 17,
+ "turns": 20,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -1,
    "y": -2,
-   "type": "walpae"
+   "type": "shop"
   },
   {
    "x": -2,
@@ -33,17 +33,18 @@
   {
    "x": -2,
    "y": -3,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -2,
    "y": -4,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -5,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -2,
@@ -58,12 +59,12 @@
   {
    "x": -4,
    "y": -6,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -5,
    "y": -6,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -5,
@@ -73,8 +74,7 @@
   {
    "x": -5,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -5,
@@ -84,22 +84,22 @@
   {
    "x": -6,
    "y": -9,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -7,
    "y": -9,
-   "type": "shop"
-  },
-  {
-   "x": -8,
-   "y": -9,
    "type": "empty"
   },
   {
    "x": -8,
+   "y": -9,
+   "type": "debuff"
+  },
+  {
+   "x": -8,
    "y": -10,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -8,
@@ -109,7 +109,7 @@
   {
    "x": -8,
    "y": -12,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -8,
@@ -119,40 +119,38 @@
   {
    "x": -9,
    "y": -13,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -10,
    "y": -13,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -13,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -11,
    "y": -14,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
    "y": -15,
-   "type": "boss",
-   "battle": "dogyeol",
-   "pre": "C2_DG_FIGHT",
-   "post": "C2_DG_FLEE"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -15,
-   "type": "empty"
+   "type": "trap"
   },
   {
    "x": -14,
@@ -162,7 +160,8 @@
   {
    "x": -15,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -15,
@@ -172,7 +171,10 @@
   {
    "x": -15,
    "y": -17,
-   "type": "empty"
+   "type": "boss",
+   "battle": "dogyeol",
+   "pre": "C2_DG_FIGHT",
+   "post": "C2_DG_FLEE"
   },
   {
    "x": -16,
@@ -192,8 +194,7 @@
   {
    "x": -18,
    "y": -18,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -18,
@@ -203,8 +204,7 @@
   {
    "x": -18,
    "y": -20,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -19,
@@ -214,57 +214,97 @@
   {
    "x": -20,
    "y": -20,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -20,
    "y": -21,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -22,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -21,
    "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -22,
+   "type": "rest"
+  },
+  {
+   "x": -23,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -23,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -25,
+   "type": "talk"
+  },
+  {
+   "x": -25,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -25,
    "type": "goal"
   }
  ],
  "guards": [
   {
    "x": -8,
-   "y": -9,
-   "at": 17,
+   "y": -13,
+   "at": 21,
    "zone": [
-    17,
-    18
+    21
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -5,
-   "y": -7,
-   "at": 12,
+   "x": -12,
+   "y": -15,
+   "at": 27,
    "zone": [
-    12,
-    13
+    26,
+    27
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -18,
+   "y": -17,
+   "at": 35,
+   "zone": [
+    34,
+    35,
+    36
    ],
    "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -2,
-   "y": -5,
-   "at": 7,
-   "zone": [
-    7,
-    8
-   ],
-   "kind": "walpae",
    "on_path": true
   }
  ]

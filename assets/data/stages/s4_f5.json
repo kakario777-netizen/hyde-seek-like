@@ -3,7 +3,7 @@
  "name": "백운의 성 5층 · 천수각",
  "tile": "palace",
  "bg": "cheonsugak",
- "turns": 13,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": 0,
    "y": -3,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": 0,
@@ -33,19 +33,18 @@
   {
    "x": -1,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -2,
    "y": -4,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -2,
    "y": -5,
-   "type": "empty",
-   "herb": true
+   "type": "buff"
   },
   {
    "x": -2,
@@ -55,12 +54,12 @@
   {
    "x": -2,
    "y": -7,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -3,
    "y": -7,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -90,7 +89,7 @@
   {
    "x": -5,
    "y": -11,
-   "type": "rest"
+   "type": "pojol"
   },
   {
    "x": -6,
@@ -100,7 +99,7 @@
   {
    "x": -7,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -7,
@@ -110,13 +109,12 @@
   {
    "x": -7,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -14,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -126,8 +124,7 @@
   {
    "x": -8,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -9,
@@ -137,22 +134,23 @@
   {
    "x": -10,
    "y": -15,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -15,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -11,
    "y": -16,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
    "y": -17,
-   "type": "shop"
+   "type": "debuff"
   },
   {
    "x": -11,
@@ -162,45 +160,86 @@
   {
    "x": -11,
    "y": -19,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
    "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -19,
+   "type": "spike"
+  },
+  {
+   "x": -14,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -19,
+   "type": "buff"
+  },
+  {
+   "x": -15,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -21,
+   "type": "buff"
+  },
+  {
+   "x": -15,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -16,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -22,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -6,
-   "y": -11,
-   "at": 17,
+   "x": -7,
+   "y": -13,
+   "at": 20,
    "zone": [
-    17,
-    18
+    19,
+    20
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -2,
-   "y": -6,
-   "at": 8,
+   "x": -4,
+   "y": -11,
+   "at": 15,
    "zone": [
-    7,
-    8,
-    9
+    15
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -11,
-   "y": -16,
-   "at": 27,
+   "x": -12,
+   "y": -19,
+   "at": 31,
    "zone": [
-    26,
-    27
+    30,
+    31,
+    32
    ],
    "kind": "walpae",
    "on_path": true

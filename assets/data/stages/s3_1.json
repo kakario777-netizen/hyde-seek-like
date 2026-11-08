@@ -3,7 +3,7 @@
  "name": "청계천 약재 심부름",
  "tile": "wood",
  "bg": "stream",
- "turns": 16,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,17 +23,17 @@
   {
    "x": -3,
    "y": 0,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -3,
    "y": -1,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -2,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -43,7 +43,7 @@
   {
    "x": -5,
    "y": -2,
-   "type": "walpae"
+   "type": "pojol"
   },
   {
    "x": -6,
@@ -53,13 +53,13 @@
   {
    "x": -6,
    "y": -3,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -6,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -7,
@@ -69,7 +69,7 @@
   {
    "x": -8,
    "y": -4,
-   "type": "spike"
+   "type": "shop"
   },
   {
    "x": -9,
@@ -79,8 +79,7 @@
   {
    "x": -10,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -10,
@@ -90,7 +89,8 @@
   {
    "x": -10,
    "y": -6,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
@@ -100,19 +100,18 @@
   {
    "x": -12,
    "y": -6,
-   "type": "empty",
-   "herb": true
+   "type": "buff"
   },
   {
    "x": -12,
    "y": -7,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -13,
@@ -122,25 +121,22 @@
   {
    "x": -14,
    "y": -8,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -8,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -16,
    "y": -8,
-   "type": "boss",
-   "battle": "dogyeol",
-   "pre": "C3_DG_FIGHT",
-   "post": "C3_DG_AFTER"
+   "type": "empty"
   },
   {
    "x": -16,
    "y": -9,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -16,
@@ -150,7 +146,7 @@
   {
    "x": -17,
    "y": -10,
-   "type": "shop"
+   "type": "spike"
   },
   {
    "x": -18,
@@ -160,7 +156,10 @@
   {
    "x": -19,
    "y": -10,
-   "type": "talk"
+   "type": "boss",
+   "battle": "dogyeol",
+   "pre": "C3_DG_FIGHT",
+   "post": "C3_DG_AFTER"
   },
   {
    "x": -20,
@@ -175,7 +174,7 @@
   {
    "x": -20,
    "y": -12,
-   "type": "pojol"
+   "type": "walpae"
   },
   {
    "x": -21,
@@ -190,7 +189,7 @@
   {
    "x": -22,
    "y": -13,
-   "type": "buff"
+   "type": "item"
   },
   {
    "x": -22,
@@ -200,7 +199,8 @@
   {
    "x": -22,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -22,
@@ -210,42 +210,80 @@
   {
    "x": -23,
    "y": -16,
+   "type": "debuff"
+  },
+  {
+   "x": -24,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -17,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -19,
+   "type": "talk"
+  },
+  {
+   "x": -24,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -20,
+   "type": "buff"
+  },
+  {
+   "x": -26,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -21,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -16,
-   "y": -10,
-   "at": 26,
+   "x": -7,
+   "y": -4,
+   "at": 11,
    "zone": [
-    25,
-    26
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -11,
-   "y": -6,
-   "at": 17,
-   "zone": [
-    16,
-    17,
-    18
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -4,
-   "y": -2,
-   "at": 6,
-   "zone": [
-    5,
-    6
+    10,
+    11
    ],
    "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -22,
+   "y": -14,
+   "at": 36,
+   "zone": [
+    36,
+    37
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -3,
+   "y": -1,
+   "at": 4,
+   "zone": [
+    4
+   ],
+   "kind": "pojol",
    "on_path": true
   }
  ]

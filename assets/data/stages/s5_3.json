@@ -3,7 +3,7 @@
  "name": "궁궐 담장 아래",
  "tile": "palace",
  "bg": "palace",
- "turns": 16,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,8 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "empty",
-   "herb": true
+   "type": "buff"
   },
   {
    "x": -3,
@@ -34,17 +33,17 @@
   {
    "x": -3,
    "y": -2,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -3,
    "y": -3,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -4,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -4,
@@ -54,7 +53,7 @@
   {
    "x": -5,
    "y": -4,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -6,
@@ -69,7 +68,7 @@
   {
    "x": -7,
    "y": -5,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -79,7 +78,8 @@
   {
    "x": -7,
    "y": -7,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -8,
@@ -89,7 +89,7 @@
   {
    "x": -9,
    "y": -7,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -10,
@@ -99,7 +99,7 @@
   {
    "x": -11,
    "y": -7,
-   "type": "pojol"
+   "type": "walpae"
   },
   {
    "x": -11,
@@ -109,17 +109,17 @@
   {
    "x": -11,
    "y": -9,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -11,
    "y": -10,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -11,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -12,
@@ -129,15 +129,12 @@
   {
    "x": -13,
    "y": -11,
-   "type": "boss",
-   "battle": "shadow_s",
-   "pre": "C5_SHADOW",
-   "post": "C5_SHADOW_FLEE"
+   "type": "empty"
   },
   {
    "x": -14,
    "y": -11,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -14,
@@ -147,8 +144,7 @@
   {
    "x": -14,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -14,
@@ -158,34 +154,37 @@
   {
    "x": -14,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "boss",
+   "battle": "shadow_s",
+   "pre": "C5_SHADOW",
+   "post": "C5_SHADOW_FLEE"
   },
   {
    "x": -15,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -17,
    "y": -15,
-   "type": "rest"
-  },
-  {
-   "x": -17,
-   "y": -16,
    "type": "empty"
   },
   {
    "x": -17,
+   "y": -16,
+   "type": "shop"
+  },
+  {
+   "x": -17,
    "y": -17,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -17,
@@ -195,7 +194,7 @@
   {
    "x": -17,
    "y": -19,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -18,
@@ -205,56 +204,95 @@
   {
    "x": -19,
    "y": -19,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -19,
    "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -21,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -24,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -17,
-   "y": -18,
-   "at": 35,
+   "x": -3,
+   "y": -1,
+   "at": 4,
    "zone": [
-    34,
-    35,
-    36
+    4
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -10,
-   "y": -7,
-   "at": 17,
+   "x": -7,
+   "y": -4,
+   "at": 11,
    "zone": [
-    17
+    10,
+    11
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -11,
+   "x": -13,
    "y": -11,
-   "at": 22,
+   "at": 24,
    "zone": [
-    22,
-    23
+    23,
+    24
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -3,
-   "y": -1,
-   "at": 4,
+   "x": -19,
+   "y": -20,
+   "at": 39,
    "zone": [
-    3,
-    4,
-    5
+    39,
+    40
    ],
    "kind": "walpae",
    "on_path": true

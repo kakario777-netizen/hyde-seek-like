@@ -3,7 +3,7 @@
  "name": "소금 창고의 아이들",
  "tile": "wood",
  "bg": "den",
- "turns": 15,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,33 +23,32 @@
   {
    "x": 0,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -1,
    "y": -3,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -2,
    "y": -3,
-   "type": "walpae"
-  },
-  {
-   "x": -3,
-   "y": -3,
    "type": "empty"
   },
   {
-   "x": -4,
+   "x": -3,
    "y": -3,
    "type": "spike"
   },
   {
    "x": -4,
-   "y": -4,
+   "y": -3,
    "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -60,17 +59,17 @@
   {
    "x": -5,
    "y": -5,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -6,
    "y": -5,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -5,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -80,17 +79,17 @@
   {
    "x": -7,
    "y": -7,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -7,
    "y": -8,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -8,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -9,
@@ -105,7 +104,7 @@
   {
    "x": -9,
    "y": -10,
-   "type": "item"
+   "type": "buff"
   },
   {
    "x": -9,
@@ -125,20 +124,18 @@
   {
    "x": -11,
    "y": -12,
-   "type": "boss",
-   "battle": "heukdu2",
-   "pre": "C3_HK2_PRE",
-   "post": "C3_HK2_POST"
+   "type": "debuff"
   },
   {
    "x": -11,
    "y": -13,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
    "y": -14,
-   "type": "empty"
+   "type": "trap"
   },
   {
    "x": -12,
@@ -154,7 +151,10 @@
   {
    "x": -14,
    "y": -14,
-   "type": "empty"
+   "type": "boss",
+   "battle": "heukdu2",
+   "pre": "C3_HK2_PRE",
+   "post": "C3_HK2_POST"
   },
   {
    "x": -15,
@@ -164,7 +164,7 @@
   {
    "x": -15,
    "y": -15,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -15,
@@ -174,13 +174,12 @@
   {
    "x": -15,
    "y": -17,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -18,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -16,
@@ -190,62 +189,100 @@
   {
    "x": -17,
    "y": -18,
-   "type": "shop"
-  },
-  {
-   "x": -17,
-   "y": -19,
    "type": "empty"
   },
   {
    "x": -17,
+   "y": -19,
+   "type": "item"
+  },
+  {
+   "x": -17,
    "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -21,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -17,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -22,
+   "type": "debuff"
+  },
+  {
+   "x": -19,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -24,
+   "type": "buff"
+  },
+  {
+   "x": -20,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -24,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -11,
-   "y": -14,
-   "at": 25,
+   "x": -17,
+   "y": -22,
+   "at": 39,
    "zone": [
-    24,
-    25,
-    26
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -9,
-   "y": -8,
-   "at": 17,
-   "zone": [
-    16,
-    17,
-    18
+    38,
+    39
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -16,
-   "y": -18,
-   "at": 34,
+   "x": -6,
+   "y": -5,
+   "at": 11,
    "zone": [
-    33,
-    34
+    11
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -3,
-   "y": -3,
-   "at": 6,
+   "x": -15,
+   "y": -16,
+   "at": 31,
    "zone": [
-    6,
-    7
+    31,
+    32
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "at": 18,
+   "zone": [
+    17,
+    18
    ],
    "kind": "pojol",
    "on_path": true

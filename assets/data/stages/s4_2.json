@@ -3,7 +3,7 @@
  "name": "군산 포구 뒤지기",
  "tile": "wood",
  "bg": "street_ink",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,8 @@
   {
    "x": -2,
    "y": -1,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -2,
@@ -33,7 +34,7 @@
   {
    "x": -2,
    "y": -3,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -2,
@@ -43,12 +44,12 @@
   {
    "x": -3,
    "y": -4,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -4,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -5,
@@ -58,7 +59,7 @@
   {
    "x": -5,
    "y": -5,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -5,
@@ -68,7 +69,7 @@
   {
    "x": -6,
    "y": -6,
-   "type": "rest"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -78,7 +79,7 @@
   {
    "x": -7,
    "y": -7,
-   "type": "shop"
+   "type": "spike"
   },
   {
    "x": -7,
@@ -88,7 +89,7 @@
   {
    "x": -8,
    "y": -8,
-   "type": "empty"
+   "type": "trap"
   },
   {
    "x": -9,
@@ -98,7 +99,7 @@
   {
    "x": -10,
    "y": -8,
-   "type": "talk"
+   "type": "buff"
   },
   {
    "x": -11,
@@ -108,7 +109,8 @@
   {
    "x": -11,
    "y": -9,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
@@ -118,7 +120,7 @@
   {
    "x": -12,
    "y": -10,
-   "type": "pojol"
+   "type": "rest"
   },
   {
    "x": -13,
@@ -128,8 +130,7 @@
   {
    "x": -14,
    "y": -10,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -15,
@@ -139,10 +140,7 @@
   {
    "x": -15,
    "y": -11,
-   "type": "boss",
-   "battle": "baegun_mask",
-   "pre": "C4_MASK1",
-   "post": "C4_MASK1_FLEE"
+   "type": "walpae"
   },
   {
    "x": -15,
@@ -162,18 +160,20 @@
   {
    "x": -16,
    "y": -14,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -14,
-   "type": "empty"
+   "type": "boss",
+   "battle": "baegun_mask",
+   "pre": "C4_MASK1",
+   "post": "C4_MASK1_FLEE"
   },
   {
    "x": -18,
    "y": -14,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -19,
@@ -183,7 +183,7 @@
   {
    "x": -19,
    "y": -15,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -19,
@@ -193,13 +193,12 @@
   {
    "x": -20,
    "y": -16,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -21,
    "y": -16,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -22,
@@ -209,8 +208,7 @@
   {
    "x": -23,
    "y": -16,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -23,
@@ -220,10 +218,63 @@
   {
    "x": -23,
    "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -23,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -19,
+   "type": "buff"
+  },
+  {
+   "x": -25,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -20,
+   "type": "debuff"
+  },
+  {
+   "x": -25,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -21,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -27,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -22,
    "type": "goal"
   }
  ],
  "guards": [
+  {
+   "x": -18,
+   "y": -14,
+   "at": 32,
+   "zone": [
+    32,
+    33
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
   {
    "x": -2,
    "y": -2,
@@ -237,36 +288,22 @@
    "on_path": true
   },
   {
-   "x": -17,
-   "y": -14,
-   "at": 31,
+   "x": -25,
+   "y": -19,
+   "at": 44,
    "zone": [
-    30,
-    31,
-    32
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -5,
-   "y": -5,
-   "at": 10,
-   "zone": [
-    9,
-    10,
-    11
+    44
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -7,
-   "y": -8,
-   "at": 15,
+   "x": -21,
+   "y": -16,
+   "at": 37,
    "zone": [
-    15,
-    16
+    37,
+    38
    ],
    "kind": "walpae",
    "on_path": true

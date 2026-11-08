@@ -3,7 +3,7 @@
  "name": "운종가에서 청계천까지",
  "tile": "stone",
  "bg": "jangteo",
- "turns": 16,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,28 +23,28 @@
   {
    "x": -3,
    "y": 0,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": 0,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -4,
    "y": -1,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -2,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -5,
    "y": -2,
-   "type": "walpae"
+   "type": "talk"
   },
   {
    "x": -6,
@@ -59,7 +59,7 @@
   {
    "x": -8,
    "y": -2,
-   "type": "talk"
+   "type": "shop"
   },
   {
    "x": -8,
@@ -69,17 +69,17 @@
   {
    "x": -8,
    "y": -4,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -8,
    "y": -5,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -6,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -9,
@@ -94,34 +94,32 @@
   {
    "x": -10,
    "y": -7,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -10,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -9,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -11,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -9,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -13,
    "y": -9,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -13,
@@ -131,17 +129,17 @@
   {
    "x": -13,
    "y": -11,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -13,
    "y": -12,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -13,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -14,
@@ -156,8 +154,7 @@
   {
    "x": -16,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -16,
@@ -167,7 +164,8 @@
   {
    "x": -16,
    "y": -15,
-   "type": "talk"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
@@ -177,7 +175,7 @@
   {
    "x": -17,
    "y": -16,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -18,
@@ -187,7 +185,7 @@
   {
    "x": -19,
    "y": -16,
-   "type": "shop"
+   "type": "debuff"
   },
   {
    "x": -19,
@@ -197,7 +195,8 @@
   {
    "x": -19,
    "y": -18,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -19,
@@ -207,19 +206,59 @@
   {
    "x": -20,
    "y": -19,
+   "type": "talk"
+  },
+  {
+   "x": -21,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -20,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -21,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -21,
+   "type": "debuff"
+  },
+  {
+   "x": -23,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -21,
+   "type": "spike"
+  },
+  {
+   "x": -25,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -22,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -4,
-   "y": 0,
-   "at": 4,
+   "x": -8,
+   "y": -3,
+   "at": 11,
    "zone": [
-    4,
-    5
+    11
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
@@ -227,20 +266,18 @@
    "y": -16,
    "at": 32,
    "zone": [
-    32,
-    33
+    31,
+    32
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -14,
-   "y": -13,
-   "at": 27,
+   "x": -11,
+   "y": -9,
+   "at": 20,
    "zone": [
-    26,
-    27,
-    28
+    20
    ],
    "kind": "walpae",
    "on_path": true

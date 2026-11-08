@@ -3,7 +3,7 @@
  "name": "다래와 북한산 오르기",
  "tile": "grass",
  "bg": "stream",
- "turns": 16,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,80 +23,81 @@
   {
    "x": -1,
    "y": -2,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -2,
    "y": -2,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -2,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -4,
    "y": -2,
-   "type": "shop"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -3,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -4,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -4,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -6,
    "y": -4,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -4,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -7,
    "y": -5,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -6,
-   "type": "empty"
-  },
-  {
-   "x": -7,
-   "y": -7,
-   "type": "spike"
-  },
-  {
-   "x": -8,
-   "y": -7,
-   "type": "empty"
-  },
-  {
-   "x": -9,
-   "y": -7,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -10,
+   "x": -7,
    "y": -7,
    "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "buff"
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "spike"
   },
   {
    "x": -10,
@@ -107,28 +108,28 @@
   {
    "x": -10,
    "y": -9,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -10,
    "y": -10,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -11,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
    "y": -11,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -12,
@@ -138,17 +139,17 @@
   {
    "x": -12,
    "y": -13,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -12,
    "y": -14,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -14,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -14,
@@ -173,28 +174,27 @@
   {
    "x": -15,
    "y": -17,
-   "type": "empty"
+   "type": "item"
   },
   {
    "x": -16,
    "y": -17,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -17,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -17,
    "y": -18,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -19,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -17,
@@ -209,32 +209,69 @@
   {
    "x": -19,
    "y": -20,
+   "type": "pojol"
+  },
+  {
+   "x": -20,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -22,
+   "type": "debuff"
+  },
+  {
+   "x": -20,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "buff"
+  },
+  {
+   "x": -22,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -25,
    "type": "goal"
   }
  ],
  "guards": [
   {
+   "x": -20,
+   "y": -20,
+   "at": 40,
+   "zone": [
+    40,
+    41
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
    "x": -12,
    "y": -12,
    "at": 24,
    "zone": [
-    23,
-    24,
-    25
+    24
    ],
    "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -15,
-   "y": -15,
-   "at": 30,
-   "zone": [
-    29,
-    30,
-    31
-   ],
-   "kind": "walpae",
    "on_path": true
   }
  ]

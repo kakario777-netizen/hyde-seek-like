@@ -6,6 +6,8 @@ OUT = os.path.join(ROOT, "assets", "data", "stages")
 os.makedirs(OUT, exist_ok=True)
 
 def make(sid, name, tile, bg, length, seed, watchers=3, blockers=2, spikes=2, herbs=4, events=None, boss=None):
+    length += 8   # 이로운 칸 4 + 해로운 칸 4 자리만큼 길을 늘림
+    events = list(events or []) + ["buff"] * 4 + ["debuff"] * 4
     r = random.Random(seed)
     path = [(0, 0)]
     d = r.choice([0, 1])

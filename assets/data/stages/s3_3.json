@@ -3,7 +3,7 @@
  "name": "남산 아래 결투",
  "tile": "dirt",
  "bg": "title",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -4,
@@ -33,7 +33,7 @@
   {
    "x": -4,
    "y": -1,
-   "type": "talk"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -48,12 +48,12 @@
   {
    "x": -6,
    "y": -2,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -7,
    "y": -2,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -7,
@@ -63,7 +63,7 @@
   {
    "x": -7,
    "y": -4,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -7,
@@ -73,7 +73,7 @@
   {
    "x": -8,
    "y": -5,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -9,
@@ -83,7 +83,7 @@
   {
    "x": -10,
    "y": -5,
-   "type": "spike"
+   "type": "walpae"
   },
   {
    "x": -11,
@@ -93,12 +93,12 @@
   {
    "x": -11,
    "y": -6,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -7,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -11,
@@ -108,8 +108,7 @@
   {
    "x": -11,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -12,
@@ -119,17 +118,18 @@
   {
    "x": -13,
    "y": -9,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -14,
    "y": -9,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -9,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -15,
@@ -139,10 +139,7 @@
   {
    "x": -15,
    "y": -11,
-   "type": "boss",
-   "battle": "seohwi2",
-   "pre": "C3_BOSS",
-   "post": "C3_BOSS_WIN"
+   "type": "rest"
   },
   {
    "x": -16,
@@ -152,7 +149,7 @@
   {
    "x": -17,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -18,
@@ -162,23 +159,26 @@
   {
    "x": -19,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -12,
-   "type": "empty"
+   "type": "boss",
+   "battle": "seohwi2",
+   "pre": "C3_BOSS",
+   "post": "C3_BOSS_WIN"
   },
   {
    "x": -19,
    "y": -13,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -14,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -19,
@@ -188,8 +188,7 @@
   {
    "x": -20,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -21,
@@ -199,62 +198,100 @@
   {
    "x": -22,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -23,
    "y": -15,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -23,
    "y": -16,
-   "type": "pojol"
-  },
-  {
-   "x": -23,
-   "y": -17,
    "type": "empty"
   },
   {
    "x": -23,
+   "y": -17,
+   "type": "shop"
+  },
+  {
+   "x": -23,
    "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -25,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -18,
+   "type": "buff"
+  },
+  {
+   "x": -27,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -19,
+   "type": "walpae"
+  },
+  {
+   "x": -27,
+   "y": -20,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -27,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -22,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -11,
-   "y": -5,
-   "at": 16,
+   "x": -19,
+   "y": -15,
+   "at": 34,
    "zone": [
-    15,
-    16,
-    17
+    33,
+    34,
+    35
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -23,
+   "y": -16,
+   "at": 39,
+   "zone": [
+    39
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -18,
-   "y": -11,
-   "at": 29,
+   "x": -27,
+   "y": -18,
+   "at": 45,
    "zone": [
-    28,
-    29,
-    30
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -13,
-   "y": -9,
-   "at": 22,
-   "zone": [
-    21,
-    22
+    45
    ],
    "kind": "pojol",
    "on_path": true
