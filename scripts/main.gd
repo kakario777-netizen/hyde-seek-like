@@ -817,7 +817,7 @@ func show_bag(cb := Callable()) -> void:
 				up.disabled = true
 			else:
 				up.text = "단련하기  ★%d → ★%d  (엽전 %d냥)" % [lv, lv + 1, UPGRADE_COST[lv]]
-				up.disabled = coins < UPGRADE_COST[lv]
+				up.disabled = false
 		else:
 			up.text = "상소를 골라 단련하기"
 			up.disabled = true
@@ -838,7 +838,12 @@ func show_bag(cb := Callable()) -> void:
 		if sel < 0 or sel >= deck.size():
 			return
 		var lv: int = int(deck[sel]["lv"])
-		if lv >= GameData.MAX_LV or coins < UPGRADE_COST[lv]:
+		if lv >= GameData.MAX_LV:
+			return
+		if coins < UPGRADE_COST[lv]:
+			sfx("click", -4.0)
+			state["msg"] = "엽전이 모자랍니다! (단련 %d냥 · 지금 %d냥)" % [UPGRADE_COST[lv], coins]
+			rebuild.call(rebuild)
 			return
 		coins -= UPGRADE_COST[lv]
 		sfx("upgrade")

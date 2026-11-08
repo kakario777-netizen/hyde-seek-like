@@ -52,6 +52,10 @@ func _ready() -> void:
 	tiles = data["tiles"]
 	guards = data["guards"]
 	turns_left = int(data["turns"])
+	map_seed = int(restore.get("seed", 0)) if not restore.is_empty() else 0
+	if map_seed == 0:
+		map_seed = randi() % 2000000000 + 1
+	_randomize_layout(map_seed)
 	for t in tiles:
 		if t.get("herb", false):
 			herbs_total += 1
@@ -282,7 +286,61 @@ func _closed(p: PackedVector2Array) -> PackedVector2Array:
 	var q := p.duplicate(); q.append(p[0]); return q
 
 func _enemy_id(t: String) -> String:
+	var f: Dictionary = stage_cfg.get("foes", {})
+	if f.has(t):
+		return f[t]
 	return StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t)
+
+## 들어올 때마다 길 모양·사건·적 배치를 새로 섞는다 (저장하면 같은 배치로 이어짐)
+var map_seed := 0
+func _randomize_layout(s: int) -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = s
+	var n := tiles.size()
+	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
+		for t in tiles:
+			var x = t["x"]; t["x"] = t["y"]; t["y"] = x
+	var slots: Array = []
+	for i in range(2, n - 2):
+		if tiles[i]["type"] != "boss":
+			slots.append(i)
+	var stuff: Array = []
+	for i in slots:
+		stuff.append({"type": tiles[i]["type"], "herb": tiles[i].get("herb", false)})
+	for i in range(stuff.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var tmp = stuff[i]; stuff[i] = stuff[j]; stuff[j] = tmp
+	for k in slots.size():
+		var t: Dictionary = tiles[slots[k]]
+		t["type"] = stuff[k]["type"]
+		t.erase("herb")
+		if stuff[k]["herb"]:
+			t["herb"] = true
+	# 감시꾼도 길 위 빈칸에 새로 세움
+	var cnt := guards.size()
+	guards = []
+	var cand: Array = []
+	for i in range(4, n - 3):
+		if tiles[i]["type"] == "empty" and not tiles[i].get("herb", false):
+			cand.append(i)
+	for i in range(cand.size() - 1, 0, -1):
+		var j := rng.randi_range(0, i)
+		var tmp = cand[i]; cand[i] = cand[j]; cand[j] = tmp
+	for i in cand:
+		if guards.size() >= cnt:
+			break
+		var ok := true
+		for g in guards:
+			if abs(int(g["at"]) - i) < 5:
+				ok = false
+		if not ok:
+			continue
+		var zone: Array = []
+		for z in [i - 1, i, i + 1]:
+			if tiles[z]["type"] in ["empty", "spike"]:
+				zone.append(z)
+		guards.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "at": i, "zone": zone,
+			"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
 
 # ── 배치 / 카메라 ───────────────────────────────────────
 func _layout() -> void:
@@ -401,7 +459,7 @@ func _intro() -> void:
 	busy = false
 
 func get_state() -> Dictionary:
-	return {"pos": pos, "turns": turns_left, "herbs": herbs_got, "talk_idx": talk_idx,
+	return {"seed": map_seed, "pos": pos, "turns": turns_left, "herbs": herbs_got, "talk_idx": talk_idx,
 		"cleared": cleared.keys(), "guards_done": guards_done.keys(), "days_left": turns_left}
 
 func place_name() -> String:

@@ -196,6 +196,9 @@ func _make_token() -> Control:
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
 	var t: Texture2D = main.illust(main.token_name())
+	var ck: Texture2D = main.chibi_only("hero_disguise" if main.chapter in main.DISGUISED else "hero")
+	if ck:
+		t = ck
 	token_pic = main.tex_rect(t, Vector2(108, 114))
 	token_pic.position = Vector2(-54, -108)
 	root.add_child(token_pic)

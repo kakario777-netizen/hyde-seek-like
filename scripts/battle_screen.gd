@@ -34,6 +34,8 @@ var enemy_base := Vector2.ZERO
 var e_hp_bar: ProgressBar
 var e_hp_lbl: Label
 var e_block_lbl: Label
+var my_panel: Control
+var ip_panel: Control
 var charge_row: HBoxContainer
 var intent_lbl: Label
 var p_hp_bar: ProgressBar
@@ -135,6 +137,10 @@ func _ready() -> void:
 	pp.anchor_top = 1.0; pp.anchor_right = 1.0; pp.anchor_bottom = 1.0
 	pp.offset_left = 4; pp.offset_right = -4; pp.offset_top = -PANEL_TOP; pp.offset_bottom = -CARD_H - 22
 	pp.mouse_filter = Control.MOUSE_FILTER_IGNORE  # 패널 빈 곳이 상소 터치를 가로채지 않게
+	pp.grow_vertical = Control.GROW_DIRECTION_BEGIN  # 내용이 커져도 위로만 자라서 상소를 덮지 않음
+	my_panel = pp
+	ip_panel = ip
+	pp.resized.connect(_layout)
 	add_child(pp)
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 14)
@@ -219,7 +225,10 @@ func _start() -> void:
 	_begin_my_turn(bonus)
 
 func _layout() -> void:
-	var bottom: float = size.y - PANEL_TOP - 100
+	var ptop: float = my_panel.position.y if my_panel else size.y - PANEL_TOP
+	if ip_panel:
+		ip_panel.position.y = ptop - ip_panel.size.y - 12
+	var bottom: float = ptop - 100
 	if enemy_sprite.size.y > bottom - 150:
 		var k: float = (bottom - 150) / enemy_sprite.size.y
 		enemy_sprite.size *= k; enemy_sprite.custom_minimum_size = enemy_sprite.size
@@ -413,7 +422,6 @@ func _ally_turn() -> void:
 func _enemy_turn() -> void:
 	main.sfx("whoosh", -6.0)
 	await _show_banner("상대의 차례")
-	e_block = 0
 	var act := intent
 	_float_text(act["n"] + "!", Vector2(size.x / 2, size.y * 0.25), Color("ff9a80") if act.get("heavy", false) else main.LIGHT)
 	await get_tree().create_timer(BEAT).timeout
