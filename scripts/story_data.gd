@@ -30,11 +30,11 @@ const CHAPTERS := {
 			{"map": "s4_1", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM"},
 			{"map": "s4_2", "name": "군산 포구 뒤지기", "after": "C4_CLUE"},
 			{"map": "s4_3", "name": "화엄골 가는 길", "after": "C4_CASTLE"},
-			{"map": "s4_f1", "foes": {"walpae": "rival", "pojol": "rival"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1"},
-			{"map": "s4_f2", "foes": {"walpae": "rival", "pojol": "rival"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2"},
-			{"map": "s4_f3", "foes": {"walpae": "rival", "pojol": "rival"}, "name": "백운의 성 3층 · 약 공방", "after": "C4_F3"},
-			{"map": "s4_f4", "foes": {"walpae": "rival", "pojol": "rival"}, "name": "백운의 성 4층 · 보물고", "after": "C4_F4"},
-			{"map": "s4_f5", "foes": {"walpae": "rival", "pojol": "rival"}, "name": "백운의 성 5층 · 천수각"}],
+			{"map": "s4_f1", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1"},
+			{"map": "s4_f2", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2"},
+			{"map": "s4_f3", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 3층 · 약 공방", "after": "C4_F3"},
+			{"map": "s4_f4", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 4층 · 보물고", "after": "C4_F4"},
+			{"map": "s4_f5", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 5층 · 천수각", "ally": "seohwi"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
@@ -264,8 +264,8 @@ const CH4_AFTER_DUEL := [
 	{"who": "다래", "pose": "friend_worried", "text": "할아버지…\n…{alias}, 아니, {name}아. 미안해. 정말 미안해…"},
 	{"who": "{name}", "pose": "hero_sad", "text": "나도 미안해. 더 일찍 말했어야 했는데.\n…우리, 아직 친구지?"},
 	{"who": "다래", "pose": "friend", "text": "당연하지, 바보야!"},
-	{"who": "", "text": "천수각 난간에서 그 모습을 지켜보던 서휘가 깨진 애체를 고쳐 썼다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…{name}. 이제 다래도 너를 진짜 이름으로 부르는군.\n(독을 빚게 한 나를 끝까지 사람으로 대해 준 사람. …잊지 못하겠군.)"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 그리고 서휘.\n너희 덕분에 삿갓 노인을 잡을 수 있었다. …고맙다."},
 	{"who": "", "text": "― 제4장 「대대장」 끝 ―", "end": true},
 ]
 
@@ -278,7 +278,7 @@ const CH5_INTRO := [
 	{"who": "", "text": "경복궁 강녕전."},
 	{"who": "임금", "pose": "king", "text": "그대가 청심보명단의 독을 밝히고 백성을 구한 의원이로구나.\n여인의 몸으로 그리 하였다니 더욱 기특하도다."},
 	{"who": "임금", "pose": "king", "text": "내 그대를 내의원의 의녀로 삼고, 특별히 어의의 소임을 맡기겠노라.\n청심보명단에 상한 백성들을 고쳐 다오."},
-	{"who": "{name}", "pose": "hero_physician", "text": "황공하옵니다, 전하.\n…다만 한 가지 청이 있사옵니다. 제 동무 다래도 궁에 함께 들게 해 주시옵소서."},
+	{"who": "{name}", "pose": "hero", "text": "황공하옵니다, 전하.\n…다만 한 가지 청이 있사옵니다. 제 동무 다래도 궁에 함께 들게 해 주시옵소서."},
 	{"who": "임금", "pose": "king", "text": "허허, 어의의 첫 청이 동무 걱정이라. 좋다, 허락하노라.\n그 아이를 궁녀로 들여 그대 곁에 두도록 하라."},
 	{"who": "다래", "pose": "darae_court", "text": "헤헤, 궁녀복 어때? 이제 매일 같이 있을 수 있어!\n약초 캐는 건 여전히 내가 최고니까, 필요하면 언제든 불러!"},
 	{"who": "", "text": "그날부터 {name|은} 궁녀들의 고뿔부터 늙은 내관의 허리병,\n대비마마의 오랜 두통까지 하나하나 고쳐 나갔다."},
@@ -290,10 +290,10 @@ const CH5_INTRO := [
 const C5_HEAL := [
 	{"who": "", "bg": "palace", "text": "내의원 앞마당. 청심보명단에 정신이 무너진 사람들이 줄지어 들어왔다."},
 	{"who": "백성", "pic": "addict", "text": "머리가… 머리가 깨질 것 같아요, 나으리…"},
-	{"who": "{name}", "pic": "hero_physician", "text": "괜찮아요. 이 탕약부터 천천히 드세요.\n궁에서 내 준 약재로 빚은 환심단 첫 처방이에요."},
+	{"who": "{name}", "pic": "hero", "text": "괜찮아요. 이 탕약부터 천천히 드세요.\n궁에서 내 준 약재로 빚은 환심단 첫 처방이에요."},
 	{"who": "", "text": "사흘 밤낮을 달인 약이 효험을 보였다.\n멍하던 눈빛에 하나둘 빛이 돌아오기 시작했다."},
 	{"who": "다래", "pic": "darae_court", "text": "{name}아, 저 아저씨 방금 자기 딸 이름을 불렀어!\n…됐어. 이 약이면 의원님도 돌아오실 수 있을 거야."},
-	{"who": "{name}", "pic": "hero_physician", "text": "응. 하지만 의원님 몸속의 검은 것은 훨씬 깊어.\n더 센 약이 필요해. 백년 묵은 하수오가 있어야 해."},
+	{"who": "{name}", "pic": "hero", "text": "응. 하지만 의원님 몸속의 검은 것은 훨씬 깊어.\n더 센 약이 필요해. 백년 묵은 하수오가 있어야 해."},
 	{"who": "", "text": "(내의원의 지원: 엽전 +8냥, 약병 +2)", "coin": 8, "potion": 2},
 ]
 
@@ -301,7 +301,7 @@ const C5_SEOHWI := [
 	{"who": "", "bg": "street_ink", "text": "종로 네거리. 낯익은 금빛 머리칼이 보였다."},
 	{"who": "서휘", "pic": "seohwi", "text": "어의 나으리께서 여긴 어쩐 일이신가.\n…농담이다. 청안파는 이제 약방 대신 짐꾼 일을 한다. 정직하게 벌어서 정직하게 먹지."},
 	{"who": "서휘", "pic": "seohwi", "text": "환심단에 들어갈 '백년 묵은 하수오'를 찾는다고?\n내 아이들이 남산 바위틈에서 하나 캐 왔다. 받아라."},
-	{"who": "{name}", "pic": "hero_physician", "text": "서휘… 고마워."},
+	{"who": "{name}", "pic": "hero", "text": "서휘… 고마워."},
 	{"who": "서휘", "pic": "seohwi", "text": "…고맙다는 말은 됐다.\n(그 말 한마디에 이렇게 흔들리다니. 나도 한심하군.)"},
 	{"who": "", "text": "(서휘의 하수오: 최대 체력 +10, 체력 +10)", "maxhp": 10, "heal": 10},
 ]
@@ -539,39 +539,39 @@ const C5_SHADOW_FLEE := [
 
 const CH6F_INTRO := [
 	{"bg": "palace", "who": "", "text": "― 제6장 「작별」 ―"},
-	{"who": "{name}", "pose": "hero_physician", "text": "…이제 조선에 내가 고칠 사람은 다 고쳤어.\n의원님이 보지 못한 넓은 세상을, 의원님 대신 보고 싶어."},
+	{"who": "{name}", "pose": "hero", "text": "…이제 조선에 내가 고칠 사람은 다 고쳤어.\n의원님이 보지 못한 넓은 세상을, 의원님 대신 보고 싶어."},
 	{"who": "", "text": "경복궁 강녕전. {name|은} 임금 앞에 엎드렸다."},
 	{"who": "임금", "pose": "king", "text": "세상을 보러 떠나겠다고? 아니 된다.\n그대는 이 나라의 어의다. 궁을 비우는 것을 허락할 수 없노라."},
-	{"who": "{name}", "pose": "hero_physician", "text": "전하…"},
+	{"who": "{name}", "pose": "hero", "text": "전하…"},
 	{"who": "", "text": "그때, 뒤에 서 있던 포도대장 윤도결이 무릎을 꿇었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "전하, 신 포도대장 윤도결 감히 아뢰옵니다.\n저 아이는 누명을 쓰고도 끝내 백성을 먼저 살핀 의원이옵니다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "새장에 가두면 저 아이의 의술도 그 안에서 시들 것이옵니다.\n궁의 안위는 신이 목숨을 걸고 지키겠사오니, 부디 길을 열어 주시옵소서."},
 	{"who": "임금", "pose": "king", "text": "…포도대장이 이토록 간곡히 청하는 것은 처음 보는구나.\n좋다. 다만 조건이 있다."},
 	{"who": "임금", "pose": "king", "text": "궁에서 쓸 약을 넉넉히 지어 두고,\n그대의 의술을 이어받을 사람을 길러 놓고 떠나라."},
-	{"who": "{name}", "pose": "hero_physician", "text": "성은이 망극하옵니다, 전하!"},
+	{"who": "{name}", "pose": "hero", "text": "성은이 망극하옵니다, 전하!"},
 	{"bg": "yakbang", "who": "", "text": "그날부터 {name|은} 내의원 약방에서 밤낮으로 약을 빚었다.\n환심단, 우황청심환, 쌍화탕… 약장 서랍이 하나둘 가득 찼다."},
 	{"who": "다래", "pose": "darae_court", "text": "{name}아, 그럼 네 의술을 이어받을 사람은… 설마 나?"},
-	{"who": "{name}", "pose": "hero_physician", "text": "응. 약초 보는 눈은 네가 조선 제일이잖아.\n이제 약 짓는 법까지 배우면, 너는 진짜 의녀가 되는 거야."},
+	{"who": "{name}", "pose": "hero", "text": "응. 약초 보는 눈은 네가 조선 제일이잖아.\n이제 약 짓는 법까지 배우면, 너는 진짜 의녀가 되는 거야."},
 	{"who": "다래", "pose": "darae_court", "text": "…해 볼게. 너 없는 동안 궁은 내가 지킬게!"},
-	{"who": "{name}", "pose": "hero_physician", "text": "그럼 첫 수업은 산에서 하자.\n약초는 책보다 산에서 배우는 거라고, 의원님이 그러셨거든."},
+	{"who": "{name}", "pose": "hero", "text": "그럼 첫 수업은 산에서 하자.\n약초는 책보다 산에서 배우는 거라고, 의원님이 그러셨거든."},
 	{"who": "", "text": "【목표】\n다래와 함께 북한산에 올라 약초를 가르치며\n산마루 약초밭까지 가라."},
 ]
 
 const C6F_LESSON := [
 	{"bg": "stream", "who": "", "text": "산 중턱 계곡. 다래가 바위틈의 풀 한 포기를 가리켰다."},
 	{"who": "다래", "pic": "friend", "text": "이건 내가 알아! 도라지야. 근데 이걸 어떻게 약으로 써?"},
-	{"who": "{name}", "pic": "hero_physician", "text": "뿌리를 캐서 껍질을 벗기고 볕에 말려.\n기침과 가래에 좋아. 감초를 조금 넣어 달이면 쓴맛도 덜하고."},
+	{"who": "{name}", "pic": "hero", "text": "뿌리를 캐서 껍질을 벗기고 볕에 말려.\n기침과 가래에 좋아. 감초를 조금 넣어 달이면 쓴맛도 덜하고."},
 	{"who": "다래", "pic": "friend_worried", "text": "그럼 이건? 할아버지가 독초라고 절대 만지지 말랬던 거."},
-	{"who": "{name}", "pic": "hero_physician", "text": "미치광이풀. 할아버지가 나한테도 처음 가르쳐 주신 거야.\n…좋은 의원은 약보다 독을 먼저 알아보는 사람이래."},
+	{"who": "{name}", "pic": "hero", "text": "미치광이풀. 할아버지가 나한테도 처음 가르쳐 주신 거야.\n…좋은 의원은 약보다 독을 먼저 알아보는 사람이래."},
 	{"who": "다래", "pic": "friend_worried", "text": "…할아버지 생각난다. 그 가르침만큼은 진짜였을 거야."},
 	{"who": "", "potion": 2, "text": "(다래가 캔 약초로 약을 달였다: 약병 +2)"},
 ]
 
 const CH6F_END := [
 	{"bg": "byeolchae", "who": "", "text": "산마루 양지바른 비탈. 둘은 해가 질 때까지 흙을 일구었다."},
-	{"who": "{name}", "pose": "hero_physician", "text": "약초는 해가 잘 드는 데 심고, 물은 흙이 마를 때만 줘.\n뿌리 약초는 삼 년은 기다려야 해. 조급하면 안 돼."},
+	{"who": "{name}", "pose": "hero", "text": "약초는 해가 잘 드는 데 심고, 물은 흙이 마를 때만 줘.\n뿌리 약초는 삼 년은 기다려야 해. 조급하면 안 돼."},
 	{"who": "다래", "pose": "friend", "text": "삼 년… 그럼 이 도라지가 다 자랄 때쯤엔 너도 돌아와 있겠다."},
-	{"who": "{name}", "pose": "hero_physician", "text": "응. 약속할게."},
+	{"who": "{name}", "pose": "hero", "text": "응. 약속할게."},
 	{"bg": "title", "who": "", "text": "떠나는 날 새벽, 숭례문 앞."},
 	{"who": "다래", "pose": "darae_court", "text": "바보야, 꼭, 꼭 돌아와야 해. 안 오면 내가 찾으러 간다!"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "먼 길에 여인 혼자는 위험하다. …또 사내아이 차림으로 가겠군.\n기다리고 있겠다. 네가 돌아올 때까지."},
@@ -689,19 +689,29 @@ const C4_F3 := [
 	{"bg": "corridor", "who": "", "text": "공방 안쪽, 쇠사슬에 묶인 마을 사람들이 청심보명단을 빚고 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 사람들, 다 화엄골 마을 사람들이에요…!\n약을 미끼로 붙잡아 두고 일을 시킨 거야."},
 	{"who": "", "text": "{alias}는 사슬을 풀고, 가지고 있던 해독 약재로 사람들의 손목을 짚어 가며 약을 먹였다."},
-	{"who": "마을 노인", "pic": "yakjae", "text": "고맙소, 젊은 의원…\n백 노인이 저리 변하기 전엔, 이 골짜기 사람들을 공짜로 고쳐 주던 분이었는데…"},
+	{"who": "마을 노인", "text": "고맙소, 젊은 의원…\n백 노인이 저리 변하기 전엔, 이 골짜기 사람들을 공짜로 고쳐 주던 분이었는데…"},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…약보다 독을 먼저 알아보라던 할아버지. 그 가르침은 진짜였는데…)"},
 	{"who": "", "coin": 6, "potion": 1, "text": "(풀려난 사람들이 엽전과 약병을 건넸다)"},
 ]
 
-const C4_F4_PRE := [
-	{"bg": "vault", "who": "", "text": "성 4층, 금빛 보물고.\n은궤 위에 삿갓 쓴 노인이 앉아 있었다."},
-	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "세 번째로구나, 아이들아.\n허나 이 위로는 한 발짝도 못 간다."},
+const C4_F5_PRE := [
+	{"bg": "cheonsugak", "who": "", "text": "성 5층, 천수각으로 오르는 마지막 계단참.\n삿갓 쓴 노인이 난간에 기대어 기다리고 있었다."},
+	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "세 번째로구나, 아이들아.\n허나 천수각 문턱은 한 발짝도 넘지 못한다."},
 ]
 
-const C4_F4_POST := [
-	{"who": "", "text": "노인은 또다시 연막약을 터뜨리고 위층 계단으로 몸을 날렸다."},
-	{"who": "서휘", "pic": "seohwi", "text": "놓치지 마라! 이제 꼭대기뿐이다!"},
+const C4_F5_POST := [
+	{"who": "", "text": "노인은 비틀거리며 연막약을 터뜨리고, 천수각 안으로 몸을 숨겼다."},
+	{"who": "", "text": "그때, 계단 아래에서 낯익은 발소리가 올라왔다."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "…역시 여기 있었군, {name}.\n화엄골 마을 사람들이 성으로 끌려간다는 소문을 듣고 쫓아왔다."},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "종사관 나리…!"},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "방금 그 삿갓 노인이 이 성의 주인인가."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "네. 청심보명단도, 흑룡파도, 의원님 일도…\n전부 저 노인한테서 시작된 거예요."},
+	{"who": "서휘", "pic": "seohwi", "text": "…그 약, 내가 빚었다.\n노인이 건넨 처방대로 약을 지었고, 그 약을 먹은 사람들이 하나둘 이상해졌지."},
+	{"who": "서휘", "pic": "seohwi", "text": "나도 한때는 저 노인 밑에 있었다. 그건 부정하지 않겠다.\n…하지만 이대로는 안 된다. 내 손으로 저 노인을 잡으러 가겠다."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "알고 있었다. 네가 청안파 서휘라는 것쯤은.\n포도청 문서에 네 이름이 몇 번이나 올랐는지 아나?"},
+	{"who": "서휘", "pic": "seohwi", "text": "…그런데 왜 잡지 않았지?"},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "잡을 놈은 따로 있으니까. 지금은 저 위에 있는 노인이다.\n…나도 같이 가겠다. 포졸들은 성 아래에 세워 두었다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "(서휘와 종사관 나리가… 한편이 되다니.)\n…가요. 셋이서 끝내요."},
 ]
 
 const C4_F4 := [
@@ -811,7 +821,7 @@ const TALKS_EXTRA := {
 
 const ALL := {
 	"C3_HK1_PRE": C3_HK1_PRE, "C3_HK1_POST": C3_HK1_POST, "C3_HK2_PRE": C3_HK2_PRE, "C3_HK2_POST": C3_HK2_POST, "C3_HK2": C3_HK2,
-	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F4_PRE": C4_F4_PRE, "C4_F4_POST": C4_F4_POST, "C4_F4": C4_F4,
+	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,

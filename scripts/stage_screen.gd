@@ -95,6 +95,20 @@ func _ready() -> void:
 			for z in g["zone"]:
 				if zc.has(z): bad += 100
 				zc[z] = true
+		var occ: Array = []
+		for c in cs:
+			occ.append([c, false])
+		var hid := 0
+		var ch_hid := 0
+		for i in tiles.size():
+			var ev: bool = tiles[i]["type"] in ["buff", "debuff", "item", "trap", "rest", "spike"] or tiles[i].get("herb", false)
+			if ev and _behind_char(i, occ):
+				hid += 1
+		for a in cs.size():
+			for b in cs.size():
+				if a != b and _covers(cs[a], cs[b]):
+					ch_hid += 1
+		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid)
 		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
 
 	var bgr := TextureRect.new()
@@ -237,7 +251,9 @@ func _make_tile_ent(i: int) -> void:
 			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"item", "buff", "debuff", "trap", "rest":
 			root.add_child(_badge(typ, Vector2(-24, -70), Color("f3e6c8")))
+			root.z_index = 1   # 효과 아이콘은 인물 그림에 가려지지 않게 항상 앞에
 	if t.get("herb", false):
+		root.z_index = 1
 		var h: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_herb.png"), Vector2(64, 78))
 		h.position = Vector2(-10, -64)
 		h.name = "Herb"
@@ -481,10 +497,13 @@ func _randomize_layout(s: int) -> void:
 		var kind: String = chars[k]
 		var target := 3.0 + (k + 0.5) * span / chars.size()
 		var best := -1
-		for gg in [4, 3]:   # 붉은 칸 사이에도 빈칸 하나 (안 되면 맞닿기까지만 허용, 겹침은 절대 안 됨)
+		# 붉은 칸 사이에도 빈칸 하나, 인물끼리 화면에서 겹쳐 보이지 않게 (안 되면 조금씩 완화, 붉은 칸 겹침은 절대 안 됨)
+		for pss in [[4, true], [3, true], [4, false], [3, false]]:
 			var best_d := 1e9
 			for i in order:
-				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, gg):
+				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, pss[0]):
+					continue
+				if pss[1] and _hidden_by_any(i, occupied):
 					continue
 				var dd: float = abs(dist_start[i] - target)
 				if dd < best_d:
@@ -514,6 +533,7 @@ func _randomize_layout(s: int) -> void:
 		slots.append(i)
 	_shuffle(rng, others)
 	_shuffle(rng, slots)
+	slots.sort_custom(func(a, b): return int(_behind_char(a, occupied)) < int(_behind_char(b, occupied)))
 	for k2 in mini(slots.size(), others.size()):
 		tiles[slots[k2]]["type"] = others[k2]
 	# ③ 약초는 본길에만 (어느 갈래로 가도 다 모을 수 있게), 붉은 칸은 피해서
@@ -522,6 +542,7 @@ func _randomize_layout(s: int) -> void:
 		if tiles[i]["type"] == "empty" and not reserved.has(i):
 			hc.append(i)
 	_shuffle(rng, hc)
+	hc.sort_custom(func(a, b): return int(_behind_char(a, occupied)) < int(_behind_char(b, occupied)))
 	for i in hc.slice(0, herb_cnt):
 		tiles[i]["herb"] = true
 	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
@@ -530,6 +551,26 @@ func _randomize_layout(s: int) -> void:
 	# 감시꾼은 반드시 자기 칸 위에 (뒤집은 뒤 좌표로 맞춤)
 	for g in guards:
 		g["x"] = tiles[int(g["at"])]["x"]; g["y"] = tiles[int(g["at"])]["y"]
+
+## a칸의 인물 그림이 b칸(화면 위쪽)을 가리는가
+func _covers(a: int, b: int) -> bool:
+	var ds: int = (int(tiles[a]["x"]) + int(tiles[a]["y"])) - (int(tiles[b]["x"]) + int(tiles[b]["y"]))
+	var dd: int = absi((int(tiles[a]["x"]) - int(tiles[a]["y"])) - (int(tiles[b]["x"]) - int(tiles[b]["y"])))
+	return (dd == 0 and ds >= 1 and ds <= 4) or (dd == 1 and ds >= 1 and ds <= 2)
+
+## i칸(사건 그림)이 인물에 가려지는가
+func _behind_char(i: int, occupied: Array) -> bool:
+	for o in occupied:
+		if _covers(o[0], i):
+			return true
+	return false
+
+## i칸이 다른 인물에 가려지거나, i칸 인물이 다른 인물을 가리는가
+func _hidden_by_any(i: int, occupied: Array) -> bool:
+	for o in occupied:
+		if _covers(o[0], i) or _covers(i, o[0]):
+			return true
+	return false
 
 func _cheb(a: int, b: int) -> int:
 	return maxi(absi(int(tiles[a]["x"]) - int(tiles[b]["x"])), absi(int(tiles[a]["y"]) - int(tiles[b]["y"])))
@@ -688,7 +729,7 @@ func _intro() -> void:
 		await get_tree().create_timer(0.3).timeout
 		main.popup("〈%s〉\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오." % stage_cfg["name"], "출발", func():
 			busy = false
-			_deal(), cfg.get("title", ""))
+			_deal(), cfg.get("title", ""), "", "", true)
 		return
 	await get_tree().create_timer(0.4).timeout
 	_deal()
@@ -910,7 +951,7 @@ const BLOCK_REPLY := {
 		{"who": "포졸", "pic": "pojol", "text": "약초꾼이 왜 그리 눈을 피해? 수상하다, 이리 와 봐라!"}],
 	"walpae": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "가진 거라곤 약초 몇 뿌리뿐이에요. 비켜 주세요."},
 		{"who": "왈패", "pic": "walpae", "text": "흐흐, 약초도 돈이지. 순순히 안 내놓겠다 이거냐?"}],
-	"mob": [{"who": "{name}", "pic": "hero_physician", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
+	"mob": [{"who": "{name}", "pic": "hero", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
 		{"who": "중독된 사내", "pic": "addict", "text": "약…! 그 약 냄새… 내놔아아!"}],
 	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병 도는 마을에 약을 가져가는 길이에요. 비켜요!"},
 		{"who": "뱃사람", "pic": "walpae", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],
@@ -991,7 +1032,7 @@ func _stage_clear() -> void:
 		if last:
 			_reach_goal()
 		else:
-			main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")), main.next_stage), "", "", data.get("bg", ""))
+			main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")), main.next_stage), "", "", data.get("bg", ""), true)
 
 func _reach_goal() -> void:
 	if cfg.has("goal_battle"):
@@ -1001,4 +1042,4 @@ func _reach_goal() -> void:
 				{"lose_ok": cfg.get("goal_lose_ok", false), "ally": cfg.get("goal_ally", ""), "no_reward": true}))
 	else:
 		main.popup(cfg.get("goal_text", "목적지에 도착했다!"), "들어간다", main.chapter_clear,
-			cfg.get("goal_title", ""), cfg.get("goal_pic", ""), cfg.get("goal_bg", ""))
+			cfg.get("goal_title", ""), cfg.get("goal_pic", ""), cfg.get("goal_bg", ""), true)

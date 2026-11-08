@@ -129,7 +129,10 @@
   {
    "x": -9,
    "y": -15,
-   "type": "empty"
+   "type": "boss",
+   "battle": "baegun_mask",
+   "pre": "C4_F5_PRE",
+   "post": "C4_F5_POST"
   },
   {
    "x": -10,

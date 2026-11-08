@@ -62,6 +62,8 @@ func _ready() -> void:
 		enemy["hp"] = int(round(enemy["hp"] * hk))
 		for mv in enemy["moves"] + [enemy["heavy"]]:
 			mv["v"] = int(round(mv["v"] * dk))
+			if boss and mv["t"] == "atk":
+				mv["v"] += 5   # 중간보스·대장은 공격이 더 아프게
 	e_hp = enemy["hp"]
 	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
 
@@ -70,7 +72,7 @@ func _ready() -> void:
 	# 백운의 성 안에서 싸울 때는 그 층 배경(성 안) 그대로
 	if main.board != null and is_instance_valid(main.board) and "data" in main.board and main.board.data is Dictionary:
 		var sbg: String = main.board.data.get("bg", "")
-		if sbg in ["vault", "corridor", "cheonsugak"] and not BATTLE_BG.has(enemy_id):
+		if sbg in ["vault", "corridor", "cheonsugak"] and not (bgname in ["vault", "corridor", "cheonsugak"]):
 			bgname = sbg
 	var bt: Texture2D = main.backdrop(bgname)
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
