@@ -11,6 +11,7 @@ permissions:
 
 env:
   GODOT_VERSION: 4.3
+  RELEASES_TOKEN: ${{ secrets.RELEASES_TOKEN }}
 
 jobs:
   build:
@@ -79,6 +80,20 @@ jobs:
           tag_name: build-${{ github.run_number }}
           name: 빌드 ${{ github.run_number }}
           body: 한양 숨바꼭질 자동 빌드 (${{ github.sha }})
+          files: |
+            build/hanyang-hide.apk
+            build/hyde.pck
+            build/shell-*.txt
+
+      - name: 공개 저장소(hyde-seek-releases)에도 올리기 (앱 안 업데이트용)
+        if: ${{ env.RELEASES_TOKEN != '' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          repository: kakario777-netizen/hyde-seek-releases
+          token: ${{ secrets.RELEASES_TOKEN }}
+          tag_name: build-${{ github.run_number }}
+          name: 빌드 ${{ github.run_number }}
+          body: 한양 숨바꼭질 빌드 ${{ github.run_number }}
           files: |
             build/hanyang-hide.apk
             build/hyde.pck
