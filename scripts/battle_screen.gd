@@ -506,7 +506,7 @@ func _win() -> void:
 			main.popup("%s을(를) 물리쳤다!\n\n(엽전 +%d냥)" % [enemy["name"], enemy["coin"]], "계속", func():
 				main.end_battle(self)
 				if on_win.is_valid():
-					on_win.call())
+					on_win.call(), "", "", "", true)
 		else:
 			main.end_battle(self)
 			if on_win.is_valid():
@@ -516,7 +516,7 @@ func _win() -> void:
 		main.choose_reward(func():
 			main.end_battle(self)
 			if on_win.is_valid():
-				on_win.call()))
+				on_win.call()), "", "", "", true)
 
 func _refresh() -> void:
 	e_hp_bar.value = float(e_hp) / float(enemy["hp"])

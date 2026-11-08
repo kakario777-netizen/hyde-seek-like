@@ -320,7 +320,7 @@ func game_over(reason: String, pic := "") -> void:
 			board.queue_free(); board = null
 		current = null
 		max_hp = 40; coins = 0; potions = 2
-		start_board(), "", pic)
+		start_board(), "", pic, "", true)
 
 # ── 이름 ────────────────────────────────────────────────
 var alias_name := ""
@@ -736,8 +736,8 @@ func _note(text: String, color := INK_SOFT) -> Label:
 	l.custom_minimum_size = Vector2(540, 0)
 	return l
 
-func popup(text: String, button_text := "확인", cb := Callable(), title := "", pic := "", bg := "") -> void:
-	var o := _overlay(title, bg, pic, true)
+func popup(text: String, button_text := "확인", cb := Callable(), title := "", pic := "", bg := "", centered := false) -> void:
+	var o := _overlay(title, bg, pic, not centered)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
