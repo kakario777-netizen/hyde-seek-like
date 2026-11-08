@@ -38,6 +38,7 @@ var board: Control  # 전투 동안 보드를 숨겨 두었다가 되돌림
 var audio: Node
 
 func _ready() -> void:
+	get_tree().create_timer(3.0).timeout.connect(func(): load("res://scripts/boot.gd").mark_ok())
 	BODY_FONT.fallbacks = [HANJA_FONT]
 	TITLE_FONT.fallbacks = [BODY_FONT, HANJA_FONT]
 	audio = AudioMgr.new()

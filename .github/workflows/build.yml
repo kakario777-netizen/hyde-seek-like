@@ -47,6 +47,9 @@ jobs:
             } > ~/.config/godot/$f
           done
 
+      - name: 빌드 번호를 게임 안에 기록 (앱 안 업데이트 비교용)
+        run: echo "{\"build\": ${{ github.run_number }}, \"shell\": $(grep -oP 'const SHELL := \K[0-9]+' scripts/boot.gd)}" > build_info.json && cat build_info.json
+
       - name: 버전 번호 자동 증가 (빌드마다 커져야 업데이트 설치 가능)
         run: sed -i "s/^version\/code=.*/version\/code=$((100 + ${{ github.run_number }}))/" export_presets.cfg
 
@@ -59,6 +62,8 @@ jobs:
           mkdir -p build
           timeout 300 ~/godot/godot --headless --editor --quit || true
           ~/godot/godot --headless --export-release "Android" build/hanyang-hide.apk
+          ~/godot/godot --headless --export-pack "Android" build/hyde.pck
+          echo shell > build/shell-$(grep -oP 'const SHELL := \K[0-9]+' scripts/boot.gd).txt
           ls -la build
           $ANDROID_SDK_ROOT/build-tools/$(ls $ANDROID_SDK_ROOT/build-tools | sort -V | tail -1)/apksigner verify --print-certs build/hanyang-hide.apk | head -3
 
@@ -71,4 +76,7 @@ jobs:
           tag_name: build-${{ github.run_number }}
           name: 빌드 ${{ github.run_number }}
           body: 한양 숨바꼭질 자동 빌드 (${{ github.sha }})
-          files: build/hanyang-hide.apk
+          files: |
+            build/hanyang-hide.apk
+            build/hyde.pck
+            build/shell-*.txt
