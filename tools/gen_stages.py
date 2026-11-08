@@ -83,7 +83,7 @@ S = [
     ("s4_f2", "백운의 성 2층 · 독안개 회랑", "cave", "den", 36, 142, {"events": ["debuff", "trap", "shop", "rest"], "watchers": 3, "spikes": 5, "boss": {"battle": "heukdu", "pre": "C4_F2_PRE", "post": "C4_F2_POST"}}),
     ("s4_f3", "백운의 성 3층 · 약 공방", "brick", "den", 36, 143, {"events": ["talk", "item", "shop", "debuff"], "watchers": 4, "herbs": 5, "boss": {"battle": "mob_boss", "pre": "C4_F3_PRE", "post": "C4_F3_POST"}}),
     ("s4_f4", "백운의 성 4층 · 보물고", "palace", "vault", 36, 144, {"events": ["buff", "trap", "shop", "rest"], "watchers": 4, "blockers": 2, "boss": BM("C4_F4_PRE", "C4_F4_POST")}),
-    ("s4_f5", "백운의 성 5층 · 천수각", "palace", "palace", 32, 145, {"events": ["rest", "shop", "buff"], "watchers": 3, "blockers": 2}),
+    ("s4_f5", "백운의 성 5층 · 천수각", "palace", "cheonsugak", 32, 145, {"events": ["rest", "shop", "buff"], "watchers": 3, "blockers": 2}),
     ("s5_1", "내의원 환자 돌보기", "palace", "palace", 36, 51, {"events": ["talk", "item", "shop", "talk"], "watchers": 2, "blockers": 1}),
     ("s5_2", "종로에서 약재 구하기", "stone", "jangteo", 40, 52, {"events": ["shop", "talk", "debuff", "shop"]}),
     ("s5_3", "궁궐 담장 아래", "palace", "palace", 40, 53, {"events": ["rest", "buff", "shop"], "watchers": 4, "boss": SH("C5_SHADOW", "C5_SHADOW_FLEE")}),

@@ -2,7 +2,7 @@
  "id": "s4_f5",
  "name": "백운의 성 5층 · 천수각",
  "tile": "palace",
- "bg": "palace",
+ "bg": "cheonsugak",
  "turns": 13,
  "tiles": [
   {

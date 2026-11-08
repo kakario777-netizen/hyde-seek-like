@@ -248,8 +248,9 @@ func _make_token() -> Control:
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
 	var tk: Texture2D = main.illust(main.token_name())
-	if main.chapter >= 9 and main.chibi("hero_adult") != null:
-		tk = main.chibi("hero_adult")  # 어른이 된 뒤 서휘와 걷는 마지막 장
+	var ck: String = "hero_adult" if main.chapter >= 9 else ("hero_disguise" if main.chapter in main.DISGUISED else "hero")
+	if main.chibi_only(ck) != null:
+		tk = main.chibi_only(ck)
 	token_pic = main.tex_rect(tk, Vector2(132, 140))
 	token_pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	token_pic.position = Vector2(-66, -132)
