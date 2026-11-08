@@ -213,13 +213,13 @@ const CH4_INTRO := [
 ]
 
 const C4_STREAM := [
-	{"bg": "stream", "who": "", "text": "한양을 떠나기 전날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
+	{"bg": "stream", "who": "", "pose": "hero_disguise", "text": "한양을 떠나기 전날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
 	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "안 돼!"},
-	{"who": "", "text": "{alias}는 망설임 없이 물에 뛰어들었다.\n아이를 둑으로 밀어 올린 순간, 거센 물살이 {alias}를 삼켰다."},
+	{"who": "", "pose": "hero_disguise_surprised", "text": "{alias}는 망설임 없이 물에 뛰어들었다.\n아이를 둑으로 밀어 올린 순간, 거센 물살이 {alias}를 삼켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{alias}!!"},
-	{"who": "", "text": "철릭을 벗어 던진 윤도결이 뒤따라 뛰어들었다.\n한참 뒤 둑 위로 끌어올린 {alias}는… 숨을 쉬지 않았다."},
+	{"who": "", "pose": "jongsagwan", "text": "철릭을 벗어 던진 윤도결이 뒤따라 뛰어들었다.\n한참 뒤 둑 위로 끌어올린 {alias}는… 숨을 쉬지 않았다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "정신 차려! …숨을 안 쉬어. 안 돼, 이렇게 보낼 순 없다!"},
-	{"who": "", "text": "윤도결은 망설임 없이 {alias}의 가슴을 누르고, 입으로 숨을 불어 넣었다.\n한 번, 두 번, 세 번—"},
+	{"who": "", "pose": "jongsagwan", "text": "윤도결은 망설임 없이 {alias}의 가슴을 누르고, 입으로 숨을 불어 넣었다.\n한 번, 두 번, 세 번—"},
 	{"who": "", "pose": "hero_sad", "text": "콜록, 콜록…! {alias}가 물을 토해 내며 눈을 떴다.\n떠내려간 패랭이, 젖은 무명천 아래로 풀려 내린 긴 머리, 가냘픈 어깨…"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…여, 여자였어…?\n네가… 방에 붙은 그 약방 계집아이였구나."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "(…여자였어. 그날 병든 마을에서 가슴이 뛴 게… 이상한 게 아니었구나.\n…다행이다. 정말, 다행이야.)"},
@@ -228,7 +228,7 @@ const C4_STREAM := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "약방 사건엔 이상한 게 너무 많았다. 돈궤를 연 손은 어른의 손이었고, 핏자국은 의원 본인 것이었지.\n…이제 확신한다. 넌 범인이 아니야. 내가 증명해 주마."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "그, 그리고… 방금 그건 숨을 살리려던 것뿐이다! 오해하지 마라!"},
 	{"who": "{name}", "pose": "hero_surprised", "text": "…네? 무슨… 아."},
-	{"who": "", "text": "그날 이후, 윤도결은 {name}를 볼 때마다 남몰래 가슴께를 누르곤 했다."},
+	{"who": "", "pose": "jongsagwan_blush", "text": "그날 이후, 윤도결은 {name}를 볼 때마다 남몰래 가슴께를 누르곤 했다."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "(…진정해라, 윤도결. 심장이 왜 이리 시끄러운 거냐.)"},
 	{"who": "", "text": "(윤도결이 몰래 뒤를 봐주기로 했다. 다음 전투 시작 시 막기 10)", "guard": 10},
 ]

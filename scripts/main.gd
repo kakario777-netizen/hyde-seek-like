@@ -450,9 +450,9 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 			var st: String = line["choices"][k].get("set", "")
 			if st != "":
 				flags[st] = true
-			next.call(), fmt(line.get("who", "")), line.get("pic", ""), nbg)
+			next.call(), fmt(line.get("who", "")), line.get("pic", line.get("pose", "")), nbg)
 	else:
-		popup(line["text"], "다음", next, fmt(line.get("who", "")), line.get("pic", ""), nbg)
+		popup(line["text"], "다음", next, fmt(line.get("who", "")), line.get("pic", line.get("pose", "")), nbg)
 
 func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic := "", bg := "") -> void:
 	var o := _overlay(title, bg, pic)
