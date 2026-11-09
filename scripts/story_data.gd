@@ -49,7 +49,7 @@ const CHAPTERS := {
 	6: {"title": "제6장  작별", "goal": "산마루 약초밭", "intro": "CH6F_INTRO", "end": "CH6F_END", "stage_ally": "darae",
 		"stages": [{"map": "s6_1", "foes": {"walpae": "sanjeok", "pojol": "sanjeok"}, "name": "다래와 북한산 오르기", "after": "C6F_LESSON"},
 			{"map": "s6_2", "name": "산마루 약초밭으로"}],
-		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "byeolchae"},
+		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "mountain"},
 	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 30, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
@@ -577,7 +577,7 @@ const EPILOGUE := [
 # ── 장별 길 위 대화 ─────────────────────────────────────
 # ── v1.1 추가 이야기 ──
 const CH1_AFTER_SHADOW := [
-	{"bg": "byeolchae", "who": "", "text": "그 순간 동녘 능선 위로 해가 솟았다.\n사내는 비명을 지르며 얼굴을 감싸 쥐었다."},
+	{"bg": "mountain", "who": "", "text": "그 순간 동녘 능선 위로 해가 솟았다.\n사내는 비명을 지르며 얼굴을 감싸 쥐었다."},
 	{"who": "검은 사내", "pose": "shadow", "text": "크윽… 해가…!\n꼬마야, 백운 그 늙은이를 너무 믿지 마라. 흐흐흐…"},
 	{"who": "", "text": "사내는 안개 속으로 비틀비틀 달아났다."},
 	{"who": "다래", "pose": "friend_worried", "text": "할아버지를 믿지 말라니… 무슨 소리야, 저 사람."},
@@ -697,10 +697,16 @@ const C6F_LESSON := [
 ]
 
 const CH6F_END := [
-	{"bg": "byeolchae", "who": "", "text": "산마루 양지바른 비탈. 둘은 해가 질 때까지 흙을 일구었다."},
+	{"bg": "mountain", "who": "", "text": "산마루 양지바른 비탈. 둘은 해가 질 때까지 흙을 일구었다."},
 	{"who": "{name}", "pose": "hero", "text": "약초는 해가 잘 드는 데 심고, 물은 흙이 마를 때만 줘.\n뿌리 약초는 삼 년은 기다려야 해. 조급하면 안 돼."},
 	{"who": "다래", "pose": "friend", "text": "삼 년… 그럼 이 도라지가 다 자랄 때쯤엔 너도 돌아와 있겠다."},
 	{"who": "{name}", "pose": "hero", "text": "응. 약속할게."},
+	{"bg": "palace", "who": "", "text": "며칠 뒤, 경복궁 강녕전.\n{name|은} 다래와 나란히 임금 앞에 엎드렸다."},
+	{"who": "{name}", "pose": "hero", "text": "전하, 분부하신 대로 궁에서 쓸 약을 넉넉히 지어 두었사옵니다.\n환심단의 처방, 약초 보는 법, 약 달이는 법까지… 제가 아는 모든 것을 다래에게 전하였사옵니다."},
+	{"who": "다래", "pose": "darae_court", "text": "황공하옵니다, 전하.\n이제 궁 안 사람들의 약은 소녀가 책임지고 달이겠사옵니다."},
+	{"who": "임금", "pose": "king", "text": "허허, 약속을 지켰구나.\n내의원 의관들도 다래의 솜씨를 칭찬하더구나. 더는 그대를 붙잡을 핑계가 없도다."},
+	{"who": "임금", "pose": "king", "text": "어의 {name}. 세상을 보고 오너라.\n그리고 돌아와서, 그대가 본 넓은 세상의 의술로 이 나라 백성을 다시 고쳐 다오. 떠나는 것을 허락하노라."},
+	{"who": "{name}", "pose": "hero", "text": "성은이 망극하옵니다, 전하.\n…반드시 돌아오겠사옵니다."},
 	{"bg": "title", "who": "", "text": "떠나는 날 새벽, 숭례문 앞."},
 	{"who": "다래", "pose": "darae_court", "text": "바보야, 꼭, 꼭 돌아와야 해. 안 오면 내가 찾으러 간다!"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "먼 길에 여인 혼자는 위험하다. …또 사내아이 차림으로 가겠군.\n기다리고 있겠다. 네가 돌아올 때까지."},
@@ -799,7 +805,7 @@ const C9_MEM := [
 ]
 
 const CH9_END := [
-	{"bg": "byeolchae", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
+	{"bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
 ]
 
 const C3_HEUK := [

@@ -91,11 +91,11 @@ S = [
     ("s5_3", "궁궐 담장 아래", "palace", "palace", 40, 53, {"events": ["rest", "buff", "shop"], "watchers": 4, "boss": SH("C5_SHADOW", "C5_SHADOW_FLEE")}),
     ("s5_4", "허 의원 약방으로", "stone", "yakbang", 44, 54, {"events": ["trap", "item", "talk", "shop"], "blockers": 2, "spikes": 3}),
     ("s6_1", "다래와 북한산 오르기", "grass", "stream", 40, 61, {"events": ["talk", "talk", "item", "rest", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
-    ("s6_2", "산마루 약초밭으로", "dirt", "byeolchae", 42, 62, {"events": ["talk", "talk", "buff", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
+    ("s6_2", "산마루 약초밭으로", "dirt", "mountain", 42, 62, {"events": ["talk", "talk", "buff", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
     ("s7_1", "역병 도는 마을", "brick", "holland", 40, 71, {"events": ["talk", "item", "talk", "shop"]}),
     ("s7_2", "풍차 언덕 약초밭", "grass", "holland", 42, 72, {"events": ["rest", "shop", "debuff", "talk"], "herbs": 5}),
     ("s9_1", "운종가에서 청계천까지", "stone", "jangteo", 40, 91, {"events": ["talk", "talk", "shop", "talk"], "watchers": 3}),
-    ("s9_2", "남산 아래 집터로", "grass", "byeolchae", 42, 92, {"events": ["talk", "talk", "rest", "shop"], "watchers": 3, "blockers": 2}),
+    ("s9_2", "남산 아래 집터로", "grass", "mountain", 42, 92, {"events": ["talk", "talk", "rest", "shop"], "watchers": 3, "blockers": 2}),
 ]
 S += [
     ("s1_0", "운종가 약재 심부름", "stone", "jangteo", 26, 10, {"events": ["shop", "item", "buff", "rest"], "watchers": 1, "blockers": 1, "spikes": 1}),

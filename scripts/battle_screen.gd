@@ -435,9 +435,13 @@ func _hit_enemy(dmg: int) -> void:
 	tw.parallel().tween_property(enemy_sprite, "modulate", Color.WHITE, 0.25)
 	_refresh()
 
+var potion_at := 0
 func _use_potion() -> void:
 	if not my_turn or over or main.potions + main.potions_small <= 0 or main.hp >= main.max_hp:
 		return
+	if Time.get_ticks_msec() - potion_at < 600:   # 한 번 눌렀는데 두 번 마셔지지 않게
+		return
+	potion_at = Time.get_ticks_msec()
 	if main.potions > 0 and main.potions_small > 0:
 		main.popup_choices("어떤 약을 마실까요?", [{"text": "진한 탕약 · 체력 +40 (%d병)" % main.potions},
 			{"text": "묽은 탕약 · 체력 +20 (%d병)" % main.potions_small}, {"text": "그만두기"}], func(k: int):

@@ -309,10 +309,6 @@ func _make_guard(gi: int) -> void:
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.position = _guard_center(g)
 	root.add_child(_sprite(GameData.ENEMIES[_enemy_id(g["kind"])]["sprite"], 165))
-	var eye: Label = main.make_label("!", 40, Color("ff6a5a"), true)
-	main.ink_text(eye, 10)
-	eye.position = Vector2(-8, -220)
-	root.add_child(eye)
 	world.add_child(root)
 	guard_nodes[gi] = root
 	if guards_done.has(gi):
@@ -806,7 +802,7 @@ func _update_hud() -> void:
 	if stage_cfg.has("errand"):
 		info_lbl.text = "심부름 약재 %d/%d · " % [errand_names.size(), stage_cfg["errand"].size()] + info_lbl.text
 	if brew_btn:
-		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_HERBS else Color.WHITE
+		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_SMALL else Color.WHITE
 
 func _build_tray() -> void:
 	tray = PanelContainer.new()
@@ -918,7 +914,7 @@ func _play(steps: int, chosen: Button) -> void:
 
 ## 약초가 넉넉해지면 약탕관 버튼을 반짝이며 알려 줌
 func _brew_hint() -> void:
-	var l: Label = main.ink_text(main.make_label("약초가 넉넉합니다!\n약탕관에서 약을 달일 수 있어요.", 30, main.GOLD, true), 8)
+	var l: Label = main.ink_text(main.make_label("진한 탕약까지 달일 수 있어요!" if main.herbs >= main.BREW_HERBS else "묽은 탕약을 달일 수 있어요!", 30, main.GOLD, true), 8)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	l.position.y = 230
@@ -955,7 +951,7 @@ func _pick_herb(i: int) -> void:
 	herbs_got += 1
 	main.herbs += 1
 	main.coins += 2
-	if main.herbs == main.BREW_HERBS:
+	if main.herbs == main.BREW_SMALL or main.herbs == main.BREW_HERBS:
 		_brew_hint()
 	main.sfx("item")
 	var tw := create_tween().set_parallel()

@@ -184,7 +184,7 @@ const CARDS := {
 }
 const START_DECK := ["jumeok", "jumeok", "jumeok", "baldda", "baldda", "pum", "pum", "gyeot", "gochu"]
 const REWARD_POOL := ["jumeok", "jumeok", "baldda", "pum", "pum", "gyeot", "gochu", "nalchi"]
-const MAX_LV := 3
+const MAX_LV := 4
 const MIN_DECK := 6
 
 static func stats(id: String, lv: int) -> Dictionary:

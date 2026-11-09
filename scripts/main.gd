@@ -384,7 +384,7 @@ func game_over(reason: String, pic := "") -> void:
 		if board:
 			board.queue_free(); board = null
 		current = null
-		max_hp = 40; coins = 0; potions = 2; potions_small = 0; herbs = 0
+		max_hp = 40; coins = 0   # 다시 하기: 약병·탕약·약초는 그대로 둔다
 		start_board(), "", pic, "", true)
 
 # ── 이름 ────────────────────────────────────────────────
@@ -901,12 +901,13 @@ func coin_plaque() -> Array:
 	return [p, upd]
 
 # ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
-const UPGRADE_COST := [0, 5, 10]   # ★1→★2 5냥, ★2→★3 10냥
+const UPGRADE_COST := [0, 5, 10, 15]   # ★1→★2 5냥, ★2→★3 10냥, ★3→★4 15냥
 
 ## ── 약탕관: 약초 4개 + 엽전으로 탕약 달이기 ──────────────
 const BREW_HERBS := 4
-const BREWS := [{"key": "small", "name": "묽은 탕약", "lv": "2단계", "heal": 20, "cost": 3},
-	{"key": "big", "name": "진한 탕약", "lv": "3단계", "heal": 40, "cost": 6}]
+const BREW_SMALL := 2
+const BREWS := [{"key": "small", "name": "묽은 탕약", "lv": "2단계", "heal": 20, "cost": 3, "herbs": 2},
+	{"key": "big", "name": "진한 탕약", "lv": "3단계", "heal": 40, "cost": 6, "herbs": 4}]
 
 func show_brew(cb := Callable()) -> void:
 	var o := _overlay("약탕관")
@@ -947,24 +948,26 @@ func show_brew(cb := Callable()) -> void:
 		for k in cells.size():
 			cells[k].modulate = Color(1, 1, 1, 1) if k < herbs else Color(0.3, 0.3, 0.3, 0.35)
 		for b in btns:
-			b.modulate = Color.WHITE if herbs >= BREW_HERBS else Color(0.6, 0.6, 0.6)
+			b.modulate = Color.WHITE if herbs >= int(b.get_meta("need")) else Color(0.6, 0.6, 0.6)
 		if cb.is_valid():
 			cb.call()
 	for br in BREWS:
-		var b := make_button("%s 달이기 (%s) · 체력 +%d\n약초 %d개 + %d냥" % [br["name"], br["lv"], br["heal"], BREW_HERBS, br["cost"]], 26)
+		var need: int = int(br["herbs"])
+		var b := make_button("%s 달이기 (%s) · 체력 +%d\n약초 %d개 + %d냥" % [br["name"], br["lv"], br["heal"], need, br["cost"]], 26)
+		b.set_meta("need", need)
 		b.custom_minimum_size = Vector2(0, 104)
 		vb.add_child(b)
 		btns.append(b)
 		b.pressed.connect(func():
-			if herbs < BREW_HERBS:
-				msg.text = "약초가 %d개 더 필요합니다." % (BREW_HERBS - herbs)
+			if herbs < need:
+				msg.text = "약초가 %d개 더 필요합니다." % (need - herbs)
 				msg.add_theme_color_override("font_color", RED)
 				return
 			if coins < int(br["cost"]):
 				msg.text = "엽전이 모자랍니다 (%d냥 필요)" % br["cost"]
 				msg.add_theme_color_override("font_color", RED)
 				return
-			herbs -= BREW_HERBS
+			herbs -= need
 			coins -= int(br["cost"])
 			if br["key"] == "small":
 				potions_small += 1
@@ -1027,14 +1030,14 @@ func show_bag(cb := Callable()) -> void:
 		for ch in grid.get_children():
 			ch.queue_free()
 		cp[1].call()
-		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 엽전(★2 5냥·★3 10냥)에 합쳐집니다" % deck.size()
+		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 엽전(★2 5냥·★3 10냥·★4 15냥)에 합쳐집니다" % deck.size()
 		if state["msg"] != "":
 			info.text = state["msg"]
 		var sel: int = state["sel"]
 		if sel >= 0 and sel < deck.size():
 			var lv: int = int(deck[sel]["lv"])
 			if lv >= GameData.MAX_LV:
-				up.text = "이미 가장 강한 상소 (★3)"
+				up.text = "이미 가장 강한 상소 (★4)"
 				up.disabled = true
 			else:
 				up.text = "단련하기  ★%d → ★%d  (엽전 %d냥)" % [lv, lv + 1, UPGRADE_COST[lv]]
@@ -1093,7 +1096,7 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 		return
 	if int(a["lv"]) >= GameData.MAX_LV:
 		state["sel"] = -1
-		state["msg"] = "이미 가장 강한 상소입니다 (★3)"
+		state["msg"] = "이미 가장 강한 상소입니다 (★4)"
 		return
 	if deck.size() <= GameData.MIN_DECK:
 		# 상소가 너무 적으면 합치지 않고 고른 한 장만 엽전으로 단련
@@ -1136,7 +1139,7 @@ func open_shop(cb: Callable) -> void:
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
 	var refresh: Callable = cp[1]
-	var msg := _note("상소 한 장 %d냥 · 진한 탕약 %d냥 · 단련 5~10냥" % [CARD_PRICE, POTION_PRICE])
+	var msg := _note("상소 한 장 %d냥 · 진한 탕약 %d냥 · 단련 5~15냥" % [CARD_PRICE, POTION_PRICE])
 	vb.add_child(msg)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER

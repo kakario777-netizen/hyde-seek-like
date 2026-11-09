@@ -2,7 +2,7 @@
  "id": "s6_2",
  "name": "산마루 약초밭으로",
  "tile": "dirt",
- "bg": "byeolchae",
+ "bg": "mountain",
  "turns": 19,
  "tiles": [
   {
