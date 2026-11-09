@@ -1,0 +1,217 @@
+{
+ "id": "s3_h",
+ "name": "자양강장 약재 찾기",
+ "tile": "grass",
+ "bg": "stream",
+ "turns": 14,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "buff"
+  },
+  {
+   "x": -1,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -3,
+   "type": "debuff"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -5,
+   "type": "spike"
+  },
+  {
+   "x": -2,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "debuff"
+  },
+  {
+   "x": -5,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -9,
+   "type": "spike"
+  },
+  {
+   "x": -5,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -10,
+   "type": "item"
+  },
+  {
+   "x": -7,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -10,
+   "type": "shop"
+  },
+  {
+   "x": -8,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -12,
+   "type": "buff"
+  },
+  {
+   "x": -8,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -14,
+   "type": "debuff"
+  },
+  {
+   "x": -9,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -14,
+   "type": "buff"
+  },
+  {
+   "x": -11,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -14,
+   "type": "debuff"
+  },
+  {
+   "x": -12,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -12,
+   "y": -16,
+   "type": "pojol"
+  },
+  {
+   "x": -13,
+   "y": -16,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -14,
+   "y": -16,
+   "type": "rest"
+  },
+  {
+   "x": -14,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "type": "buff"
+  },
+  {
+   "x": -16,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -14,
+   "y": -17,
+   "at": 31,
+   "zone": [
+    31,
+    32
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -9,
+   "y": -14,
+   "at": 23,
+   "zone": [
+    23
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}

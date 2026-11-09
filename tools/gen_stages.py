@@ -99,6 +99,7 @@ S = [
 ]
 S += [
     ("s1_0", "운종가 약재 심부름", "stone", "jangteo", 26, 10, {"events": ["shop", "item", "buff", "rest"], "watchers": 1, "blockers": 1, "spikes": 1}),
+    ("s3_h", "자양강장 약재 찾기", "grass", "stream", 28, 300, {"events": ["shop", "item", "buff", "rest"], "watchers": 2, "blockers": 1, "herbs": 5}),
     ("v_ferry", "압록강 나루", "dirt", "ferry", 32, 701, {"events": ["talk", "shop", "debuff", "rest"], "watchers": 3, "blockers": 2}),
     ("v_yanjing", "연경 약재 시장", "stone", "yanjing", 34, 702, {"events": ["shop", "shop", "item", "debuff"], "watchers": 3, "blockers": 2, "boss": {"battle": "cheong_merchant", "pre": "C7_YANJING_PRE", "post": "C7_YANJING_POST"}}),
     ("v_port", "광주 항구", "wood", "port", 32, 703, {"events": ["shop", "rest", "item", "trap"], "watchers": 3, "blockers": 2}),
