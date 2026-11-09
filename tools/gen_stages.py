@@ -102,6 +102,7 @@ S += [
     ("s3_h", "자양강장 약재 찾기", "grass", "stream", 28, 300, {"events": ["shop", "item", "buff", "rest"], "watchers": 2, "blockers": 1, "herbs": 5}),
     ("h_port", "화란 항구, 떠나는 날", "stone", "holland_port", 26, 901, {"events": ["shop", "rest", "item", "buff"], "watchers": 2, "blockers": 1}),
     ("h_deck", "귀향의 바닷길", "wood", "deck", 30, 902, {"events": ["rest", "item", "debuff", "trap"], "watchers": 3, "blockers": 2, "spikes": 0, "boss": {"battle": "pirate_boss", "pre": "C9_PIRATE_PRE", "post": "C9_PIRATE_POST"}}),
+    ("s9_p", "포도청 수련", "stone", "podocheong", 30, 903, {"events": ["talk", "rest", "item", "buff"], "watchers": 3, "blockers": 2, "boss": {"battle": "dogyeol", "pre": "C9_SPAR_PRE", "post": "C9_SPAR_POST", "lose_ok": True}}),
     ("v_ferry", "압록강 나루", "dirt", "ferry", 32, 701, {"events": ["talk", "shop", "debuff", "rest"], "watchers": 3, "blockers": 2}),
     ("v_yanjing", "연경 약재 시장", "stone", "yanjing", 34, 702, {"events": ["shop", "shop", "item", "debuff"], "watchers": 3, "blockers": 2, "boss": {"battle": "cheong_merchant", "pre": "C7_YANJING_PRE", "post": "C7_YANJING_POST"}}),
     ("v_port", "광주 항구", "wood", "port", 32, 703, {"events": ["shop", "rest", "item", "trap"], "watchers": 3, "blockers": 2}),

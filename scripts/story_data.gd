@@ -59,6 +59,8 @@ const CHAPTERS := {
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "h_port", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "h_deck", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s9_p", "name": "포도청 수련", "after": "C9_SHOP_WED", "after_story": true, "ally": "", "token": "seohwi_podo", "me_name": "서휘",
+				"foes": {"walpae": "walpae", "pojol": "rival"}},
 			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
 			{"map": "s9_2", "name": "남산 아래 집터로"}],
 		"goal_text": "남산 아래, 볕 잘 드는 빈터에 닿았다.\n서휘가 말뚝 하나를 박았다. \"여기에 짓자.\"", "goal_title": "새 보금자리", "goal_pic": "seohwi", "goal_bg": "family"},
@@ -75,7 +77,8 @@ static func lines(key: String) -> Array:
 	match key:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
-		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2)
+		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 11) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_SHOP_WED": return C9_SHOP + CH9_INTRO.slice(11)
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"story1": return GameData.STORY1
 		"story2": return GameData.STORY2
@@ -778,6 +781,70 @@ const C9_HOMEWARD := [
 	{"who": "{name}", "pose": "hero_adult", "text": "…아버지가 허락하신 것 같아요.\n아버지는 늘, 대답 대신 꽃잎을 떨구셨거든요."},
 ]
 
+## 돌아온 뒤: 임금 알현 → 다래의 장난 → 수표교에서 윤도결의 부탁 → 포도청 수련 맵
+const C9_KING := [
+	{"bg": "palace", "who": "", "text": "이튿날, 경복궁 강녕전.\n{name|은} 서휘와 나란히 임금 앞에 엎드렸다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "전하, 어의 {name}, 화란까지 다녀왔사옵니다.\n역병 도는 마을을 고치고, 끓인 물과 깨끗한 손으로 병을 막는 서양의 법을 배워 왔사옵니다."},
+	{"who": "임금", "pose": "king", "text": "허허, 돌아왔구나! 그래, 세상을 잘 돌아보고 왔느냐?\n그대가 없는 동안 내의원이 얼마나 허전했는지 모른다."},
+	{"who": "임금", "pose": "king", "text": "…그런데 그 곁의 금발 청년. 그대가 청안파의 그 서휘로구나."},
+	{"who": "{name}", "pose": "hero_adult", "text": "예, 전하. 화란의 역병 마을에서 밤낮으로 아이들을 살린 사람이옵니다.\n이제는… 소녀와 평생을 함께할 사람이옵니다."},
+	{"who": "서휘", "pose": "seohwi", "text": "한때 그릇된 길을 걸었던 몸이옵니다, 전하.\n남은 생은 이 나라 백성을 지키는 데 쓰겠사옵니다."},
+	{"who": "임금", "pose": "king", "text": "그 말, 잊지 않겠노라.\n어의 {name}, 다시 내의원으로 돌아오겠느냐?"},
+	{"who": "{name}", "pose": "hero_adult", "text": "황공하오나, 궁 안은 이제 다래가 훌륭히 지키고 있사옵니다.\n소녀는 궁 밖에서, 약값 없는 백성들의 약방을 다시 열고 싶사옵니다."},
+	{"who": "임금", "pose": "king", "text": "허 의원의 뜻을 잇겠다는 것이로구나. 좋다, 허락하노라.\n그 약방에 내의원 약재를 해마다 보내 주마."},
+]
+
+const C9_DARAE := [
+	{"bg": "palace", "who": "", "text": "강녕전을 나서자, 의녀 차림의 다래가 달려와 {name}의 두 볼을 잡아당겼다."},
+	{"who": "다래", "pose": "darae_adult", "text": "야, 이 바보야! 너 없는 동안 이 다래님이 궁 안 약을 혼자 다 달였거든?\n고뿔에 체기에 대비마마 두통까지! 손목이 남아나질 않았어!"},
+	{"who": "{name}", "pose": "hero_adult", "text": "아야야… 알았어, 알았어! 고생 많았어, 다래야."},
+	{"who": "다래", "pose": "darae_adult", "text": "그리고 그쪽, 우리 {name} 데려간 그 푸른 눈.\n흠… 얼굴은 합격. 근데 이 애 울리면 고춧가루 뿌린다? 나 그거 잘하거든."},
+	{"who": "서휘", "pose": "seohwi", "text": "…기억하고 있소. 첫날 포졸 눈에 그걸 뿌렸다던 이야기.\n울릴 일은 없을 거요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "다래야, 정말 고마워. 네가 궁을 지켜 줘서 마음 놓고 다녀올 수 있었어."},
+	{"who": "다래", "pose": "darae_adult", "text": "…치. 그런 말 하면 울잖아, 바보야.\n…잘 왔어. 정말, 잘 돌아왔어."},
+]
+
+const C9_BRIDGE := [
+	{"bg": "stream", "who": "", "text": "그날 밤, 청계천 수표교 위.\n순찰을 돌던 윤도결이 다리 끝에서 걸음을 멈췄다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}. 물에서 너를 건져 낸 그날부터, 네가 돌아오기를 매일 기다렸다.\n…답은 이미 알고 있었지만."},
+	{"who": "{name}", "pose": "hero_adult", "text": "나리가 없었으면 저는 그 강에서 죽었을 거예요.\n그 은혜는 평생 잊지 않을게요."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "혼례 선물이다. 받아라."},
+	{"who": "", "text": "윤도결이 내민 것은 누렇게 바랜 포도청 문서 한 장이었다.\n'약방의 수상한 계집아이가 돈궤를 털고 달아났다.' 그 새벽의 첫 보고서."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "이건 이제 필요 없다."},
+	{"who": "", "text": "둘은 문서를 함께 찢어 강물에 띄워 보냈다.\n종잇조각이 달빛을 받으며 천천히 흘러갔다."},
+	{"who": "", "text": "윤도결이 돌아서다 말고, 다리 아래에서 기다리던 서휘를 불렀다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "서휘. 그 사람을 잘 부탁한다.\n내가 지켜 주고 싶었지만… 그 사람이 고른 건 너다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…목숨을 걸고 지키겠소. 나리가 지켜 온 만큼."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 하나 더. 청안파 아이들을 이끌던 그 솜씨, 이제 나라를 위해 써 보지 않겠나.\n포도청에 들어와라. 내가 직접 가르치겠다."},
+	{"who": "서휘", "pose": "seohwi", "text": "한때 쫓기던 몸이 포졸이 된다라… 재밌군.\n받아들이지. 대신 봐주지는 마시오."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "봐줄 생각 없다. 내일 새벽, 포도청 마당으로 와라."},
+	{"bg": "podocheong", "who": "", "text": "【목표】\n포도청에 들어간 서휘가 되어\n윤도결과 함께 한양 순찰을 돌고, 마지막 대련을 치러라."},
+]
+
+const C9_SPAR_PRE := [
+	{"bg": "podocheong", "who": "", "text": "순찰을 마친 저녁, 포도청 마당.\n윤도결이 육모방망이를 들고 서 있었다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘 수련의 마지막이다. 나를 한 번이라도 쓰러뜨려 봐라."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…청안파 시절처럼 해도 되겠소?"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그래야 가르칠 맛이 나지."},
+]
+
+const C9_SPAR_POST := [
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…후. 이제 내가 가르칠 게 없군.\n내일부터 너는 포졸이 아니라 내 부장이다."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…고맙소, 스승님."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "스, 스승님은 무슨. …흠. 나쁘지 않군, 그 말."},
+]
+
+## 약방 다시 열기 → 혼례 → 추억 길
+const C9_SHOP := [
+	{"bg": "yakbang_calm", "who": "", "text": "그 무렵, 북촌 어귀.\n오래 비어 있던 허 의원의 약방에 다시 불이 켜졌다."},
+	{"who": "", "text": "{name|은} 약장을 닦고, 당귀와 감초와 숙지황을 칸칸이 채웠다.\n열다섯 살 그날, 심부름으로 구해 왔던 바로 그 약재들이었다."},
+	{"who": "", "text": "서휘가 화란에서 가져온 가죽 왕진 가방을 약장 옆에 걸었다.\n조선의 약장과 화란의 가방이 나란히 놓였다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "가난한 이에게는 약값을 받지 않습니다.\n…아버지가 늘 하시던 말씀이에요. 이 약방도 그렇게 할 거예요."},
+	{"who": "", "text": "첫 손님이 문을 두드렸다. 얼굴을 보자 {name|은} 숨을 삼켰다.\n청심보명단에 무너졌다가, 환심단으로 겨우 돌아왔던 그 사내였다."},
+	{"who": "백성", "pose": "addict", "text": "의원님… 그때 의원님 약 덕분에 사람답게 살고 있습니다.\n약방을 다시 연다기에, 첫 손님이 되고 싶었어요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "(아버지. 약방, 다시 열었어요.\n이번엔… 약보다 독을 먼저 알아보는 의원이 될게요.)"},
+]
+
 const CH9_INTRO := [
 	{"bg": "title", "who": "", "text": "― 마지막 장 「한양의 봄」 ―"},
 	{"who": "", "text": "몇 해가 흘렀다.\n열다섯 살 소녀는 어느덧 단아한 아가씨가 되어 있었다."},
@@ -806,6 +873,13 @@ const C9_MEM := [
 
 const CH9_END := [
 	{"bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
+	{"bg": "podocheong", "who": "", "text": "그리고 몇 해가 흘렀다.\n서휘는 공을 쌓아 도성 서쪽을 맡는 우포도대장이 되었다.\n윤도결은 좌포도대장으로, 둘은 나란히 도성의 밤을 지켰다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘은 내 쪽에서 도적을 더 잡았다. 열둘이다."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 흑룡파 잔당 두목 하나."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…그건 내가 몰아 준 거다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "두 대장 나리, 또 싸우세요?\n약방에서 도시락 싸 왔으니까, 싸우지 말고 드세요."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락이오. 천천히 드시오."},
 ]
 
 const C3_HEUK := [
@@ -1025,7 +1099,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,

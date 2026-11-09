@@ -79,7 +79,7 @@ func _ready() -> void:
 	# 백운의 성 안에서 싸울 때는 그 층 배경(성 안) 그대로
 	if main.board != null and is_instance_valid(main.board) and "data" in main.board and main.board.data is Dictionary:
 		var sbg: String = main.board.data.get("bg", "")
-		if sbg in ["vault", "corridor", "cheonsugak"] and not (bgname in ["vault", "corridor", "cheonsugak"]):
+		if sbg in ["vault", "corridor", "cheonsugak", "podocheong"] and not (bgname in ["vault", "corridor", "cheonsugak"]):
 			bgname = sbg
 	var bt: Texture2D = main.backdrop(bgname)
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
@@ -163,7 +163,7 @@ func _ready() -> void:
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 14)
 	pp.add_child(hb)
-	var face: Texture2D = main.illust(main.face_name())
+	var face: Texture2D = main.illust(main.face_name()) if not opts.has("me_name") else null
 	if face:
 		var fr: TextureRect = main.tex_rect(face, Vector2(116, 116))
 		fr.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -174,7 +174,7 @@ func _ready() -> void:
 	hb.add_child(info)
 	var r1 := HBoxContainer.new()
 	info.add_child(r1)
-	var me: Label = main.make_label(main.alias() if main.chapter in main.DISGUISED else main.hero_name, 30, main.GOLD, true)
+	var me: Label = main.make_label(opts.get("me_name", main.alias() if main.chapter in main.DISGUISED else main.hero_name), 30, main.GOLD, true)
 	me.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	r1.add_child(me)
 	shield_lbl = main.make_label("", 26, Color("b8d4f0"), true)

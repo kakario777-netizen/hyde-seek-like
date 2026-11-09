@@ -166,6 +166,7 @@ func _debug_capture() -> void:
 		"battle":
 			start_board()
 			chapter = int(args.get("ch", "1"))
+			stage_idx = int(args.get("st", "0"))
 			start_battle(args.get("enemy", "pojol"), Callable(), {"ally": args.get("ally", ""), "lose_ok": args.has("lose")})
 			if args.has("clean"):
 				await get_tree().create_timer(0.5).timeout
@@ -287,6 +288,9 @@ func start_board() -> void:
 ## opts: {"lose_ok": 져도 이야기 진행, "ally": 동료 id}
 func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	var b := BattleScreen.new()
+	var stl: Array = ch_cfg().get("stages", [])
+	if stage_idx < stl.size() and stl[stage_idx].has("me_name") and not opts.has("me_name"):
+		opts = opts.duplicate(); opts["me_name"] = stl[stage_idx]["me_name"]
 	if not opts.has("ally"):
 		var st: Array = ch_cfg().get("stages", [])
 		if stage_idx < st.size() and st[stage_idx].has("ally"):

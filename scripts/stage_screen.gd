@@ -328,6 +328,8 @@ func _make_token() -> Control:
 	var ck: String = "hero_adult" if main.chapter >= 9 else ("hero_disguise" if main.chapter in main.DISGUISED else "hero")
 	if main.chapter in main.COURT_CHAPTERS and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
 		ck = "hero_court"
+	if stage_cfg.has("token"):   # 이 맵은 다른 인물로 걷는다 (예: 포도청 수련의 서휘)
+		ck = stage_cfg["token"]
 	if main.chibi_only(ck) != null:
 		tk = main.chibi_only(ck)
 	token_pic = main.tex_rect(tk, Vector2(132, 140))
@@ -1007,7 +1009,7 @@ func _resolve() -> void:
 			main.dialog_chain(StoryData.lines(nd.get("pre", "")), func():
 				main.start_battle(nd["battle"], func():
 					_clear(idx)
-					main.dialog_chain(StoryData.lines(nd.get("post", "")), func(): _after_land(true))))
+					main.dialog_chain(StoryData.lines(nd.get("post", "")), func(): _after_land(true)), {"lose_ok": nd.get("lose_ok", false)}))
 			return
 		"spike":
 			main.hp = max(1, main.hp - 6)
