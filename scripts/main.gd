@@ -519,6 +519,18 @@ func sentence_breaks(t: String) -> String:
 	re.compile("([.?!。]+[\"'」)]?) +(?=\\S)")
 	return re.sub(t, "$1\n", true)
 
+## 대화 그림 키 비율: 남자 어른 1.0 기준, 주인공·여자는 조금 작게, 아이는 더 작게
+func fig_scale(name: String) -> float:
+	if name.begins_with("dutch_child") or name in ["island_child", "children"]:
+		return 0.66
+	if name.begins_with("hero_adult"):
+		return 0.92
+	if name.begins_with("hero"):
+		return 0.88
+	if name.begins_with("friend") or name.begins_with("darae") or name == "jumo":
+		return 0.86
+	return 1.0
+
 ## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
 const COURT_CHAPTERS := [5]
 
@@ -731,9 +743,14 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	center.add_child(panel)
 	if fig:
+		var fsc: float = fig_scale(pic)
 		var fit := func():
 			if is_instance_valid(fig) and is_instance_valid(panel):
-				fig.offset_bottom = panel.global_position.y - fig.get_parent_area_size().y * fig.anchor_bottom + 6
+				# 발끝은 대화창 위, 키는 인물마다 (여자·아이는 조금 작게)
+				var bottom_y: float = panel.global_position.y + 6
+				fig.anchor_top = 0.0; fig.anchor_bottom = 0.0
+				fig.offset_bottom = bottom_y
+				fig.offset_top = 40 + (bottom_y - 40) * (1.0 - fsc)
 		panel.item_rect_changed.connect(fit)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 18)

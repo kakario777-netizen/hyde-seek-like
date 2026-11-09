@@ -373,11 +373,89 @@ const C6_PORT := [
 	{"who": "", "text": "(역관이 노자를 보태 주었다: 엽전 +6냥)", "coin": 6},
 ]
 
+# ── 제7장 만리길: 구간별 사건 ─────────────────────────
+const C7_FERRY := [
+	{"who": "", "bg": "ferry", "text": "의주, 압록강 나루.\n강 건너 안개 너머로 청나라 관문의 깃발이 펄럭였다."},
+	{"who": "수문장", "pic": "sumunjang", "text": "멈춰라! 조선에서 넘어오는 자는 통행첩부터 내놔라."},
+	{"who": "수문장", "pic": "sumunjang", "text": "흠… 의원이라? 사내치고는 목소리가 곱구나. 손도 희고.\n수상한데."},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "(들키면 안 돼…!)",
+		"choices": [{"text": "침착하게 수문장의 맥을 짚어 보인다", "set": "c7_calm"}, {"text": "수문장의 배를 짚어 체증부터 풀어 준다", "set": ""}]},
+	{"if": "c7_calm", "who": "수문장", "pic": "sumunjang", "text": "…손목만 잡고도 내가 밤마다 속이 쓰린 걸 맞히다니.\n진짜 의원이로군."},
+	{"ifnot": "c7_calm", "who": "수문장", "pic": "sumunjang", "text": "오, 오오…! 사흘 묵은 체기가 쑥 내려가는군!\n진짜 의원이로군."},
+	{"who": "수문장", "pic": "sumunjang", "text": "그런데 짐 속의 이 서찰은 뭐냐?\n…조선 포도대장의 인장이군. '이 자의 신분은 내가 보증한다. 윤도결.'"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(나리… 언제 이걸 짐 속에 넣어 두셨어요.)"},
+	{"who": "수문장", "pic": "sumunjang", "text": "좋다, 건너가라. 연경까지 몸조심하고."},
+	{"who": "", "text": "(수문장의 배웅: 엽전 +4냥)", "coin": 4},
+]
+
+const C7_YANJING_PRE := [
+	{"who": "", "bg": "yanjing", "text": "청나라의 도읍 연경.\n약재 시장 거리는 처음 보는 약재로 가득했다."},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "녹용, 서양에서 온 쓴 나무껍질, 남방 열매까지…\n조선에선 이름도 못 들어 본 약재들이야."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "어이, 조선 손님! 백 년 묵은 고려 인삼이오.\n특별히 반값에 드리지!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…잠깐. 이건 도라지 뿌리에 인삼 껍질을 붙인 가짜잖아요.\n방금 저 할아버지한테도 이걸 비싸게 파셨죠?"},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "이, 이놈이 남의 장사를 망치려고!\n얘들아, 이 조선 놈 혼쭐을 내 줘라!"},
+]
+
+const C7_YANJING_POST := [
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "아이고, 내가 졌소, 졌어!\n가짜 판 돈은 다 돌려드리리다…"},
+	{"who": "노인", "text": "고맙소, 젊은 의원. 내 손주 약값이었다오."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…대신 하나 알려 드리지.\n남쪽 광주 항구에서 서양 배가 곧 떠난다오. 화란이라는 나라로 간다더군."},
+	{"who": "", "text": "(노인의 사례: 엽전 +6냥)", "coin": 6},
+]
+
+const C7_PORT := [
+	{"who": "", "bg": "port", "text": "광주 항구.\n돛대 셋 달린 화란 상선이 노을 속에 닻을 내리고 있었다."},
+	{"who": "선장", "pic": "dutch_captain", "text": "배에 타고 싶다고? 우리 배엔 빈자리가 없네.\n…다만, 배 의사가 지난 항구에서 내려 버렸지."},
+	{"who": "선장", "pic": "dutch_captain", "text": "마침 선원 하나가 사흘째 열병으로 앓고 있네.\n그 녀석을 고쳐 내면 선의(船醫)로 태워 주지."},
+	{"who": "", "text": "{alias}는 선실로 내려가 맥을 짚고 시호와 황금을 달여 먹였다.\n이튿날 새벽, 선원의 열이 거짓말처럼 내렸다."},
+	{"who": "붉은 머리 선원", "pic": "redhair_sailor", "text": "살았다! 고마워요, 동양 의원님!\n난 얀이에요. 이 배에서 제일 빠른 돛잡이죠!"},
+	{"who": "선장", "pic": "dutch_captain", "text": "좋아, 약속은 약속이지.\n오늘부터 자네가 이 배의 선의일세."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "그런데 말이죠… 몇 해 전 우리 배에 금발에 동그란 안경 쓴 사내가 탔었어요.\n조선말을 하던데, 화란 바닷가 마을로 간다더라고요."},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "금발에… 동그란 애체…\n(서휘…? 정말 서휘야?)"},
+	{"who": "", "text": "(선의 자리를 얻었다: 엽전 +5냥, 약병 +1)", "coin": 5, "potion": 1},
+]
+
+const C7_ISLAND := [
+	{"who": "", "bg": "island", "text": "배가 물을 채우러 남쪽 섬 바타비아에 닿았다.\n숨이 막힐 듯 더운 한낮."},
+	{"who": "섬마을 아이", "pic": "island_child", "text": "의원님…? 우리 동생이 며칠째 열이 나고 배가 아파요.\n아무도 못 고쳐요…"},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "가 보자.\n…더위를 먹은 데다 물이 나빠서 탈이 났구나.",
+		"choices": [{"text": "아껴 둔 귀한 약을 아이에게 쓴다", "set": "c7_gave"}, {"text": "약초만 달여 주고 귀한 약은 아껴 둔다", "set": ""}]},
+	{"if": "c7_gave", "who": "", "text": "{alias}는 품에 아껴 둔 약을 아이의 입에 흘려 넣었다.\n저녁 무렵, 아이가 눈을 뜨고 배시시 웃었다."},
+	{"if": "c7_gave", "who": "섬마을 아이", "pic": "island_child", "text": "이거, 할머니가 준 행운의 부적이에요.\n의원님이 가져가요!"},
+	{"if": "c7_gave", "who": "", "text": "(섬 아이의 부적: 최대 체력 +8)", "maxhp": 8},
+	{"ifnot": "c7_gave", "who": "", "text": "밤새 달인 약초 물에 아이의 열이 천천히 내렸다.\n아이 어머니가 말린 열매를 한 바구니 내밀었다."},
+	{"ifnot": "c7_gave", "who": "", "text": "(말린 열매: 체력 +10)", "heal": 10},
+	{"who": "섬마을 아이", "pic": "island_child", "text": "고마워요, 의원님!\n…아, 저 배 선원들이 그러는데, 화란 바닷가 마을에 무서운 병이 돈대요."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(역병…? 서휘가 있는 곳일지도 몰라.\n서둘러야 해.)"},
+]
+
+const C7_PIRATE_PRE := [
+	{"who": "", "bg": "deck", "text": "천축 앞바다를 지나던 밤.\n검은 돛을 단 배 한 척이 소리 없이 다가왔다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "해적이다! 의원님, 선실로 숨어요!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "숨으면 다친 사람은 누가 고쳐요.\n…저도 싸울게요!"},
+	{"who": "해적 두목", "pic": "baetsaram", "text": "흐흐흐, 비단에 은화를 가득 실은 화란 배로구나.\n몽땅 내놓아라!"},
+]
+
+const C7_PIRATE_POST := [
+	{"who": "", "bg": "deck", "text": "해적들은 바다로 뛰어들어 달아났다.\n{alias}는 갑판 위에서 다친 선원들의 상처를 꿰매고 피를 멎게 했다."},
+	{"who": "선장", "pic": "dutch_captain", "text": "동양 의원이 싸움까지 할 줄이야.\n…선원들이 자넬 '우리 의원님'이라고 부르더군."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님 없었으면 우리 다 죽었어요!"},
+	{"who": "", "text": "(선원들의 믿음: 최대 체력 +5)", "maxhp": 5},
+]
+
 const C6_STORM := [
-	{"who": "", "bg": "stream", "text": "희망의 곶을 도는 밤, 큰 폭풍이 배를 덮쳤다."},
+	{"who": "", "bg": "deck", "text": "희망의 곶을 도는 밤, 큰 폭풍이 배를 덮쳤다."},
 	{"who": "", "text": "{alias}는 밤새 다친 선원들의 상처를 꿰매고 열을 내렸다.\n새벽, 선장이 모자를 벗어 고개를 숙였다."},
-	{"who": "선장", "pic": "pojol", "text": "조선의 젊은 의원이여, 그대 덕에 아무도 죽지 않았소.\n화란까지, 이 배가 모셔다 드리리다."},
+	{"who": "선장", "pic": "dutch_captain", "text": "조선의 젊은 의원이여, 그대 덕에 아무도 죽지 않았소.\n화란까지, 이 배가 모셔다 드리리다."},
 	{"who": "", "text": "(선원들의 감사: 최대 체력 +5, 약병 +1)", "maxhp": 5, "potion": 1},
+	{"who": "", "bg": "deck_night", "text": "폭풍이 지나간 밤.\n곶을 돌아 나온 검은 바다 위로 별이 쏟아졌다."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(의원님… 의원님이 그토록 보고 싶어 하던 넓은 세상이에요.)"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(다래는 지금쯤 산마루 약초밭에 물을 주고 있겠지.\n도결 나리는 오늘 밤도 순찰을 돌고 계시겠고.)"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…그리고 서휘. 정말 이 바다 끝에 있을까.)"},
+	{"who": "", "text": "고향 생각에 눈가가 뜨거워질 무렵,\n갑판 저편에서 서툰 조선말이 들려왔다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의—원—님! 밤바람 차요!\n따뜻한 차 끓여 놨어요!"},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "…응. 고마워요, 얀. 금방 갈게요."},
+	{"who": "", "text": "(마음을 다잡았다: 체력 +10)", "heal": 10},
 ]
 
 const CH6_END := [
@@ -841,7 +919,7 @@ const ALL := {
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
-	"CH6_INTRO": CH6_INTRO, "C6_PORT": C6_PORT, "C6_STORM": C6_STORM, "CH6_END": CH6_END,
+	"CH6_INTRO": CH6_INTRO, "C6_PORT": C6_PORT, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 

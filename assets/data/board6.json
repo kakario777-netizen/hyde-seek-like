@@ -11,12 +11,17 @@
   {
    "x": 0.7783,
    "y": 0.3299,
-   "type": "empty"
+   "type": "story",
+   "sid": "C7_FERRY",
+   "name": "압록강"
   },
   {
    "x": 0.7574,
    "y": 0.3185,
-   "type": "empty",
+   "type": "boss",
+   "battle": "cheong_merchant",
+   "pre": "C7_YANJING_PRE",
+   "post": "C7_YANJING_POST",
    "name": "연경(청)"
   },
   {
@@ -42,8 +47,9 @@
   {
    "x": 0.742,
    "y": 0.5695,
-   "type": "buff",
-   "name": "광주 항구"
+   "type": "story",
+   "name": "광주 항구",
+   "sid": "C7_PORT"
   },
   {
    "x": 0.7096,
@@ -54,8 +60,8 @@
    "x": 0.6741,
    "y": 0.6251,
    "type": "story",
-   "sid": "C6_PORT",
-   "name": "말라카"
+   "sid": "C7_ISLAND",
+   "name": "바타비아"
   },
   {
    "x": 0.6354,
@@ -86,7 +92,11 @@
   {
    "x": 0.4413,
    "y": 0.5857,
-   "type": "walpae"
+   "type": "boss",
+   "battle": "pirate_boss",
+   "pre": "C7_PIRATE_PRE",
+   "post": "C7_PIRATE_POST",
+   "name": "천축 앞바다"
   },
   {
    "x": 0.406,

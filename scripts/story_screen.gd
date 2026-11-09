@@ -184,6 +184,9 @@ func _show_pose(pose: String) -> void:
 		create_tween().tween_property(portrait, "modulate:a", 0.0, 0.15)
 		return
 	portrait.texture = t
+	# 키 비율: 발끝은 그대로, 위쪽만 줄임
+	var fsc: float = main.fig_scale(pose)
+	portrait.offset_top = -BOX_H + 60 - 1040.0 * fsc
 	var old := portrait.get_node_or_null("PlaceholderTag")
 	if old:
 		old.queue_free()

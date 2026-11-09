@@ -8,7 +8,7 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
-const BATTLE_BG := {"haejeok": "sea", "gatekeeper": "corridor", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
+const BATTLE_BG := {"haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "corridor", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -298,7 +298,7 @@ const FINALS := ["baegun", "seohwi", "shadow", "darae"]
 const SPECIALS := {
 	"dogyeol": "pierce", "heukdu1": "multi", "heukdu2": "drain", "heukdu": "multi",
 	"gatekeeper": "pierce", "mob_boss": "sap", "baegun_mask": "sap", "seohwi2": "multi",
-	"shadow_s": "drain"}
+	"shadow_s": "drain", "pirate_boss": "multi", "cheong_merchant": "sap"}
 const SP_INFO := {
 	"multi": {"n": "연타", "desc": "%d씩 세 번 공격"},
 	"pierce": {"n": "방어 깨기", "desc": "막기를 무시하고 %d"},
