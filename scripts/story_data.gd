@@ -50,8 +50,8 @@ const CHAPTERS := {
 	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 30, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
-		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID"},
-			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK"}],
+		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
+			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3}],
 		"goal_text": "풍차 옆 언덕에 쓴 약초가 가득하다.\n이것이면 마을을 살릴 수 있다!", "goal_title": "풍차 언덕", "goal_pic": "seohwi_dutch", "goal_bg": "holland"},
 	9: {"title": "마지막 장  한양의 봄", "goal": "남산 아래 집터", "intro": "CH9_INTRO", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
@@ -490,11 +490,17 @@ const CH7_INTRO := [
 ]
 
 const C7_MID := [
-	{"bg": "holland", "who": "", "text": "마을 어귀, 우물가에서 아이의 비명이 들렸다."},
+	{"bg": "holland", "who": "", "text": "마을에 들어서자 집집마다 문간에 어른들이 쓰러져 있었다.\n아이들만이 아니었다. 역병은 마을 전체를 덮치고 있었다."},
+	{"who": "앓는 어부", "pic": "dutch_sick_man", "text": "물… 물 좀…\n머리가… 깨질 것 같소…"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "서휘, 끓인 물부터 나눠 줘요!\n열이 높은 사람은 그늘로 옮기고, 쓰던 물은 절대 마시지 말라고 해요."},
+	{"who": "앓는 여인", "pic": "dutch_sick_woman", "text": "우리 아이… 우리 아이가 우물가에 갔어요…\n거긴 쥐가 들끓는 곳인데…"},
+	{"who": "", "text": "마을 어귀, 우물가에서 아이의 비명이 들렸다."},
 	{"who": "마을 아이", "pic": "dutch_child_sick", "text": "아파… 아파요… 큰 쥐가… 팔을 물었어요…"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "역병을 옮기는 쥐다. 물린 자리부터 열이 오를 거다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "상처부터 소주로 씻고, 쑥을 짓이겨 붙여 줘요. 열 내리는 약은 제가 달일게요.\n괜찮아, 금방 나을 거야. 언니가 꼭 낫게 해 줄게."},
 	{"who": "마을 아이", "pic": "dutch_child", "text": "…정말요? 고마워요, 동양 의원님."},
+	{"who": "앓는 여인", "pic": "dutch_sick_woman", "text": "…우리 아이를 살려 주셨군요.\n이 몸도 성치 않은데… 이 은혜를 어떻게 갚아야 할지…"},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "어머니도 환자예요. 이 탕약 드시고 푹 주무세요.\n아이는 저희가 볼게요."},
 	{"who": "", "bg": "holland", "text": "밤늦은 학교 교실. 앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
 	{"who": "", "pic": "dutch_child", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 돈 때문에 독을 팔던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
@@ -714,6 +720,8 @@ const C3_HEUK := [
 ]
 
 const C7_SICK := [
+	{"bg": "holland", "who": "", "text": "마을 학교 교실은 앓는 아이들뿐 아니라 어른들로도 가득 찼다.\n{alias}와 서휘는 사흘 밤낮 탕약을 달여 날랐다."},
+	{"who": "앓는 어부", "pic": "dutch_sick_man", "text": "동양 의원 양반… 당신 약 덕에 열이 내렸소.\n이제 내 발로 집에 갈 수 있겠어. 고맙소."},
 	{"bg": "holland", "who": "", "text": "약초밭에서 돌아온 날 밤, 서휘가 쓰러졌다.\n아이들을 돌보던 사이 역병이 옮은 것이었다."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…괜찮다. 아이들부터… 살펴라."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "바보! 지금은 당신이 환자예요. 의원 말 들어요."},

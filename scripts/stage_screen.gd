@@ -255,6 +255,9 @@ func _make_tile_ent(i: int) -> void:
 				root.add_child(_badge("talk", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 			else:
 				root.add_child(_badge("talk", Vector2(-24, -70), Color("f3e6c8")))
+		"patient":
+			root.add_child(_sprite("dutch_sick_man" if i % 2 == 0 else "dutch_sick_woman", 160))
+			root.add_child(_badge("rest", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"shop":
 			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
 			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
@@ -493,6 +496,8 @@ func _randomize_layout(s: int) -> void:
 	var gcnt := guards.size() + 2
 	for g in gcnt:
 		chars.append("guard")
+	for pt in int(stage_cfg.get("patients", 0)):   # 화란: 역병에 걸린 마을 사람
+		chars.append("patient")
 	_shuffle(rng, chars)
 	var occupied: Array = []   # [칸, 감시꾼인가]
 	if boss_i >= 0:
@@ -611,6 +616,32 @@ func _char_ok(i: int, guard: bool, occupied: Array, reserved: Dictionary, dist_s
 			if reserved.has(z) or tiles[z]["type"] in ["start", "goal", "boss"]:
 				return false
 	return true
+
+## 화란: 앓는 마을 사람 칸 — 약초나 엽전으로 치료하거나, 지나치면 역병이 번진다
+func _treat_patient() -> void:
+	var at := pos
+	var man: bool = at % 2 == 0
+	var pic := "dutch_sick_man" if man else "dutch_sick_woman"
+	var who := "앓는 어부" if man else "앓는 여인"
+	var text := "물… 물 좀 주시오…\n열이 펄펄 끓어 일어설 수가 없소…" if man else "몸이… 불덩이 같아요…\n아이들 밥도 못 해 줬는데…"
+	var ch: Array = [{"text": "약초 1개로 탕약을 달여 준다" + ("" if main.herbs >= 1 else " (약초 없음)")},
+		{"text": "엽전 3냥으로 약을 사 준다" + ("" if main.coins >= 3 else " (엽전 부족)")},
+		{"text": "갈 길이 바빠 지나친다"}]
+	main.popup_choices(text, ch, func(k: int):
+		if k == 0 and main.herbs >= 1:
+			main.herbs -= 1; main.coins += 5
+			_clear(at); main.sfx("good")
+			main.popup("탕약을 마신 %s의 열이 조금씩 내렸다.\n\"고맙소, 동양 의원님…\"\n\n(약초 -1 · 감사의 엽전 +5냥)" % who, "다행이다", func(): _after_land(false), who, pic)
+		elif k == 1 and main.coins >= 3:
+			main.coins -= 3; main.max_hp += 2; main.hp += 2
+			_clear(at); main.sfx("good")
+			main.popup("시장에서 해열 약을 사다 먹였다.\n%s가 겨우 웃어 보였다.\n\n(엽전 -3냥 · 마을의 믿음: 최대 체력 +2)" % who, "다행이다", func(): _after_land(false), who, pic)
+		elif k == 2:
+			turns_left = max(0, turns_left - 1)
+			main.sfx("hurt")
+			main.popup("돌아보지 않고 걸음을 재촉했다.\n…등 뒤에서 앓는 소리가 오래 들렸다.\n\n(역병이 번졌다: 남은 시각 -1)", "…", func(): _after_land(false), who, pic)
+		else:
+			main.popup("가진 것이 모자라 치료할 수 없다.\n다른 방법을 골라야 한다.", "다시 고른다", _treat_patient, who, pic), who, pic)
 
 ## 갈림길: 두 갈래 중 하나 고르기
 func _choose_way(opts: Array) -> int:
@@ -938,6 +969,9 @@ func _resolve() -> void:
 			if talk.has("potion"):
 				main.potions += talk["potion"]; extra += "\n\n(약병 +%d)" % talk["potion"]
 			main.popup(talk["text"] + extra, "고맙습니다", func(): _after_land(false), talk["who"], talk.get("pic", ""))
+			return
+		"patient":
+			_treat_patient()
 			return
 		"item":
 			_clear(pos)
