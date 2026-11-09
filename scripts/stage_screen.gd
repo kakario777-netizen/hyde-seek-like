@@ -311,6 +311,8 @@ func _make_token() -> Control:
 	root.add_child(sh)
 	var tk: Texture2D = main.illust(main.token_name())
 	var ck: String = "hero_adult" if main.chapter >= 9 else ("hero_disguise" if main.chapter in main.DISGUISED else "hero")
+	if main.chapter in main.COURT_CHAPTERS and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
+		ck = "hero_court"
 	if main.chibi_only(ck) != null:
 		tk = main.chibi_only(ck)
 	token_pic = main.tex_rect(tk, Vector2(132, 140))

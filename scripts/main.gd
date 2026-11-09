@@ -143,6 +143,11 @@ func _debug_capture() -> void:
 				await get_tree().create_timer(0.5).timeout
 				for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
 					l.queue_free()
+			if args.has("sp"):
+				await get_tree().create_timer(0.6).timeout
+				current.e_turn_no = 2
+				current._pick_intent()
+				current._refresh()
 			if args.has("auto"):
 				var bs = current
 				await get_tree().create_timer(3.0).timeout
@@ -514,7 +519,16 @@ func sentence_breaks(t: String) -> String:
 	re.compile("([.?!。]+[\"'」)]?) +(?=\\S)")
 	return re.sub(t, "$1\n", true)
 
+## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
+const COURT_CHAPTERS := [5]
+
 func illust(name: String) -> Texture2D:
+	if chapter in COURT_CHAPTERS and (name == "hero" or name.begins_with("hero_")) and not name.begins_with("hero_disguise") and not name.begins_with("hero_adult"):
+		var cn := "hero_court" + name.substr(4)
+		if ResourceLoader.exists("res://assets/chars/%s.png" % cn):
+			name = cn
+		elif ResourceLoader.exists("res://assets/chars/hero_court.png"):
+			name = "hero_court"
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 

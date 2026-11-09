@@ -64,6 +64,13 @@ func _ready() -> void:
 			mv["v"] = int(round(mv["v"] * dk))
 			if boss and mv["t"] == "atk":
 				mv["v"] += 5   # 중간보스·대장은 공격이 더 아프게
+		# 일반 적·중간보스 강화: 체력 +15%, 공격 +2, 장마다 공격 +1 더
+		if not enemy_id in FINALS:
+			enemy["hp"] = int(round(enemy["hp"] * 1.15))
+			for mv in enemy["moves"] + [enemy["heavy"]]:
+				if mv["t"] == "atk":
+					mv["v"] += 2 + max(0, main.chapter - 1)
+	is_mid = boss and not enemy_id in FINALS
 	e_hp = enemy["hp"]
 	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
 
@@ -285,7 +292,32 @@ func _show_banner(text: String) -> void:
 	await tw.finished
 
 # ── 상대 예고 ───────────────────────────────────────────
+## 마지막 대결(장 끝 보스)들 — 여기는 강화·특수기 제외
+const FINALS := ["baegun", "seohwi", "shadow", "darae"]
+## 중간보스 특수기: 세 번째 차례마다 예고하고 쓴다
+const SPECIALS := {
+	"dogyeol": "pierce", "heukdu1": "multi", "heukdu2": "drain", "heukdu": "multi",
+	"gatekeeper": "pierce", "mob_boss": "sap", "baegun_mask": "sap", "seohwi2": "multi",
+	"shadow_s": "drain"}
+const SP_INFO := {
+	"multi": {"n": "연타", "desc": "%d씩 세 번 공격"},
+	"pierce": {"n": "방어 깨기", "desc": "막기를 무시하고 %d"},
+	"drain": {"n": "흡혈", "desc": "공격 %d · 준 만큼 회복"},
+	"sap": {"n": "기력 빼앗기", "desc": "공격 %d · 다음 차례 기력 -1"}}
+var is_mid := false
+var e_turn_no := 0
+var sap_next := 0
+
 func _pick_intent() -> void:
+	if is_mid and e_turn_no % 3 == 2 and e_charge < int(enemy["charge"]):
+		var kind: String = SPECIALS.get(enemy_id, ["multi", "pierce", "drain", "sap"][enemy_id.hash() % 4])
+		var base := 0
+		for mv in enemy["moves"]:
+			if mv["t"] == "atk":
+				base = max(base, int(mv["v"]))
+		var v: int = int(ceil(base * 0.45)) if kind == "multi" else (base if kind != "pierce" else int(base * 0.8))
+		intent = {"n": SP_INFO[kind]["n"], "t": "atk", "v": v, "sp": kind}
+		return
 	if e_charge >= int(enemy["charge"]):
 		intent = enemy["heavy"].duplicate()
 		intent["heavy"] = true
@@ -301,6 +333,8 @@ func _intent_text() -> String:
 		s += "막기 %d" % intent["v"]
 	if intent.get("heavy", false):
 		s = "필살! " + s
+	if intent.has("sp"):
+		s = "특수기! %s · " % intent["n"] + SP_INFO[intent["sp"]]["desc"] % intent["v"]
 	return s
 
 # ── 내 차례 ─────────────────────────────────────────────
@@ -310,7 +344,10 @@ func _begin_my_turn(bonus := 0) -> void:
 	turn += 1
 	if turn > 1:
 		await _show_banner("나의 차례")
-	energy = BASE_ENERGY + bonus
+	energy = max(1, BASE_ENERGY + bonus - sap_next)
+	if sap_next > 0:
+		_float_text("기력을 빼앗겼다! (-%d)" % sap_next, Vector2(size.x / 2, size.y * 0.6), Color("ff9a80"))
+		sap_next = 0
 	for i in HAND_SIZE:
 		_draw_one()
 		await get_tree().create_timer(0.13).timeout
@@ -468,11 +505,24 @@ func _enemy_turn() -> void:
 		tw.tween_property(enemy_sprite, "scale", Vector2.ONE, 0.22)
 		tw.parallel().tween_property(enemy_sprite, "position", enemy_base, 0.22)
 		await get_tree().create_timer(0.18).timeout
-		var dmg: int = int(act["v"])
-		var blocked: int = min(shield, dmg)
-		shield -= blocked
-		dmg -= blocked
+		var dmg := 0
+		var hits: int = 3 if act.get("sp", "") == "multi" else 1
+		for h in hits:
+			var d: int = int(act["v"])
+			if act.get("sp", "") != "pierce":
+				var blocked: int = min(shield, d)
+				shield -= blocked
+				d -= blocked
+			dmg += d
+			if hits > 1 and h < hits - 1:
+				main.sfx("punch")
+				await get_tree().create_timer(0.15).timeout
 		main.hp = max(0, main.hp - dmg)
+		if act.get("sp", "") == "drain" and dmg > 0:
+			e_hp = min(int(enemy["hp"]), e_hp + dmg)
+			_float_text("+%d" % dmg, enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 120), Color("9ae08a"))
+		if act.get("sp", "") == "sap":
+			sap_next = 1
 		main.sfx("hurt_heavy" if act.get("heavy", false) else ("hurt" if dmg > 0 else "block"))
 		if dmg > 0:
 			flash.color.a = 0.45 if act.get("heavy", false) else 0.3
@@ -484,9 +534,10 @@ func _enemy_turn() -> void:
 		e_block += int(act["v"])
 		main.sfx("block")
 		_float_text("막기 +%d" % act["v"], enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 160), Color("b8d4f0"))
+	e_turn_no += 1
 	if act.get("heavy", false):
 		e_charge = 0
-	else:
+	elif not act.has("sp"):
 		e_charge += 1
 		e_move_idx += 1
 	_pick_intent()
@@ -544,7 +595,7 @@ func _refresh() -> void:
 		sb.bg_color = Color("d9602a") if i < e_charge else Color("2a1a10")
 		seg.add_theme_stylebox_override("panel", sb)
 	intent_lbl.text = _intent_text()
-	intent_lbl.add_theme_color_override("font_color", Color("ff9a80") if intent.get("heavy", false) else main.GOLD)
+	intent_lbl.add_theme_color_override("font_color", Color("ff9a80") if (intent.get("heavy", false) or intent.has("sp")) else main.GOLD)
 	p_hp_bar.value = float(main.hp) / float(main.max_hp)
 	p_hp_lbl.text = "체력 %d / %d · 남은 상소 %d" % [main.hp, main.max_hp, draw_pile.size()]
 	energy_lbl.text = "기력 " + "●".repeat(energy) + "○".repeat(max(0, BASE_ENERGY - energy))
