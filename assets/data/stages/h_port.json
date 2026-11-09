@@ -1,0 +1,207 @@
+{
+ "id": "h_port",
+ "name": "화란 항구, 떠나는 날",
+ "tile": "stone",
+ "bg": "holland_port",
+ "turns": 14,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "buff"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "debuff"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "item"
+  },
+  {
+   "x": -3,
+   "y": -5,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "pojol"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "spike"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "buff"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "debuff"
+  },
+  {
+   "x": -12,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -11,
+   "type": "debuff"
+  },
+  {
+   "x": -13,
+   "y": -12,
+   "type": "spike"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "shop"
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -15,
+   "type": "buff"
+  },
+  {
+   "x": -14,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "type": "rest"
+  },
+  {
+   "x": -17,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -16,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -3,
+   "y": -6,
+   "at": 9,
+   "zone": [
+    8,
+    9
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "at": 19,
+   "zone": [
+    18,
+    19
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}

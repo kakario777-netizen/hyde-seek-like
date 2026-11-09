@@ -56,8 +56,10 @@ const CHAPTERS := {
 		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
 			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3}],
 		"goal_text": "풍차 옆 언덕에 쓴 약초가 가득하다.\n이것이면 마을을 살릴 수 있다!", "goal_title": "풍차 언덕", "goal_pic": "seohwi_dutch", "goal_bg": "holland"},
-	9: {"title": "마지막 장  한양의 봄", "goal": "남산 아래 집터", "intro": "CH9_INTRO", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
-		"stages": [{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
+	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
+		"stages": [{"map": "h_port", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "h_deck", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
 			{"map": "s9_2", "name": "남산 아래 집터로"}],
 		"goal_text": "남산 아래, 볕 잘 드는 빈터에 닿았다.\n서휘가 말뚝 하나를 박았다. \"여기에 짓자.\"", "goal_title": "새 보금자리", "goal_pic": "seohwi", "goal_bg": "family"},
 }
@@ -73,6 +75,7 @@ static func lines(key: String) -> Array:
 	match key:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
+		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2)
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"story1": return GameData.STORY1
 		"story2": return GameData.STORY2
@@ -705,6 +708,70 @@ const CH6F_END := [
 	{"who": "", "text": "― 제6장 「작별」 끝 ―"},
 ]
 
+# ── 마지막 장 앞머리: 귀향 ─────────────────────────────
+const C9_LEAVE := [
+	{"bg": "holland", "who": "", "text": "― 마지막 장 「돌아오는 봄」 ―"},
+	{"who": "", "text": "역병이 물러간 이듬해 봄.\n풍차 언덕의 튤립이 다 피었을 무렵, 둘은 떠날 채비를 마쳤다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…아이들아, 오늘이 마지막 수업이다.\n아픈 사람을 보면 먼저 손을 씻고, 끓인 물을 먹여라. 그거면 반은 산다."},
+	{"who": "마을 아이", "pic": "dutch_child", "text": "선생님, 진짜 가요?\n…동양 의원님이랑 꼭, 꼭 다시 와요. 약속!"},
+	{"who": "", "text": "아이가 내민 것은 꽃밭에서 갓 꺾은 튤립 한 송이였다."},
+	{"who": "{name}", "pic": "hero_disguise_sad", "text": "…응. 약속할게.\n이 꽃, 조선까지 잘 말려서 가져갈게."},
+	{"who": "앓던 여인", "pic": "dutch_sick_woman", "text": "의원님 덕에 우리 아이도, 나도 살았어요.\n가는 길에 드시라고 빵을 좀 구웠어요."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "(아버지의 나라. 평생 원망만 하던 곳.\n…나는 이제 떠도는 사람이 아니라, 머무는 사람이 되러 간다.)"},
+	{"who": "", "text": "【목표】\n배웅 나온 마을 사람들 사이를 지나\n항구에 정박한 상선까지 가라."},
+]
+
+const C9_SHIP := [
+	{"bg": "holland_port", "who": "", "text": "부두 끝, 돛 셋 달린 상선.\n갑판에서 낯익은 붉은 머리가 손을 흔들었다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님?! 의원님이다!\n선장님, 우리 의원님이 돌아가는 배를 타신대요!"},
+	{"who": "선장", "pic": "dutch_captain", "text": "허허, 인연이란 질기구먼.\n갈 때도 우리 배, 올 때도 우리 배일세. 선의 자리는 늘 비워 두었지."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "그런데 옆에 이분… 금발에 동그란 안경…\n아! 그때 말한 그 조선말 하던 사내가 바로 당신이었구나!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…몇 해 전 이 배에 탔었지. 그때 네가 돛대에서 떨어질 뻔한 것도 기억한다."},
+	{"bg": "deck", "who": "", "text": "배가 항구를 벗어나 먼바다로 나선 날 저녁.\n{name}는 선실에서 패랭이를 벗고, 동여맨 머리를 풀었다."},
+	{"who": "", "pic": "hero_adult_ribbon", "text": "긴 머리를 붉은 댕기로 묶고 갑판으로 나서자,\n바닷바람에 머리칼과 댕기가 함께 흩날렸다."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "…이제 숨을 일이 없으니까요.\n조선에는 {name}로 돌아가고 싶어서."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "……"},
+	{"who": "얀", "pic": "redhair_sailor", "text": "…선생님, 숨은 쉬셔야죠. 넋이 나가셨어요."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "시, 시끄럽다. …바람이 차서 그런 거다."},
+]
+
+const C9_PIRATE_PRE := [
+	{"bg": "deck", "who": "", "text": "희망의 곶을 앞둔 밤, 검은 돛을 단 배가 다시 나타났다."},
+	{"who": "해적 두목", "pic": "pirate_captain", "text": "크하하! 몇 해 전 내 배를 망신 준 동양 의원 놈 아니냐!\n이번엔 갑판째로 바다에 처넣어 주마!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 사람한테 손대는 순간, 네가 먼저 바다에 빠질 거다."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "이번엔 둘이에요. 덤벼요!"},
+]
+
+const C9_PIRATE_POST := [
+	{"who": "해적 두목", "pic": "pirate_captain", "text": "크윽… 둘이 되니 더 독하구나…!\n후퇴다, 후퇴!"},
+	{"who": "", "text": "해적선이 어둠 속으로 사라지고, 선원들의 환호가 갑판을 울렸다."},
+]
+
+## 폭풍 뒤 고백 → 돌아오는 길 회상 → 압록강 → 허 의원 묘 → 숭례문(CH9_INTRO 뒷부분)
+const C9_HOMEWARD := [
+	{"bg": "deck_night", "who": "", "text": "해적이 물러간 밤. 갑판 위로 별이 쏟아졌다."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "…{name}. 이것 기억하나?"},
+	{"who": "", "text": "서휘가 품에서 꺼낸 것은 낡은 무명천 조각이었다.\n다리 밑 소굴에서, {name}가 찢어진 서휘의 손등을 싸매 주었던 바로 그 천."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "화란에서 몇 해를 사는 동안, 한 번도 버리지 못했다.\n아이들 상처를 싸맬 때마다 네 손이 떠올라서."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "조선에 닿으면… 네 아버지 묘 앞에서 정식으로 청하겠다.\n평생 네 곁에 머물게 해 달라고."},
+	{"who": "{name}", "pose": "hero_adult_ribbon", "text": "…바보. 그런 건 묘 앞에서 말고, 지금도 말해도 되잖아요."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "…그럼 지금 한 번, 그리고 묘 앞에서 한 번 더 하지."},
+	{"bg": "island", "who": "", "text": "돌아오는 바닷길. 배는 갈 때 들렀던 항구들에 다시 닻을 내렸다."},
+	{"who": "섬마을 아이", "pose": "island_child", "text": "의원님! 저 기억해요? 이제 동생도 저만큼 컸어요!\n의원님이 준 약 덕분이에요!"},
+	{"bg": "yanjing", "who": "", "text": "연경 약재 시장에선, 가짜 인삼에 속을 뻔했던 노인의 손주가\n씩씩하게 약재를 나르고 있었다."},
+	{"who": "{name}", "pose": "hero_adult_ribbon", "text": "(갈 때 뿌린 작은 인연들이…\n돌아오는 길엔 꽃이 되어 있었네.)"},
+	{"bg": "ferry", "who": "", "text": "그리고 압록강 나루."},
+	{"who": "수문장", "pose": "sumunjang", "text": "응? 이 얼굴… 그때 그 고운 목소리의 조선 의원!\n…허허, 이번엔 아가씨로구먼! 어쩐지 손이 희더라니."},
+	{"who": "수문장", "pose": "sumunjang", "text": "그 포도대장 서찰, 아직 내 품에 있소.\n그리 귀한 보증은 처음이었거든. 어서 가시오, 고향이 기다리오."},
+	{"bg": "grave", "who": "", "text": "한양에 들기 전, 둘은 먼저 도성 밖 산자락에 올랐다.\n매화 꽃잎이 흩날리는 작은 봉분. 허 의원의 묘였다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "아버지, 다녀왔어요.\n아버지가 보고 싶어 하던 넓은 세상, 끝까지 보고 왔어요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "화란에서 가져온 튤립이에요. 말려서 오느라 좀 바랬지만…\n아버지 약방 마당에도 심어 볼게요."},
+	{"who": "", "text": "서휘가 봉분 앞에 무릎을 꿇었다."},
+	{"who": "서휘", "pose": "seohwi", "text": "허 의원 어른. 한때 당신의 딸에게 독을 빚게 한 못난 놈입니다.\n…그래도 감히 청합니다. 평생 이 사람 곁에서, 이 사람이 고치는 사람들을 함께 지키게 해 주십시오."},
+	{"who": "", "text": "산들바람이 불어, 매화 꽃잎 하나가 서휘의 어깨에 내려앉았다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…아버지가 허락하신 것 같아요.\n아버지는 늘, 대답 대신 꽃잎을 떨구셨거든요."},
+]
+
 const CH9_INTRO := [
 	{"bg": "title", "who": "", "text": "― 마지막 장 「한양의 봄」 ―"},
 	{"who": "", "text": "몇 해가 흘렀다.\n열다섯 살 소녀는 어느덧 단아한 아가씨가 되어 있었다."},
@@ -952,7 +1019,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
