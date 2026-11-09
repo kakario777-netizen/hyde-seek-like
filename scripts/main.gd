@@ -556,11 +556,19 @@ const CHIBI_OF := {"hero_adult": "hero_adult", "hero_angry": "hero", "hero_sad":
 	"heo": "heo", "heo_ill": "heo", "pojol_battle": "pojol", "friend_worried": "friend", "darae_court": "friend", "baegun_boss": "baegun_boss", "addict": "addict", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
 
 ## 진짜 데포르메 그림만 (없으면 null)
+## 마지막 장: 한양으로 돌아온 서휘는 새 차림으로
+func _ret(name: String) -> String:
+	if chapter >= 9 and name in ["seohwi", "seohwi_battle"]:
+		return "seohwi_return"
+	return name
+
 func chibi_only(name: String) -> Texture2D:
+	name = _ret(name)
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
 	return load(p) if ResourceLoader.exists(p) else null
 
 func chibi(name: String) -> Texture2D:
+	name = _ret(name)
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
 	if ResourceLoader.exists(p):
 		return load(p)
@@ -590,6 +598,7 @@ func fig_scale(name: String) -> float:
 const COURT_CHAPTERS := [5]
 
 func illust(name: String) -> Texture2D:
+	name = _ret(name)
 	if chapter in COURT_CHAPTERS and (name == "hero" or name.begins_with("hero_")) and not name.begins_with("hero_disguise") and not name.begins_with("hero_adult"):
 		var cn := "hero_court" + name.substr(4)
 		if ResourceLoader.exists("res://assets/chars/%s.png" % cn):
