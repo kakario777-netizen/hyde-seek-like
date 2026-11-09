@@ -47,8 +47,11 @@ var card_row: HBoxContainer
 
 func _ready() -> void:
 	cfg = main.ch_cfg()
-	var stages: Array = cfg["stages"]
-	stage_cfg = stages[clampi(main.stage_idx, 0, stages.size() - 1)]
+	if not main.sub_stage.is_empty():   # 만리길 판에서 들어온 여정 맵
+		stage_cfg = main.sub_stage
+	else:
+		var stages: Array = cfg["stages"]
+		stage_cfg = stages[clampi(main.stage_idx, 0, stages.size() - 1)]
 	data = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/stages/%s.json" % stage_cfg["map"]))
 	tiles = data["tiles"]
 	guards = data["guards"]
@@ -71,6 +74,7 @@ func _ready() -> void:
 			guards_done[int(k)] = true
 		for k in restore.get("visited", []):
 			visited[int(k)] = true
+		errand_names = restore.get("errand", []).duplicate()
 		if pos >= tiles.size():
 			pos = main_len - 2
 		if not restore.has("visited"):
@@ -207,7 +211,7 @@ func _build_world() -> void:
 ## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
-const CHIBI_SCALE := {"pojol": 1.12, "addict": 0.86, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
+const CHIBI_SCALE := {"cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.86, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.96, "shadow": 1.04, "dogyeol": 1.04, "heo": 1.04, "yeotjangsu": 0.98}
 
 func _sprite(pic: String, h: float) -> TextureRect:
@@ -256,13 +260,25 @@ func _make_tile_ent(i: int) -> void:
 			else:
 				root.add_child(_badge("talk", Vector2(-24, -70), Color("f3e6c8")))
 		"patient":
-			root.add_child(_sprite("dutch_sick_man" if i % 2 == 0 else "dutch_sick_woman", 160))
+			root.add_child(_sprite(_patient_pic(i), 160))
 			root.add_child(_badge("rest", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"shop":
 			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
 			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"item", "buff", "debuff", "trap", "rest":
 			root.add_child(_badge(typ, Vector2(-24, -70), Color("f3e6c8")))
+	if t.has("errand"):
+		var eb := PanelContainer.new()
+		eb.add_theme_stylebox_override("panel", main.plaque_style())
+		eb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var el: Label = main.make_label("약재\n" + str(t["errand"]), 22, main.GOLD, true)
+		el.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		eb.add_child(el)
+		eb.position = Vector2(-40, -96)
+		eb.name = "Errand"
+		root.add_child(eb)
+		if str(t["errand"]) in errand_names:
+			eb.visible = false
 	if t.get("herb", false):
 		var h: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_herb.png"), Vector2(64, 78))
 		h.position = Vector2(-10, -64)
@@ -546,10 +562,31 @@ func _randomize_layout(s: int) -> void:
 	hc = hc.filter(func(a): return not _behind_char(a, occupied))
 	for i in hc.slice(0, herb_cnt):
 		tiles[i]["herb"] = true
+	# ②-0 심부름 약재: 갈림길로 비켜 가지 않는 본길 칸에 고르게 (지나가기만 해도 줍는다)
+	var errands: Array = stage_cfg.get("errand", [])
+	if errands.size() > 0:
+		var inside := {}
+		for f in forks:
+			for k in range(int(f["p"]) + 1, int(f["q"])):
+				inside[k] = true
+		var ec: Array = []
+		for i in range(4, main_len - 3):
+			if tiles[i]["type"] == "empty" and not reserved.has(i) and not inside.has(i) and not tiles[i].get("herb", false):
+				ec.append(i)
+		for k in errands.size():
+			if ec.is_empty():
+				break
+			var ew: int = int(4 + (k + 0.5) * (main_len - 8) / errands.size())
+			var best: int = ec[0]
+			for c in ec:
+				if absi(c - ew) < absi(best - ew):
+					best = c
+			tiles[best]["errand"] = errands[k]
+			ec.erase(best)
 	# ② 나머지 사건(이로운·해로운 칸, 함정 등)은 남은 빈칸에
 	var slots: Array = []
 	for i in tiles.size():
-		if tiles[i]["type"] != "empty" or reserved.has(i) or tiles[i].get("herb", false):
+		if tiles[i]["type"] != "empty" or reserved.has(i) or tiles[i].get("herb", false) or tiles[i].has("errand"):
 			continue
 		if tiles[i]["main"] and (i < 2 or i > main_len - 3):
 			continue
@@ -617,13 +654,21 @@ func _char_ok(i: int, guard: bool, occupied: Array, reserved: Dictionary, dist_s
 				return false
 	return true
 
+func _patient_pic(i: int) -> String:
+	if stage_cfg.has("patient_pic"):
+		return stage_cfg["patient_pic"]
+	return "dutch_sick_man" if i % 2 == 0 else "dutch_sick_woman"
+
 ## 화란: 앓는 마을 사람 칸 — 약초나 엽전으로 치료하거나, 지나치면 역병이 번진다
 func _treat_patient() -> void:
 	var at := pos
 	var man: bool = at % 2 == 0
-	var pic := "dutch_sick_man" if man else "dutch_sick_woman"
+	var pic := _patient_pic(at)
 	var who := "앓는 어부" if man else "앓는 여인"
 	var text := "물… 물 좀 주시오…\n열이 펄펄 끓어 일어설 수가 없소…" if man else "몸이… 불덩이 같아요…\n아이들 밥도 못 해 줬는데…"
+	if stage_cfg.has("patient_pic"):
+		who = stage_cfg.get("patient_who", "앓는 사람")
+		text = stage_cfg.get("patient_text", "열이… 열이 내리질 않아…")
 	var ch: Array = [{"text": "약초 1개로 탕약을 달여 준다" + ("" if main.herbs >= 1 else " (약초 없음)")},
 		{"text": "엽전 3냥으로 약을 사 준다" + ("" if main.coins >= 3 else " (엽전 부족)")},
 		{"text": "갈 길이 바빠 지나친다"}]
@@ -743,7 +788,7 @@ func _build_hud() -> void:
 	bag.pressed.connect(func():
 		if not busy:
 			main.show_bag())
-	var sname: Label = main.make_label("〈%s〉  %d / %d" % [stage_cfg["name"], main.stage_idx + 1, cfg["stages"].size()], 24, Color("e9c9a0"))
+	var sname: Label = main.make_label(("〈%s〉  만리길" % stage_cfg["name"]) if not main.sub_stage.is_empty() else ("〈%s〉  %d / %d" % [stage_cfg["name"], main.stage_idx + 1, cfg["stages"].size()]), 24, Color("e9c9a0"))
 	vb.add_child(sname)
 	var row := HBoxContainer.new()
 	vb.add_child(row)
@@ -758,6 +803,8 @@ func _update_hud() -> void:
 	clock_lbl.text = "남은 시각 %d" % turns_left
 	clock_lbl.add_theme_color_override("font_color", main.LIGHT if turns_left > 3 else Color("ff8a70"))
 	info_lbl.text = "약초 %d · 체력 %d/%d · 엽전 %d · 약병 %d" % [main.herbs, main.hp, main.max_hp, main.coins, main.potions + main.potions_small]
+	if stage_cfg.has("errand"):
+		info_lbl.text = "심부름 약재 %d/%d · " % [errand_names.size(), stage_cfg["errand"].size()] + info_lbl.text
 	if brew_btn:
 		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_HERBS else Color.WHITE
 
@@ -799,7 +846,7 @@ func _intro() -> void:
 
 func get_state() -> Dictionary:
 	return {"seed": map_seed, "pos": pos, "turns": turns_left, "herbs": herbs_got, "talk_idx": talk_idx,
-		"cleared": cleared.keys(), "guards_done": guards_done.keys(), "visited": visited.keys(), "days_left": turns_left}
+		"cleared": cleared.keys(), "guards_done": guards_done.keys(), "visited": visited.keys(), "errand": errand_names, "days_left": turns_left}
 
 func place_name() -> String:
 	return stage_cfg.get("name", "")
@@ -851,6 +898,7 @@ func _play(steps: int, chosen: Button) -> void:
 			nxt = await _choose_way(nx)
 		pos = nxt
 		visited[pos] = true
+		_pick_errand(pos)
 		var target := tile_center(pos)
 		_focus(target, true, HOP_TIME + STEP_PAUSE)
 		var tw := create_tween()
@@ -884,6 +932,19 @@ func _brew_hint() -> void:
 		var tw := create_tween().set_loops(3)
 		tw.tween_property(brew_btn, "scale", Vector2(1.15, 1.15), 0.25)
 		tw.tween_property(brew_btn, "scale", Vector2.ONE, 0.25)
+
+var errand_names: Array = []
+func _pick_errand(i: int) -> void:
+	if not tiles[i].has("errand") or str(tiles[i]["errand"]) in errand_names:
+		return
+	errand_names.append(str(tiles[i]["errand"]))
+	main.sfx("item")
+	var n: Node = ent_nodes[i].get_node_or_null("Errand")
+	if n:
+		var tw := create_tween().set_parallel()
+		tw.tween_property(n, "position:y", n.position.y - 60, 0.4)
+		tw.tween_property(n, "modulate:a", 0.0, 0.4)
+	_update_hud()
 
 func _pick_herb(i: int) -> void:
 	var t: Dictionary = tiles[i]
@@ -1107,9 +1168,20 @@ func _stage_clear() -> void:
 	main.sfx("victory")
 	var bonus: int = turns_left
 	main.coins += bonus
-	var stages: Array = cfg["stages"]
+	var stages: Array = cfg.get("stages", [])
 	var last: bool = main.stage_idx >= stages.size() - 1
 	var msg: String = "〈%s〉 통과!\n\n남은 시각 보너스 엽전 +%d냥\n이번 길에서 캔 약초 %d/%d (약초 주머니 %d개)" % [stage_cfg["name"], bonus, herbs_got, herbs_total, main.herbs]
+	if errand_names.size() > 0:
+		msg += "\n구한 약재: %s" % " · ".join(errand_names)
+	if not main.sub_stage.is_empty():
+		main.popup(msg, "계속", func():
+			main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")), main.end_voyage), "", "", data.get("bg", ""), true)
+		return
+	if stage_cfg.get("after_story", false):
+		main.popup(msg, "계속", func():
+			main.board = null
+			main.play_story(StoryData.lines(stage_cfg.get("after", "")), main.next_stage), "", "", data.get("bg", ""), true)
+		return
 	main.popup(msg, "계속", func():
 		if last:
 			_reach_goal()

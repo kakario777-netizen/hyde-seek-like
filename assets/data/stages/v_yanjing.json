@@ -1,0 +1,259 @@
+{
+ "id": "v_yanjing",
+ "name": "연경 약재 시장",
+ "tile": "stone",
+ "bg": "yanjing",
+ "turns": 16,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -2,
+   "type": "buff"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "walpae"
+  },
+  {
+   "x": -5,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "debuff"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "debuff"
+  },
+  {
+   "x": -8,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -4,
+   "type": "shop"
+  },
+  {
+   "x": -9,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -7,
+   "type": "buff"
+  },
+  {
+   "x": -12,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -12,
+   "y": -8,
+   "type": "shop"
+  },
+  {
+   "x": -12,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -10,
+   "type": "debuff"
+  },
+  {
+   "x": -12,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -11,
+   "type": "pojol"
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -11,
+   "type": "boss",
+   "battle": "cheong_merchant",
+   "pre": "C7_YANJING_PRE",
+   "post": "C7_YANJING_POST"
+  },
+  {
+   "x": -15,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "spike"
+  },
+  {
+   "x": -16,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -13,
+   "type": "spike"
+  },
+  {
+   "x": -18,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -14,
+   "type": "buff"
+  },
+  {
+   "x": -18,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -15,
+   "type": "debuff"
+  },
+  {
+   "x": -20,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -21,
+   "y": -15,
+   "type": "debuff"
+  },
+  {
+   "x": -22,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -22,
+   "y": -16,
+   "type": "item"
+  },
+  {
+   "x": -22,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -19,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -8,
+   "y": -4,
+   "at": 12,
+   "zone": [
+    12
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -18,
+   "y": -13,
+   "at": 31,
+   "zone": [
+    30,
+    31
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "at": 25,
+   "zone": [
+    25
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}

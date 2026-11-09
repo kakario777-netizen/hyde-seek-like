@@ -153,8 +153,8 @@ func _make_marker(i: int) -> Control:
 		"start", "goal": coin_name = "node_goal"
 		"buff", "rest": coin_name = "node_buff"
 		"debuff": coin_name = "node_debuff"
-		"story": coin_name = "node_story"
-	var big := t in ["goal", "start", "story", "boss"]
+		"story", "voyage": coin_name = "node_story"
+	var big := t in ["goal", "start", "story", "boss", "voyage"]
 	var sz := Vector2(54, 54) if big else Vector2(40, 40)
 	var coin: TextureRect = main.tex_rect(main.ui(coin_name), sz)
 	coin.position = -sz / 2
@@ -164,6 +164,7 @@ func _make_marker(i: int) -> Control:
 		"talk", "item", "shop", "goal", "pojol", "walpae", "buff", "debuff", "trap", "rest", "story":
 			ic = t
 		"boss": ic = "walpae"
+		"voyage": ic = "story"
 	if ic != "":
 		var badge := PanelContainer.new()
 		var sb := StyleBoxFlat.new()
@@ -366,7 +367,7 @@ func _play(steps: int, chosen: Button) -> void:
 		_update_hud()
 		await get_tree().create_timer(STEP_PAUSE).timeout
 		var t := _ntype(pos)
-		if (t in ENEMY_TYPES or t == "story" or t == "boss") and not cleared.has(pos):
+		if (t in ENEMY_TYPES or t == "story" or t == "boss" or t == "voyage") and not cleared.has(pos):
 			break   # 적이나 이야기 칸에서는 멈춘다
 	await get_tree().create_timer(LAND_PAUSE).timeout
 	_resolve()
@@ -409,6 +410,15 @@ func _resolve() -> void:
 			_clear(pos)
 			var lines: Array = StoryData.lines(nodes[pos].get("sid", nodes[pos]["type"]))
 			main.dialog_chain(lines, _end_turn)
+		"voyage":
+			var vn: Dictionary = nodes[pos]
+			var vidx := pos
+			main.sfx("gong", -6.0)
+			main.popup(vn.get("pre_text", "새로운 땅에 닿았다."), "들어간다", func():
+				main.start_voyage(vn["stage"], func():
+					cleared[vidx] = true
+					_dim_marker(vidx)
+					_end_turn()), vn.get("name", ""), "", vn["stage"].get("bg", ""))
 		"boss":
 			var nd: Dictionary = nodes[pos]
 			var idx := pos

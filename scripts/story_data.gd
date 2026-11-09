@@ -8,7 +8,9 @@ class_name StoryData
 # world: true 이면 대동여지도식 큰 지도(board)를 그대로 쓴다
 const CHAPTERS := {
 	1: {"title": "제1장  누명", "goal": "화엄골", "intro": "PROLOGUE", "end": "CHAPTER1_END",
-		"stages": [{"map": "s1_1", "name": "운종가를 지나 도망치기", "after": "story1"},
+		"stages": [{"map": "s1_0", "name": "운종가 약재 심부름", "after": "PROLOGUE_B", "after_story": true,
+				"errand": ["당귀", "감초", "숙지황"], "foes": {"walpae": "walpae", "pojol": "walpae"}},
+			{"map": "s1_1", "name": "운종가를 지나 도망치기", "after": "story1"},
 			{"map": "s1_2", "name": "문경새재 넘기", "after": "story2"},
 			{"map": "s1_3", "name": "백운 노인 찾아가기"}],
 		"goal_text": "안개 낀 계곡 끝, 대숲 속 초당이 보인다.\n지리산 화엄골에 도착했다!", "goal_title": "화엄골", "goal_pic": "friend", "goal_bg": "byeolchae",
@@ -69,6 +71,7 @@ static func talks(ch: int) -> Array:
 static func lines(key: String) -> Array:
 	match key:
 		"PROLOGUE": return GameData.PROLOGUE
+		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"story1": return GameData.STORY1
 		"story2": return GameData.STORY2
@@ -341,6 +344,10 @@ const CH5_END := [
 	{"bg": "byeolchae", "who": "", "text": "그러나 허 의원의 몸은 이미 너무 오래 흑심단에 상해 있었다.\n그는 자리에서 일어나지 못했다."},
 	{"who": "허 의원", "pose": "heo", "text": "울지 마라, {name}아.\n마음속 검은 것을 떼어 내려다 오히려 그것에 먹혔구나. 검은 것도 내 마음이었는데…"},
 	{"who": "허 의원", "pose": "heo", "text": "길가에 쓰러져 있던 일곱 살 아이가… 이렇게 훌륭한 의원이 되었구나.\n네가 나를 되찾아 주었다. 그거면… 됐다."},
+	{"who": "{name}", "pose": "hero_sad", "text": "의원님… 그날 밤, 소리 지르고 뛰쳐나가서 죄송해요.\n그게 마지막 말이 될까 봐… 쫓기는 내내 그게 제일 무서웠어요."},
+	{"who": "허 의원", "pose": "heo", "text": "아니다. 미안한 건 나다.\n너를 지키려고 숨긴 것이, 오히려 너를 혼자 세상에 떠돌게 만들었구나."},
+	{"who": "허 의원", "pose": "heo", "text": "그날 하지 못한 말을 이제 하마.\n…피는 섞이지 않았어도, 넌 나의 하나밖에 없는 소중한 딸이다."},
+	{"who": "{name}", "pose": "hero_sad", "text": "…아버지.\n아버지… 아버지…!"},
 	{"who": "{name}", "pose": "hero_sad", "text": "의원님… 의원님!"},
 	{"who": "", "text": "보름 뒤, 매화 꽃잎이 떨어지던 새벽.\n허 의원은 {name}의 손을 잡은 채 조용히 눈을 감았다."},
 	{"bg": "jangteo", "who": "", "text": "장례 날. 북촌 어귀부터 운종가까지 사람들이 길게 늘어섰다."},
@@ -433,7 +440,7 @@ const C7_PIRATE_PRE := [
 	{"who": "", "bg": "deck", "text": "천축 앞바다를 지나던 밤.\n검은 돛을 단 배 한 척이 소리 없이 다가왔다."},
 	{"who": "얀", "pic": "redhair_sailor", "text": "해적이다! 의원님, 선실로 숨어요!"},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "숨으면 다친 사람은 누가 고쳐요.\n…저도 싸울게요!"},
-	{"who": "해적 두목", "pic": "baetsaram", "text": "흐흐흐, 비단에 은화를 가득 실은 화란 배로구나.\n몽땅 내놓아라!"},
+	{"who": "해적 두목", "pic": "pirate_captain", "text": "흐흐흐, 비단에 은화를 가득 실은 화란 배로구나.\n몽땅 내놓아라!"},
 ]
 
 const C7_PIRATE_POST := [

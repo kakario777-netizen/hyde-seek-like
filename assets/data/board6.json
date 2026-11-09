@@ -11,18 +11,36 @@
   {
    "x": 0.7783,
    "y": 0.3299,
-   "type": "story",
-   "sid": "C7_FERRY",
-   "name": "압록강"
+   "name": "압록강",
+   "type": "voyage",
+   "pre_text": "의주에 닿았다.\n강 건너 청나라 관문까지, 국경 군졸들의 눈을 피해 나루로 가야 한다.",
+   "stage": {
+    "map": "v_ferry",
+    "name": "압록강 나루",
+    "bg": "ferry",
+    "after": "C7_FERRY",
+    "foes": {
+     "walpae": "qing_soldier",
+     "pojol": "qing_soldier"
+    }
+   }
   },
   {
    "x": 0.745,
    "y": 0.305,
-   "type": "boss",
-   "battle": "cheong_merchant",
-   "pre": "C7_YANJING_PRE",
-   "post": "C7_YANJING_POST",
-   "name": "연경(청)"
+   "name": "연경(청)",
+   "type": "voyage",
+   "pre_text": "청나라의 도읍 연경.\n약재 시장 골목을 지나 남쪽 성문까지 가야 한다.",
+   "stage": {
+    "map": "v_yanjing",
+    "name": "연경 약재 시장",
+    "bg": "yanjing",
+    "after": "",
+    "foes": {
+     "walpae": "merchant_gang",
+     "pojol": "merchant_gang"
+    }
+   }
   },
   {
    "x": 0.7609,
@@ -52,9 +70,23 @@
   {
    "x": 0.742,
    "y": 0.5695,
-   "type": "story",
    "name": "광주 항구",
-   "sid": "C7_PORT"
+   "type": "voyage",
+   "pre_text": "남쪽 바다의 큰 항구, 광주.\n화란 상선이 닻을 내린 부두 끝까지 가야 한다.",
+   "stage": {
+    "map": "v_port",
+    "name": "광주 항구",
+    "bg": "port",
+    "after": "C7_PORT",
+    "foes": {
+     "walpae": "haejeok",
+     "pojol": "haejeok"
+    },
+    "patients": 2,
+    "patient_pic": "redhair_sailor",
+    "patient_who": "열병 난 선원",
+    "patient_text": "으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…"
+   }
   },
   {
    "x": 0.7086,
@@ -117,11 +149,19 @@
   {
    "x": 0.4413,
    "y": 0.5857,
-   "type": "boss",
-   "battle": "pirate_boss",
-   "pre": "C7_PIRATE_PRE",
-   "post": "C7_PIRATE_POST",
-   "name": "천축 앞바다"
+   "name": "천축 앞바다",
+   "type": "voyage",
+   "pre_text": "천축 앞바다.\n갑판 위로 수상한 그림자들이 하나둘 기어오른다…",
+   "stage": {
+    "map": "v_sea",
+    "name": "천축 앞바다",
+    "bg": "deck",
+    "after": "",
+    "foes": {
+     "walpae": "haejeok",
+     "pojol": "haejeok"
+    }
+   }
   },
   {
    "x": 0.4155,

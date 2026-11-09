@@ -127,6 +127,34 @@ func _debug_capture() -> void:
 			await get_tree().create_timer(0.8).timeout
 			if not args.has("still"):
 				board.card_row.get_child(0).pressed.emit()
+		"voyage":
+			chapter = 7; stage_idx = 0
+			start_board()
+			await get_tree().create_timer(1.5).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
+			var vi := -1
+			for i in board.nodes.size():
+				if board.nodes[i].get("type", "") == "voyage":
+					vi += 1
+					if vi == int(args.get("v", "0")):
+						start_voyage(board.nodes[i]["stage"], func(): print("VOYAGE_BACK"))
+						break
+			await get_tree().create_timer(1.8).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
+			board.busy = false
+			board._deal()
+			if args.has("finish"):
+				board._stage_clear()
+				await get_tree().create_timer(0.5).timeout
+				for k in 20:
+					for cl in get_tree().root.find_children("*", "CanvasLayer", true, false):
+						var bs: Array = cl.find_children("*", "Button", true, false)
+						if bs.size() > 0:
+							bs[0].pressed.emit(); break
+					await get_tree().create_timer(0.25).timeout
+				print("BOARD_IS_WORLD ", board.get_script().resource_path, " cleared=", board.cleared.keys())
 		"chstory":
 			chapter = int(args.get("ch", "2"))
 			play_story(StoryData.lines(args.get("key", "CH2_INTRO")).slice(int(args.get("from", "0"))), show_title)
@@ -270,6 +298,33 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	b.opts = opts
 	autosave()
 	_swap(b, true)
+
+## 만리길 판 → 여정 맵(작은 맵) → 다시 판으로
+var sub_stage: Dictionary = {}
+var world_board: Control = null
+var voyage_done: Callable
+
+func start_voyage(cfg: Dictionary, on_done: Callable) -> void:
+	world_board = board
+	sub_stage = cfg
+	voyage_done = on_done
+	var s := StageScreen.new()
+	board = s
+	_swap(s, true)
+	autosave.call_deferred()
+
+func end_voyage() -> void:
+	if board and is_instance_valid(board):
+		board.queue_free()
+	board = world_board
+	world_board = null
+	sub_stage = {}
+	current = board
+	board.process_mode = Node.PROCESS_MODE_INHERIT
+	board.show()
+	if voyage_done.is_valid():
+		voyage_done.call()
+	autosave.call_deferred()
 
 func end_battle(battle: Control) -> void:
 	battle.queue_free()
@@ -1158,9 +1213,10 @@ func snapshot() -> Dictionary:
 		"coins": coins, "potions": potions, "potions_small": potions_small, "herbs": herbs, "deck": deck, "chapter": chapter, "flags": flags,
 		"next_energy": next_energy, "next_guard": next_guard,
 		"time": Time.get_datetime_string_from_system(false, true)}
-	if board and is_instance_valid(board):
-		d["board"] = board.get_state()
-		d["place"] = board.place_name()
+	var bd: Control = world_board if (world_board and is_instance_valid(world_board)) else board
+	if bd and is_instance_valid(bd):
+		d["board"] = bd.get_state()
+		d["place"] = bd.place_name()
 	return d
 
 func can_save() -> bool:
@@ -1208,6 +1264,9 @@ func load_game(slot: String) -> void:
 		deck.append({"id": str(e["id"]), "lv": int(e["lv"])})
 	if deck.is_empty():
 		deck = make_deck(GameData.START_DECK)
+	if world_board and is_instance_valid(world_board):
+		world_board.queue_free()
+	world_board = null; sub_stage = {}
 	if board:
 		board.queue_free(); board = null
 	if d.get("phase", "") == "board" and d.has("board") and int(d.get("ver", 1)) >= 2:

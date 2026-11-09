@@ -1,0 +1,260 @@
+{
+ "id": "v_sea",
+ "name": "천축 앞바다",
+ "tile": "wood",
+ "bg": "deck",
+ "turns": 16,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "pojol"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "rest"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -5,
+   "type": "debuff"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -8,
+   "type": "buff"
+  },
+  {
+   "x": -5,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -8,
+   "type": "debuff"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -10,
+   "type": "debuff"
+  },
+  {
+   "x": -7,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -11,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -13,
+   "type": "trap"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "boss",
+   "battle": "pirate_boss",
+   "pre": "C7_PIRATE_PRE",
+   "post": "C7_PIRATE_POST"
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -16,
+   "type": "buff"
+  },
+  {
+   "x": -14,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "pojol"
+  },
+  {
+   "x": -16,
+   "y": -16,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -16,
+   "y": -17,
+   "type": "buff"
+  },
+  {
+   "x": -16,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "debuff"
+  },
+  {
+   "x": -18,
+   "y": -18,
+   "type": "item"
+  },
+  {
+   "x": -18,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -20,
+   "type": "buff"
+  },
+  {
+   "x": -18,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -7,
+   "y": -11,
+   "at": 18,
+   "zone": [
+    18,
+    19
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -16,
+   "y": -18,
+   "at": 34,
+   "zone": [
+    34
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "at": 24,
+   "zone": [
+    24,
+    25
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}
