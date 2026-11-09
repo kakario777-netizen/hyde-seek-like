@@ -507,7 +507,7 @@ func _randomize_layout(s: int) -> void:
 			chars.append(t)
 		else:
 			others.append(t)
-	var gcnt := guards.size() + 2
+	var gcnt: int = guards.size() + int(stage_cfg.get("extra_guards", 2))
 	for g in gcnt:
 		chars.append("guard")
 	for pt in int(stage_cfg.get("patients", 0)):   # 화란: 역병에 걸린 마을 사람
@@ -558,6 +558,7 @@ func _randomize_layout(s: int) -> void:
 			hc.append(i)
 	_shuffle(rng, hc)
 	hc = hc.filter(func(a): return not _behind_char(a, occupied))
+	herb_cnt += 2   # 맵마다 약초 두 개 더
 	for i in hc.slice(0, herb_cnt):
 		tiles[i]["herb"] = true
 	# ②-0 심부름 약재: 갈림길로 비켜 가지 않는 본길 칸에 고르게 (지나가기만 해도 줍는다)

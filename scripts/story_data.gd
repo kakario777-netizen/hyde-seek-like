@@ -9,7 +9,7 @@ class_name StoryData
 const CHAPTERS := {
 	1: {"title": "제1장  누명", "goal": "화엄골", "intro": "PROLOGUE", "end": "CHAPTER1_END",
 		"stages": [{"map": "s1_0", "name": "운종가 약재 심부름", "after": "PROLOGUE_B", "after_story": true,
-				"errand": ["당귀", "감초", "숙지황"], "foes": {"walpae": "walpae", "pojol": "walpae"}},
+				"errand": ["당귀", "감초", "숙지황"], "foes": {"walpae": "walpae", "pojol": "walpae"}, "extra_guards": 1},
 			{"map": "s1_1", "name": "운종가를 지나 도망치기", "after": "story1"},
 			{"map": "s1_2", "name": "문경새재 넘기", "after": "story2"},
 			{"map": "s1_3", "name": "백운 노인 찾아가기"}],

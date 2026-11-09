@@ -21,8 +21,8 @@ const STEP_WORD := ["", "한", "두", "세", "네", "다섯", "여섯"]
 
 # 진행 상태
 var hero_name := "연이"
-var max_hp := 40
-var hp := 40
+var max_hp := 50
+var hp := 50
 var coins := 0
 var potions := 2        # 진한 탕약(3단계, 체력 +40)
 var potions_small := 0  # 묽은 탕약(2단계, 체력 +20)
@@ -253,8 +253,8 @@ func show_title() -> void:
 
 func new_game() -> void:
 	ask_name(func():
-		max_hp = 40; hp = 40; coins = 0; potions = 2; potions_small = 0; herbs = 0
-		chapter = 1; stage_idx = 0; flags = {}; next_energy = 0; next_guard = 0
+		max_hp = 50; hp = 50; coins = 0; potions = 2; potions_small = 0; herbs = 0
+		chapter = 1; stage_idx = 0; flags = {"hp_plus10": true}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
 		phase = "prologue"
 		play_story(chapter_lines("intro"), start_board))
@@ -388,7 +388,7 @@ func game_over(reason: String, pic := "") -> void:
 		if board:
 			board.queue_free(); board = null
 		current = null
-		max_hp = 40; coins = 0   # 다시 하기: 약병·탕약·약초는 그대로 둔다
+		max_hp = 50; coins = 0   # 다시 하기: 약병·탕약·약초는 그대로 둔다
 		start_board(), "", pic, "", true)
 
 # ── 이름 ────────────────────────────────────────────────
@@ -1273,6 +1273,8 @@ func load_game(slot: String) -> void:
 	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))
 	potions_small = int(d.get("potions_small", 0)); herbs = int(d.get("herbs", 0))
 	chapter = int(d.get("chapter", 1)); flags = d.get("flags", {})
+	if not flags.has("hp_plus10"):   # 체력 +10 조정 전 저장
+		flags["hp_plus10"] = true; max_hp += 10; hp += 10
 	stage_idx = int(d.get("stage_idx", 0))
 	next_energy = int(d.get("next_energy", 0)); next_guard = int(d.get("next_guard", 0))
 	deck = []
