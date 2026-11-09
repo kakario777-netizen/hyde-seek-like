@@ -291,7 +291,7 @@ func _build_hud() -> void:
 func _update_hud() -> void:
 	day_label.text = "남은 날  %d일" % days_left
 	day_label.add_theme_color_override("font_color", main.LIGHT if days_left > 7 else Color("ff8a70"))
-	hp_label.text = "체력 %d/%d · 엽전 %d · 약병 %d" % [main.hp, main.max_hp, main.coins, main.potions]
+	hp_label.text = "체력 %d/%d · 엽전 %d · 약병 %d" % [main.hp, main.max_hp, main.coins, main.potions + main.potions_small]
 	place_label.text = "%s 부근 · %s까지 %d칸" % [place_name(), cfg.get("goal", "화엄골"), nodes.size() - 1 - pos]
 
 func _build_tray() -> void:

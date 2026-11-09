@@ -22,6 +22,7 @@ var turns_left := 10
 var busy := false
 var cleared := {}
 var guards_done := {}
+var brew_btn: Button = null
 var herbs_got := 0
 var herbs_total := 0
 var talk_idx := 0
@@ -108,7 +109,15 @@ func _ready() -> void:
 			for b in cs.size():
 				if a != b and _covers(cs[a], cs[b]):
 					ch_hid += 1
-		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid)
+		var evn := 0
+		for t in tiles:
+			if t["type"] in ["buff", "debuff", "item", "trap", "rest", "spike"]:
+				evn += 1
+		var orig_ev := 0
+		for t in data["tiles"]:
+			if t["type"] in ["buff", "debuff", "item", "trap", "rest", "spike"]:
+				orig_ev += 1
+		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid, " events=", evn, "/", orig_ev, " herbs=", herbs_total)
 		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
 
 	var bgr := TextureRect.new()
@@ -251,9 +260,7 @@ func _make_tile_ent(i: int) -> void:
 			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"item", "buff", "debuff", "trap", "rest":
 			root.add_child(_badge(typ, Vector2(-24, -70), Color("f3e6c8")))
-			root.z_index = 1   # 효과 아이콘은 인물 그림에 가려지지 않게 항상 앞에
 	if t.get("herb", false):
-		root.z_index = 1
 		var h: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_herb.png"), Vector2(64, 78))
 		h.position = Vector2(-10, -64)
 		h.name = "Herb"
@@ -523,28 +530,30 @@ func _randomize_layout(s: int) -> void:
 				"kind": "walpae" if rng.randi() % 2 == 0 else "pojol", "on_path": true})
 		else:
 			tiles[best]["type"] = kind
-	# ② 나머지 사건(이로운·해로운 칸, 함정 등)은 남은 빈칸에
-	var slots: Array = []
-	for i in tiles.size():
-		if tiles[i]["type"] != "empty" or reserved.has(i):
-			continue
-		if tiles[i]["main"] and (i < 2 or i > main_len - 3):
-			continue
-		slots.append(i)
-	_shuffle(rng, others)
-	_shuffle(rng, slots)
-	slots.sort_custom(func(a, b): return int(_behind_char(a, occupied)) < int(_behind_char(b, occupied)))
-	for k2 in mini(slots.size(), others.size()):
-		tiles[slots[k2]]["type"] = others[k2]
 	# ③ 약초는 본길에만 (어느 갈래로 가도 다 모을 수 있게), 붉은 칸은 피해서
 	var hc: Array = []
 	for i in range(2, main_len - 2):
 		if tiles[i]["type"] == "empty" and not reserved.has(i):
 			hc.append(i)
 	_shuffle(rng, hc)
-	hc.sort_custom(func(a, b): return int(_behind_char(a, occupied)) < int(_behind_char(b, occupied)))
+	hc = hc.filter(func(a): return not _behind_char(a, occupied))
 	for i in hc.slice(0, herb_cnt):
 		tiles[i]["herb"] = true
+	# ② 나머지 사건(이로운·해로운 칸, 함정 등)은 남은 빈칸에
+	var slots: Array = []
+	for i in tiles.size():
+		if tiles[i]["type"] != "empty" or reserved.has(i) or tiles[i].get("herb", false):
+			continue
+		if tiles[i]["main"] and (i < 2 or i > main_len - 3):
+			continue
+		slots.append(i)
+	_shuffle(rng, others)
+	_shuffle(rng, slots)
+	others = others.filter(func(t): return t != "empty")   # 빈칸 말고 진짜 사건만 (자리가 모자라면 사건이 먼저)
+	slots.sort_custom(func(a, b): return int(_behind_char(a, occupied)) < int(_behind_char(b, occupied)))
+	slots = slots.filter(func(a): return not _behind_char(a, occupied))
+	for k2 in mini(slots.size(), others.size()):
+		tiles[slots[k2]]["type"] = others[k2]
 	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
 		for t in tiles:
 			var x = t["x"]; t["x"] = t["y"]; t["y"] = x
@@ -558,10 +567,22 @@ func _covers(a: int, b: int) -> bool:
 	var dd: int = absi((int(tiles[a]["x"]) - int(tiles[a]["y"])) - (int(tiles[b]["x"]) - int(tiles[b]["y"])))
 	return (dd == 0 and ds >= 1 and ds <= 4) or (dd == 1 and ds >= 1 and ds <= 2)
 
-## i칸(사건 그림)이 인물에 가려지는가
+## i칸(사건 아이콘·약초)이 인물 그림에 가려지는가
+## 바로 뒤 칸(같은 줄 두 칸 위)은 몸에, 그 뒤 칸은 머리 위 표시에 가려진다
 func _behind_char(i: int, occupied: Array) -> bool:
 	for o in occupied:
-		if _covers(o[0], i):
+		var ds: int = (int(tiles[o[0]]["x"]) + int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) + int(tiles[i]["y"]))
+		var dd: int = absi((int(tiles[o[0]]["x"]) - int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) - int(tiles[i]["y"])))
+		if dd == 0 and ds == 2:
+			return true
+	return false
+
+## i칸의 아이콘·약초가 인물 얼굴을 가리는가 (바로 앞 칸)
+func _covers_char(i: int, occupied: Array) -> bool:
+	for o in occupied:
+		var ds: int = (int(tiles[i]["x"]) + int(tiles[i]["y"])) - (int(tiles[o[0]]["x"]) + int(tiles[o[0]]["y"]))
+		var dd: int = absi((int(tiles[i]["x"]) - int(tiles[i]["y"])) - (int(tiles[o[0]]["x"]) - int(tiles[o[0]]["y"])))
+		if dd == 0 and ds == 2:
 			return true
 	return false
 
@@ -677,8 +698,14 @@ func _build_hud() -> void:
 	menu.pressed.connect(func():
 		if not busy:
 			main.open_menu())
+	brew_btn = main.make_button("약탕관", 24)
+	brew_btn.custom_minimum_size = Vector2(110, 62)
+	head.add_child(brew_btn)
+	brew_btn.pressed.connect(func():
+		if not busy:
+			main.show_brew(_update_hud))
 	var bag: Button = main.make_button("보따리", 24)
-	bag.custom_minimum_size = Vector2(130, 62)
+	bag.custom_minimum_size = Vector2(110, 62)
 	head.add_child(bag)
 	bag.pressed.connect(func():
 		if not busy:
@@ -697,7 +724,9 @@ func _build_hud() -> void:
 func _update_hud() -> void:
 	clock_lbl.text = "남은 시각 %d" % turns_left
 	clock_lbl.add_theme_color_override("font_color", main.LIGHT if turns_left > 3 else Color("ff8a70"))
-	info_lbl.text = "약초 %d/%d · 체력 %d/%d · 엽전 %d · 약병 %d" % [herbs_got, herbs_total, main.hp, main.max_hp, main.coins, main.potions]
+	info_lbl.text = "약초 %d · 체력 %d/%d · 엽전 %d · 약병 %d" % [main.herbs, main.hp, main.max_hp, main.coins, main.potions + main.potions_small]
+	if brew_btn:
+		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_HERBS else Color.WHITE
 
 func _build_tray() -> void:
 	tray = PanelContainer.new()
@@ -806,6 +835,23 @@ func _play(steps: int, chosen: Button) -> void:
 	_pick_herb(pos)  # 약초는 그 칸에 딱 멈춰야 얻는다
 	_resolve()
 
+## 약초가 넉넉해지면 약탕관 버튼을 반짝이며 알려 줌
+func _brew_hint() -> void:
+	var l: Label = main.ink_text(main.make_label("약초가 넉넉합니다!\n약탕관에서 약을 달일 수 있어요.", 30, main.GOLD, true), 8)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	l.position.y = 230
+	add_child(l)
+	var lt := create_tween()
+	lt.tween_interval(1.8)
+	lt.tween_property(l, "modulate:a", 0.0, 0.6)
+	lt.tween_callback(l.queue_free)
+	if brew_btn:
+		brew_btn.pivot_offset = brew_btn.size / 2.0
+		var tw := create_tween().set_loops(3)
+		tw.tween_property(brew_btn, "scale", Vector2(1.15, 1.15), 0.25)
+		tw.tween_property(brew_btn, "scale", Vector2.ONE, 0.25)
+
 func _pick_herb(i: int) -> void:
 	var t: Dictionary = tiles[i]
 	if not t.get("herb", false) or ent_nodes[i].get_node_or_null("Herb") == null:
@@ -813,7 +859,10 @@ func _pick_herb(i: int) -> void:
 	var h: Control = ent_nodes[i].get_node("Herb")
 	h.name = "HerbTaken"
 	herbs_got += 1
+	main.herbs += 1
 	main.coins += 2
+	if main.herbs == main.BREW_HERBS:
+		_brew_hint()
 	main.sfx("item")
 	var tw := create_tween().set_parallel()
 	tw.tween_property(h, "position:y", h.position.y - 60, 0.4)
@@ -1024,10 +1073,7 @@ func _stage_clear() -> void:
 	main.coins += bonus
 	var stages: Array = cfg["stages"]
 	var last: bool = main.stage_idx >= stages.size() - 1
-	var msg: String = "〈%s〉 통과!\n\n남은 시각 보너스 엽전 +%d냥\n모은 약초 %d/%d" % [stage_cfg["name"], bonus, herbs_got, herbs_total]
-	if herbs_got >= herbs_total and herbs_total > 0:
-		main.potions += 1
-		msg += "\n약초를 모두 모았다! (약병 +1)"
+	var msg: String = "〈%s〉 통과!\n\n남은 시각 보너스 엽전 +%d냥\n이번 길에서 캔 약초 %d/%d (약초 주머니 %d개)" % [stage_cfg["name"], bonus, herbs_got, herbs_total, main.herbs]
 	main.popup(msg, "계속", func():
 		if last:
 			_reach_goal()

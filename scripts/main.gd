@@ -24,7 +24,9 @@ var hero_name := "연이"
 var max_hp := 40
 var hp := 40
 var coins := 0
-var potions := 2
+var potions := 2        # 진한 탕약(3단계, 체력 +40)
+var potions_small := 0  # 묽은 탕약(2단계, 체력 +20)
+var herbs := 0          # 약초 주머니 (맵에서 주운 약초가 계속 쌓임)
 var deck: Array = []
 var chapter := 1
 var stage_idx := 0
@@ -119,6 +121,9 @@ func _debug_capture() -> void:
 					if board.tiles[i]["next"].size() > 1:
 						board.pos = i; board.token.position = board.tile_center(i); break
 			board._deal()
+			if args.has("brew"):
+				herbs = 6; coins = 12
+				show_brew(board._update_hud)
 			await get_tree().create_timer(0.8).timeout
 			if not args.has("still"):
 				board.card_row.get_child(0).pressed.emit()
@@ -214,7 +219,7 @@ func show_title() -> void:
 
 func new_game() -> void:
 	ask_name(func():
-		max_hp = 40; hp = 40; coins = 0; potions = 2
+		max_hp = 40; hp = 40; coins = 0; potions = 2; potions_small = 0; herbs = 0
 		chapter = 1; stage_idx = 0; flags = {}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
 		phase = "prologue"
@@ -319,7 +324,7 @@ func game_over(reason: String, pic := "") -> void:
 		if board:
 			board.queue_free(); board = null
 		current = null
-		max_hp = 40; coins = 0; potions = 2
+		max_hp = 40; coins = 0; potions = 2; potions_small = 0; herbs = 0
 		start_board(), "", pic, "", true)
 
 # ── 이름 ────────────────────────────────────────────────
@@ -696,7 +701,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 		tag_placeholder(r, pic)
 		create_tween().tween_property(fig, "modulate:a", 1.0, 0.4)
 	var center: Container
-	if pt or bottom:
+	if pt:   # 전신 인물이 나올 때만 대화창을 아래로, 아니면 가운데
 		# 그림이 있는 대화창은 화면 맨 아래에
 		var col := VBoxContainer.new()
 		col.alignment = BoxContainer.ALIGNMENT_END
@@ -796,12 +801,102 @@ func coin_plaque() -> Array:
 	var l := make_label("", 32, GOLD, true)
 	hb.add_child(l)
 	var upd := func():
-		l.text = "가진 엽전 %d냥 · 약병 %d" % [coins, potions]
+		l.text = "엽전 %d냥 · 약초 %d · 약병 %d" % [coins, herbs, potions + potions_small]
 	upd.call()
 	return [p, upd]
 
 # ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
 const UPGRADE_COST := [0, 5, 10]   # ★1→★2 5냥, ★2→★3 10냥
+
+## ── 약탕관: 약초 4개 + 엽전으로 탕약 달이기 ──────────────
+const BREW_HERBS := 4
+const BREWS := [{"key": "small", "name": "묽은 탕약", "lv": "2단계", "heal": 20, "cost": 3},
+	{"key": "big", "name": "진한 탕약", "lv": "3단계", "heal": 40, "cost": 6}]
+
+func show_brew(cb := Callable()) -> void:
+	var o := _overlay("약탕관")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	var info := make_label("", 30, INK)
+	info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(info)
+	var slots := HBoxContainer.new()
+	slots.alignment = BoxContainer.ALIGNMENT_CENTER
+	slots.add_theme_constant_override("separation", 14)
+	vb.add_child(slots)
+	var herb_tex: Texture2D = load("res://assets/ui/tiles/deco_herb.png")
+	var cells: Array = []
+	for k in BREW_HERBS:
+		var pc := PanelContainer.new()
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color("efe2c4"); sb.set_corner_radius_all(14)
+		sb.border_color = Color("8a6a3a"); sb.set_border_width_all(3)
+		pc.add_theme_stylebox_override("panel", sb)
+		pc.custom_minimum_size = Vector2(104, 112)
+		var r := TextureRect.new()
+		r.texture = herb_tex
+		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		r.custom_minimum_size = Vector2(90, 100)
+		pc.add_child(r)
+		slots.add_child(pc)
+		cells.append(r)
+	var msg := make_label("", 26, INK_SOFT)
+	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	msg.custom_minimum_size = Vector2(540, 0)
+	vb.add_child(msg)
+	var btns: Array = []
+	var refresh := func():
+		info.text = "가진 약초 %d개 · 엽전 %d냥\n묽은 탕약 %d병 · 진한 탕약 %d병" % [herbs, coins, potions_small, potions]
+		for k in cells.size():
+			cells[k].modulate = Color(1, 1, 1, 1) if k < herbs else Color(0.3, 0.3, 0.3, 0.35)
+		for b in btns:
+			b.modulate = Color.WHITE if herbs >= BREW_HERBS else Color(0.6, 0.6, 0.6)
+		if cb.is_valid():
+			cb.call()
+	for br in BREWS:
+		var b := make_button("%s 달이기 (%s) · 체력 +%d\n약초 %d개 + %d냥" % [br["name"], br["lv"], br["heal"], BREW_HERBS, br["cost"]], 26)
+		b.custom_minimum_size = Vector2(0, 104)
+		vb.add_child(b)
+		btns.append(b)
+		b.pressed.connect(func():
+			if herbs < BREW_HERBS:
+				msg.text = "약초가 %d개 더 필요합니다." % (BREW_HERBS - herbs)
+				msg.add_theme_color_override("font_color", RED)
+				return
+			if coins < int(br["cost"]):
+				msg.text = "엽전이 모자랍니다 (%d냥 필요)" % br["cost"]
+				msg.add_theme_color_override("font_color", RED)
+				return
+			herbs -= BREW_HERBS
+			coins -= int(br["cost"])
+			if br["key"] == "small":
+				potions_small += 1
+			else:
+				potions += 1
+			sfx("potion")
+			msg.text = "보글보글… %s 한 병을 달였습니다!" % br["name"]
+			msg.add_theme_color_override("font_color", INK_SOFT)
+			_steam(slots)
+			refresh.call())
+	var close := make_button("닫기", 28)
+	close.custom_minimum_size = Vector2(0, 80)
+	vb.add_child(close)
+	close.pressed.connect(func(): layer.queue_free())
+	refresh.call()
+
+## 달일 때 김이 피어오르는 연출
+func _steam(at: Control) -> void:
+	for k in 5:
+		var l := make_label("～", 44, Color(1, 1, 1, 0.9), true)
+		at.add_child(l)
+		l.top_level = true
+		l.global_position = at.global_position + Vector2(at.size.x * (0.2 + 0.15 * k), 10)
+		var tw := l.create_tween().set_parallel()
+		tw.tween_property(l, "global_position:y", l.global_position.y - 90, 0.9).set_delay(0.08 * k)
+		tw.tween_property(l, "modulate:a", 0.0, 0.9).set_delay(0.08 * k)
+		tw.chain().tween_callback(l.queue_free)
 
 func show_bag(cb := Callable()) -> void:
 	var o := _overlay("보따리")
@@ -937,7 +1032,7 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 
 # ── 장터 ────────────────────────────────────────────────
 const CARD_PRICE := 4
-const POTION_PRICE := 3
+const POTION_PRICE := 10
 
 func open_shop(cb: Callable) -> void:
 	var o := _overlay("장터", "jangteo")
@@ -946,7 +1041,7 @@ func open_shop(cb: Callable) -> void:
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
 	var refresh: Callable = cp[1]
-	var msg := _note("상소 한 장 %d냥 · 약병 %d냥 · 단련 5~10냥" % [CARD_PRICE, POTION_PRICE])
+	var msg := _note("상소 한 장 %d냥 · 진한 탕약 %d냥 · 단련 5~10냥" % [CARD_PRICE, POTION_PRICE])
 	vb.add_child(msg)
 	var row := HBoxContainer.new()
 	row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -972,7 +1067,7 @@ func open_shop(cb: Callable) -> void:
 			msg.text = "〈%s〉 상소를 샀습니다! 보따리에 넣었어요." % GameData.stats(e["id"], 1)["name"]
 			msg.add_theme_color_override("font_color", INK_SOFT)
 			refresh.call())
-	var pot := make_button("약병 사기 (%d냥)" % POTION_PRICE, 28)
+	var pot := make_button("진한 탕약 사기 · 체력 +40 (%d냥)" % POTION_PRICE, 28)
 	pot.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(pot)
 	pot.pressed.connect(func():
@@ -983,9 +1078,13 @@ func open_shop(cb: Callable) -> void:
 		coins -= POTION_PRICE
 		sfx("coin")
 		potions += 1
-		msg.text = "약병을 샀습니다! (지금 %d병)" % potions
+		msg.text = "진한 탕약을 샀습니다! (지금 %d병)" % potions
 		msg.add_theme_color_override("font_color", INK_SOFT)
 		refresh.call())
+	var brew := make_button("약탕관 · 약초로 약 달이기", 28)
+	brew.custom_minimum_size = Vector2(0, 86)
+	vb.add_child(brew)
+	brew.pressed.connect(func(): show_brew(refresh))
 	var bag := make_button("보따리 열기 · 상소 단련", 28)
 	bag.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(bag)
@@ -1025,7 +1124,7 @@ func _save_path(slot: String) -> String:
 
 func snapshot() -> Dictionary:
 	var d := {"ver": 2, "phase": phase, "stage_idx": stage_idx, "hero_name": hero_name, "alias_name": alias_name, "max_hp": max_hp, "hp": hp,
-		"coins": coins, "potions": potions, "deck": deck, "chapter": chapter, "flags": flags,
+		"coins": coins, "potions": potions, "potions_small": potions_small, "herbs": herbs, "deck": deck, "chapter": chapter, "flags": flags,
 		"next_energy": next_energy, "next_guard": next_guard,
 		"time": Time.get_datetime_string_from_system(false, true)}
 	if board and is_instance_valid(board):
@@ -1069,6 +1168,7 @@ func load_game(slot: String) -> void:
 	hero_name = d.get("hero_name", "연이"); alias_name = d.get("alias_name", "")
 	max_hp = int(d.get("max_hp", 40)); hp = int(d.get("hp", max_hp))
 	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))
+	potions_small = int(d.get("potions_small", 0)); herbs = int(d.get("herbs", 0))
 	chapter = int(d.get("chapter", 1)); flags = d.get("flags", {})
 	stage_idx = int(d.get("stage_idx", 0))
 	next_energy = int(d.get("next_energy", 0)); next_guard = int(d.get("next_guard", 0))

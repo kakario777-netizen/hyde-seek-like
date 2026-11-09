@@ -399,11 +399,23 @@ func _hit_enemy(dmg: int) -> void:
 	_refresh()
 
 func _use_potion() -> void:
-	if not my_turn or over or main.potions <= 0 or main.hp >= main.max_hp:
+	if not my_turn or over or main.potions + main.potions_small <= 0 or main.hp >= main.max_hp:
 		return
-	main.potions -= 1
+	if main.potions > 0 and main.potions_small > 0:
+		main.popup_choices("어떤 약을 마실까요?", [{"text": "진한 탕약 · 체력 +40 (%d병)" % main.potions},
+			{"text": "묽은 탕약 · 체력 +20 (%d병)" % main.potions_small}, {"text": "그만두기"}], func(k: int):
+				if k < 2:
+					_drink(k == 0))
+		return
+	_drink(main.potions > 0)
+
+func _drink(big: bool) -> void:
+	if big:
+		main.potions -= 1
+	else:
+		main.potions_small -= 1
 	var before: int = main.hp
-	main.hp = min(main.max_hp, main.hp + 40)
+	main.hp = min(main.max_hp, main.hp + (40 if big else 20))
 	main.sfx("potion")
 	_float_text("+%d" % (main.hp - before), Vector2(size.x / 2, size.y * 0.62), Color("8fd0a0"))
 	_refresh()
@@ -537,8 +549,8 @@ func _refresh() -> void:
 	p_hp_lbl.text = "체력 %d / %d · 남은 상소 %d" % [main.hp, main.max_hp, draw_pile.size()]
 	energy_lbl.text = "기력 " + "●".repeat(energy) + "○".repeat(max(0, BASE_ENERGY - energy))
 	shield_lbl.text = "막기 %d" % shield if shield > 0 else ""
-	potion_btn.text = "약병 %d" % main.potions
-	potion_btn.disabled = not my_turn or main.potions <= 0
+	potion_btn.text = "약병 %d" % (main.potions + main.potions_small)
+	potion_btn.disabled = not my_turn or main.potions + main.potions_small <= 0
 	end_btn.disabled = not my_turn
 	for k in card_row.get_children():
 		if k.has_meta("entry"):
