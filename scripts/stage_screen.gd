@@ -225,7 +225,7 @@ func _build_world() -> void:
 ## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
-const CHIBI_SCALE := {"hero_court": 0.9, "cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.86, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
+const CHIBI_SCALE := {"cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.86, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.96, "shadow": 1.04, "dogyeol": 1.04, "heo": 1.04, "yeotjangsu": 0.98}
 
 func _sprite(pic: String, h: float) -> TextureRect:
