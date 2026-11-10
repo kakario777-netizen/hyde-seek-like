@@ -1,0 +1,3 @@
+pip 0 
+ok isnet-anime /home/runner/work/hyde-seek-like/hyde-seek-like/assets_src/upload/chibi_hero_court2.png
+ok u2net /home/runner/work/hyde-seek-like/hyde-seek-like/assets_src/upload/chibi_hero_court2.png
