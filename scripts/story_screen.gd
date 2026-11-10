@@ -85,7 +85,7 @@ func _ready() -> void:
 	_set_bg("yakbang")
 	_next()
 
-const BG_MUSIC := {"alley": "night", "title": "story", "yakbang": "story", "jangteo": "story", "byeolchae": "night", "street_ink": "story", "yakbang_calm": "yakbang_day", "wedding": "wedding_feast", "deck": "sea_voyage", "deck_night": "sea_voyage", "ferry": "sea_voyage", "port": "sea_voyage", "holland": "holland_town", "holland_port": "holland_town", "island": "holland_town"}
+const BG_MUSIC := {"alley": "night", "title": "story", "yakbang": "story", "jangteo": "story", "byeolchae": "night", "street_ink": "story", "yakbang_calm": "yakbang_day", "wedding": "wedding_feast", "palace": "palace", "deck": "sea_voyage", "deck_night": "sea_voyage", "ferry": "sea_voyage", "port": "sea_voyage", "holland": "holland_town", "holland_port": "holland_town", "island": "holland_town"}
 
 ## 인물이 그려진 장면 일러스트: 이 배경일 땐 전신 인물을 띄우지 않음
 const SCENE_ILLUST := ["wedding", "family"]
