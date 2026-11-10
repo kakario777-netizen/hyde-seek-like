@@ -1071,12 +1071,16 @@ func _resolve() -> void:
 			var bl: String = BLOCK_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
 			var bparts: PackedStringArray = bl.split("\n", false, 1)
 			# 상황 설명은 이름 없이, 따옴표 대사만 그 사람 이름으로
-			var talk: Array = [{"who": "", "pic": e["sprite"], "text": bparts[0]}]
+			# 상황 설명은 그림 없이 (그림이 있으면 그 사람이 말하는 것처럼 보임)
+			var talk: Array = [{"who": "", "text": bparts[0]}]
 			if bparts.size() > 1:
 				talk.append({"who": e["name"], "pic": e["sprite"], "text": bparts[1].replace("\"", "")})
 			var disg: bool = main.chapter in main.DISGUISED
 			for ln in BLOCK_REPLY.get(eid, BLOCK_REPLY["_"]):
 				var l2: Dictionary = ln.duplicate()
+				if not str(l2["who"]).begins_with("{"):
+					# 상대 대사는 실제로 길을 막은 그 적의 이름·그림으로
+					l2["who"] = e["name"]; l2["pic"] = e["sprite"]
 				if not disg:
 					l2["who"] = l2["who"].replace("{alias}", "{name}")
 					l2["pic"] = l2["pic"].replace("hero_disguise", "hero")
@@ -1184,7 +1188,7 @@ const BLOCK_REPLY := {
 	"mob": [{"who": "{name}", "pic": "hero", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
 		{"who": "중독된 사내", "pic": "addict", "text": "약…! 그 약 냄새… 내놔아아!"}],
 	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병 도는 마을에 약을 가져가는 길이에요. 비켜요!"},
-		{"who": "뱃사람", "pic": "walpae", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],
+		{"who": "뱃사람", "pic": "haejeok_young", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],
 }
 
 const BLOCK_LINES := {
