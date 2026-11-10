@@ -8,7 +8,7 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
-const BATTLE_BG := {"jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "corridor", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
+const BATTLE_BG := {"jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -301,7 +301,7 @@ const FINALS := ["baegun", "seohwi", "shadow", "darae"]
 ## 중간보스 특수기: 세 번째 차례마다 예고하고 쓴다
 const SPECIALS := {
 	"dogyeol": "pierce", "heukdu1": "multi", "heukdu2": "drain", "heukdu": "multi",
-	"gatekeeper": "pierce", "mob_boss": "sap", "baegun_mask": "sap", "seohwi2": "multi",
+	"baegun_mask": "sap", "seohwi2": "multi",
 	"shadow_s": "drain", "pirate_boss": "multi", "cheong_merchant": "sap", "seohwi": "glare", "seohwi3": "glare", "jeong_shadow": "drain"}
 const SP_INFO := {
 	"multi": {"n": "연타", "desc": "%d씩 세 번 공격"},

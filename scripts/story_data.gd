@@ -35,10 +35,8 @@ const CHAPTERS := {
 			{"map": "s4_3", "name": "화엄골 가는 길", "after": "C4_CASTLE",
 				"after_battle": {"battle": "seohwi3", "pre": "C4_GATE_PRE", "post": "C4_GATE_POST", "lose_ok": true}},
 			{"map": "s4_f1", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1"},
-			{"map": "s4_f2", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2"},
-			{"map": "s4_f3", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 3층 · 약 공방", "after": "C4_F3"},
-			{"map": "s4_f4", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 4층 · 보물고", "after": "C4_F4"},
-			{"map": "s4_f5", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 5층 · 천수각", "ally": "seohwi"}],
+			{"map": "s4_f2", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2X"},
+			{"map": "s4_f5", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 3층 · 천수각", "ally": "seohwi"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
@@ -86,6 +84,7 @@ static func lines(key: String) -> Array:
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 11) + C9_KING + C9_DARAE + C9_BRIDGE
 		"C9_SHOP_WED": return C9_SHOP + CH9_INTRO.slice(11)
+		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
 		"C10_ISLE": return C10_EXILE + C10_FALL
 		"C10_CURE_WED": return C10_CURE + CH9_INTRO.slice(11)
@@ -241,11 +240,11 @@ const CH4_INTRO := [
 	{"bg": "den", "who": "", "text": "이튿날 아침, 소굴 안쪽 방.\n서휘는 창밖 청계천을 바라본 채 한참을 말이 없었다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…어젯밤 대대장이 그러더군. 꼬마 의원은 '허가 놈의 계집아이'라고."},
 	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "……"},
-	{"who": "", "pose": "hero_sad", "text": "{alias}는 천천히 패랭이를 벗었다.\n동여맨 머리를 풀자, 긴 머리칼이 어깨 위로 흘러내렸다."},
-	{"who": "{name}", "pose": "hero_sad", "text": "…제 이름은 {name}예요. 허 의원님 약방에서 자란 아이요.\n누명을 쓰고 쫓기느라, 사내아이인 척할 수밖에 없었어요."},
+	{"who": "", "pose": "hero_disguise_hair", "text": "{alias}는 천천히 패랭이를 벗었다.\n동여맨 머리를 풀자, 사내 옷 위로 긴 머리칼이 어깨까지 흘러내렸다."},
+	{"who": "{name}", "pose": "hero_disguise_hair", "text": "…제 이름은 {name}예요. 허 의원님 약방에서 자란 아이요.\n누명을 쓰고 쫓기느라, 사내아이인 척할 수밖에 없었어요."},
 	{"who": "서휘", "pose": "seohwi", "text": "……"},
 	{"who": "서휘", "pose": "seohwi", "text": "…어쩐지. 다친 놈들 이마를 짚던 손이 사내 손치곤 너무 조심스러웠지.\n처음부터 조금은 알고 있었는지도 모르겠군."},
-	{"who": "{name}", "pose": "hero_surprised", "text": "화… 화 안 나요? 속였는데."},
+	{"who": "{name}", "pose": "hero_disguise_hair", "text": "화… 화 안 나요? 속였는데."},
 	{"who": "서휘", "pose": "seohwi", "text": "속인 건 나도 마찬가지다. 그 씨앗이 수상한 줄 알면서도 너에게 건넸으니.\n…사내든 계집이든, 너는 내 아이들을 고쳐 준 의원이다. 그건 변하지 않아."},
 	{"who": "서휘", "pose": "seohwi", "text": "(…그런데 왜 이렇게 가슴이 시끄럽지.\n정신 차려라, 서휘. 지금은 그럴 때가 아니다.)"},
 	{"who": "", "pose": "hero_disguise", "text": "{name}는 다시 머리를 동여매고 패랭이를 눌러 썼다.\n\"밖에선 여전히 '{alias}'예요. 아직은 쫓기는 몸이니까요.\""},
@@ -266,10 +265,10 @@ const C4_STREAM := [
 	{"who": "", "pose": "jongsagwan", "text": "철릭을 벗어 던진 윤도결이 뒤따라 뛰어들었다.\n한참 뒤 둑 위로 끌어올린 {alias}는… 숨을 쉬지 않았다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "정신 차려! …숨을 안 쉬어. 안 돼, 이렇게 보낼 순 없다!"},
 	{"who": "", "pose": "jongsagwan", "text": "윤도결은 망설임 없이 {alias}의 가슴을 누르고, 입으로 숨을 불어 넣었다.\n한 번, 두 번, 세 번—"},
-	{"who": "", "pose": "hero_sad", "text": "콜록, 콜록…! {alias}가 물을 토해 내며 눈을 떴다.\n떠내려간 패랭이, 젖은 무명천 아래로 풀려 내린 긴 머리, 가냘픈 어깨…"},
+	{"who": "", "pose": "hero_disguise_hair", "text": "콜록, 콜록…! {alias}가 물을 토해 내며 눈을 떴다.\n떠내려간 패랭이, 젖은 무명천 아래로 풀려 내린 긴 머리, 가냘픈 어깨…"},
 	{"music": "heart_flutter", "who": "윤도결", "pose": "jongsagwan", "text": "…여, 여자였어…?\n네가… 방에 붙은 그 약방 계집아이였구나."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "(…여자였어. 그날 병든 마을에서 가슴이 뛴 게… 이상한 게 아니었구나.\n…다행이다. 정말, 다행이야.)"},
-	{"who": "{name}", "pose": "hero_sad", "text": "…제 이름은 {name}예요.\n속여서 죄송해요. 하지만 의원님을 해친 건 정말 제가 아니에요."},
+	{"who": "{name}", "pose": "hero_disguise_hair", "text": "…제 이름은 {name}예요.\n속여서 죄송해요. 하지만 의원님을 해친 건 정말 제가 아니에요."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…아이를 구하겠다고 제 목숨도 내던지는 사람이 의원을 해쳤을 리 없지.\n열병 마을에서 밤새 아이들을 돌보던 것도 너였고."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "약방 사건엔 이상한 게 너무 많았다. 돈궤를 연 손은 어른의 손이었고, 핏자국은 의원 본인 것이었지.\n…이제 확신한다. 넌 범인이 아니야. 내가 증명해 주마."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "그, 그리고… 방금 그건 숨을 살리려던 것뿐이다! 오해하지 마라!"},
@@ -287,7 +286,7 @@ const C4_CLUE := [
 ]
 
 const CH4_GOAL := [
-	{"who": "", "bg": "cheonsugak", "text": "백운의 성 5층, 천수각.\n금칠한 기둥 사이로 화엄골 골짜기가 발아래 펼쳐졌다."},
+	{"who": "", "bg": "cheonsugak", "text": "백운의 성 3층, 천수각.\n금칠한 기둥 사이로 화엄골 골짜기가 발아래 펼쳐졌다."},
 	{"who": "???", "pic": "baegun_boss", "text": "기어이 여기까지 왔구나. 서휘, 그리고… 허가 놈의 계집아이."},
 	{"who": "", "text": "삿갓이 벗겨졌다.\n하얗게 센 수염, 자애롭게 웃던 다래의 할아버지."},
 	{"who": "백운", "pic": "baegun_boss", "text": "흑심단은 원래 내 처방이었다. 마음의 검은 것을 떼어 내는 약?\n그건 허가 놈의 헛된 꿈이었지. 나는 그 약으로 사람을 길들이는 법을 알아냈을 뿐."},
@@ -995,7 +994,7 @@ const C4_F3_POST := [
 ]
 
 const C4_F3 := [
-	{"bg": "corridor", "who": "", "text": "공방 안쪽, 쇠사슬에 묶인 마을 사람들이 청심보명단을 빚고 있었다."},
+	{"bg": "corridor", "who": "", "text": "회랑 끝 공방 안쪽, 쇠사슬에 묶인 마을 사람들이 청심보명단을 빚고 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 사람들, 다 화엄골 마을 사람들이에요…!\n약을 미끼로 붙잡아 두고 일을 시킨 거야."},
 	{"who": "", "text": "{alias}는 사슬을 풀고, 가지고 있던 해독 약재로 사람들의 손목을 짚어 가며 약을 먹였다."},
 	{"who": "마을 노인", "text": "고맙소, 젊은 의원…\n백 노인이 저리 변하기 전엔, 이 골짜기 사람들을 공짜로 고쳐 주던 분이었는데…"},
@@ -1004,7 +1003,7 @@ const C4_F3 := [
 ]
 
 const C4_F5_PRE := [
-	{"bg": "cheonsugak", "who": "", "text": "성 5층, 천수각으로 오르는 마지막 계단참.\n삿갓 쓴 노인이 난간에 기대어 기다리고 있었다."},
+	{"bg": "cheonsugak", "who": "", "text": "성 3층, 천수각으로 오르는 마지막 계단참.\n삿갓 쓴 노인이 난간에 기대어 기다리고 있었다."},
 	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "세 번째로구나, 아이들아.\n허나 천수각 문턱은 한 발짝도 넘지 못한다."},
 ]
 

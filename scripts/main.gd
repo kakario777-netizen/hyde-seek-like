@@ -657,6 +657,10 @@ func fig_scale(name: String) -> float:
 		return 0.66
 	if name.begins_with("hero_adult"):
 		return 0.92
+	if name == "hero_disguise_hair":
+		return 0.88
+	if name.begins_with("hero_disguise"):
+		return 1.02   # 패랭이 높이만큼 몸이 작게 보여서 평상복 주인공과 키를 맞춤
 	if name.begins_with("hero"):
 		return 0.88
 	if name == "darae_prison":
@@ -683,7 +687,12 @@ func illust(name: String) -> Texture2D:
 		elif ResourceLoader.exists("res://assets/chars/hero_court.png"):
 			name = "hero_court"
 	var p := "res://assets/chars/%s.png" % name
+	if not ResourceLoader.exists(p) and CHAR_FALLBACK.has(name):
+		p = "res://assets/chars/%s.png" % CHAR_FALLBACK[name]
 	return load(p) if ResourceLoader.exists(p) else null
+
+## 아직 그림이 없을 때 임시로 쓰는 그림
+const CHAR_FALLBACK := {"hero_disguise_hair": "hero_disguise_sad"}
 
 const BG_FALLBACK := {"yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
 	"flash_plague": "street_ink", "flash_carried": "street_ink", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
@@ -984,6 +993,7 @@ const UPGRADE_COST := [0, 5, 10, 15]   # ★1→★2 5냥, ★2→★3 10냥, �
 ## ── 약탕관: 약초 4개 + 엽전으로 탕약 달이기 ──────────────
 const BREW_HERBS := 4
 const BREW_SMALL := 2
+const HERB_MAX := 8   # 약탕관에 보관할 수 있는 약초 수
 const BREWS := [{"key": "small", "name": "묽은 탕약", "lv": "2단계", "heal": 20, "cost": 3, "herbs": 2},
 	{"key": "big", "name": "진한 탕약", "lv": "3단계", "heal": 40, "cost": 6, "herbs": 4}]
 
@@ -994,19 +1004,22 @@ func show_brew(cb := Callable()) -> void:
 	var info := make_label("", 30, INK)
 	info.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(info)
-	var slots := HBoxContainer.new()
-	slots.alignment = BoxContainer.ALIGNMENT_CENTER
-	slots.add_theme_constant_override("separation", 14)
-	vb.add_child(slots)
+	var slots := GridContainer.new()
+	slots.columns = 4
+	slots.add_theme_constant_override("h_separation", 14)
+	slots.add_theme_constant_override("v_separation", 10)
+	var slot_c := CenterContainer.new()
+	slot_c.add_child(slots)
+	vb.add_child(slot_c)
 	var herb_tex: Texture2D = load("res://assets/ui/tiles/deco_herb.png")
 	var cells: Array = []
-	for k in BREW_HERBS:
+	for k in HERB_MAX:
 		var pc := PanelContainer.new()
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color("efe2c4"); sb.set_corner_radius_all(14)
 		sb.border_color = Color("8a6a3a"); sb.set_border_width_all(3)
 		pc.add_theme_stylebox_override("panel", sb)
-		pc.custom_minimum_size = Vector2(104, 112)
+		pc.custom_minimum_size = Vector2(96, 96)
 		var r := TextureRect.new()
 		r.texture = herb_tex
 		r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -1345,7 +1358,7 @@ func load_game(slot: String) -> void:
 	hero_name = d.get("hero_name", "연이"); alias_name = d.get("alias_name", "")
 	max_hp = int(d.get("max_hp", 40)); hp = int(d.get("hp", max_hp))
 	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))
-	potions_small = int(d.get("potions_small", 0)); herbs = int(d.get("herbs", 0))
+	potions_small = int(d.get("potions_small", 0)); herbs = mini(int(d.get("herbs", 0)), HERB_MAX)
 	chapter = int(d.get("chapter", 1)); flags = d.get("flags", {})
 	if not flags.has("hp_plus10"):   # 체력 +10 조정 전 저장
 		flags["hp_plus10"] = true; max_hp += 10; hp += 10

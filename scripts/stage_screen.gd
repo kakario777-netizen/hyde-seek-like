@@ -205,10 +205,12 @@ func _build_world() -> void:
 		else:
 			_make_guard(e["i"])
 	var comp: String = main.companion()
-	if comp != "" and main.chibi_only(comp) != null:
+	var comp_pic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
+	if comp != "" and main.chibi(comp_pic) != null:
+		# 동행하는 인물은 주인공 한 칸 뒤에서 따라온다
 		follower = Control.new()
 		follower.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		follower.add_child(_sprite(comp, 150))
+		follower.add_child(_sprite(comp_pic, 150))
 		follower.position = tile_center(_behind(pos))
 		world.add_child(follower)
 	token = _make_token()
@@ -1000,7 +1002,7 @@ func _pick_herb(i: int) -> void:
 	herbs_got += 1
 	if herbs_got == 1:
 		comp_say("herb")
-	main.herbs += 1
+	main.herbs = mini(main.herbs + 1, main.HERB_MAX)   # 약탕관에는 8개까지
 	main.coins += 2
 	if main.herbs == main.BREW_SMALL or main.herbs == main.BREW_HERBS:
 		_brew_hint()
