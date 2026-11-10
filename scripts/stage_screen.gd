@@ -207,6 +207,8 @@ func _build_world() -> void:
 	var comp: String = main.companion()
 	var comp_pic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
 	var cp := "res://assets/chibi/%s.png" % main.CHIBI_OF.get(comp_pic, comp_pic)
+	if not ResourceLoader.exists(cp):
+		cp = "res://assets/chibi/%s.png" % comp   # 예: 윤도결(jongsagwan) → chibi/dogyeol
 	if comp != "" and ResourceLoader.exists(cp):
 		# 동행하는 인물은 평상시 모습 데포르메로, 주인공과 같은 키로 한 칸 뒤에서 따라온다
 		follower = Control.new()
@@ -217,6 +219,7 @@ func _build_world() -> void:
 		fr.position = Vector2(-fw / 2.0, -MAP_H + 8)
 		follower.add_child(fr)
 		follower.position = tile_center(_behind(pos))
+		follower.visible = _behind(pos) != pos   # 출발 칸처럼 뒤 칸이 없으면 겹치지 않게 숨김
 		world.add_child(follower)
 	token = _make_token()
 	token.position = tile_center(pos)
@@ -268,6 +271,8 @@ func _make_tile_ent(i: int) -> void:
 		"talk":
 			var tk: Dictionary = _talk_at(i)
 			var pic: String = tk.get("pic", WHO_PIC.get(tk.get("who", ""), ""))
+			if _is_companion_pic(pic):
+				pic = ""   # 이미 뒤따라오는 동행은 맵 위에 한 번 더 세우지 않는다
 			if pic != "" and main.illust(pic) != null:
 				root.add_child(_sprite(pic, 165))
 				root.add_child(_badge("talk", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
@@ -920,8 +925,17 @@ func _play(steps: int, chosen: Button) -> void:
 		var target := tile_center(pos)
 		_focus(target, true, HOP_TIME + STEP_PAUSE)
 		if follower:
+			# 동행도 주인공처럼 통통 뛰며 한 칸 뒤를 따라온다
+			var fto := tile_center(_behind(pos))
+			follower.visible = true
 			var ftw := create_tween()
-			ftw.tween_property(follower, "position", tile_center(_behind(pos)), HOP_TIME).set_trans(Tween.TRANS_QUAD)
+			ftw.tween_property(follower, "position", follower.position.lerp(fto, 0.5) - Vector2(0, 40), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			ftw.tween_property(follower, "position", fto, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+			if follower.get_child_count() > 0:
+				var fpic: Control = follower.get_child(0)
+				fpic.pivot_offset = Vector2(fpic.size.x / 2.0, fpic.size.y)
+				ftw.tween_property(fpic, "scale", Vector2(1.08, 0.92), 0.06)
+				ftw.tween_property(fpic, "scale", Vector2.ONE, 0.08)
 		var tw := create_tween()
 		tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 40), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
@@ -968,6 +982,20 @@ func _pick_errand(i: int) -> void:
 	_update_hud()
 
 var follower: Control = null
+
+func _is_companion_pic(pic: String) -> bool:
+	var comp: String = main.companion()
+	if comp == "" or pic == "":
+		return false
+	var cpic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
+	var same := [comp, cpic, main.CHIBI_OF.get(cpic, cpic)]
+	if comp == "seohwi":
+		same += ["seohwi_return", "seohwi_dutch", "seohwi_podo"]
+	if comp == "darae":
+		same += ["friend", "darae_adult", "friend_worried"]
+	if comp == "dogyeol":
+		same += ["jongsagwan", "dogyeol", "jongsagwan_blush"]
+	return pic in same or pic.begins_with(cpic + "_")
 ## 동료는 한 칸 뒤(지나온 칸)에 선다
 func _behind(i: int) -> int:
 	var pv: Array = tiles[i]["prev"]

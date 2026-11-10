@@ -71,9 +71,10 @@ func _ready() -> void:
 				if mv["t"] == "atk":
 					mv["v"] += 2 + max(0, main.chapter - 1)
 	# 난이도 조정: 모든 적 공격 -2 (최소 2)
+	var cut := 2 + (5 if main.chapter == 7 else 0)   # 한양→화란 뱃길(7장)은 공격 -5 더
 	for mv in enemy["moves"] + [enemy["heavy"]]:
 		if mv["t"] == "atk":
-			mv["v"] = max(2, int(mv["v"]) - 2)
+			mv["v"] = max(2, int(mv["v"]) - cut)
 	is_mid = boss and (not enemy_id in FINALS or enemy_id == "seohwi")
 	e_hp = enemy["hp"]
 	ally = {}   # 동료는 전투에 끼어들지 않는다 (대화로만 함께한다)

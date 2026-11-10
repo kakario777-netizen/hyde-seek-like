@@ -296,8 +296,8 @@ func start_board() -> void:
 ## opts: {"lose_ok": 져도 이야기 진행, "ally": 동료 id}
 ## 지금 함께 다니는 동료 (전투 도움 대신 대화로 함께한다)
 func companion() -> String:
-	if not sub_stage.is_empty():
-		return ""
+	if not sub_stage.is_empty():   # 항해 중 들르는 맵: 그 장의 동행이 따라온다
+		return sub_stage.get("ally", ch_cfg().get("stage_ally", ""))
 	var st: Array = ch_cfg().get("stages", [])
 	if stage_idx < st.size() and st[stage_idx].has("ally"):
 		return st[stage_idx]["ally"]
@@ -327,7 +327,7 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 		var me := "{alias}" if chapter in DISGUISED else "{name}"
 		var pre: Array = FINAL_COMP.get(enemy_id, [])
 		if pre.is_empty() and c.has("pre"):
-			pre = [{"who": me, "text": comp_line("pre_me")}, {"who": c["name"], "pic": c["pic"], "text": comp_line("pre")}]
+			pre = [{"who": me, "pic": hero_pose(), "text": comp_line("pre_me")}, {"who": c["name"], "pic": c["pic"], "text": comp_line("pre")}]
 		var post_line: String = comp_line("post") if not FINAL_COMP.has(enemy_id) else ""
 		var win := on_win
 		if post_line != "":
@@ -511,6 +511,14 @@ func ask_name(cb: Callable) -> void:
 			cb.call())
 
 const DISGUISED := [2, 3, 4, 7, 8]
+
+## 지금 장에 맞는 주인공 전신 그림 (남장·의녀·어른·평상복)
+func hero_pose() -> String:
+	if chapter >= 9:
+		return "hero_adult"
+	if chapter in DISGUISED:
+		return "hero_disguise"
+	return "hero"   # 5장은 illust()가 의녀 옷 그림으로 바꿔 준다
 
 func token_name() -> String:
 	return "token_disguise" if chapter in DISGUISED else "token_hero"
