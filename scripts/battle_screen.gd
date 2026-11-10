@@ -248,6 +248,9 @@ func _start() -> void:
 
 var enemy_full := Vector2.ZERO   # 적 그림 원래 크기 (줄일 때 기준)
 
+## 쪼그려 앉은 그림 등은 서 있는 적과 키가 맞도록 작게
+const ENEMY_FIG := {"addict": 0.65}
+
 func _layout() -> void:
 	if size.y < 200:
 		return
@@ -264,7 +267,7 @@ func _layout() -> void:
 	var bottom: float = ptop - 6
 	var room: float = max(220.0, bottom - (tbot + 8 + (ip_panel.size.y if ip_panel else 70) + 8))
 	var k: float = min(1.0, room / max(1.0, enemy_full.y))
-	var sz := enemy_full * k
+	var sz := enemy_full * k * float(ENEMY_FIG.get(enemy.get("sprite", ""), 1.0))
 	enemy_sprite.custom_minimum_size = sz
 	enemy_sprite.size = sz
 	enemy_sprite.pivot_offset = sz * Vector2(0.5, 1.0)
