@@ -206,11 +206,16 @@ func _build_world() -> void:
 			_make_guard(e["i"])
 	var comp: String = main.companion()
 	var comp_pic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
-	if comp != "" and main.chibi(comp_pic) != null:
-		# 동행하는 인물은 주인공 한 칸 뒤에서 따라온다
+	var cp := "res://assets/chibi/%s.png" % main.CHIBI_OF.get(comp_pic, comp_pic)
+	if comp != "" and ResourceLoader.exists(cp):
+		# 동행하는 인물은 평상시 모습 데포르메로, 주인공과 같은 키로 한 칸 뒤에서 따라온다
 		follower = Control.new()
 		follower.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		follower.add_child(_sprite(comp_pic, 150))
+		var ft: Texture2D = load(cp)
+		var fw: float = MAP_H * ft.get_width() / max(1.0, float(ft.get_height()))
+		var fr: TextureRect = main.tex_rect(ft, Vector2(fw, MAP_H))
+		fr.position = Vector2(-fw / 2.0, -MAP_H + 8)
+		follower.add_child(fr)
 		follower.position = tile_center(_behind(pos))
 		world.add_child(follower)
 	token = _make_token()
