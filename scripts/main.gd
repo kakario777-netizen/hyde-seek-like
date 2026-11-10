@@ -155,6 +155,14 @@ func _debug_capture() -> void:
 							bs[0].pressed.emit(); break
 					await get_tree().create_timer(0.25).timeout
 				print("BOARD_IS_WORLD ", board.get_script().resource_path, " cleared=", board.cleared.keys())
+		"cards":
+			var bg := ColorRect.new(); bg.color = Color("3a2c22"); bg.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(bg)
+			var hb := HBoxContainer.new(); hb.position = Vector2(20, 200); hb.add_theme_constant_override("separation", 14); add_child(hb)
+			for lv in [1, 2, 3, 4]:
+				hb.add_child(card_button({"id": "jumeok", "lv": lv}))
+			var hb2 := HBoxContainer.new(); hb2.position = Vector2(20, 520); hb2.add_theme_constant_override("separation", 14); add_child(hb2)
+			for lv in [1, 2, 3, 4]:
+				hb2.add_child(card_button({"id": "pum", "lv": lv}))
 		"chstory":
 			chapter = int(args.get("ch", "2"))
 			play_story(StoryData.lines(args.get("key", "CH2_INTRO")).slice(int(args.get("from", "0"))), show_title)
@@ -722,7 +730,7 @@ func _center(c: Control) -> CenterContainer:
 
 func card_button(entry: Dictionary, w := 162, h := 270) -> Button:
 	var c: Dictionary = GameData.stats(entry["id"], entry["lv"])
-	var paper := "sangso" if entry["lv"] == 1 else ("sangso_gold" if entry["lv"] == 2 else "sangso_red")
+	var paper := "sangso" if entry["lv"] == 1 else ("sangso_gold" if entry["lv"] == 2 else ("sangso_red" if entry["lv"] == 3 else "sangso_sky"))
 	var b := _sangso_button(paper, w, h)
 	b.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS  # 손가락이 조금 움직여도 눌리게
 	var vb := _card_box(b)
@@ -735,7 +743,7 @@ func card_button(entry: Dictionary, w := 162, h := 270) -> Button:
 	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(nm)
 	if entry["lv"] >= 2:
-		var st := make_label("★".repeat(entry["lv"]), int(18 * s), RED)
+		var st := make_label("★".repeat(entry["lv"]), int(18 * s), RED if entry["lv"] < 4 else Color("1f3f78"))
 		st.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		vb.add_child(st)
 	var ds := make_label(c["desc"], int(19 * s), INK_SOFT)
