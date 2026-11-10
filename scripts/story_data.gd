@@ -307,7 +307,7 @@ const CH4_AFTER_DUEL := [
 	{"who": "백운", "pose": "baegun", "text": "…그만해라, 다래야. 그 아이 말이 맞다.\n이 할애비가 돈에 눈이 멀어 몹쓸 짓을 했다."},
 	{"who": "백운", "pose": "baegun", "text": "약방 지하에서 가져간 해독약 처방은 저 궤짝 안에 있다.\n…허가를 살려 다오. 그게 내가 할 수 있는 마지막 속죄다."},
 	{"who": "다래", "pose": "friend_worried", "text": "할아버지…\n…{alias}, 아니, {name}아. 미안해. 정말 미안해…"},
-	{"who": "{name}", "pose": "hero_sad", "text": "나도 미안해. 더 일찍 말했어야 했는데.\n…우리, 아직 친구지?"},
+	{"who": "{name}", "pose": "hero_disguise_sad", "text": "나도 미안해. 더 일찍 말했어야 했는데.\n…우리, 아직 친구지?"},
 	{"who": "다래", "pose": "friend", "text": "당연하지, 바보야!"},
 	{"who": "서휘", "pose": "seohwi", "text": "…{name}. 이제 다래도 너를 진짜 이름으로 부르는군.\n(독을 빚게 한 나를 끝까지 사람으로 대해 준 사람. …잊지 못하겠군.)"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 그리고 서휘.\n너희 덕분에 삿갓 노인을 잡을 수 있었다. …고맙다."},
