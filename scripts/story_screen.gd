@@ -162,6 +162,7 @@ func _next() -> void:
 		_show_pose(line.get("pose", line.get("pic", "")))
 	elif who == "":
 		_show_pose("")
+	main.line_music(line)
 	text_lbl.text = main.sentence_breaks(main.fmt(line["text"]))
 	var goal: bool = line["text"].begins_with("【목표】")
 	text_lbl.add_theme_color_override("font_color", Color("6b3a1e") if goal else main.INK)
@@ -177,7 +178,6 @@ func _show_pose(pose: String) -> void:
 		return
 	last_pose = pose
 	if pose == "shadow":
-		main.bgm("night")
 		main.sfx("gong", -4.0)
 	var t: Texture2D = main.illust(pose) if pose != "" else null
 	if t == null:

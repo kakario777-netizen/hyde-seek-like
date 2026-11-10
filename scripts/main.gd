@@ -549,6 +549,16 @@ func apply_line_effects(line: Dictionary) -> void:
 		sfx("good")
 
 ## 팝업으로 이어지는 짧은 이야기. line: {who, pic, text, bg, choices:[{text,set}], if, ifnot}
+## 장면 배경음: 검은 사내·삿갓 백운이 나오면 무서운 곡, "music" 줄은 그 곡으로
+const SCENE_MUSIC := {"shadow": "dread_shadow", "baegun_boss": "dread_sakgat"}
+var chain_music := ""
+func line_music(line: Dictionary) -> void:
+	if line.has("music"):
+		bgm(line["music"]); return
+	var p: String = line.get("pic", line.get("pose", ""))
+	if SCENE_MUSIC.has(p):
+		bgm(SCENE_MUSIC[p])
+
 func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 	while i < lines.size():
 		var ln: Dictionary = lines[i]
@@ -558,12 +568,18 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 			i += 1; continue
 		break
 	if i >= lines.size():
+		if chain_music != "" and audio and audio.current_bgm != chain_music and audio.current_bgm in SCENE_MUSIC.values() + ["sad_farewell"]:
+			bgm(chain_music)   # 대화가 끝나면 원래 배경음으로
+		chain_music = ""
 		if cb.is_valid():
 			cb.call()
 		return
 	var line: Dictionary = lines[i]
 	var nbg: String = line.get("bg", bg)
 	apply_line_effects(line)
+	if i == 0:
+		chain_music = audio.current_bgm if audio else ""
+	line_music(line)
 	var next := func(): dialog_chain(lines, cb, i + 1, nbg)
 	if line.has("choices"):
 		popup_choices(line["text"], line["choices"], func(k: int):
