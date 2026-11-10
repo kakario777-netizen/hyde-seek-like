@@ -743,7 +743,7 @@ func card_button(entry: Dictionary, w := 162, h := 270) -> Button:
 	nm.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(nm)
 	if entry["lv"] >= 2:
-		var st := make_label("★".repeat(entry["lv"]), int(18 * s), RED if entry["lv"] < 4 else Color("1f3f78"))
+		var st := make_label("★".repeat(entry["lv"]), int(18 * s), RED)
 		st.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		vb.add_child(st)
 	var ds := make_label(c["desc"], int(19 * s), INK_SOFT)
