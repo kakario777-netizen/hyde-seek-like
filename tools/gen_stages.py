@@ -108,5 +108,10 @@ S += [
     ("v_port", "광주 항구", "wood", "port", 32, 703, {"events": ["shop", "rest", "item", "trap"], "watchers": 3, "blockers": 2}),
     ("v_sea", "천축 앞바다", "wood", "deck", 34, 704, {"events": ["trap", "rest", "debuff", "item"], "watchers": 3, "blockers": 2, "spikes": 0, "boss": {"battle": "pirate_boss", "pre": "C7_PIRATE_PRE", "post": "C7_PIRATE_POST"}}),
 ]
+S += [
+    ("s10_isle", "남쪽 유배 섬 가는 길", "dirt", "exile_hut", 36, 1001, {"events": ["talk", "rest", "item", "shop"], "watchers": 3, "blockers": 1, "herbs": 5}),
+    ("s10_palace", "밤의 궁궐 잠입", "palace", "palace_night", 34, 1002, {"events": ["trap", "item", "rest", "debuff"], "watchers": 5, "blockers": 2}),
+    ("s10_mapo", "마포 나루 청 상인 창고", "wood", "mapo_warehouse", 36, 1003, {"events": ["shop", "trap", "rest", "item"], "watchers": 4, "blockers": 2, "boss": {"battle": "jeong_shadow", "pre": "C10_JEONG_PRE", "post": "C10_JEONG_POST"}}),
+]
 for sid, name, tile, bg, ln, seed, kw in S:
     make(sid, name, tile, bg, ln, seed, **kw)

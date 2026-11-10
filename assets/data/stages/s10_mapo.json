@@ -1,0 +1,280 @@
+{
+ "id": "s10_mapo",
+ "name": "마포 나루 청 상인 창고",
+ "tile": "wood",
+ "bg": "mapo_warehouse",
+ "turns": 17,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "buff"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "buff"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "shop"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -9,
+   "type": "trap"
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "pojol"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "spike"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -12,
+   "type": "item"
+  },
+  {
+   "x": -10,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "debuff"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "boss",
+   "battle": "jeong_shadow",
+   "pre": "C10_JEONG_PRE",
+   "post": "C10_JEONG_POST"
+  },
+  {
+   "x": -13,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -16,
+   "type": "debuff"
+  },
+  {
+   "x": -14,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -17,
+   "type": "debuff"
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -15,
+   "y": -19,
+   "type": "rest"
+  },
+  {
+   "x": -15,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -20,
+   "type": "spike"
+  },
+  {
+   "x": -17,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -20,
+   "type": "pojol"
+  },
+  {
+   "x": -18,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -22,
+   "type": "debuff"
+  },
+  {
+   "x": -19,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -22,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -7,
+   "y": -8,
+   "at": 15,
+   "zone": [
+    15
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "at": 24,
+   "zone": [
+    23,
+    24
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "at": 5,
+   "zone": [
+    4,
+    5
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -18,
+   "y": -21,
+   "at": 39,
+   "zone": [
+    39
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}

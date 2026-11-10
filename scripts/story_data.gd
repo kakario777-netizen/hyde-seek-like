@@ -60,8 +60,14 @@ const CHAPTERS := {
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "h_port", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "h_deck", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
-			{"map": "s9_p", "name": "포도청 수련", "after": "C9_SHOP_WED", "after_story": true, "ally": "", "token": "seohwi_podo", "me_name": "서휘",
+			{"map": "s9_p", "name": "포도청 수련", "after": "C10_SHOP_LETTER", "after_story": true, "ally": "", "token": "seohwi_podo", "me_name": "서휘",
 				"foes": {"walpae": "walpae", "pojol": "rival"}},
+			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae",
+				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s10_palace", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
+				"foes": {"walpae": "naegeumwi", "pojol": "naegeumwi"}, "ally": "seohwi"},
+			{"map": "s10_mapo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
+				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "seohwi"},
 			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
 			{"map": "s9_2", "name": "남산 아래 집터로"}],
 		"goal_text": "남산 아래, 볕 잘 드는 빈터에 닿았다.\n서휘가 말뚝 하나를 박았다. \"여기에 짓자.\"", "goal_title": "새 보금자리", "goal_pic": "seohwi", "goal_bg": "family"},
@@ -80,6 +86,9 @@ static func lines(key: String) -> Array:
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 11) + C9_KING + C9_DARAE + C9_BRIDGE
 		"C9_SHOP_WED": return C9_SHOP + CH9_INTRO.slice(11)
+		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
+		"C10_ISLE": return C10_EXILE + C10_FALL
+		"C10_CURE_WED": return C10_CURE + CH9_INTRO.slice(11)
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"story1": return GameData.STORY1
 		"story2": return GameData.STORY2
@@ -1124,7 +1133,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
@@ -1178,3 +1187,118 @@ const ALLIES := {
 
 ## 아직 그림이 없어 도트로 대신하는 인물 (진짜 그림이 오면 여기서 지운다)
 const PLACEHOLDERS := []
+
+# ── 두 번째 밤: 허 의원의 편지 · 유배 섬 · 대비마마 · 정 의관 ─────────────
+const C10_LETTER := [
+	{"bg": "yakbang_calm", "music": "lonely_night", "who": "", "text": "며칠 뒤, 문을 닫은 밤의 약방.\n{name|은} 맨 아래 약장 서랍을 닦다가 손을 멈췄다. 서랍 바닥이 이중으로 되어 있었다."},
+	{"who": "", "text": "숨은 칸 안에는 누렇게 바랜 편지 한 통과 작은 놋쇠 열쇠가 들어 있었다.\n겉봉에는 낯익은 붓글씨. ― '내 딸에게.'"},
+	{"who": "{name}", "pose": "hero_adult", "text": "…의원님 글씨야."},
+	{"who": "허 의원", "pose": "heo", "text": "(편지) {name}아. 네가 이 글을 읽는다면, 나는 끝내 너에게 직접 말하지 못한 것이겠지.\n그날 내가 삼킨 말부터 적으마."},
+	{"bg": "flash_plague", "who": "", "text": "(편지) 네 부모는 내 동문이었다. 역병이 번진 마을에 누구도 들어가지 않을 때,\n둘은 약 보따리를 지고 제 발로 그 마을에 들어갔다."},
+	{"who": "", "text": "(편지) 나도 따라가겠다 해 놓고, 두려워서 하루를 미뤘다.\n그 하루 사이에 두 사람은 쓰러졌고, 나는 마을 어귀에서 약 바구니를 든 너만 찾아냈다."},
+	{"bg": "flash_carried", "who": "", "text": "(편지) 눈 오는 길을 너를 업고 걸으며 맹세했다.\n이 아이만큼은 지키겠다고. 그리고 다시는 두려움 따위에 지지 않겠다고."},
+	{"who": "", "text": "(편지) 흑심단은 거기서 시작되었다. 친구를 버린 내 안의 두려움과 미움을 떼어 내고 싶었다.\n…떼어 낸 검은 것이 결국 나를 삼킬 줄도 모르고."},
+	{"bg": "yakbang_calm", "music": "lonely_night", "who": "", "text": "(편지) 지하 책장에 해독의 실마리를 적어 두었으나, 마지막 한 가지를 끝내 찾지 못했다.\n백운 스승님만이 아실 게다. 이 열쇠는 스승님의 약궤 열쇠다."},
+	{"who": "허 의원", "pose": "heo_smile", "text": "(편지) 길에서 거둔 아이라 한 말, 평생 후회했다.\n너는 내 친구의 딸이고… 내 딸이다. 미안하다. 그리고 고맙다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…아버지.\n저도 이제 알아요. 화란에서 아이들을 살린 거… 어머니 아버지가 못다 한 일을 제가 이어 간 거였네요."},
+	{"who": "", "text": "그때 약방 문이 벌컥 열렸다. 등불을 든 다래였다."},
+	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "{name}아, 아직 안 잤…\n…너 울었어? 무슨 일이야?"},
+	{"who": "", "text": "{name|은} 편지를 보여 주었다. 다래는 '백운'이라는 이름에서 한참 눈을 떼지 못했다."},
+	{"who": "다래", "pose": "darae_adult", "text": "…할아버지, 남쪽 섬에 유배 가신 지 삼 년째야.\n나… 한 번도 못 갔어. 무서워서. 미워서."},
+	{"who": "다래", "pose": "darae_adult", "text": "{name}아. …같이 가 줄래?"},
+	{"who": "{name}", "pose": "hero_adult", "text": "당연하지. 이번엔 혼자 두지 않는다고 했잖아."},
+	{"who": "", "text": "【목표】\n다래, 서휘와 함께 남쪽 바다를 건너\n백운이 유배된 섬의 초가까지 가라."},
+]
+
+const C10_EXILE := [
+	{"bg": "exile_hut", "music": "lonely_night", "who": "", "text": "바닷가 언덕 위, 낡은 초가 한 채.\n싸리 울타리 안 작은 약초밭에서, 백발의 노인이 허리를 굽히고 있었다."},
+	{"who": "백운", "pose": "baegun_exile", "text": "…다래냐.\n허허… 꿈인 줄 알았구나. 이 늙은이를 보러 올 줄은."},
+	{"who": "다래", "pose": "darae_adult_cry", "text": "보러 온 거 아니야!\n할아버지 때문에… 할아버지가 판 약 때문에 사람들이 죽었어! 미쳐 갔다고!"},
+	{"who": "다래", "pose": "darae_adult_cry", "text": "나는 그 사람들 약을 달이면서 매일 생각했어. 이건 우리 할아버지가 한 짓이다…\n…근데 왜, 왜 아직도 할아버지가 보고 싶은 건데!"},
+	{"who": "백운", "pose": "baegun_exile", "text": "……."},
+	{"who": "백운", "pose": "baegun_exile", "text": "변명은 않으마. 나는 셈을 했고, 그 셈 끝에 사람이 있다는 걸 잊었다.\n여기서 삼 년, 매일 그 얼굴들을 셌다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "선생님. 허 의원님의 편지를 가져왔어요.\n흑심단을 되돌릴 마지막 한 가지를 선생님만 아신다고."},
+	{"who": "", "text": "{name|이} 놋쇠 열쇠를 내밀자, 백운의 손이 떨렸다.\n그는 방구석의 낡은 약궤를 열고, 얇은 서책 한 권을 꺼냈다."},
+	{"who": "백운", "pose": "baegun_exile_cry", "text": "…허가 놈. 끝까지 나를 스승이라 부르는구나.\n이것이 환심단의 마지막 장이다. 내가 숨긴 채 썩히려 했던 것."},
+	{"who": "백운", "pose": "baegun_exile_cry", "text": "다래야. 이것만은 네 손으로 받아 다오.\n내가 망친 것을 되돌리는 일에… 내 손녀의 손이 닿았으면 한다."},
+	{"who": "다래", "pose": "darae_adult_cry", "text": "…바보 할아버지.\n이거 받는다고 용서하는 거 아니야. …내년에도, 그다음 해에도 와서 계속 혼낼 거야."},
+	{"who": "백운", "pose": "baegun_exile_cry", "text": "허허… 그래. 그래 다오. 매해 혼나러, 이 늙은이가 살아 있으마."},
+	{"bg": "island_grave", "music": "sad_farewell", "who": "", "text": "섬을 떠나기 전날. 서휘는 동백이 핀 언덕을 홀로 올랐다.\n이름 없는 돌 비석 하나가 바다를 보고 서 있었다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…백운 노인이 알려 주더군. 이 섬에 오래전 푸른 눈의 표류 선원이 살았다고.\n그 선원과 살다 아이를 낳은 섬 여인이, 여기 묻혔다고."},
+	{"bg": "flash_seohwi_parents", "who": "", "text": "금발의 선원과 흰 치마저고리의 여인이 갓난아기를 안고 바다를 보던 집.\n아버지는 고향 배가 오자 아이만 데리고 떠났고, 어머니는 끝내 따라가지 못했다."},
+	{"bg": "island_grave", "who": "서휘", "pose": "seohwi", "text": "어머니. 평생 이 눈을 원망했습니다. 조선에선 오랑캐, 화란에선 동양 놈.\n…그런데 이 눈 덕에, 이 사람을 만났습니다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "어머님, 처음 뵙겠습니다.\n서휘는… 제가 평생 곁에서 지킬게요. 그러니 이제 걱정 마세요."},
+	{"who": "서휘", "pose": "seohwi", "text": "…이제야 알겠군. 나는 떠도는 사람이 아니었다.\n돌아올 곳이 처음부터 여기 있었던 거다."},
+]
+
+const C10_FALL := [
+	{"bg": "daebi_room", "music": "dread_shadow", "who": "", "text": "섬에서 돌아온 이튿날 새벽. 대비전에 곡소리 같은 비명이 울렸다.\n대비마마가 탕약을 드신 뒤 쓰러지셨다는 것이었다."},
+	{"who": "대비", "pose": "daebi_ill", "text": "…머리가… 머리 속에서 검은 것이 들끓는구나…"},
+	{"who": "", "text": "{name|은} 약사발 바닥에 남은 찌꺼기를 혀끝에 대 보았다.\n달콤한 감초 맛 뒤로… 비린 쇠 냄새. 잊을 수 없는 그 냄새였다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "(흑심단…! 아버지와 함께 사라진 줄 알았는데…)"},
+	{"who": "정 의관", "pose": "jeong_uigwan", "text": "어의 영감, 송구하오나 이 탕약을 달인 자는 의녀 다래입니다.\n게다가 다래는 바로 어제, 청심보명단을 팔던 역적 백운을 만나고 왔다지요?"},
+	{"who": "다래", "pose": "darae_adult_cry", "text": "아니야! 내가 그런 거 아니야!\n대비마마 약은 내가 밤새 지켜보며 달였어! 누가… 누가 넣은 거야!"},
+	{"who": "정 의관", "pose": "jeong_uigwan", "text": "역적의 손녀가 역적의 약을 넣었다. 이보다 분명한 일이 어디 있겠습니까.\n의금부는 무엇을 하는가! 당장 끌어내라!"},
+	{"who": "", "text": "그때, 문 앞을 막아선 사람이 있었다. 포도대장 윤도결이었다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "멈춰라. 증거는 약사발 하나와, 할아버지가 누구냐는 것뿐인가."},
+	{"bg": "flash_dogyeol", "music": "lonely_night", "who": "", "text": "열 살 무렵, 윤도결은 골목 끝에서 그 광경을 보았다.\n증거라곤 '그 집 사람이니까'뿐이었던 날, 아버지는 포승줄에 묶여 끌려갔고 다시 돌아오지 못했다."},
+	{"who": "", "text": "그날 소년은 맹세했다. 다시는 억울한 사람이 없게 하겠다고.\n…그러나 십수 년 뒤, 그는 빈 돈궤와 핏자국만 보고 열다섯 살 소녀를 쫓았다."},
+	{"bg": "daebi_room", "music": "dread_shadow", "who": "윤도결", "pose": "jongsagwan", "text": "…{name}. 3년 전, 나는 빈 돈궤와 핏자국만 보고 너를 쫓았다.\n우리 아버지를 끌고 간 그 포졸들과 똑같이."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "네 누명이 벗겨지던 날 알았다. 내가 가장 미워하던 자가 바로 나였다는 걸.\n같은 잘못은 두 번 하지 않는다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "다래는 의금부에 두되, 아무도 손대지 못하게 하겠다.\n그리고 증거가 말할 때까지, 이 사건은 포도청이 맡는다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…나리."},
+	{"bg": "uigeumbu", "music": "lonely_night", "who": "", "text": "그날 밤, 의금부 옥사. 달빛이 창살 사이로 가늘게 떨어졌다."},
+	{"who": "다래", "pose": "darae_prison", "text": "{name}아… 나 정말 아니야.\n할아버지 일 때문에 다들 날 그렇게 볼 거라는 거, 알고 있었어. 그래도…"},
+	{"who": "{name}", "pose": "hero_adult", "text": "알아. 나도 똑같이 쫓겨 봤잖아.\n그때 네가 고춧가루 한 줌으로 날 구해 줬지. 이번엔 내 차례야."},
+	{"who": "다래", "pose": "darae_prison", "text": "…바보. 빨리 와. 여기 밥 진짜 맛없단 말이야."},
+	{"bg": "podocheong", "who": "서휘", "pose": "seohwi_podo", "text": "포도청 부장 서휘, 지금부터 수사에 나서겠소.\n대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고요."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "밤에 몰래 들어가 뒤져라. 낮엔 누가 지켜볼지 모른다.\n…정 의관, 그자가 오늘 유난히 서둘렀다."},
+	{"who": "", "text": "【목표】\n서휘와 함께 밤의 궁궐에 숨어들어\n내의원 약재 창고에서 흑심단의 단서를 찾아라."},
+]
+
+const C10_CLUE := [
+	{"bg": "naeuiwon", "music": "dread_shadow", "who": "", "text": "내의원 약재 창고. 등잔 하나만 깜박이는 어둠 속, 수백 칸 약장이 벽을 메우고 있었다."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…여기. 정 의관 이름이 붙은 서랍만 자물쇠가 새것이군."},
+	{"who": "", "text": "서랍 안에는 검은 환약이 든 작은 병과, 장부 한 권이 있었다.\n장부 맨 앞장에 붙은 것은… 낯익은 필체의 찢어진 책장들."},
+	{"who": "{name}", "pose": "hero_adult", "text": "아버지 책장이야…! 약방 지하에서 통째로 뜯겨 나갔던 흑심단 처방!\n이게 왜 정 의관한테…"},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "장부를 보시오. '마포 나루, 청 상인 창고에서 책장 값 은 백 냥'.\n대대장이 몰래 빼돌린 걸 청 상인이 쥐고 있다가, 이자에게 판 거요."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "그리고 마지막 줄… '보름날 밤, 남은 흑심단 전부를 마포에서 받는다.'\n오늘이 보름이오."},
+	{"who": "{name}", "pose": "hero_adult", "text": "가요, 마포로. 아버지가 만든 검은 것은… 제 손으로 끝낼 거예요."},
+	{"who": "", "text": "【목표】\n마포 나루의 청 상인 창고로 가서\n흑심단 거래를 막아라."},
+]
+
+const C10_JEONG_PRE := [
+	{"bg": "mapo_warehouse", "music": "dread_shadow", "who": "", "text": "청나라 글씨가 적힌 궤짝이 쌓인 창고 안쪽.\n정 의관이 검은 환약 병을 등불에 비춰 보고 있었다."},
+	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…어의 영감께서 이 누추한 곳까지. 역시 눈이 밝으시군요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "왜 그랬어요. 대비마마께, 그리고 다래에게."},
+	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "왜냐고? 나는 서른 해를 내의원에서 약을 달였다! 그런데 어의 자리는\n왈패 소굴에서 굴러먹던 약방 계집아이에게 돌아갔지!"},
+	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "대비마마가 쓰러지고, 역적의 손녀가 죄를 쓰고, 어의는 그 동무라 함께 물러난다.\n그다음 어의 자리는 누구 것이겠느냐!"},
+	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "그리고 이 약… 허 의원의 흑심단. 미움을 떼어 내 힘으로 바꾸는 약이라지.\n이제 내게는 미움이 넘쳐흐른다!"},
+	{"who": "", "text": "정 의관이 검은 환약을 한 움큼 삼켰다.\n관복이 먹물처럼 검게 물들고, 두 눈이 붉게 번뜩였다."},
+	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 냄새가 나는구나. 허가 놈의 딸.\n네 아비가 남긴 밤을, 내가 이어 주마!"},
+	{"who": "{name}", "pose": "hero_adult", "text": "(그 웃음… 그날 밤 약방의 검은 사내와 똑같아.)\n서휘, 등을 맡길게요. 이번엔… 사람을 되돌리는 싸움이에요."},
+]
+
+const C10_JEONG_POST := [
+	{"bg": "mapo_warehouse", "music": "sad_farewell", "who": "정 의관", "pose": "jeong_shadow", "text": "크으윽…! 안 돼… 이 힘이… 빠져나간다…"},
+	{"who": "", "text": "{name|은} 품에서 환약 한 알을 꺼냈다.\n허 의원의 마지막 연구와, 백운이 다래에게 건넨 마지막 장을 합쳐 빚은 약 ― 환심단이었다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "떼어 낸 검은 것은 사라지지 않아요. 더 큰 미움이 되어 돌아올 뿐.\n그러니까… 돌려놓는 거예요. 원래 있던 자리로."},
+	{"who": "", "text": "검은 연기가 걷히자, 바닥에 주저앉은 것은 지친 늙은 의관 하나였다."},
+	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…서른 해. 나도 처음엔… 아픈 사람을 살리고 싶어서 의관이 되었는데.\n언제부터 자리만 보였을까."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "장부, 책장, 흑심단 병, 그리고 지금 네 입으로 한 말.\n이제야 증거가 말하는구나. 정 의관, 너를 대비마마 시해 미수로 묶는다."},
+]
+
+const C10_CURE := [
+	{"bg": "uigeumbu", "music": "darae_cheer", "who": "", "text": "이튿날 아침, 의금부 옥사의 문이 열렸다."},
+	{"who": "다래", "pose": "darae_prison", "text": "…{name}아? 끝났어? 진짜?"},
+	{"who": "{name}", "pose": "hero_adult", "text": "응. 끝났어. 늦어서 미안해. …밥 진짜 맛없었지?"},
+	{"who": "다래", "pose": "darae_adult_cry", "text": "바보야아…! 진짜, 진짜 맛없었단 말이야…!\n…고마워. 와 줘서."},
+	{"bg": "daebi_room", "music": "palace", "who": "", "text": "대비전. {name|과} 다래가 함께 달인 환심단 탕약을 드신 지 사흘.\n대비마마의 얼굴에 다시 혈색이 돌았다."},
+	{"who": "대비", "pose": "daebi_smile", "text": "어의, 그리고 의녀 다래. 그대들 덕에 이 늙은이가 다시 아침 볕을 보는구나.\n…다래야, 억울했을 터인데 원망 한마디 않았다지. 고맙다."},
+	{"who": "다래", "pose": "darae_adult", "text": "화, 황공하옵니다, 마마!\n…원망은 했사옵니다. 밥이 너무 맛없어서요."},
+	{"who": "대비", "pose": "daebi_smile", "text": "호호호… 그래, 그래. 오늘 수라는 그대들과 함께 들어야겠구나."},
+	{"bg": "palace", "who": "임금", "pose": "king", "text": "어의 {name}, 의녀 다래, 포도대장 윤도결, 그리고 부장 서휘.\n그대들이 아니었으면 과인은 어머니를 잃고, 죄 없는 자를 벌할 뻔하였다."},
+	{"who": "임금", "pose": "king", "text": "의녀 다래를 내의원 의관으로 올리노라.\n앞으로 궁 안의 약은 어의와 의관 다래, 두 사람이 함께 맡으라."},
+	{"who": "다래", "pose": "darae_adult", "text": "…의, 의관? 제가요?\n{name}아, 들었어? 나 의관이래! 할아버지한테 편지 써야겠다!"},
+	{"who": "{name}", "pose": "hero_adult", "text": "(아버지, 어머니, 그리고 의원님.\n떼어 낸 검은 것은 이제 어디로도 가지 않아요. 우리가 되돌렸으니까.)"},
+]

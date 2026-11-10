@@ -627,6 +627,8 @@ const CHIBI_OF := {"hero_adult": "hero_adult", "hero_angry": "hero", "hero_sad":
 func _ret(name: String) -> String:
 	if chapter >= 9 and name in ["seohwi", "seohwi_battle"]:
 		return "seohwi_return"
+	if chapter >= 9 and name == "friend":
+		return "darae_adult"   # 돌아온 뒤의 다래는 어른 모습
 	return name
 
 func chibi_only(name: String) -> Texture2D:
@@ -657,8 +659,16 @@ func fig_scale(name: String) -> float:
 		return 0.92
 	if name.begins_with("hero"):
 		return 0.88
+	if name == "darae_prison":
+		return 0.62   # 무릎 꿇은 모습
+	if name == "daebi_ill":
+		return 0.6    # 보료에 기대 앉은 모습
+	if name == "daebi_smile":
+		return 0.72
 	if name.begins_with("friend") or name.begins_with("darae") or name == "jumo":
 		return 0.86
+	if name.begins_with("baegun_exile"):
+		return 0.95
 	return 1.0
 
 ## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
@@ -675,7 +685,8 @@ func illust(name: String) -> Texture2D:
 	var p := "res://assets/chars/%s.png" % name
 	return load(p) if ResourceLoader.exists(p) else null
 
-const BG_FALLBACK := {"yakbang_calm": "yakbang"}
+const BG_FALLBACK := {"yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
+	"flash_plague": "street_ink", "flash_carried": "street_ink", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
 
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name
