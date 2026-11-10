@@ -225,7 +225,7 @@ func _build_world() -> void:
 ## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
-const CHIBI_SCALE := {"cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.86, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
+const CHIBI_SCALE := {"hero_court": 1.15, "cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.86, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.96, "shadow": 1.04, "dogyeol": 1.04, "heo": 1.04, "yeotjangsu": 0.98}
 
 func _sprite(pic: String, h: float) -> TextureRect:
@@ -351,9 +351,10 @@ func _make_token() -> Control:
 	token_pic.position = Vector2(-66, -132)
 	token_pic.pivot_offset = Vector2(66, 140)
 	# 주인공 말도 다른 인물과 같은 키
-	var tw_: float = MAP_H * tk.get_width() / max(1.0, float(tk.get_height()))
-	token_pic.custom_minimum_size = Vector2(tw_, MAP_H); token_pic.size = Vector2(tw_, MAP_H)
-	token_pic.position = Vector2(-tw_ / 2.0, -MAP_H + 8); token_pic.pivot_offset = Vector2(tw_ / 2.0, MAP_H)
+	var th_: float = MAP_H * float(CHIBI_SCALE.get(ck, 1.0))
+	var tw_: float = th_ * tk.get_width() / max(1.0, float(tk.get_height()))
+	token_pic.custom_minimum_size = Vector2(tw_, th_); token_pic.size = Vector2(tw_, th_)
+	token_pic.position = Vector2(-tw_ / 2.0, -th_ + 8); token_pic.pivot_offset = Vector2(tw_ / 2.0, th_)
 	root.add_child(token_pic)
 	return root
 
