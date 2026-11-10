@@ -237,7 +237,7 @@ const PANEL_TOP := CARD_H + 22 + 196   # 화면 아래에서 내 정보 패널 �
 const HIT_SFX := {"jumeok": "punch", "baldda": "kick", "gyeot": "punch_heavy", "nalchi": "punch"}
 
 func _start() -> void:
-	main.bgm("battle")
+	main.bgm("boss_battle" if enemy.get("boss", false) else "battle")
 	main.sfx("drum_start")
 	await _show_banner("맞서 싸워라!")
 	shield = main.next_guard
