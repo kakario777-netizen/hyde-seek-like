@@ -568,7 +568,7 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 			i += 1; continue
 		break
 	if i >= lines.size():
-		if chain_music != "" and audio and audio.current_bgm != chain_music and audio.current_bgm in SCENE_MUSIC.values() + ["sad_farewell", "heart_flutter"]:
+		if chain_music != "" and audio and audio.current_bgm != chain_music and audio.current_bgm in SCENE_MUSIC.values() + ["sad_farewell", "heart_flutter", "lonely_night", "yakbang_day"]:
 			bgm(chain_music)   # 대화가 끝나면 원래 배경음으로
 		chain_music = ""
 		if cb.is_valid():
