@@ -70,10 +70,10 @@ func _ready() -> void:
 			for mv in enemy["moves"] + [enemy["heavy"]]:
 				if mv["t"] == "atk":
 					mv["v"] += 2 + max(0, main.chapter - 1)
-	# 난이도 완화: 모든 적 공격 -5 (최소 2)
+	# 난이도 조정: 모든 적 공격 -2 (최소 2)
 	for mv in enemy["moves"] + [enemy["heavy"]]:
 		if mv["t"] == "atk":
-			mv["v"] = max(2, int(mv["v"]) - 5)
+			mv["v"] = max(2, int(mv["v"]) - 2)
 	is_mid = boss and not enemy_id in FINALS
 	e_hp = enemy["hp"]
 	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
