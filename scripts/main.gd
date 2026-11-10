@@ -657,12 +657,10 @@ func fig_scale(name: String) -> float:
 		return 0.66
 	if name.begins_with("hero_adult"):
 		return 0.92
-	if name == "hero_disguise_hair":
-		return 0.88
-	if name.begins_with("hero_disguise"):
-		return 1.02   # 패랭이 높이만큼 몸이 작게 보여서 평상복 주인공과 키를 맞춤
+	if name.begins_with("hero_disguise") and name != "hero_disguise_hair":
+		return 0.88   # 남장 주인공 (패랭이 포함 원래 크기)
 	if name.begins_with("hero"):
-		return 0.88
+		return 0.75   # 여자 옷·머리 푼 모습은 패랭이가 없으니 남장 주인공 몸 크기에 맞춤
 	if name == "darae_prison":
 		return 0.62   # 무릎 꿇은 모습
 	if name == "daebi_ill":
