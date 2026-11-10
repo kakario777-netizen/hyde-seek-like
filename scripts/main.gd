@@ -435,7 +435,7 @@ func game_over(reason: String, pic := "") -> void:
 		if board:
 			board.queue_free(); board = null
 		current = null
-		max_hp = 50; coins = 0   # 다시 하기: 약병·탕약·약초는 그대로 둔다
+		max_hp = 50   # 다시 하기: 엽전·약병·탕약·약초는 그대로 둔다
 		start_board(), "", pic, "", true)
 
 # ── 이름 ────────────────────────────────────────────────
@@ -660,7 +660,7 @@ func fig_scale(name: String) -> float:
 	if name.begins_with("hero_disguise") and name != "hero_disguise_hair":
 		return 0.88   # 남장 주인공 (패랭이 포함 원래 크기)
 	if name.begins_with("hero"):
-		return 0.75   # 여자 옷·머리 푼 모습은 패랭이가 없으니 남장 주인공 몸 크기에 맞춤
+		return 0.82   # 여자 옷·머리 푼 모습은 패랭이가 없으니 남장 주인공 몸 크기에 맞춤
 	if name == "darae_prison":
 		return 0.62   # 무릎 꿇은 모습
 	if name == "daebi_ill":
