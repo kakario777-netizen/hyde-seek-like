@@ -8,7 +8,7 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
-const BATTLE_BG := {"haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "corridor", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
+const BATTLE_BG := {"seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "corridor", "heukdu": "cheonsugak", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -74,9 +74,9 @@ func _ready() -> void:
 	for mv in enemy["moves"] + [enemy["heavy"]]:
 		if mv["t"] == "atk":
 			mv["v"] = max(2, int(mv["v"]) - 2)
-	is_mid = boss and not enemy_id in FINALS
+	is_mid = boss and (not enemy_id in FINALS or enemy_id == "seohwi")
 	e_hp = enemy["hp"]
-	ally = StoryData.ALLIES.get(opts.get("ally", ""), {})
+	ally = {}   # 동료는 전투에 끼어들지 않는다 (대화로만 함께한다)
 
 	var bg := TextureRect.new()
 	var bgname: String = BATTLE_BG.get(enemy_id, "alley")
@@ -302,15 +302,17 @@ const FINALS := ["baegun", "seohwi", "shadow", "darae"]
 const SPECIALS := {
 	"dogyeol": "pierce", "heukdu1": "multi", "heukdu2": "drain", "heukdu": "multi",
 	"gatekeeper": "pierce", "mob_boss": "sap", "baegun_mask": "sap", "seohwi2": "multi",
-	"shadow_s": "drain", "pirate_boss": "multi", "cheong_merchant": "sap"}
+	"shadow_s": "drain", "pirate_boss": "multi", "cheong_merchant": "sap", "seohwi": "glare", "seohwi3": "glare"}
 const SP_INFO := {
 	"multi": {"n": "연타", "desc": "%d씩 세 번 공격"},
 	"pierce": {"n": "방어 깨기", "desc": "막기를 무시하고 %d"},
 	"drain": {"n": "흡혈", "desc": "공격 %d · 준 만큼 회복"},
-	"sap": {"n": "기력 빼앗기", "desc": "공격 %d · 다음 차례 기력 -1"}}
+	"sap": {"n": "기력 빼앗기", "desc": "공격 %d · 다음 차례 기력 -1"},
+	"glare": {"n": "애체 반사", "desc": "공격 %d · 다음 상소 -1장"}}
 var is_mid := false
 var e_turn_no := 0
 var sap_next := 0
+var glare_next := 0
 
 func _pick_intent() -> void:
 	if is_mid and e_turn_no % 3 == 2 and e_charge < int(enemy["charge"]):
@@ -352,7 +354,11 @@ func _begin_my_turn(bonus := 0) -> void:
 	if sap_next > 0:
 		_float_text("기력을 빼앗겼다! (-%d)" % sap_next, Vector2(size.x / 2, size.y * 0.6), Color("ff9a80"))
 		sap_next = 0
-	for i in HAND_SIZE:
+	var hand_n: int = HAND_SIZE - glare_next
+	if glare_next > 0:
+		_float_text("애체 빛에 눈이 부시다! (상소 -1장)", Vector2(size.x / 2, size.y * 0.55), Color("ffe08a"))
+		glare_next = 0
+	for i in hand_n:
 		_draw_one()
 		await get_tree().create_timer(0.13).timeout
 	my_turn = true
@@ -531,6 +537,8 @@ func _enemy_turn() -> void:
 			_float_text("+%d" % dmg, enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 120), Color("9ae08a"))
 		if act.get("sp", "") == "sap":
 			sap_next = 1
+		if act.get("sp", "") == "glare":
+			glare_next = 1
 		main.sfx("hurt_heavy" if act.get("heavy", false) else ("hurt" if dmg > 0 else "block"))
 		if dmg > 0:
 			flash.color.a = 0.45 if act.get("heavy", false) else 0.3

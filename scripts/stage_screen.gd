@@ -204,6 +204,13 @@ func _build_world() -> void:
 			_make_tile_ent(e["i"])
 		else:
 			_make_guard(e["i"])
+	var comp: String = main.companion()
+	if comp != "" and main.chibi_only(comp) != null:
+		follower = Control.new()
+		follower.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		follower.add_child(_sprite(comp, 150))
+		follower.position = tile_center(_behind(pos))
+		world.add_child(follower)
 	token = _make_token()
 	token.position = tile_center(pos)
 	world.add_child(token)
@@ -850,7 +857,11 @@ func get_state() -> Dictionary:
 func place_name() -> String:
 	return stage_cfg.get("name", "")
 
+var said_start := false
 func _deal() -> void:
+	if not said_start:
+		said_start = true
+		comp_say("start")
 	for c in card_row.get_children():
 		c.queue_free()
 	for i in 3:
@@ -900,6 +911,9 @@ func _play(steps: int, chosen: Button) -> void:
 		_pick_errand(pos)
 		var target := tile_center(pos)
 		_focus(target, true, HOP_TIME + STEP_PAUSE)
+		if follower:
+			var ftw := create_tween()
+			ftw.tween_property(follower, "position", tile_center(_behind(pos)), HOP_TIME).set_trans(Tween.TRANS_QUAD)
 		var tw := create_tween()
 		tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 40), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
@@ -945,6 +959,38 @@ func _pick_errand(i: int) -> void:
 		tw.tween_property(n, "modulate:a", 0.0, 0.4)
 	_update_hud()
 
+var follower: Control = null
+## 동료는 한 칸 뒤(지나온 칸)에 선다
+func _behind(i: int) -> int:
+	var pv: Array = tiles[i]["prev"]
+	for p in pv:
+		if visited.has(p):
+			return p
+	return pv[0] if not pv.is_empty() else i
+
+## 동료의 짧은 한마디 (말풍선, 진행을 멈추지 않음)
+func comp_say(kind: String) -> void:
+	var t: String = main.comp_line(kind)
+	if t == "":
+		return
+	var c: Dictionary = StoryData.COMPANION.get(main.companion(), {})
+	var p := PanelContainer.new()
+	p.add_theme_stylebox_override("panel", main.plaque_style())
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var l: Label = main.make_label("%s: %s" % [c.get("name", ""), t], 24, main.GOLD, true)
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size = Vector2(560, 0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	p.add_child(l)
+	p.anchor_left = 0.5; p.anchor_right = 0.5
+	p.offset_left = -300; p.offset_right = 300; p.offset_top = 250
+	p.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	add_child(p)
+	var tw := create_tween()
+	tw.tween_interval(2.4)
+	tw.tween_property(p, "modulate:a", 0.0, 0.5)
+	tw.tween_callback(p.queue_free)
+
 func _pick_herb(i: int) -> void:
 	var t: Dictionary = tiles[i]
 	if not t.get("herb", false) or ent_nodes[i].get_node_or_null("Herb") == null:
@@ -952,6 +998,8 @@ func _pick_herb(i: int) -> void:
 	var h: Control = ent_nodes[i].get_node("Herb")
 	h.name = "HerbTaken"
 	herbs_got += 1
+	if herbs_got == 1:
+		comp_say("herb")
 	main.herbs += 1
 	main.coins += 2
 	if main.herbs == main.BREW_SMALL or main.herbs == main.BREW_HERBS:
@@ -1044,6 +1092,7 @@ func _resolve() -> void:
 		"debuff":
 			_clear(pos); _apply_event(GameData.DEBUFFS.pick_random()); return
 		"trap":
+			comp_say("trap")
 			_clear(pos); _apply_event(GameData.TRAPS.pick_random()); return
 		"rest":
 			_clear(pos); _apply_event(GameData.REST); return
@@ -1185,7 +1234,13 @@ func _stage_clear() -> void:
 		if last:
 			_reach_goal()
 		else:
-			main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")), main.next_stage), "", "", data.get("bg", ""), true)
+			var ab: Dictionary = stage_cfg.get("after_battle", {})
+			if ab.is_empty():
+				main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")), main.next_stage)
+			else:
+				main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")) + StoryData.lines(ab["pre"]), func():
+					main.start_battle(ab["battle"], func():
+						main.dialog_chain(StoryData.lines(ab["post"]), main.next_stage), {"lose_ok": ab.get("lose_ok", false), "comp_done": true})), "", "", data.get("bg", ""), true)
 
 func _reach_goal() -> void:
 	if cfg.has("goal_battle"):

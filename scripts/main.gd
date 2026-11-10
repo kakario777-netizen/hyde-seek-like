@@ -294,7 +294,46 @@ func start_board() -> void:
 	autosave.call_deferred("자동 저장")
 
 ## opts: {"lose_ok": 져도 이야기 진행, "ally": 동료 id}
+## 지금 함께 다니는 동료 (전투 도움 대신 대화로 함께한다)
+func companion() -> String:
+	if not sub_stage.is_empty():
+		return ""
+	var st: Array = ch_cfg().get("stages", [])
+	if stage_idx < st.size() and st[stage_idx].has("ally"):
+		return st[stage_idx]["ally"]
+	return ch_cfg().get("stage_ally", "")
+
+var comp_k := 0
+func comp_line(kind: String) -> String:
+	var c: Dictionary = StoryData.COMPANION.get(companion(), {})
+	var arr: Array = c.get(kind, [])
+	if arr.is_empty():
+		return ""
+	comp_k += 1
+	return arr[comp_k % arr.size()]
+
+const FINAL_COMP := {
+	"baegun": [{"who": "{alias}", "pose": "hero_disguise_angry", "text": "서휘. 이건… 내가 끝내야 해."},
+		{"who": "서휘", "pose": "seohwi", "text": "…그래. 이건 네 싸움이다.\n나는 저 문 앞에서 흑룡파 놈들을 막겠다. 하나도 못 들어오게."}],
+	"shadow": [{"who": "{name}", "pose": "hero_angry", "text": "나리, 저 사람의 패거리를 막아 주세요.\n아버지는… 제가 되찾을 거예요."},
+		{"who": "윤도결", "pose": "jongsagwan", "text": "가라. 포졸들과 내가 뒤를 막는다.\n네 아버지는 네가 데려와라."}],
+}
+
 func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
+	var comp := companion()
+	if comp != "" and not opts.get("comp_done", false) and not opts.has("me_name"):
+		var c: Dictionary = StoryData.COMPANION.get(comp, {})
+		opts = opts.duplicate(); opts["comp_done"] = true
+		var me := "{alias}" if chapter in DISGUISED else "{name}"
+		var pre: Array = FINAL_COMP.get(enemy_id, [])
+		if pre.is_empty() and c.has("pre"):
+			pre = [{"who": me, "text": comp_line("pre_me")}, {"who": c["name"], "pic": c["pic"], "text": comp_line("pre")}]
+		var post_line: String = comp_line("post") if not FINAL_COMP.has(enemy_id) else ""
+		var win := on_win
+		if post_line != "":
+			win = func(): dialog_chain([{"who": c["name"], "pic": c["pic"], "text": post_line}], on_win)
+		dialog_chain(pre, func(): start_battle(enemy_id, win, opts))
+		return
 	var b := BattleScreen.new()
 	var stl: Array = ch_cfg().get("stages", [])
 	if stage_idx < stl.size() and stl[stage_idx].has("me_name") and not opts.has("me_name"):

@@ -32,7 +32,8 @@ const CHAPTERS := {
 		"stages": [{"map": "s4_0", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE"},
 			{"map": "s4_1", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM"},
 			{"map": "s4_2", "name": "군산 포구 뒤지기", "after": "C4_CLUE"},
-			{"map": "s4_3", "name": "화엄골 가는 길", "after": "C4_CASTLE"},
+			{"map": "s4_3", "name": "화엄골 가는 길", "after": "C4_CASTLE",
+				"after_battle": {"battle": "seohwi3", "pre": "C4_GATE_PRE", "post": "C4_GATE_POST", "lose_ok": true}},
 			{"map": "s4_f1", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1"},
 			{"map": "s4_f2", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2"},
 			{"map": "s4_f3", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 3층 · 약 공방", "after": "C4_F3"},
@@ -921,6 +922,21 @@ const C4_CASTLE := [
 	{"who": "서휘", "pic": "seohwi", "text": "…장부에 적힌 은 수천 냥이 다 저기로 들어갔군.\n청심보명단으로 번 돈으로 제 성을 쌓다니."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "마을 사람들 말로는 오 층 꼭대기에 '백 노인'이 산대요.\n…층마다 지키는 자들이 있다고."},
 	{"who": "서휘", "pic": "seohwi", "text": "한 층씩 올라가자. 등은 내가 맡지."},
+]
+
+## 성문 앞: 서휘와의 세 번째 대결 (실력 시험)
+const C4_GATE_PRE := [
+	{"bg": "castle", "who": "", "text": "성문 앞 돌계단. 앞서 걷던 서휘가 갑자기 걸음을 멈추고 돌아섰다."},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "의원. 들어가기 전에 하나만 확인하자.\n대대장은 나보다 몇 배는 강하다. 그 밑의 놈들도 만만치 않고."},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "날 넘지 못하면 저 성에선 살아 나오지 못한다.\n…그러니 지금, 네 실력을 내 눈으로 보겠다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…좋아요. 이번엔 봐주지 마요.\n나도 이제 다리 밑의 그 애가 아니니까."},
+]
+
+const C4_GATE_POST := [
+	{"who": "서휘", "pic": "seohwi", "text": "…후. 마지막 한 수, 일부러 늦췄는데도 그걸 다 막아 내는군."},
+	{"who": "서휘", "pic": "seohwi", "text": "됐다. 이 정도면 등을 맡길 수 있겠어.\n…아니, 이제는 내가 네 등을 맡기겠다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "서휘의 애체에 비친 햇빛, 진짜 눈부셨어요.\n…다음엔 그거 안 통할 거예요."},
+	{"who": "서휘", "pic": "seohwi", "text": "흥. 기대하지."},
 	{"who": "", "text": "【목표】\n백운의 성 다섯 층을 차례로 올라\n꼭대기 천수각에 닿아라."},
 ]
 
@@ -1103,7 +1119,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
@@ -1124,6 +1140,31 @@ const ENEMY_MAP := {
 }
 
 ## 전투를 거드는 동료
+## 함께 다니는 동료의 한마디 (전투에는 끼어들지 않고 대화로만 함께한다)
+const COMPANION := {
+	"seohwi": {"name": "서휘", "pic": "seohwi",
+		"start": ["길 잃지 말고 따라와라.", "이 길은 처음이군. …내 옆에서 떨어지지 마라.", "천천히 가도 된다. 대신 두리번거리진 말고."],
+		"pre_me": ["이 녀석은 내가 처리할게. 서휘, 뒤에서 다른 패거리가 오는지 봐 줘.", "앞은 내가 맡을게요. 서휘는 뒤를 부탁해요!", "내가 상대할게. 혹시 숨어 있는 놈 있으면 알려 줘요."],
+		"pre": ["…알았다. 뒤는 내가 막는다. 등 돌리지 말고 앞만 봐라.", "맡겨라. 한 놈도 네 등 뒤로 못 간다.", "좋다. 뒤쪽 골목은 내가 지킨다."],
+		"post": ["뒤쪽에 두 놈이 더 있었는데, 내가 쫓아 보냈다. …잘 싸웠다.", "제법이군. 숨어 있던 놈 하나는 내가 묶어 뒀다.", "다친 데는 없나? …없으면 됐다."],
+		"herb": ["좋은 약초군. 잘 챙겨 둬라.", "그건 비싸게 팔리는 거다. …아니, 네 약방에 쓰겠지."],
+		"trap": ["조심해라!", "…발밑을 봐라, 의원."]},
+	"dogyeol": {"name": "윤도결", "pic": "jongsagwan",
+		"start": ["내 곁에서 떨어지지 마라.", "이 근방은 수상한 놈들이 많다. 조심해라."],
+		"pre_me": ["나리, 여긴 제가 맡을게요. 나리는 골목 입구를 지켜 주세요.", "제가 상대할게요. 놈들 패거리가 더 숨어 있을지 몰라요, 나리!"],
+		"pre": ["…좋다. 한 놈도 네 뒤로 보내지 않겠다.", "알겠다. 입구는 내가 막는다."],
+		"post": ["골목 끝에 숨어 있던 놈은 내가 묶어 뒀다. 제법이군.", "…다치진 않았나. 다행이다."],
+		"herb": ["약초인가. 넌 그런 걸 잘도 찾는군."],
+		"trap": ["조심해라!"]},
+	"darae": {"name": "다래", "pic": "friend",
+		"start": ["오늘은 어떤 약초 캘까?", "같이 가니까 하나도 안 무섭다!"],
+		"pre_me": ["다래야, 저 사람은 내가 상대할게. 넌 바구니 지키면서 주변 좀 살펴 줘.", "내가 막을게! 다래는 뒤에 수상한 사람 없나 봐 줘."],
+		"pre": ["응! 수상한 사람 오면 바로 고춧가루 뿌릴게!", "알았어! 바구니는 내가 꼭 지킬게!"],
+		"post": ["저쪽에서 누가 엿보길래 내가 소리 질렀더니 도망갔어! 우리 둘 다 잘했지?", "괜찮아? 안 다쳤어? …휴, 다행이다."],
+		"herb": ["와, 그거 좋은 거야!", "그 약초, 할아버지가 귀하다고 했던 거다!"],
+		"trap": ["조심해!", "어머, 괜찮아?!"]},
+}
+
 const ALLIES := {
 	"seohwi": {"name": "서휘", "dmg": 7, "line": "서휘의 일격!"},
 	"dogyeol": {"name": "윤도결", "dmg": 6, "block": 4, "line": "윤도결이 막아선다!"},
