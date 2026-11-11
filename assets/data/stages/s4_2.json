@@ -2,7 +2,7 @@
  "id": "s4_2",
  "name": "군산 포구 뒤지기",
  "tile": "wood",
- "bg": "street_ink",
+ "bg": "gunsan_port",
  "turns": 19,
  "tiles": [
   {

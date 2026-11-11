@@ -67,10 +67,10 @@ SH = lambda pre, post: {"battle": "shadow_s", "pre": pre, "post": post}
 BM = lambda pre, post: {"battle": "baegun_mask", "pre": pre, "post": post}
 S = [
     ("s1_1", "운종가를 지나 도망치기", "stone", "jangteo", 40, 11, {"events": ["talk", "item", "shop", "talk", "buff"]}),
-    ("s1_2", "문경새재 넘기", "dirt", "street_ink", 42, 12, {"events": ["talk", "buff", "debuff", "shop", "rest"]}),
+    ("s1_2", "문경새재 넘기", "dirt", "mungyeong_pass", 42, 12, {"events": ["talk", "buff", "debuff", "shop", "rest"]}),
     ("s1_3", "백운 노인 찾아가기", "grass", "byeolchae", 42, 13, {"events": ["rest", "trap", "talk", "shop", "talk"]}),
-    ("s2_1", "검문소 피해 가기", "dirt", "street_ink", 40, 21, {"events": ["talk", "buff", "shop", "trap"], "watchers": 4}),
-    ("s2_2", "새재 너머 주막거리", "grass", "street_ink", 42, 22, {"events": ["shop", "debuff", "talk", "item", "talk"]}),
+    ("s2_1", "검문소 피해 가기", "dirt", "checkpoint_road", 40, 21, {"events": ["talk", "buff", "shop", "trap"], "watchers": 4}),
+    ("s2_2", "새재 너머 주막거리", "grass", "jumak_street", 42, 22, {"events": ["shop", "debuff", "talk", "item", "talk"]}),
     ("s2_3", "한양 약방으로", "stone", "yakbang", 44, 23, {"events": ["rest", "trap", "talk", "shop"], "blockers": 2, "boss": DG("C2_DG_FIGHT", "C2_DG_FLEE")}),
     ("s3_0", "서휘와 흑룡파 몰아내기", "stone", "alley", 40, 30, {"events": ["talk", "shop", "item", "rest"], "watchers": 4, "blockers": 2, "boss": {"battle": "heukdu1", "pre": "C3_HK1_PRE", "post": "C3_HK1_POST"}}),
     ("s3_k", "소금 창고의 아이들", "wood", "den", 38, 131, {"events": ["trap", "shop", "rest", "item"], "watchers": 4, "blockers": 2, "boss": {"battle": "heukdu2", "pre": "C3_HK2_PRE", "post": "C3_HK2_POST"}}),
@@ -79,7 +79,7 @@ S = [
     ("s3_3", "남산 아래 결투", "dirt", "namsan_night", 42, 33, {"events": ["rest", "debuff", "shop", "talk"], "boss": {"battle": "seohwi2", "pre": "C3_BOSS", "post": "C3_BOSS_WIN"}}),
     ("s4_0", "성 밖 병든 마을", "grass", "village_outside", 38, 40, {"events": ["talk", "item", "rest", "shop"], "watchers": 3, "herbs": 5}),
     ("s4_1", "비 오는 청계천", "stone", "stream", 40, 41, {"events": ["talk", "debuff", "item", "shop"]}),
-    ("s4_2", "군산 포구 뒤지기", "wood", "street_ink", 42, 42, {"events": ["shop", "trap", "talk", "rest"], "watchers": 4, "boss": BM("C4_MASK1", "C4_MASK1_FLEE")}),
+    ("s4_2", "군산 포구 뒤지기", "wood", "gunsan_port", 42, 42, {"events": ["shop", "trap", "talk", "rest"], "watchers": 4, "boss": BM("C4_MASK1", "C4_MASK1_FLEE")}),
     ("s4_3", "화엄골 가는 길", "dirt", "stream", 40, 43, {"events": ["rest", "trap", "talk", "shop"], "spikes": 3, "boss": BM("C4_MASK2", "C4_MASK2_FLEE")}),
     ("s4_f1", "백운의 성 1층 · 창고", "wood", "vault", 34, 141, {"events": ["item", "shop", "trap"], "watchers": 3, "blockers": 2, "boss": {"battle": "gatekeeper", "pre": "C4_F1_PRE", "post": "C4_F1_POST"}}),
     ("s4_f2", "백운의 성 2층 · 독안개 회랑", "cave", "corridor", 36, 142, {"events": ["debuff", "trap", "shop", "rest"], "watchers": 3, "spikes": 5, "boss": {"battle": "heukdu", "pre": "C4_F2_PRE", "post": "C4_F2_POST"}}),

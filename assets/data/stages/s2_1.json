@@ -2,7 +2,7 @@
  "id": "s2_1",
  "name": "검문소 피해 가기",
  "tile": "dirt",
- "bg": "street_ink",
+ "bg": "checkpoint_road",
  "turns": 18,
  "tiles": [
   {

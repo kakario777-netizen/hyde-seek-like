@@ -2,7 +2,7 @@
  "id": "s2_2",
  "name": "새재 너머 주막거리",
  "tile": "grass",
- "bg": "street_ink",
+ "bg": "jumak_street",
  "turns": 19,
  "tiles": [
   {
