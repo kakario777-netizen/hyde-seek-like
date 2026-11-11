@@ -21,8 +21,8 @@ const CHAPTERS := {
 			{"map": "s2_3", "name": "한양 약방으로"}],
 		"goal_pre": "CH2_GOAL", "goal_battle": "seohwi", "goal_lose_ok": true},
 	3: {"title": "제3장  왈패 소굴", "goal": "왈패 소굴", "intro": "CH3_INTRO", "end": "CH3_END",
-		"stages": [{"map": "s3_h", "name": "자양강장 약재 찾기", "after": "C3_BREW", "errand": ["인삼", "황기", "감초"]},
-			{"map": "s3_0", "name": "서휘와 흑룡파 몰아내기", "after": "C3_HEUK", "ally": "seohwi"},
+		"stages": [{"map": "s3_0", "name": "서휘와 흑룡파 몰아내기", "after": "C3_HEUK_ORDER", "ally": "seohwi"},
+			{"map": "s3_h", "name": "자양강장 약재 찾기", "after": "C3_BREW", "errand": ["인삼", "황기", "감초"]},
 			{"map": "s3_1", "name": "청계천 약재 심부름", "after": "C3_DOGYEOL"},
 			{"map": "s3_k", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "name": "종로 뒷골목", "after": "C3_TRUTH"},
@@ -84,6 +84,7 @@ static func lines(key: String) -> Array:
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
+		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
 		"C10_ISLE": return C10_EXILE + C10_FALL
@@ -160,11 +161,7 @@ const CH3_INTRO := [
 	{"who": "서휘", "pose": "seohwi", "text": "솜씨가 좋군, 의원.\n그런데 이 녀석들 상처, 절반은 흑룡파 놈들 짓이다."},
 	{"who": "서휘", "pose": "seohwi", "text": "흑룡파가 요즘 우리 구역 약한 놈들만 골라 털고 다니지.\n함께 가자, 의원. 치는 건 내가 하고, 다친 사람은 네가 고친다."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "…다친 사람을 고치는 거라면, 갈게요."},
-	{"who": "서휘", "pose": "seohwi", "text": "그리고 너에게 맡길 일이 하나 더 있다.\n먹으면 기운이 펄펄 나는 자양강장 환약. 그걸 만들어 팔면 내 아이들이 겨울을 난다."},
-	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "처방은요? 무슨 약재를 얼마나 넣는지 알려 주셔야…"},
-	{"who": "서휘", "pose": "seohwi", "text": "처방 같은 건 없다. 의원이라며?\n네 머리로, 네 손으로 만들어 봐라. 약재는 직접 구해 오고."},
-	{"who": "{alias}", "pose": "hero_disguise", "text": "(기운을 북돋는 약이라면… 인삼, 황기, 감초.\n의원님 어깨 너머로 본 것만으로 될까…)"},
-	{"who": "", "text": "【목표】\n도성 밖 산기슭을 돌며\n인삼·황기·감초를 모두 구해 소굴로 돌아와라."},
+	{"who": "", "text": "【목표】\n서휘와 함께 흑룡파 왈패들을 몰아내고\n다친 아이들을 데리고 소굴로 돌아와라."},
 ]
 
 ## 약재를 구해 왔지만 약이 잘 안 된다 → 삿갓 노인의 재료 → 청심보명단 완성
@@ -186,7 +183,7 @@ const C3_BREW := [
 	{"who": "밤톨", "pose": "bamtol", "text": "오, 오오…! 이거다, 꼬마 의원!\n삼 일 굶은 것처럼 축 처져 있었는데 몸이 날아갈 것 같아!"},
 	{"who": "서휘", "pose": "seohwi", "text": "…됐군. 이름은 '청심보명단(淸心保命丹)'이라 하자.\n마음을 맑게 하고 목숨을 지키는 약."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "(내 손으로 만든 첫 약이야.\n…이걸로 아픈 사람들이 기운을 차리면 좋겠다.)"},
-	{"who": "", "text": "【목표】\n서휘와 함께 흑룡파를 몰아내고,\n한양 곳곳을 돌며 약재를 모아 왈패 소굴로 돌아와라."},
+	{"who": "", "text": "【목표】\n청심보명단을 찾는 사람이 늘었다.\n청계천을 돌며 약재를 더 모아 왈패 소굴로 돌아와라."},
 ]
 
 const C3_DOGYEOL := [
@@ -930,6 +927,15 @@ const C3_HEUK := [
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "…그랬구나. 미안해요, 함부로 물어서."},
 	{"who": "서휘", "pic": "seohwi", "text": "사과할 건 없다. 처음으로 누가 '왜'냐고 물어봐 줬으니까.\n…다들 그냥 '역시 그럴 줄 알았다'고만 했지."},
 	{"who": "", "text": "다리 밑 소굴로 돌아가는 서휘의 발걸음은 어쩐지 조금 가벼워 보였다."},
+]
+
+const C3_ORDER := [
+	{"bg": "den", "who": "", "text": "그날 밤, 다리 밑 소굴.\n서휘가 붕대 감은 손으로 약탕관을 툭 건드렸다."},
+	{"who": "서휘", "pose": "seohwi", "text": "의원, 너에게 맡길 일이 하나 있다.\n먹으면 기운이 펄펄 나는 자양강장 환약. 그걸 만들어 팔면 내 아이들이 겨울을 난다."},
+	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "처방은요? 무슨 약재를 얼마나 넣는지 알려 주셔야…"},
+	{"who": "서휘", "pose": "seohwi", "text": "처방 같은 건 없다. 의원이라며?\n네 머리로, 네 손으로 만들어 봐라. 약재는 직접 구해 오고."},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "(기운을 북돋는 약이라면… 인삼, 황기, 감초.\n의원님 어깨 너머로 본 것만으로 될까…)"},
+	{"who": "", "text": "【목표】\n도성 밖 산기슭을 돌며\n인삼·황기·감초를 모두 구해 소굴로 돌아와라."},
 ]
 
 const C7_SICK := [
