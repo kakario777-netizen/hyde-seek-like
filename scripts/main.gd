@@ -473,9 +473,23 @@ const TITLES := [
 	["붓끝이 매서운 의원", "공격 상소를 가장 많이 올리기"],
 	["철벽 상소의 의원", "품밟기를 가장 많이 올리기"],
 	["꾀 많은 의원", "고춧가루를 가장 많이 올리기"],
+	["한 방의 의원", "첫 차례 안에 적을 쓰러뜨린 전투 30번"],
+	["상처 하나 없이", "체력이 하나도 안 깎인 채 이긴 전투 20번"],
+	["아슬아슬한 의원", "체력 5 이하로 버티다 이긴 전투 10번"],
+	["대장 사냥꾼", "한 판에서 대장전을 한 번도 지지 않고 모두 이기기"],
+	["골목의 해결사", "일반 적 50명 쓰러뜨리기 (대장 제외)"],
+	["한양 왈패들의 악몽", "일반 적 120명 쓰러뜨리기 (대장 제외)"],
+	["팔도에 이름난 주먹 의원", "일반 적 200명 쓰러뜨리기 (대장 제외)"],
+	["발 빠른 의원", "남은 시각 보너스를 300냥 이상 받기"],
+	["들키지 않는 그림자", "감시꾼 눈에 한 번도 들키지 않고 끝내기"],
+	["참견쟁이 의원", "동네 사람 말 거는 칸 40번 밟기"],
+	["느긋한 여행자", "플레이 시간 10시간 넘기기"],
+	["돌아온 의원", "완주 3번"],
 	["서휘의 반려", "서휘와 혼례를 올리기"],
 	["윤도결의 반려", "윤도결과 혼례를 올리기"],
+	["두 길을 걸은 의원", "서휘 결말과 윤도결 결말을 둘 다 보기 (여러 판에 걸쳐 모음)"],
 	["한양의 의원", "다른 칭호 없이 끝내기"],
+	["한양 숨바꼭질의 주인", "다른 칭호를 모두 모으기 (「한양의 의원」 제외)"],
 ]
 
 func _title_ok(name: String) -> bool:
@@ -493,6 +507,22 @@ func _title_ok(name: String) -> bool:
 		"한양 제일 알뜰 의원": return cin > 0 and cout * 2 <= cin
 		"통 큰 의원": return cin > 0 and cout * 10 >= cin * 9
 		"붓끝이 매서운 의원", "철벽 상소의 의원", "꾀 많은 의원": return top != "" and CARD_TITLE.get(top, "") == name
+		"한 방의 의원": return int(stats.get("one_turn", 0)) >= 30
+		"상처 하나 없이": return int(stats.get("no_dmg", 0)) >= 20
+		"아슬아슬한 의원": return int(stats.get("close_call", 0)) >= 10
+		"대장 사냥꾼": return int(stats.get("boss_losses", 0)) == 0
+		"골목의 해결사": return int(stats.get("kills", 0)) >= 50
+		"한양 왈패들의 악몽": return int(stats.get("kills", 0)) >= 120
+		"팔도에 이름난 주먹 의원": return int(stats.get("kills", 0)) >= 200
+		"발 빠른 의원": return int(stats.get("time_bonus", 0)) >= 300
+		"들키지 않는 그림자": return int(stats.get("spotted", 0)) == 0
+		"참견쟁이 의원": return int(stats.get("talks", 0)) >= 40
+		"느긋한 여행자": return play_sec >= 36000.0
+		"돌아온 의원": return int(title_book().get("_clears", 0)) + 1 >= 3
+		"두 길을 걸은 의원":
+			var ends: Array = title_book().get("_endings", [])
+			var me := "dogyeol" if flags.has("wed_dogyeol") else "seohwi"
+			return ("seohwi" in ends or me == "seohwi") and ("dogyeol" in ends or me == "dogyeol")
 		"서휘의 반려": return not flags.has("wed_dogyeol")
 		"윤도결의 반려": return flags.has("wed_dogyeol")
 	return false
@@ -501,10 +531,18 @@ func earned_titles() -> Array:
 	var out: Array = []
 	var spouse: Array = []
 	for t in TITLES:
-		if t[0] != "한양의 의원" and _title_ok(t[0]):
+		if not t[0] in ["한양의 의원", "한양 숨바꼭질의 주인"] and _title_ok(t[0]):
 			(spouse if t[0].ends_with("의 반려") else out).append(t[0])
 	if out.is_empty():
 		out.append("한양의 의원")
+	# 최종 칭호: 이번 판 칭호와 칭호 모음을 합쳐 다른 칭호를 모두 모았으면
+	var book := title_book()
+	var all_ok := true
+	for t in TITLES:
+		if not t[0] in ["한양 숨바꼭질의 주인", "한양의 의원"] and not (book.has(t[0]) or t[0] in out or t[0] in spouse):
+			all_ok = false
+	if all_ok:
+		out.push_front("한양 숨바꼭질의 주인")
 	return out + spouse   # 반려 칭호는 대표 칭호가 되지 않고 모음에만 들어간다
 
 func ending_title() -> String:
@@ -528,6 +566,11 @@ func _record_titles() -> Array:
 			book[t] = {"date": today, "hero": hero_name}
 			fresh.append(t)
 	book["_clears"] = int(book.get("_clears", 0)) + 1
+	var ends: Array = book.get("_endings", [])
+	var me := "dogyeol" if flags.has("wed_dogyeol") else "seohwi"
+	if not me in ends:
+		ends.append(me)
+	book["_endings"] = ends
 	var f := FileAccess.open(TITLE_BOOK, FileAccess.WRITE)
 	if f:
 		f.store_string(JSON.stringify(book))

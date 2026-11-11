@@ -1115,6 +1115,7 @@ func _resolve() -> void:
 			_clear(pos)
 			var talk: Dictionary = _talk_at(pos)
 			talk_idx += 1
+			main.stat_add("talks")
 			var extra := ""
 			main.sfx("coin" if talk.has("coin") else "item")
 			if talk.has("coin"):
@@ -1161,6 +1162,7 @@ func _after_land(_fought: bool) -> void:
 			var e: Dictionary = GameData.ENEMIES[eid]
 			var g := gi
 			main.sfx("alarm")
+			main.stat_add("spotted")
 			_alert(gi)
 			main.popup("들켰다!\n%s이(가) 이쪽을 노려보며 다가온다." % e["name"], "맞서 싸운다", func():
 				main.start_battle(eid, func():
@@ -1290,6 +1292,7 @@ func _stage_clear() -> void:
 	main.sfx("victory")
 	var bonus: int = turns_left
 	main.coins += bonus
+	main.stat_add("time_bonus", bonus)
 	var stages: Array = cfg.get("stages", [])
 	var last: bool = main.stage_idx >= stages.size() - 1
 	var msg: String = "〈%s〉 통과!\n\n남은 시각 보너스 엽전 +%d냥\n이번 길에서 캔 약초 %d/%d (약초 주머니 %d개)" % [stage_cfg["name"], bonus, herbs_got, herbs_total, main.herbs]

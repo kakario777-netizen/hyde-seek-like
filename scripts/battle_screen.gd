@@ -537,6 +537,7 @@ func _enemy_turn() -> void:
 				main.sfx("punch")
 				await get_tree().create_timer(0.15).timeout
 		main.hp = max(0, main.hp - dmg)
+		if dmg > 0: took_dmg = true
 		if act.get("sp", "") == "drain" and dmg > 0:
 			e_hp = min(int(enemy["hp"]), e_hp + dmg)
 			_float_text("+%d" % dmg, enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 120), Color("9ae08a"))
@@ -575,14 +576,22 @@ func _enemy_turn() -> void:
 			if on_win.is_valid():
 				on_win.call()
 			return
+		if enemy.get("boss", false): main.stat_add("boss_losses")
 		main.game_over(main.fmt("{name|은} 그만 쓰러지고 말았다…"))
 		return
 	_begin_my_turn()
 
 # ── 끝 ──────────────────────────────────────────────────
+var took_dmg := false
+
 func _win() -> void:
 	over = true
 	main.stat_add("wins")
+	# 칭호용 기록
+	if not enemy.get("boss", false): main.stat_add("kills")
+	if turn <= 1: main.stat_add("one_turn")
+	if not took_dmg: main.stat_add("no_dmg")
+	if main.hp <= 5: main.stat_add("close_call")
 	main.sfx("victory")
 	main.coins += int(enemy["coin"])
 	var tw := create_tween()
