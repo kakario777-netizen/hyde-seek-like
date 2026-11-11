@@ -79,8 +79,11 @@ func _ready() -> void:
 	vb.add_child(title)
 	if cleared:
 		var done: Label = main.ink_text(main.make_label("완주 %d번" % int(main.title_book().get("_clears", 0)), 30, main.GOLD, true), 8)
-		done.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		vb.add_child(done)
+		done.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT   # 그림 속 허 의원 얼굴을 가리지 않게 오른쪽으로
+		var drow := MarginContainer.new()
+		drow.add_theme_constant_override("margin_right", 40)
+		drow.add_child(done)
+		vb.add_child(drow)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vb.add_child(spacer)
