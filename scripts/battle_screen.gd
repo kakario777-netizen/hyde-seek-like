@@ -86,6 +86,9 @@ func _ready() -> void:
 		var sbg: String = main.board.data.get("bg", "")
 		if sbg in ["vault", "corridor", "cheonsugak", "podocheong"] and not (bgname in ["vault", "corridor", "cheonsugak"]):
 			bgname = sbg
+		elif sbg != "" and not enemy.get("boss", false):
+			# 일반 적은 지금 걷고 있는 맵의 배경에서 싸운다 (보스는 정해 둔 장소 그대로)
+			bgname = "mountain" if sbg == "title" else sbg
 	var bt: Texture2D = main.backdrop(bgname)
 	bg.texture = bt if bt else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
