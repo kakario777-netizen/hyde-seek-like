@@ -6,12 +6,12 @@ var main
 var cleared := false
 
 func _ready() -> void:
-	# 한 번 끝까지 하면 처음 화면이 가족·혼례 그림으로 바뀐다 (켤 때마다 둘 중 하나)
+	# 한 번 끝까지 하면 처음 화면이 혼례 그림으로 바뀐다
 	var book: Dictionary = main.title_book()
 	cleared = int(book.get("_clears", 0)) > 0
 	var bg := TextureRect.new()
 	if cleared:
-		bg.texture = main.backdrop(["family", "wedding"].pick_random())
+		bg.texture = main.backdrop("wedding")
 	else:
 		bg.texture = main.backdrop("title") if main.backdrop("title") else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
