@@ -3,16 +3,32 @@ extends Control
 
 var main
 
+var cleared := false
+
 func _ready() -> void:
+	# 한 번 끝까지 하면 처음 화면이 가족·혼례 그림으로 바뀐다 (켤 때마다 둘 중 하나)
+	var book: Dictionary = main.title_book()
+	cleared = int(book.get("_clears", 0)) > 0
 	var bg := TextureRect.new()
-	bg.texture = main.backdrop("title") if main.backdrop("title") else load("res://assets/ui/board_map.jpg")
+	if cleared:
+		bg.texture = main.backdrop(["family", "wedding"].pick_random())
+	else:
+		bg.texture = main.backdrop("title") if main.backdrop("title") else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	bg.modulate = Color(0.62, 0.55, 0.5) if main.backdrop("title") == null else Color.WHITE
+	bg.modulate = Color(0.62, 0.55, 0.5) if bg.texture == null else Color.WHITE
 	add_child(bg)
+	if cleared:   # 글자가 잘 보이게 아래쪽만 살짝 어둡게
+		var g2 := Gradient.new()
+		g2.set_color(0, Color(0.06, 0.04, 0.03, 0.0)); g2.set_color(1, Color(0.06, 0.04, 0.03, 0.55))
+		var gt2 := GradientTexture2D.new(); gt2.gradient = g2
+		gt2.fill_from = Vector2(0.5, 0.35); gt2.fill_to = Vector2(0.5, 1.0); gt2.width = 64; gt2.height = 256
+		var sh2 := TextureRect.new(); sh2.texture = gt2; sh2.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		sh2.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); sh2.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(sh2)
 
-	var shadow: Texture2D = main.illust("shadow")
+	var shadow: Texture2D = main.illust("shadow") if not cleared else null
 	if shadow:
 		var sh: TextureRect = main.tex_rect(shadow, Vector2(900, 1300))
 		sh.anchor_left = 0.5; sh.anchor_right = 0.5; sh.anchor_top = 1.0; sh.anchor_bottom = 1.0
@@ -35,7 +51,7 @@ func _ready() -> void:
 		fog.offset_left = -80; fog.offset_right = 260; fog.offset_top = -1520; fog.offset_bottom = -1180
 		fog.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(fog)
-	var hero: Texture2D = main.illust("hero")
+	var hero: Texture2D = main.illust("hero") if not cleared else null
 	if hero:
 		var h: TextureRect = main.tex_rect(hero, Vector2(720, 1100))
 		h.anchor_left = 0.5; h.anchor_right = 0.5; h.anchor_top = 1.0; h.anchor_bottom = 1.0
@@ -61,6 +77,10 @@ func _ready() -> void:
 	var title: Label = main.ink_text(main.make_label("한양 숨바꼭질", 104, main.LIGHT, true), 22)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(title)
+	if cleared:
+		var done: Label = main.ink_text(main.make_label("완주 %d번" % int(main.title_book().get("_clears", 0)), 30, main.GOLD, true), 8)
+		done.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		vb.add_child(done)
 	var spacer := Control.new()
 	spacer.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vb.add_child(spacer)
@@ -87,7 +107,7 @@ func _ready() -> void:
 	setb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	vb.add_child(setb)
 	setb.pressed.connect(func(): main.open_settings())
-	main.bgm("title")
+	main.bgm("yakbang_day" if cleared else "title")
 
 	var ver: Label = main.ink_text(main.make_label("v2.3 · 빌드 %d" % load("res://scripts/boot.gd").running_build(), 24, Color("e0d0b0")), 6)
 	ver.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

@@ -191,6 +191,9 @@ func _debug_capture() -> void:
 			show_records(func(): open_title_book())
 		"titlebook":
 			open_title_book()
+		"titlebg":
+			seed(int(args.get("seed", "1")))
+			show_title()
 		"slots":
 			show_title()
 		"cards":
