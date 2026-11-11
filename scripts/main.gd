@@ -546,7 +546,9 @@ func open_title_book() -> void:
 	var sc := ScrollContainer.new()
 	sc.custom_minimum_size = Vector2(600, 860)
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.scroll_deadzone = 8
 	var list := VBoxContainer.new()
+	list.mouse_filter = Control.MOUSE_FILTER_PASS
 	list.add_theme_constant_override("separation", 10)
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sc.add_child(list)
@@ -555,15 +557,18 @@ func open_title_book() -> void:
 		var has: bool = book.has(t[0])
 		var row := PanelContainer.new()
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color("f3e6c8") if has else Color("d8ccb4")
-		sb.border_color = Color("b0883a") if has else Color("9a8c74")
+		sb.bg_color = Color("f3e6c8") if has else Color("cfccc6")
+		sb.border_color = Color("b0883a") if has else Color("a3a09a")
 		sb.set_border_width_all(3); sb.set_corner_radius_all(10); sb.set_content_margin_all(14)
 		row.add_theme_stylebox_override("panel", sb)
+		row.mouse_filter = Control.MOUSE_FILTER_PASS   # 칸 위에서 끌어도 목록이 내려가게
 		var col := VBoxContainer.new()
-		var nm := make_label(("「%s」" % t[0]) if has else "「 ？？？ 」", 30, RED if has else INK_SOFT)
-		col.add_child(nm)
+		col.mouse_filter = Control.MOUSE_FILTER_PASS
+		if has:
+			col.add_child(make_label("「%s」" % t[0], 30, RED))
+		# 못 얻은 칭호는 이름 없이 조건만, 회색으로
 		var sub := "%s\n%s · %s 때 얻음" % [t[1], str(book[t[0]].get("date", "")), str(book[t[0]].get("hero", ""))] if has else "조건: %s" % t[1]
-		var dl := make_label(sub, 22, INK_SOFT)
+		var dl := make_label(sub, 22, INK_SOFT if has else Color("7d7a75"))
 		dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		col.add_child(dl)
 		row.add_child(col)
