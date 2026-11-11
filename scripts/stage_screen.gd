@@ -267,7 +267,7 @@ func _make_tile_ent(i: int) -> void:
 		"walpae", "pojol":
 			var eid := _enemy_id(typ)
 			root.add_child(_sprite(GameData.ENEMIES[eid]["sprite"], 170))
-			root.add_child(_badge("walpae" if typ == "walpae" else "pojol", Vector2(-22, -210), Color("f3d0c8")))
+			root.add_child(_badge("walpae" if typ == "walpae" or main.chapter >= 9 else "pojol", Vector2(-22, -210), Color("f3d0c8")))  # 한양 귀환 뒤엔 쫓기는 몸이 아니니 포졸 표시 없음
 		"boss":
 			root.add_child(_sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210))
 			root.add_child(_badge("walpae", Vector2(-22, -250), Color("ffb0a0")))
@@ -1218,6 +1218,8 @@ const BLOCK_REPLY := {
 		{"who": "왈패", "pic": "walpae", "text": "흐흐, 약초도 돈이지. 순순히 안 내놓겠다 이거냐?"}],
 	"mob": [{"who": "{name}", "pic": "hero", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
 		{"who": "중독된 사내", "pic": "addict", "text": "약…! 그 약 냄새… 내놔아아!"}],
+	"masked_henchman": [{"who": "{name}", "pic": "hero_adult", "text": "정 의관이 보낸 사람이군요. 비켜요, 대비마마를 살려야 해요!"},
+		{"who": "복면 하수인", "pic": "masked_henchman", "text": "살아서 궁 밖으로 나갈 생각은 버려라."}],
 	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병 도는 마을에 약을 가져가는 길이에요. 비켜요!"},
 		{"who": "뱃사람", "pic": "haejeok_young", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],
 }
@@ -1230,6 +1232,7 @@ const BLOCK_LINES := {
 	"mob": "청심보명단에 중독된 사내가 달려든다!\n\"약… 약을 내놔…!\"",
 	"haejeok": "칼을 찬 뱃사람 무리가 길을 막았다!\n\"이방인, 가진 걸 내놔라!\"",
 	"rat": "역병을 옮기는 쥐떼가 우르르 몰려왔다!",
+	"masked_henchman": "검은 복면의 사내가 처마 그림자에서 뛰어내렸다!\n\"정 의관 나리 일을 엿보는 쥐새끼가 너냐.\"",
 }
 
 func _apply_event(ev: Dictionary) -> void:

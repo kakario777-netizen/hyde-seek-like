@@ -63,7 +63,7 @@ const CHAPTERS := {
 			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
-				"foes": {"walpae": "naegeumwi", "pojol": "naegeumwi"}, "ally": "seohwi"},
+				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "seohwi"},
 			{"map": "s10_mapo", "ally_pic": "seohwi_podo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
 				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "seohwi"},
 			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
