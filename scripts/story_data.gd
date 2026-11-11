@@ -49,7 +49,7 @@ const CHAPTERS := {
 		"stages": [{"map": "s6_1", "foes": {"walpae": "sanjeok", "pojol": "sanjeok"}, "name": "다래와 북한산 오르기", "after": "C6F_LESSON"},
 			{"map": "s6_2", "name": "산마루 약초밭으로"}],
 		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "mountain"},
-	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 30, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
+	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 36, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
 		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
