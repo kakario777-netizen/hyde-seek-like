@@ -99,7 +99,7 @@ S = [
 ]
 S += [
     ("s1_0", "운종가 약재 심부름", "stone", "jangteo", 26, 10, {"events": ["shop", "item", "buff", "rest"], "watchers": 1, "blockers": 1, "spikes": 1}),
-    ("s3_h", "자양강장 약재 찾기", "grass", "stream", 28, 300, {"events": ["shop", "item", "buff", "rest"], "watchers": 2, "blockers": 1, "herbs": 5}),
+    ("s3_h", "자양강장 약재 찾기", "grass", "mountain", 28, 300, {"events": ["shop", "item", "buff", "rest"], "watchers": 2, "blockers": 1, "herbs": 5}),
     ("h_port", "화란 항구, 떠나는 날", "stone", "holland_port", 26, 901, {"events": ["shop", "rest", "item", "buff"], "watchers": 2, "blockers": 1}),
     ("h_deck", "귀향의 바닷길", "wood", "deck", 30, 902, {"events": ["rest", "item", "debuff", "trap"], "watchers": 3, "blockers": 2, "spikes": 0, "boss": {"battle": "pirate_boss", "pre": "C9_PIRATE_PRE", "post": "C9_PIRATE_POST"}}),
     ("s9_p", "포도청 수련", "stone", "podocheong", 30, 903, {"events": ["talk", "rest", "item", "buff"], "watchers": 3, "blockers": 2, "boss": {"battle": "dogyeol", "pre": "C9_SPAR_PRE", "post": "C9_SPAR_POST", "lose_ok": True}}),
