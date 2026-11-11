@@ -205,7 +205,7 @@ func _build_world() -> void:
 		else:
 			_make_guard(e["i"])
 	var comp: String = main.companion()
-	var comp_pic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
+	var comp_pic: String = main.comp_pic() if comp != "" else comp
 	var cp := "res://assets/chibi/%s.png" % main.CHIBI_OF.get(comp_pic, comp_pic)
 	var rp: String = main._ret(comp_pic)   # 마지막 장의 어른 다래 등
 	if rp != comp_pic and ResourceLoader.exists("res://assets/chibi/%s.png" % rp):

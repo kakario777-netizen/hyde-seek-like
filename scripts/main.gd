@@ -350,6 +350,14 @@ func companion() -> String:
 		a = "dogyeol"   # 윤도결을 고른 뒤의 추억 길은 윤도결과 함께
 	return a
 
+## 동행 그림: 맵에 따라 옷차림이 다르면(ally_pic) 그 그림으로
+func comp_pic() -> String:
+	var c: Dictionary = StoryData.COMPANION.get(companion(), {})
+	var st: Array = ch_cfg().get("stages", [])
+	if sub_stage.is_empty() and stage_idx < st.size() and st[stage_idx].has("ally_pic"):
+		return st[stage_idx]["ally_pic"]
+	return c.get("pic", "")
+
 var comp_k := 0
 func comp_line(kind: String) -> String:
 	var c: Dictionary = StoryData.COMPANION.get(companion(), {})
@@ -374,11 +382,11 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 		var me := "{alias}" if chapter in DISGUISED else "{name}"
 		var pre: Array = FINAL_COMP.get(enemy_id, [])
 		if pre.is_empty() and c.has("pre"):
-			pre = [{"who": me, "pic": hero_pose(), "text": comp_line("pre_me")}, {"who": c["name"], "pic": c["pic"], "text": comp_line("pre")}]
+			pre = [{"who": me, "pic": hero_pose(), "text": comp_line("pre_me")}, {"who": c["name"], "pic": comp_pic(), "text": comp_line("pre")}]
 		var post_line: String = comp_line("post") if not FINAL_COMP.has(enemy_id) else ""
 		var win := on_win
 		if post_line != "":
-			win = func(): dialog_chain([{"who": c["name"], "pic": c["pic"], "text": post_line}], on_win)
+			win = func(): dialog_chain([{"who": c["name"], "pic": comp_pic(), "text": post_line}], on_win)
 		dialog_chain(pre, func(): start_battle(enemy_id, win, opts))
 		return
 	var b := BattleScreen.new()
