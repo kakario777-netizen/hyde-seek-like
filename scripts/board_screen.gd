@@ -50,7 +50,7 @@ func _ready() -> void:
 		for k in restore.get("cleared", []):
 			cleared[int(k)] = true
 
-	var bt: Texture2D = main.backdrop("title" if cfg.get("world", false) else "street_ink")
+	var bt: Texture2D = main.backdrop("title" if cfg.get("world", false) else "alley")
 	if bt:
 		var bgr := TextureRect.new()
 		bgr.texture = bt

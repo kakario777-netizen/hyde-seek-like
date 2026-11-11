@@ -956,7 +956,7 @@ func illust(name: String) -> Texture2D:
 const CHAR_FALLBACK := {"hero_disguise_hair": "hero_disguise_sad"}
 
 const BG_FALLBACK := {"yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
-	"flash_plague": "street_ink", "flash_carried": "street_ink", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
+	"flash_plague": "village_outside", "flash_carried": "mountain", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
 
 func backdrop(name: String) -> Texture2D:
 	var p := "res://assets/bg/%s.jpg" % name

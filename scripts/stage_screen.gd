@@ -125,7 +125,7 @@ func _ready() -> void:
 		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
 
 	var bgr := TextureRect.new()
-	bgr.texture = main.backdrop(data.get("bg", "street_ink"))
+	bgr.texture = main.backdrop(data.get("bg", "alley"))
 	bgr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	bgr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	bgr.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
