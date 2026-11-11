@@ -1034,6 +1034,7 @@ func _pick_herb(i: int) -> void:
 	var h: Control = ent_nodes[i].get_node("Herb")
 	h.name = "HerbTaken"
 	herbs_got += 1
+	main.stat_add("herbs")
 	if herbs_got == 1:
 		comp_say("herb")
 	main.herbs = mini(main.herbs + 1, main.HERB_MAX)   # 약탕관에는 8개까지

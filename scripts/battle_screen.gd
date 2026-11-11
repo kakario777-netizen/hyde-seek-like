@@ -396,6 +396,7 @@ func _play(b: Button, e: Dictionary) -> void:
 		return
 	my_turn = false
 	energy -= int(c["cost"])
+	main.stat_card(e["id"])
 	var hi := hand.find(e)
 	if hi >= 0:
 		hand.remove_at(hi)
@@ -564,6 +565,7 @@ func _enemy_turn() -> void:
 		over = true
 		main.sfx("gong")
 		if opts.get("lose_ok", false):
+			main.stat_add("losses")
 			await _show_banner("패배…")
 			main.hp = max(1, main.max_hp / 2)
 			main.end_battle(self)
@@ -577,6 +579,7 @@ func _enemy_turn() -> void:
 # ── 끝 ──────────────────────────────────────────────────
 func _win() -> void:
 	over = true
+	main.stat_add("wins")
 	main.sfx("victory")
 	main.coins += int(enemy["coin"])
 	var tw := create_tween()

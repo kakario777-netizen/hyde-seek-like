@@ -23,7 +23,37 @@ const STEP_WORD := ["", "한", "두", "세", "네", "다섯", "여섯"]
 var hero_name := "연이"
 var max_hp := 50
 var hp := 50
-var coins := 0
+## 엽전: 들어오고 나간 양을 엔딩 기록용으로 함께 센다 (불러오기·새 게임 중에는 세지 않음)
+var track_stats := false
+var coins := 0:
+	set(v):
+		if track_stats:
+			if v > coins:
+				stat_add("coin_in", v - coins)
+			elif v < coins:
+				stat_add("coin_out", coins - v)
+		coins = v
+
+## 플레이 기록 (세이브마다 따로)
+var play_sec := 0.0
+var stats := {}
+var app_active := true
+
+func stat_add(key: String, n := 1) -> void:
+	stats[key] = int(stats.get(key, 0)) + n
+
+func stat_card(id: String) -> void:
+	var cu: Dictionary = stats.get("cards", {})
+	cu[id] = int(cu.get(id, 0)) + 1
+	stats["cards"] = cu
+
+func _process(delta: float) -> void:
+	if app_active and phase != "title":
+		play_sec += delta
+
+static func fmt_time(sec: float) -> String:
+	var m := int(sec) / 60
+	return "%d시간 %d분" % [m / 60, m % 60] if m >= 60 else "%d분" % m
 var potions := 2        # 진한 탕약(3단계, 체력 +40)
 var potions_small := 0  # 묽은 탕약(2단계, 체력 +20)
 var herbs := 0          # 약초 주머니 (맵에서 주운 약초가 계속 쌓임)
@@ -155,6 +185,12 @@ func _debug_capture() -> void:
 							bs[0].pressed.emit(); break
 					await get_tree().create_timer(0.25).timeout
 				print("BOARD_IS_WORLD ", board.get_script().resource_path, " cleared=", board.cleared.keys())
+		"records":
+			hero_name = "연이"; play_sec = 26640.0
+			stats = {"brew_small": 18, "brew_big": 9, "herbs": 212, "coin_in": 864, "coin_out": 731, "wins": 96, "losses": 2, "cards": {"jumeok": 48, "pum": 30}}
+			show_records(func(): pass)
+		"slots":
+			show_title()
 		"cards":
 			var bg := ColorRect.new(); bg.color = Color("3a2c22"); bg.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(bg)
 			var hb := HBoxContainer.new(); hb.position = Vector2(20, 200); hb.add_theme_constant_override("separation", 14); add_child(hb)
@@ -261,7 +297,9 @@ func show_title() -> void:
 
 func new_game() -> void:
 	ask_name(func():
+		track_stats = false
 		max_hp = 50; hp = 50; coins = 0; potions = 2; potions_small = 0; herbs = 0
+		play_sec = 0.0; stats = {}; track_stats = true
 		chapter = 1; stage_idx = 0; flags = {"hp_plus10": true}; next_energy = 0; next_guard = 0
 		deck = make_deck(GameData.START_DECK)
 		phase = "prologue"
@@ -395,10 +433,62 @@ func chapter_clear() -> void:
 			_end_duel(cfg)
 		elif cfg.has("epilogue"):
 			play_story(StoryData.lines(cfg["epilogue"]), func():
-				phase = "title"
-				show_title())
+				show_records(func():
+					phase = "title"
+					show_title()))
 		else:
 			_next_chapter())
+
+## 엔딩 기록 화면
+const CARD_TITLE := {"jumeok": "붓끝이 매서운 의원", "baldda": "붓끝이 매서운 의원", "gyeot": "붓끝이 매서운 의원", "nalchi": "붓끝이 매서운 의원",
+	"pum": "철벽 상소의 의원", "gochu": "꾀 많은 의원"}
+
+func ending_title() -> String:
+	var lost := int(stats.get("losses", 0))
+	var bs := int(stats.get("brew_small", 0)); var bb := int(stats.get("brew_big", 0))
+	var cin := int(stats.get("coin_in", 0)); var cout := int(stats.get("coin_out", 0))
+	if lost == 0:
+		return "불패의 어의"
+	if lost <= 3:
+		return "꺾이지 않는 의원"
+	if lost >= 10:
+		return "칠전팔기 의원"
+	if bs + bb >= 30:
+		return "내의원 탕약 장인"
+	if bb > bs and bb > 0:
+		return "진한 탕약의 대가"
+	if int(stats.get("herbs", 0)) >= 150:
+		return "팔도 약초꾼"
+	if cin > 0 and cout * 2 <= cin:
+		return "한양 제일 알뜰 의원"
+	if cin > 0 and cout * 10 >= cin * 9:
+		return "통 큰 의원"
+	var top := _top_card()
+	if top != "":
+		return CARD_TITLE.get(top, "한양의 의원")
+	return "한양의 의원"
+
+func _top_card() -> String:
+	var cu: Dictionary = stats.get("cards", {})
+	var best := ""; var n := 0
+	for k in cu:
+		if int(cu[k]) > n:
+			n = int(cu[k]); best = k
+	return best
+
+func show_records(cb: Callable) -> void:
+	var top := _top_card()
+	var cu: Dictionary = stats.get("cards", {})
+	var card_txt := "%s (%d회)" % [GameData.CARDS[top]["name"], int(cu[top])] if top != "" else "—"
+	var t := "━━ 한양 숨바꼭질 · 완 ━━\n%s · 「%s」\n\n" % [hero_name, ending_title()]
+	t += "플레이 시간   %s\n" % fmt_time(play_sec)
+	t += "달인 탕약   묽은 탕약 %d첩 · 진한 탕약 %d첩\n" % [int(stats.get("brew_small", 0)), int(stats.get("brew_big", 0))]
+	t += "모은 약초   %d뿌리\n" % int(stats.get("herbs", 0))
+	t += "모은 엽전   %d냥\n" % int(stats.get("coin_in", 0))
+	t += "쓴 엽전   %d냥\n" % int(stats.get("coin_out", 0))
+	t += "가장 많이 올린 상소   %s\n" % card_txt
+	t += "이긴 전투   %d번 · 쓰러진 전투 %d번" % [int(stats.get("wins", 0)), int(stats.get("losses", 0))]
+	popup(t, "처음 화면으로", cb, "여정의 기록", "", "", true)
 
 ## 장 끝의 싸움(예: 다래와의 다툼) — 이기든 지든 이야기는 이어진다
 func _end_duel(cfg: Dictionary) -> void:
@@ -436,6 +526,7 @@ func game_over(reason: String, pic := "") -> void:
 			board.queue_free(); board = null
 		current = null
 		max_hp = 50   # 다시 하기: 엽전·약병·탕약·약초는 그대로 둔다
+		stat_add("losses")
 		start_board(), "", pic, "", true)
 
 # ── 이름 ────────────────────────────────────────────────
@@ -1070,6 +1161,7 @@ func show_brew(cb := Callable()) -> void:
 				return
 			herbs -= need
 			coins -= int(br["cost"])
+			stat_add("brew_small" if br["key"] == "small" else "brew_big")
 			if br["key"] == "small":
 				potions_small += 1
 			else:
@@ -1316,7 +1408,10 @@ func _notification(what: int) -> void:
 			autosave("종료 자동 저장")
 			get_tree().quit()
 		NOTIFICATION_APPLICATION_PAUSED, NOTIFICATION_APPLICATION_FOCUS_OUT:
+			app_active = false
 			autosave("화면 전환 자동 저장")
+		NOTIFICATION_APPLICATION_RESUMED, NOTIFICATION_APPLICATION_FOCUS_IN:
+			app_active = true
 
 func _save_path(slot: String) -> String:
 	return "user://save_%s.json" % slot
@@ -1325,7 +1420,7 @@ func snapshot() -> Dictionary:
 	var d := {"ver": 2, "phase": phase, "stage_idx": stage_idx, "hero_name": hero_name, "alias_name": alias_name, "max_hp": max_hp, "hp": hp,
 		"coins": coins, "potions": potions, "potions_small": potions_small, "herbs": herbs, "deck": deck, "chapter": chapter, "flags": flags,
 		"next_energy": next_energy, "next_guard": next_guard,
-		"time": Time.get_datetime_string_from_system(false, true)}
+		"time": Time.get_datetime_string_from_system(false, true), "play_sec": play_sec, "stats": stats}
 	var bd: Control = world_board if (world_board and is_instance_valid(world_board)) else board
 	if bd and is_instance_valid(bd):
 		d["board"] = bd.get_state()
@@ -1365,11 +1460,14 @@ func load_game(slot: String) -> void:
 	var d := read_save(slot)
 	if d.is_empty():
 		return
+	track_stats = false
+	play_sec = float(d.get("play_sec", 0.0)); stats = d.get("stats", {})
 	hero_name = d.get("hero_name", "연이"); alias_name = d.get("alias_name", "")
 	max_hp = int(d.get("max_hp", 40)); hp = int(d.get("hp", max_hp))
 	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))
 	potions_small = int(d.get("potions_small", 0)); herbs = mini(int(d.get("herbs", 0)), HERB_MAX)
 	chapter = int(d.get("chapter", 1)); flags = d.get("flags", {})
+	track_stats = true
 	if not flags.has("hp_plus10"):   # 체력 +10 조정 전 저장
 		flags["hp_plus10"] = true; max_hp += 10; hp += 10
 	stage_idx = int(d.get("stage_idx", 0))
@@ -1399,7 +1497,7 @@ func _slot_label(slot: String) -> String:
 	if d.is_empty():
 		return "%s\n— 비어 있음 —" % head
 	var where := "제%d장 시작" % int(d.get("chapter", 1)) if d.get("phase", "") != "board" else "제%d장 · %s" % [int(d.get("chapter", 1)), d.get("place", "")]
-	return "%s · %s\n%s · %s" % [head, d.get("hero_name", ""), where, str(d.get("time", "")).replace("T", " ").left(16)]
+	return "%s · %s · 플레이 %s\n%s · %s" % [head, d.get("hero_name", ""), fmt_time(float(d.get("play_sec", 0.0))), where, str(d.get("time", "")).replace("T", " ").left(16)]
 
 ## mode: "save" 또는 "load"
 func open_slots(mode: String, cb := Callable()) -> void:
