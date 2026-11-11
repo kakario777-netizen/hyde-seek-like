@@ -6,12 +6,12 @@ var main
 var cleared := false
 
 func _ready() -> void:
-	# 한 번 끝까지 하면 처음 화면이 혼례 그림으로 바뀐다
+	# 한 번 끝까지 하면 처음 화면이 허 의원과 잠든 어린 주인공 그림으로 바뀐다
 	var book: Dictionary = main.title_book()
 	cleared = int(book.get("_clears", 0)) > 0
 	var bg := TextureRect.new()
 	if cleared:
-		bg.texture = main.backdrop("wedding")
+		bg.texture = main.backdrop("title_clear")
 	else:
 		bg.texture = main.backdrop("title") if main.backdrop("title") else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
