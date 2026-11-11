@@ -4,7 +4,7 @@ extends Control
 ## - 앱 자체를 새로 깔아야 하는 변경이면 설치 파일 페이지 안내
 ## - 새 데이터로 켜다가 멈추면 다음 실행 때 원래 데이터로 되돌림
 
-const SHELL := 1   # 이 시작 화면/업데이트 기능의 판. 바뀌면 APK 재설치 필요
+const SHELL := 2   # 이 시작 화면/업데이트 기능의 판. 바뀌면 APK 재설치 필요
 const REPO := "kakario777-netizen/hyde-seek-releases"
 const API := "https://api.github.com/repos/%s/releases/latest" % REPO
 const PAGE := "https://github.com/%s/releases/latest" % REPO
@@ -78,11 +78,16 @@ func _write_state(d: Dictionary) -> void:
 		f.store_string(JSON.stringify(d))
 
 ## 지난번에 새 데이터로 켜다가 끝까지 못 갔으면(멈춤) 원래 데이터로
+## 한두 번 중간에 꺼진 건(앱을 바로 닫음, 폰이 앱을 정리함 등) 봐주고, 3번 연속일 때만 되돌림
 func _recover_if_crashed() -> void:
 	var st := _read_state()
 	if st.get("pending", false):
-		DirAccess.remove_absolute(ProjectSettings.globalize_path(PATCH))
-		st = {"bad_build": st.get("build", 0)}
+		var fails := int(st.get("fails", 0)) + 1
+		st.erase("pending")
+		st["fails"] = fails
+		if fails >= 3:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(PATCH))
+			st = {"bad_build": st.get("build", 0)}
 		_write_state(st)
 
 func _base_build() -> int:
@@ -124,7 +129,7 @@ func _on_latest(result: int, code: int, _h: PackedStringArray, body: PackedByteA
 	bar.visible = true
 	dl = HTTPRequest.new()
 	dl.download_file = PATCH_NEW
-	dl.timeout = 120.0
+	dl.timeout = 600.0   # 큰 파일이라 넉넉히 (느린 데이터망)
 	add_child(dl)
 	dl.request_completed.connect(_on_pck)
 	dl.request(pck_url, ["User-Agent: hanyang-hide"])
@@ -186,8 +191,9 @@ static func mark_ok() -> void:
 	if not FileAccess.file_exists(STATE):
 		return
 	var d = JSON.parse_string(FileAccess.get_file_as_string(STATE))
-	if d is Dictionary and d.get("pending", false):
+	if d is Dictionary and (d.get("pending", false) or d.has("fails")):
 		d.erase("pending")
+		d.erase("fails")
 		var f := FileAccess.open(STATE, FileAccess.WRITE)
 		f.store_string(JSON.stringify(d))
 
