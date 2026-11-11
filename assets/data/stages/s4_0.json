@@ -2,7 +2,7 @@
  "id": "s4_0",
  "name": "성 밖 병든 마을",
  "tile": "grass",
- "bg": "street_ink",
+ "bg": "village_outside",
  "turns": 18,
  "tiles": [
   {
