@@ -1589,6 +1589,14 @@ func load_game(slot: String) -> void:
 		board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
 		board.restore = d["board"]
 		_swap(board)
+	elif stage_idx > 0:
+		# 맵을 깬 뒤 이어지는 이야기 도중에 저장됨 → 장 첫 이야기로 되돌아가지 않고 그 이야기부터 다시
+		phase = "board"
+		var stl: Array = ch_cfg().get("stages", [])
+		if stage_idx < stl.size() and stl[stage_idx].get("after_story", false):
+			play_story(StoryData.lines(stl[stage_idx].get("after", "")), next_stage)
+		else:
+			start_board()
 	else:
 		phase = "prologue"
 		play_story(chapter_lines("intro"), start_board)
