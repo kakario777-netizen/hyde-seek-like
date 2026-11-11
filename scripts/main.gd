@@ -568,7 +568,8 @@ func show_records(cb: Callable) -> void:
 	var card_txt := "%s (%d회)" % [GameData.CARDS[top]["name"], int(cu[top])] if top != "" else "—"
 	var t := "━━ 한양 숨바꼭질 · 완 ━━\n%s · 「%s」\n\n" % [hero_name, ending_title()]
 	t += "플레이 시간   %s\n" % fmt_time(play_sec)
-	t += "달인 탕약   묽은 탕약 %d첩 · 진한 탕약 %d첩\n" % [int(stats.get("brew_small", 0)), int(stats.get("brew_big", 0))]
+	t += "달인 탕약   %d첩\n" % (int(stats.get("brew_small", 0)) + int(stats.get("brew_big", 0)))
+	t += "  묽은 탕약 %d첩  ·  진한 탕약 %d첩\n" % [int(stats.get("brew_small", 0)), int(stats.get("brew_big", 0))]
 	t += "모은 약초   %d뿌리\n" % int(stats.get("herbs", 0))
 	t += "모은 엽전   %d냥\n" % int(stats.get("coin_in", 0))
 	t += "쓴 엽전   %d냥\n" % int(stats.get("coin_out", 0))
