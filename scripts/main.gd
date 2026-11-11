@@ -661,7 +661,7 @@ func sentence_breaks(t: String) -> String:
 
 ## 대화 그림 키 비율: 남자 어른 1.0 기준, 주인공·여자는 조금 작게, 아이는 더 작게
 func fig_scale(name: String) -> float:
-	if name.begins_with("dutch_child") or name in ["island_child", "children"]:
+	if name.begins_with("dutch_child") or name.begins_with("island_child") or name == "children":
 		return 0.66
 	if name.begins_with("hero_adult"):
 		return 0.92

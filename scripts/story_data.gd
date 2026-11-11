@@ -466,7 +466,7 @@ const C7_PORT := [
 
 const C7_ISLAND := [
 	{"who": "", "bg": "island", "text": "배가 물을 채우러 남쪽 섬 바타비아에 닿았다.\n숨이 막힐 듯 더운 한낮."},
-	{"who": "섬마을 아이", "pic": "island_child", "text": "의원님…? 우리 동생이 며칠째 열이 나고 배가 아파요.\n아무도 못 고쳐요…"},
+	{"who": "섬마을 아이", "pic": "island_child_sad", "text": "의원님…? 우리 동생이 며칠째 열이 나고 배가 아파요.\n아무도 못 고쳐요…"},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "가 보자.\n…더위를 먹은 데다 물이 나빠서 탈이 났구나.",
 		"choices": [{"text": "아껴 둔 귀한 약을 아이에게 쓴다", "set": "c7_gave"}, {"text": "약초만 달여 주고 귀한 약은 아껴 둔다", "set": ""}]},
 	{"if": "c7_gave", "who": "", "text": "{alias}는 품에 아껴 둔 약을 아이의 입에 흘려 넣었다.\n저녁 무렵, 아이가 눈을 뜨고 배시시 웃었다."},
@@ -480,7 +480,7 @@ const C7_ISLAND := [
 
 const C7_PIRATE_PRE := [
 	{"who": "", "bg": "deck", "text": "천축 앞바다를 지나던 밤.\n검은 돛을 단 배 한 척이 소리 없이 다가왔다."},
-	{"who": "얀", "pic": "redhair_sailor", "text": "해적이다! 의원님, 선실로 숨어요!"},
+	{"who": "얀", "pic": "redhair_sailor_sad", "text": "해적이다! 의원님, 선실로 숨어요!"},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "숨으면 다친 사람은 누가 고쳐요.\n…저도 싸울게요!"},
 	{"who": "해적 두목", "pic": "pirate_captain", "text": "흐흐흐, 비단에 은화를 가득 실은 화란 배로구나.\n몽땅 내놓아라!"},
 ]
