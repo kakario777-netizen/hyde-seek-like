@@ -214,9 +214,9 @@ func _debug_capture() -> void:
 			await get_tree().create_timer(0.6).timeout
 			dialog_chain(StoryData.lines(args.get("key", "C2_DOGYEOL")).slice(int(args.get("from", "0"))), Callable())
 		"battle":
-			start_board()
 			chapter = int(args.get("ch", "1"))
 			stage_idx = int(args.get("st", "0"))
+			start_board()
 			start_battle(args.get("enemy", "pojol"), Callable(), {"ally": args.get("ally", ""), "lose_ok": args.has("lose")})
 			if args.has("clean"):
 				await get_tree().create_timer(0.5).timeout
