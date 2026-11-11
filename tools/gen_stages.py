@@ -110,7 +110,7 @@ S += [
 ]
 S += [
     ("s10_isle", "남쪽 유배 섬 가는 길", "dirt", "exile_hut", 36, 1001, {"events": ["talk", "rest", "item", "shop"], "watchers": 3, "blockers": 1, "herbs": 5}),
-    ("s10_palace", "밤의 궁궐 잠입", "palace", "palace_night", 34, 1002, {"events": ["trap", "item", "rest", "debuff"], "watchers": 5, "blockers": 2}),
+    ("s10_palace", "밤의 궁궐 잠입", "palace", "palace_night", 34, 1002, {"events": ["trap", "item", "rest", "debuff"], "watchers": 5, "blockers": 2, "boss": {"battle": "jeong_shadow1", "pre": "C10_JEONG1_PRE", "post": "C10_JEONG1_POST"}}),
     ("s10_mapo", "마포 나루 청 상인 창고", "wood", "mapo_warehouse", 36, 1003, {"events": ["shop", "trap", "rest", "item"], "watchers": 4, "blockers": 2, "boss": {"battle": "jeong_shadow", "pre": "C10_JEONG_PRE", "post": "C10_JEONG_POST"}}),
 ]
 for sid, name, tile, bg, ln, seed, kw in S:

@@ -393,7 +393,10 @@ func _resolve() -> void:
 			_clear(pos)
 			main.potions += 1
 			main.sfx("item")
-			main.popup("길섶에서 약초 주머니를 주웠다!\n다래가 금세 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "friend")
+			if main.companion() == "darae" or main.chapter == 2:
+				main.popup("길섶에서 약초 주머니를 주웠다!\n다래가 금세 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "friend")
+			else:   # 다래가 곁에 없는 길에서는 혼자 달인다
+				main.popup("길섶에서 약초 주머니를 주웠다!\n주운 약초로 약병 하나를 달였다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "")
 		"buff":
 			_clear(pos)
 			_apply_event(GameData.BUFFS.pick_random())

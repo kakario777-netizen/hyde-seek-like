@@ -23,7 +23,7 @@
   {
    "x": -1,
    "y": -2,
-   "type": "rest"
+   "type": "item"
   },
   {
    "x": -2,
@@ -43,7 +43,7 @@
   {
    "x": -3,
    "y": -4,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -131,18 +131,21 @@
   {
    "x": -11,
    "y": -13,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -11,
    "y": -14,
-   "type": "item"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "boss",
+   "battle": "jeong_shadow1",
+   "pre": "C10_JEONG1_PRE",
+   "post": "C10_JEONG1_POST"
   },
   {
    "x": -12,
@@ -187,7 +190,7 @@
   {
    "x": -16,
    "y": -19,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -16,
@@ -207,7 +210,7 @@
   {
    "x": -16,
    "y": -23,
-   "type": "debuff"
+   "type": "rest"
   },
   {
    "x": -17,
@@ -222,33 +225,11 @@
  ],
  "guards": [
   {
-   "x": -8,
-   "y": -11,
-   "at": 19,
+   "x": -11,
+   "y": -12,
+   "at": 23,
    "zone": [
-    18,
-    19
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -16,
-   "y": -22,
-   "at": 38,
-   "zone": [
-    38
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -13,
-   "y": -16,
-   "at": 29,
-   "zone": [
-    29,
-    30
+    23
    ],
    "kind": "walpae",
    "on_path": true
@@ -265,14 +246,35 @@
    "on_path": true
   },
   {
-   "x": -11,
-   "y": -13,
-   "at": 24,
+   "x": -16,
+   "y": -22,
+   "at": 38,
    "zone": [
-    23,
-    24
+    38
    ],
-   "kind": "pojol",
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -7,
+   "y": -10,
+   "at": 17,
+   "zone": [
+    17,
+    18
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -13,
+   "y": -16,
+   "at": 29,
+   "zone": [
+    29,
+    30
+   ],
+   "kind": "walpae",
    "on_path": true
   }
  ]
