@@ -557,7 +557,7 @@ const C7_MID := [
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "그리고… 처음 너를 봤을 때부터, 너는 늘 머무는 사람이었다.\n…아니다. 피곤해서 헛소리를 하는군."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(가슴이… 왜 이렇게 뛰지.)",
 		"choices": [{"text": "\"…헛소리 아니었으면 좋겠어.\"", "set": "c7_honest"}, {"text": "말없이 담요를 덮어 준다", "set": ""}]},
-	{"if": "c7_honest", "who": "서휘", "pic": "seohwi_dutch", "text": "…!\n그럼, 역병이 끝나면 다시 말하지. 제대로."},
+	{"if": "c7_honest", "who": "서휘", "pic": "seohwi_dutch", "text": "…!\n그럼, 역병이 끝나면… 내가 어디로 가야 할지 말하지."},
 ]
 
 const CH7_END := [
@@ -567,8 +567,8 @@ const CH7_END := [
 	{"who": "{name}", "pose": "hero_adult", "text": "그런데 그 일이 없었으면 다래랑 길을 떠나지도, 다리 밑에서 당신을 만나지도 못했겠죠.\n…이제는 그때 일이 고마워요. 그 길 끝에 당신이 있었으니까."},
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "…나도 그렇다. 평생 이 푸른 눈을 원망하며 살았는데,\n이 눈 덕에 화란까지 와서… 너를 다시 만났지."},
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "불행이라 여긴 길이, 돌아보니 전부 너에게 오는 길이었군."},
-	{"who": "서휘", "pose": "seohwi_dutch", "text": "{name}. 약속대로 제대로 말하겠다.\n…너와 함께 조선으로 돌아가고 싶다. 네 곁에 머물고 싶다."},
-	{"who": "{name}", "pose": "hero_disguise", "text": "…응. 나도.", "end": true},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "평생 원망하던 조선이지만… 거기엔 네가 있고, 내 어머니 무덤도 있다.\n나도 함께 돌아가겠다. 떠도는 놈이 아니라, 머물 곳이 있는 놈으로."},
+	{"who": "{name}", "pose": "hero_disguise", "text": "…응. 같이 가요.", "end": true},
 ]
 
 const EPILOGUE := [
