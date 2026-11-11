@@ -188,7 +188,9 @@ func _debug_capture() -> void:
 		"records":
 			hero_name = "연이"; play_sec = 26640.0
 			stats = {"brew_small": 18, "brew_big": 9, "herbs": 212, "coin_in": 864, "coin_out": 731, "wins": 96, "losses": 2, "cards": {"jumeok": 48, "pum": 30}}
-			show_records(func(): pass)
+			show_records(func(): open_title_book())
+		"titlebook":
+			open_title_book()
 		"slots":
 			show_title()
 		"cards":
@@ -443,30 +445,114 @@ func chapter_clear() -> void:
 const CARD_TITLE := {"jumeok": "붓끝이 매서운 의원", "baldda": "붓끝이 매서운 의원", "gyeot": "붓끝이 매서운 의원", "nalchi": "붓끝이 매서운 의원",
 	"pum": "철벽 상소의 의원", "gochu": "꾀 많은 의원"}
 
-func ending_title() -> String:
+## 칭호 목록: 위에 있을수록 먼저 붙는 칭호. 한 번 끝낼 때 조건이 맞는 칭호는 모두 모음에 들어간다.
+const TITLES := [
+	["불패의 어의", "한 번도 쓰러지지 않고 끝내기"],
+	["꺾이지 않는 의원", "쓰러진 전투 1~3번으로 끝내기"],
+	["칠전팔기 의원", "쓰러진 전투 10번 이상으로 끝내기"],
+	["내의원 탕약 장인", "탕약 30첩 이상 달이기"],
+	["진한 탕약의 대가", "진한 탕약을 묽은 탕약보다 많이 달이기"],
+	["팔도 약초꾼", "약초 150뿌리 이상 모으기"],
+	["한양 제일 알뜰 의원", "모은 엽전의 절반 이상 남기기"],
+	["통 큰 의원", "모은 엽전의 90% 이상 쓰기"],
+	["붓끝이 매서운 의원", "공격 상소를 가장 많이 올리기"],
+	["철벽 상소의 의원", "품밟기를 가장 많이 올리기"],
+	["꾀 많은 의원", "고춧가루를 가장 많이 올리기"],
+	["한양의 의원", "다른 칭호 없이 끝내기"],
+]
+
+func _title_ok(name: String) -> bool:
 	var lost := int(stats.get("losses", 0))
 	var bs := int(stats.get("brew_small", 0)); var bb := int(stats.get("brew_big", 0))
 	var cin := int(stats.get("coin_in", 0)); var cout := int(stats.get("coin_out", 0))
-	if lost == 0:
-		return "불패의 어의"
-	if lost <= 3:
-		return "꺾이지 않는 의원"
-	if lost >= 10:
-		return "칠전팔기 의원"
-	if bs + bb >= 30:
-		return "내의원 탕약 장인"
-	if bb > bs and bb > 0:
-		return "진한 탕약의 대가"
-	if int(stats.get("herbs", 0)) >= 150:
-		return "팔도 약초꾼"
-	if cin > 0 and cout * 2 <= cin:
-		return "한양 제일 알뜰 의원"
-	if cin > 0 and cout * 10 >= cin * 9:
-		return "통 큰 의원"
 	var top := _top_card()
-	if top != "":
-		return CARD_TITLE.get(top, "한양의 의원")
-	return "한양의 의원"
+	match name:
+		"불패의 어의": return lost == 0
+		"꺾이지 않는 의원": return lost >= 1 and lost <= 3
+		"칠전팔기 의원": return lost >= 10
+		"내의원 탕약 장인": return bs + bb >= 30
+		"진한 탕약의 대가": return bb > bs and bb > 0
+		"팔도 약초꾼": return int(stats.get("herbs", 0)) >= 150
+		"한양 제일 알뜰 의원": return cin > 0 and cout * 2 <= cin
+		"통 큰 의원": return cin > 0 and cout * 10 >= cin * 9
+		"붓끝이 매서운 의원", "철벽 상소의 의원", "꾀 많은 의원": return top != "" and CARD_TITLE.get(top, "") == name
+	return false
+
+func earned_titles() -> Array:
+	var out: Array = []
+	for t in TITLES:
+		if t[0] != "한양의 의원" and _title_ok(t[0]):
+			out.append(t[0])
+	if out.is_empty():
+		out.append("한양의 의원")
+	return out
+
+func ending_title() -> String:
+	return earned_titles()[0]
+
+## 칭호 모음 (세이브와 상관없이 이 기기에 모두 모인다)
+const TITLE_BOOK := "user://titles.json"
+
+func title_book() -> Dictionary:
+	if not FileAccess.file_exists(TITLE_BOOK):
+		return {}
+	var d = JSON.parse_string(FileAccess.get_file_as_string(TITLE_BOOK))
+	return d if d is Dictionary else {}
+
+func _record_titles() -> Array:
+	var book := title_book()
+	var fresh: Array = []
+	var today := Time.get_date_string_from_system()
+	for t in earned_titles():
+		if not book.has(t):
+			book[t] = {"date": today, "hero": hero_name}
+			fresh.append(t)
+	book["_clears"] = int(book.get("_clears", 0)) + 1
+	var f := FileAccess.open(TITLE_BOOK, FileAccess.WRITE)
+	if f:
+		f.store_string(JSON.stringify(book))
+	return fresh
+
+func open_title_book() -> void:
+	var o := _overlay("칭호 모음")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	var book := title_book()
+	var got := 0
+	for t in TITLES:
+		if book.has(t[0]):
+			got += 1
+	vb.add_child(_note("모은 칭호 %d / %d  ·  완주 %d번" % [got, TITLES.size(), int(book.get("_clears", 0))], RED))
+	var sc := ScrollContainer.new()
+	sc.custom_minimum_size = Vector2(600, 860)
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	var list := VBoxContainer.new()
+	list.add_theme_constant_override("separation", 10)
+	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.add_child(list)
+	vb.add_child(sc)
+	for t in TITLES:
+		var has: bool = book.has(t[0])
+		var row := PanelContainer.new()
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color("f3e6c8") if has else Color("d8ccb4")
+		sb.border_color = Color("b0883a") if has else Color("9a8c74")
+		sb.set_border_width_all(3); sb.set_corner_radius_all(10); sb.set_content_margin_all(14)
+		row.add_theme_stylebox_override("panel", sb)
+		var col := VBoxContainer.new()
+		var nm := make_label(("「%s」" % t[0]) if has else "「 ？？？ 」", 30, RED if has else INK_SOFT)
+		col.add_child(nm)
+		var sub := "%s\n%s · %s 때 얻음" % [t[1], str(book[t[0]].get("date", "")), str(book[t[0]].get("hero", ""))] if has else "조건: %s" % t[1]
+		var dl := make_label(sub, 22, INK_SOFT)
+		dl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		col.add_child(dl)
+		row.add_child(col)
+		list.add_child(row)
+	var close := make_button("닫기", 30)
+	close.custom_minimum_size = Vector2(300, 84)
+	close.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	close.pressed.connect(func(): layer.queue_free())
+	vb.add_child(close)
 
 func _top_card() -> String:
 	var cu: Dictionary = stats.get("cards", {})
@@ -488,6 +574,9 @@ func show_records(cb: Callable) -> void:
 	t += "쓴 엽전   %d냥\n" % int(stats.get("coin_out", 0))
 	t += "가장 많이 올린 상소   %s\n" % card_txt
 	t += "이긴 전투   %d번 · 쓰러진 전투 %d번" % [int(stats.get("wins", 0)), int(stats.get("losses", 0))]
+	var fresh := _record_titles()
+	if not fresh.is_empty():
+		t += "\n\n새로 얻은 칭호:  " + "  ·  ".join(fresh.map(func(x): return "「%s」" % x))
 	popup(t, "처음 화면으로", cb, "여정의 기록", "", "", true)
 
 ## 장 끝의 싸움(예: 다래와의 다툼) — 이기든 지든 이야기는 이어진다

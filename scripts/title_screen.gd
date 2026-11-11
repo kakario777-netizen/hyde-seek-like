@@ -76,6 +76,12 @@ func _ready() -> void:
 	cont.disabled = not main.has_any_save()
 	vb.add_child(cont)
 	cont.pressed.connect(func(): main.open_slots("load"))
+	if not main.title_book().is_empty():   # 한 번 끝까지 하면 나타난다
+		var tb: Button = main.make_button("칭호 모음", 30)
+		tb.custom_minimum_size = Vector2(420, 90)
+		tb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		vb.add_child(tb)
+		tb.pressed.connect(func(): main.open_title_book())
 	var setb: Button = main.make_button("설정", 30)
 	setb.custom_minimum_size = Vector2(420, 90)
 	setb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
