@@ -874,6 +874,8 @@ func fig_scale(name: String) -> float:
 		return 0.86
 	if name == "addict":
 		return 0.65   # 쪼그려 앉은 중독자: 전투 화면과 같은 크기로
+	if name == "haejeok_young":
+		return 0.78   # 해적 졸개: 전투 화면과 비슷한 크기로
 	if name.begins_with("baegun_exile"):
 		return 0.95
 	return 1.0
