@@ -206,6 +206,7 @@ func _debug_capture() -> void:
 				hb2.add_child(card_button({"id": "pum", "lv": lv}))
 		"chstory":
 			chapter = int(args.get("ch", "2"))
+			if args.has("flag"): flags[args["flag"]] = true
 			play_story(StoryData.lines(args.get("key", "CH2_INTRO")).slice(int(args.get("from", "0"))), show_title)
 		"chpop":
 			chapter = int(args.get("ch", "2"))
@@ -342,9 +343,12 @@ func companion() -> String:
 	if not sub_stage.is_empty():   # 항해 중 들르는 맵: 그 장의 동행이 따라온다
 		return sub_stage.get("ally", ch_cfg().get("stage_ally", ""))
 	var st: Array = ch_cfg().get("stages", [])
+	var a: String = ch_cfg().get("stage_ally", "")
 	if stage_idx < st.size() and st[stage_idx].has("ally"):
-		return st[stage_idx]["ally"]
-	return ch_cfg().get("stage_ally", "")
+		a = st[stage_idx]["ally"]
+	elif a == "seohwi" and flags.has("wed_dogyeol"):
+		a = "dogyeol"   # 윤도결을 고른 뒤의 추억 길은 윤도결과 함께
+	return a
 
 var comp_k := 0
 func comp_line(kind: String) -> String:
@@ -461,6 +465,8 @@ const TITLES := [
 	["붓끝이 매서운 의원", "공격 상소를 가장 많이 올리기"],
 	["철벽 상소의 의원", "품밟기를 가장 많이 올리기"],
 	["꾀 많은 의원", "고춧가루를 가장 많이 올리기"],
+	["서휘의 반려", "서휘와 혼례를 올리기"],
+	["윤도결의 반려", "윤도결과 혼례를 올리기"],
 	["한양의 의원", "다른 칭호 없이 끝내기"],
 ]
 
@@ -479,16 +485,19 @@ func _title_ok(name: String) -> bool:
 		"한양 제일 알뜰 의원": return cin > 0 and cout * 2 <= cin
 		"통 큰 의원": return cin > 0 and cout * 10 >= cin * 9
 		"붓끝이 매서운 의원", "철벽 상소의 의원", "꾀 많은 의원": return top != "" and CARD_TITLE.get(top, "") == name
+		"서휘의 반려": return not flags.has("wed_dogyeol")
+		"윤도결의 반려": return flags.has("wed_dogyeol")
 	return false
 
 func earned_titles() -> Array:
 	var out: Array = []
+	var spouse: Array = []
 	for t in TITLES:
 		if t[0] != "한양의 의원" and _title_ok(t[0]):
-			out.append(t[0])
+			(spouse if t[0].ends_with("의 반려") else out).append(t[0])
 	if out.is_empty():
 		out.append("한양의 의원")
-	return out
+	return out + spouse   # 반려 칭호는 대표 칭호가 되지 않고 모음에만 들어간다
 
 func ending_title() -> String:
 	return earned_titles()[0]
@@ -1050,7 +1059,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	dim.color = Color(0.08, 0.05, 0.03, 0.3 if bt else 0.62)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(dim)
-	var pt: Texture2D = illust(pic) if pic != "" and not (bg in ["wedding", "family"]) else null
+	var pt: Texture2D = illust(pic) if pic != "" and not (bg in ["wedding", "family", "wedding_dogyeol", "family_dogyeol"]) else null
 	var fig: AspectRatioContainer = null
 	if pt:
 		# 인물은 발끝이 대화창 바로 위에 닿게 (아래 정렬)

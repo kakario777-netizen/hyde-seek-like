@@ -82,12 +82,12 @@ static func lines(key: String) -> Array:
 	match key:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
-		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 11) + C9_KING + C9_DARAE + C9_BRIDGE
-		"C9_SHOP_WED": return C9_SHOP + CH9_INTRO.slice(11)
+		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
 		"C10_ISLE": return C10_EXILE + C10_FALL
-		"C10_CURE_WED": return C10_CURE + CH9_INTRO.slice(11)
+		"C10_CURE_WED": return C10_CURE + C10_CHOICE + C10_WED
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"story1": return GameData.STORY1
 		"story2": return GameData.STORY2
@@ -572,18 +572,23 @@ const CH7_END := [
 ]
 
 const EPILOGUE := [
-	{"bg": "family", "who": "", "text": "남산 아래, 작은 한옥 한 채.\n대문 위에는 '허씨 약방'이라는 현판이 걸렸다."},
-	{"who": "", "text": "마당엔 금빛 머리칼과 검은 머리칼의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
+	{"ifnot": "wed_dogyeol", "bg": "family", "who": "", "text": "남산 아래, 작은 한옥 한 채.\n대문 위에는 '허씨 약방'이라는 현판이 걸렸다."},
+	{"if": "wed_dogyeol", "bg": "family_dogyeol", "who": "", "text": "남산 아래, 작은 한옥 한 채.\n대문 위에는 '허씨 약방'이라는 현판이 걸렸다."},
+	{"ifnot": "wed_dogyeol", "who": "", "text": "마당엔 금빛 머리칼과 검은 머리칼의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
+	{"if": "wed_dogyeol", "who": "", "text": "마당엔 짙은 눈썹의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이오. 무슨 일 있으면 부르시오."},
+	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이오. 무슨 일 있으면 부르시오."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "…아이들 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이오. 무슨 일 있으면 부르시오."},
 	{"who": "", "text": "해 질 녘, 마당에서 뛰놀던 딸아이가 대문 위 현판을 가리켰다."},
 	{"who": "딸", "pose": "children", "text": "어머니, 저기 '허씨 약방'의 허씨는 누구예요?\n우리 집은 허씨가 아니잖아요."},
-	{"who": "아들", "pose": "children", "text": "맞아! 아버지는 서씨고, 어머니는… 음, 어머니는 뭐더라?"},
+	{"ifnot": "wed_dogyeol", "who": "아들", "pose": "children", "text": "맞아! 아버지는 서씨고, 어머니는… 음, 어머니는 뭐더라?"},
+	{"if": "wed_dogyeol", "who": "아들", "pose": "children", "text": "맞아! 아버지는 윤씨고, 어머니는… 음, 어머니는 뭐더라?"},
 	{"who": "{name}", "pose": "hero_adult", "text": "허 의원님은… 길가에 쓰러져 있던 일곱 살 어미를 업어 와서,\n딸처럼 보살피고 키워 주신 분이란다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "가난한 사람에게는 약값을 받지 않으셨고,\n한양 사람들 모두가 존경하던 훌륭한 의원님이셨지."},
 	{"who": "딸", "pose": "children", "text": "그럼 어머니도 그분을 좋아했어요?"},
 	{"who": "{name}", "pose": "hero_adult", "text": "…그럼. 세상 누구보다 존경했고,\n지금도 매일 그분이 그리워. 그래서 이 약방에 그분 이름을 걸어 둔 거란다."},
-	{"who": "서휘", "pose": "seohwi", "text": "너희 어머니가 의원이 된 것도, 아버지가 어머니를 만난 것도…\n다 그 어른 덕분이란다. 그러니 우리 집 할아버지나 마찬가지지."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "너희 어머니가 의원이 된 것도, 아버지가 어머니를 만난 것도…\n다 그 어른 덕분이란다. 그러니 우리 집 할아버지나 마찬가지지."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "너희 어머니가 의원이 된 것도, 아버지가 어머니를 만난 것도…\n다 그 어른 덕분이란다. 아버지는 그 약방 앞에서 어머니를 처음 쫓았거든."},
 	{"who": "아들", "pose": "children", "text": "그럼 허 할아버지한테 인사해야겠다!\n허 할아버지, 안녕하세요! 우리 잘 지내요!"},
 	{"who": "", "text": "아이들의 맑은 목소리가 남산 위 노을 속으로 퍼져 나갔다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "의원님. 저, 잘 지내고 있어요.\n의원님이 주신 마음, 이렇게 계속 이어 가고 있어요."},
@@ -775,9 +780,9 @@ const C9_HOMEWARD := [
 	{"music": "heart_flutter", "who": "서휘", "pose": "seohwi_dutch", "text": "…{name}. 이것 기억하나?"},
 	{"who": "", "text": "서휘가 품에서 꺼낸 것은 낡은 무명천 조각이었다.\n다리 밑 소굴에서, {name}가 찢어진 서휘의 손등을 싸매 주었던 바로 그 천."},
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "화란에서 몇 해를 사는 동안, 한 번도 버리지 못했다.\n아이들 상처를 싸맬 때마다 네 손이 떠올라서."},
-	{"who": "서휘", "pose": "seohwi_dutch", "text": "조선에 닿으면… 네 아버지 묘 앞에서 정식으로 청하겠다.\n평생 네 곁에 머물게 해 달라고."},
-	{"who": "{name}", "pose": "hero_adult_ribbon", "text": "…바보. 그런 건 묘 앞에서 말고, 지금도 말해도 되잖아요."},
-	{"who": "서휘", "pose": "seohwi_dutch", "text": "…그럼 지금 한 번, 그리고 묘 앞에서 한 번 더 하지."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "조선에 닿으면… 네 아버지 묘 앞에서 꼭 드리고 싶은 말이 있다."},
+	{"who": "{name}", "pose": "hero_adult_ribbon", "text": "…무슨 말인데요? 궁금하게."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "그건 그때 하지. 어른께 먼저 여쭙는 게 순서니까."},
 	{"bg": "island", "who": "", "text": "돌아오는 바닷길. 배는 갈 때 들렀던 항구들에 다시 닻을 내렸다."},
 	{"who": "섬마을 아이", "pose": "island_child", "text": "의원님! 저 기억해요? 이제 동생도 저만큼 컸어요!\n의원님이 준 약 덕분이에요!"},
 	{"bg": "yanjing", "who": "", "text": "연경 약재 시장에선, 가짜 인삼에 속을 뻔했던 노인의 손주가\n씩씩하게 약재를 나르고 있었다."},
@@ -789,9 +794,9 @@ const C9_HOMEWARD := [
 	{"who": "{name}", "pose": "hero_adult", "text": "아버지, 다녀왔어요.\n아버지가 보고 싶어 하던 넓은 세상, 끝까지 보고 왔어요."},
 	{"who": "{name}", "pose": "hero_adult", "text": "화란에서 가져온 튤립이에요. 말려서 오느라 좀 바랬지만…\n아버지 약방 마당에도 심어 볼게요."},
 	{"music": "heart_flutter", "who": "", "text": "서휘가 봉분 앞에 무릎을 꿇었다."},
-	{"who": "서휘", "pose": "seohwi", "text": "허 의원 어른. 한때 당신의 딸에게 독을 빚게 한 못난 놈입니다.\n…그래도 감히 청합니다. 평생 이 사람 곁에서, 이 사람이 고치는 사람들을 함께 지키게 해 주십시오."},
+	{"who": "서휘", "pose": "seohwi", "text": "허 의원 어른. 한때 당신의 딸에게 독을 빚게 한 못난 놈입니다.\n…그래도 맹세합니다. 이 사람이 가는 길, 어디서든 지키겠습니다."},
 	{"who": "", "text": "산들바람이 불어, 매화 꽃잎 하나가 서휘의 어깨에 내려앉았다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "…아버지가 허락하신 것 같아요.\n아버지는 늘, 대답 대신 꽃잎을 떨구셨거든요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…아버지가 고맙다고 하시는 것 같아요.\n아버지는 늘, 대답 대신 꽃잎을 떨구셨거든요."},
 ]
 
 ## 돌아온 뒤: 임금 알현 → 다래의 장난 → 수표교에서 윤도결의 부탁 → 포도청 수련 맵
@@ -823,15 +828,15 @@ const C9_DARAE := [
 
 const C9_BRIDGE := [
 	{"bg": "stream", "who": "", "text": "그날 밤, 청계천 수표교 위.\n순찰을 돌던 윤도결이 다리 끝에서 걸음을 멈췄다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}. 물에서 너를 건져 낸 그날부터, 네가 돌아오기를 매일 기다렸다.\n…답은 이미 알고 있었지만."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}. 물에서 너를 건져 낸 그날부터, 네가 돌아오기를 매일 기다렸다.\n…할 말이 많지만, 오늘은 이것만 주마."},
 	{"who": "{name}", "pose": "hero_adult", "text": "나리가 없었으면 저는 그 강에서 죽었을 거예요.\n그 은혜는 평생 잊지 않을게요."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "혼례 선물이다. 받아라."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "선물이다. 받아라."},
 	{"who": "", "text": "윤도결이 내민 것은 누렇게 바랜 포도청 문서 한 장이었다.\n'약방의 수상한 계집아이가 돈궤를 털고 달아났다.' 그 새벽의 첫 보고서."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "이건 이제 필요 없다."},
 	{"who": "", "text": "둘은 문서를 함께 찢어 강물에 띄워 보냈다.\n종잇조각이 달빛을 받으며 천천히 흘러갔다."},
 	{"who": "", "text": "윤도결이 돌아서다 말고, 다리 아래에서 기다리던 서휘를 불렀다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "서휘. 그 사람을 잘 부탁한다.\n내가 지켜 주고 싶었지만… 그 사람이 고른 건 너다."},
-	{"who": "서휘", "pose": "seohwi", "text": "…목숨을 걸고 지키겠소. 나리가 지켜 온 만큼."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "서휘. 네가 곁에 있어 준 덕에 저 사람이 무사히 돌아왔다.\n…고맙다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…나리가 한양에서 지켜 온 만큼, 나도 바다에서 지켰을 뿐이오."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 하나 더. 청안파 아이들을 이끌던 그 솜씨, 이제 나라를 위해 써 보지 않겠나.\n포도청에 들어와라. 내가 직접 가르치겠다."},
 	{"who": "서휘", "pose": "seohwi", "text": "한때 쫓기던 몸이 포졸이 된다라… 재밌군.\n받아들이지. 대신 봐주지는 마시오."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "봐줄 생각 없다. 내일 새벽, 포도청 마당으로 와라."},
@@ -868,11 +873,11 @@ const CH9_INTRO := [
 	{"who": "", "text": "몇 해가 흘렀다.\n열다섯 살 소녀는 어느덧 단아한 아가씨가 되어 있었다."},
 	{"who": "", "pose": "hero_adult", "text": "남장을 벗고, 다시 댕기를 맨 {name}.\n서휘와 함께 한양 숭례문을 들어섰다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "{name}아아아!!\n진짜… 진짜 너야? 바보, 편지라도 좀 하지! 보고 싶었단 말이야!"},
-	{"who": "{name}", "pose": "hero_adult", "text": "다래야! 나도 보고 싶었어.\n…그리고 소개할 사람이 있어. 아니, 너도 아는 사람이지만."},
+	{"who": "{name}", "pose": "hero_adult", "text": "다래야! 나도 보고 싶었어.\n…서휘도 같이 왔어. 너도 아는 사람이지?"},
 	{"who": "다래", "pose": "darae_adult", "text": "그 도라지 말이야, 올봄에 꽃이 피었어!\n너 돌아오면 같이 캐려고 아껴 뒀지!"},
 	{"who": "", "text": "문 곁에는 포도대장 윤도결이 서 있었다.\n마치 그날부터 줄곧 거기 서 있었던 것처럼."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…돌아왔구나, {name}. 기다리겠다고 했었지.\n매일 아침 순찰 길을 일부러 이 문 앞으로 돌렸다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "…그런데, 혼인을 한다고?"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…서휘도 같이 왔군. 흠. 둘 다 무사해서 다행이다."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…하. 결국 그 푸른 눈이군.\n축하한다. 진심이다. …조금, 아니 아주 많이 아까울 뿐이다."},
 	{"who": "서휘", "pose": "seohwi", "text": "고맙소, 포도대장 나리. 그대가 지켜 준 덕에 이 사람이 여기 있지."},
 	{"bg": "wedding", "who": "", "text": "그해 가을, 허 의원의 옛 약방 마당에서 혼례가 열렸다.\n다래는 하루 종일 울다 웃다 했고, 윤도결은 맨 앞자리에서 끝까지 박수를 쳤다."},
@@ -883,21 +888,27 @@ const CH9_INTRO := [
 
 const C9_MEM := [
 	{"bg": "stream", "who": "", "text": "청계천 수표교 아래.\n옛 왈패 소굴은 이제 아이들 글방이 되어 있었다."},
-	{"who": "서휘", "pic": "seohwi", "text": "여기서 네가 처음 내 애체를 노렸지. 한 번도 못 맞혔지만."},
-	{"who": "{name}", "pic": "hero_adult", "text": "그땐 사람을 때려 본 적이 없었으니까!\n…지금은 다르다는 거, 아까 그 왈패들한테서 봤지?"},
-	{"who": "서휘", "pic": "seohwi", "text": "봤소. 등을 맡길 수 있는 사람이 생긴다는 게 이런 거로군."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "여기서 네가 처음 내 애체를 노렸지. 한 번도 못 맞혔지만."},
+	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그땐 사람을 때려 본 적이 없었으니까!\n…지금은 다르다는 거, 아까 그 왈패들한테서 봤지?"},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "봤소. 등을 맡길 수 있는 사람이 생긴다는 게 이런 거로군."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan", "text": "이 다리 위였다. 비 오는 밤, 네가 강물로 뛰어든 게.\n…다시는 그런 꼴 안 본다."},
+	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그때 나리가 뛰어들어 건져 줬잖아요.\n…그날부터였어요? 심장이 시끄러웠다는 거."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…그건 묻지 마라. 대장 체면이 있다."},
 	{"who": "", "text": "다리 밑에서 글 읽는 아이들의 소리가 냇물처럼 흘렀다."},
 ]
 
 const CH9_END := [
-	{"bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
+	{"ifnot": "wed_dogyeol", "bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
+	{"if": "wed_dogyeol", "bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 윤도결과 {name|은} 손수 주춧돌을 놓았다."},
 	{"bg": "podocheong", "who": "", "text": "그리고 몇 해가 흘렀다.\n서휘는 공을 쌓아 도성 서쪽을 맡는 우포도대장이 되었다.\n윤도결은 좌포도대장으로, 둘은 나란히 도성의 밤을 지켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘은 내 쪽에서 도적을 더 잡았다. 열둘이다."},
 	{"who": "서휘", "pose": "seohwi_podo", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 흑룡파 잔당 두목 하나."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그건 내가 몰아 준 거다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "두 대장 나리, 또 싸우세요?\n약방에서 도시락 싸 왔으니까, 싸우지 말고 드세요."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락이오. 천천히 드시오."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락이오. 천천히 드시오."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락에 정신이 팔렸군. 천천히 드시오, 대장 나리."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…내 아내 도시락이다. 넌 반만 먹어라."}
 ]
 
 const C3_HEUK := [
@@ -1132,7 +1143,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
@@ -1228,7 +1239,7 @@ const C10_EXILE := [
 	{"who": "서휘", "pose": "seohwi", "text": "…백운 노인이 알려 주더군. 이 섬에 오래전 푸른 눈의 표류 선원이 살았다고.\n그 선원과 살다 아이를 낳은 섬 여인이, 여기 묻혔다고."},
 	{"bg": "flash_seohwi_parents", "who": "", "text": "금발의 선원과 흰 치마저고리의 여인이 갓난아기를 안고 바다를 보던 집.\n아버지는 고향 배가 오자 아이만 데리고 떠났고, 어머니는 끝내 따라가지 못했다."},
 	{"bg": "island_grave", "who": "서휘", "pose": "seohwi", "text": "어머니. 평생 이 눈을 원망했습니다. 조선에선 오랑캐, 화란에선 동양 놈.\n…그런데 이 눈 덕에, 이 사람을 만났습니다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "어머님, 처음 뵙겠습니다.\n서휘는… 제가 평생 곁에서 지킬게요. 그러니 이제 걱정 마세요."},
+	{"who": "{name}", "pose": "hero_adult", "text": "어머님, 처음 뵙겠습니다.\n서휘는 이제 혼자가 아니에요. 저도, 다래도 곁에 있어요. 그러니 걱정 마세요."},
 	{"who": "서휘", "pose": "seohwi", "text": "…이제야 알겠군. 나는 떠도는 사람이 아니었다.\n돌아올 곳이 처음부터 여기 있었던 거다."},
 ]
 
@@ -1307,6 +1318,42 @@ const C10_JEONG_POST := [
 	{"who": "", "text": "검은 연기가 걷히자, 바닥에 주저앉은 것은 지친 늙은 의관 하나였다."},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…서른 해. 나도 처음엔… 아픈 사람을 살리고 싶어서 의관이 되었는데.\n언제부터 자리만 보였을까."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "장부, 책장, 흑심단 병, 그리고 지금 네 입으로 한 말.\n이제야 증거가 말하는구나. 정 의관, 너를 대비마마 시해 미수로 묶는다."},
+]
+
+## 정 의관 사건 뒤 · 혼례 전: 결혼 상대 고르기 (마음 점수 없이 이 선택 하나로 정해진다)
+const C10_CHOICE := [
+	{"bg": "yakbang_calm", "music": "heart_flutter", "who": "", "text": "대비마마가 자리에서 일어나신 그날 밤.\n문 닫은 약방 마당으로, 두 사람이 차례로 찾아왔다."},
+	{"who": "서휘", "pose": "seohwi", "text": "{name}. 묘 앞에서 드리려던 말, 어른께는 했지만 너한테는 아직이었지."},
+	{"who": "서휘", "pose": "seohwi", "text": "평생 네 곁에 머물게 해 다오.\n떠돌기만 하던 놈이, 처음으로 머물고 싶은 곳이 생겼다."},
+	{"who": "", "text": "그때, 대문께에서 헛기침 소리가 났다. 윤도결이었다."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…서휘가 먼저 왔군. 그래도 이번엔 끝까지 말하겠다.\n그날 결전 전에, 끝내 삼켰던 말이다."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "증거 없이 너를 쫓던 그 새벽부터, 너만 보면 심장이 시끄러웠다.\n물에서 너를 건진 날도, 네가 바다를 건너간 날도."},
+	{"who": "윤도결", "pose": "jongsagwan_smile", "text": "{name}. 내 곁에 있어 다오.\n이번엔 쫓지 않고, 나란히 걷겠다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "(두 사람 모두… 내 목숨을 몇 번이나 구해 준 사람들.\n그리고 내 마음이 향하는 곳은…)",
+		"choices": [{"text": "서휘의 손을 잡는다", "set": "wed_seohwi"}, {"text": "윤도결의 손을 잡는다", "set": "wed_dogyeol"}]},
+	{"if": "wed_seohwi", "who": "{name}", "pose": "hero_adult", "text": "서휘. 이번엔 내가 붙잡을게요.\n다시는 혼자 떠돌지 마요."},
+	{"if": "wed_seohwi", "who": "서휘", "pose": "seohwi", "text": "…그래. 이제 여기가, 내가 돌아올 곳이다."},
+	{"if": "wed_seohwi", "who": "윤도결", "pose": "jongsagwan_blush", "text": "…하. 결국 그 푸른 눈이군.\n축하한다. 진심이다. …조금, 아니 아주 많이 아까울 뿐이다."},
+	{"if": "wed_seohwi", "who": "서휘", "pose": "seohwi", "text": "고맙소, 포도대장 나리. 그대가 지켜 준 덕에 이 사람이 여기 있지."},
+	{"if": "wed_seohwi", "who": "윤도결", "pose": "jongsagwan", "text": "서휘. 그 사람을 잘 부탁한다.\n내가 지켜 주고 싶었지만… 그 사람이 고른 건 너다."},
+	{"if": "wed_dogyeol", "who": "{name}", "pose": "hero_adult", "text": "나리. 이번엔 제가 나리를 쫓아갈게요.\n…도망가지 마세요."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…도망은 네 특기였지.\n이번엔 내가 잡혔구나."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "…역시, 그렇게 되는군.\n괜찮다. 돌아올 곳은 이미 찾았으니까. 이번엔 친구로 곁에 있겠다."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "포도대장 나리. 그 사람 울리면,\n다래 고춧가루보다 매운 걸 보게 될 거요."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…명심하지. 평생."},
+]
+
+## 혼례 뒤 추억 길 (고른 사람에 따라)
+const C10_WED := [
+	{"ifnot": "wed_dogyeol", "bg": "wedding", "who": "", "text": "그해 가을, 허 의원의 옛 약방 마당에서 혼례가 열렸다.\n다래는 하루 종일 울다 웃다 했고, 윤도결은 맨 앞자리에서 끝까지 박수를 쳤다."},
+	{"if": "wed_dogyeol", "bg": "wedding_dogyeol", "who": "", "text": "그해 가을, 허 의원의 옛 약방 마당에서 혼례가 열렸다.\n다래는 하루 종일 울다 웃다 했고, 서휘는 맨 앞자리에서 끝까지 박수를 쳤다."},
+	{"if": "wed_dogyeol", "who": "", "text": "엄하기로 이름난 포도대장은, 혼례 내내 귀까지 붉었다."},
+	{"ifnot": "wed_dogyeol", "bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 서휘가 {name}의 손을 잡았다."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을 다시 걸어 보지 않겠소?\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
+	{"ifnot": "wed_dogyeol", "who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
+	{"if": "wed_dogyeol", "bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 윤도결이 {name}의 손을 잡았다."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "우리가 처음 만난 길을 다시 걸어 보지 않겠느냐.\n그때는 내가 너를 쫓았지만, 이번엔 나란히."},
+	{"if": "wed_dogyeol", "who": "", "text": "【목표】\n윤도결과 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
 ]
 
 const C10_CURE := [

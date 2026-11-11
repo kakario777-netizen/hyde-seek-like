@@ -207,6 +207,9 @@ func _build_world() -> void:
 	var comp: String = main.companion()
 	var comp_pic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
 	var cp := "res://assets/chibi/%s.png" % main.CHIBI_OF.get(comp_pic, comp_pic)
+	var rp: String = main._ret(comp_pic)   # 마지막 장의 어른 다래 등
+	if rp != comp_pic and ResourceLoader.exists("res://assets/chibi/%s.png" % rp):
+		cp = "res://assets/chibi/%s.png" % rp
 	if not ResourceLoader.exists(cp):
 		cp = "res://assets/chibi/%s.png" % comp   # 예: 윤도결(jongsagwan) → chibi/dogyeol
 	if comp != "" and ResourceLoader.exists(cp):
