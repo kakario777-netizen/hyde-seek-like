@@ -415,12 +415,6 @@ const CH6_INTRO := [
 	{"who": "", "text": "【목표】\n바닷길을 따라 서쪽 끝 나라, 화란(和蘭)까지 가라.\n길에서 만나는 아픈 이들을 돌보며.", "end": true},
 ]
 
-const C6_PORT := [
-	{"who": "", "bg": "street_ink", "text": "남쪽 바다의 큰 항구. 온갖 빛깔의 사람들이 오갔다."},
-	{"who": "역관", "pic": "yakjae", "text": "조선 사람이라고? 이 먼 데까지?\n푸른 눈 사내 하나가 반 년 전 '화란'행 배에 올랐지. 조선말을 하더구먼."},
-	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "푸른 눈… 조선말…\n(설마… 서휘?)"},
-	{"who": "", "text": "(역관이 노자를 보태 주었다: 엽전 +6냥)", "coin": 6},
-]
 
 # ── 제7장 만리길: 구간별 사건 ─────────────────────────
 const C7_FERRY := [
@@ -448,7 +442,7 @@ const C7_YANJING_PRE := [
 const C7_YANJING_POST := [
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "아이고, 내가 졌소, 졌어!\n가짜 판 돈은 다 돌려드리리다…"},
 	{"who": "노인", "text": "고맙소, 젊은 의원. 내 손주 약값이었다오."},
-	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…대신 하나 알려 드리지.\n남쪽 광주 항구에서 서양 배가 곧 떠난다오. 화란이라는 나라로 간다더군."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…대신 길 하나 알려 드리지.\n남쪽 광주 항구에 가면, 서쪽 끝 나라 화란으로 가는 서양 배가 있다오."},
 	{"who": "", "text": "(노인의 사례: 엽전 +6냥)", "coin": 6},
 ]
 
@@ -459,8 +453,10 @@ const C7_PORT := [
 	{"who": "", "text": "{alias}는 선실로 내려가 맥을 짚고 시호와 황금을 달여 먹였다.\n이튿날 새벽, 선원의 열이 거짓말처럼 내렸다."},
 	{"who": "붉은 머리 선원", "pic": "redhair_sailor", "text": "살았다! 고마워요, 동양 의원님!\n난 얀이에요. 이 배에서 제일 빠른 돛잡이죠!"},
 	{"who": "선장", "pic": "dutch_captain", "text": "좋아, 약속은 약속이지.\n오늘부터 자네가 이 배의 선의일세."},
-	{"who": "얀", "pic": "redhair_sailor", "text": "그런데 말이죠… 몇 해 전 우리 배에 금발에 동그란 안경 쓴 사내가 탔었어요.\n조선말을 하던데, 화란 바닷가 마을로 간다더라고요."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "그런데 의원님, 조선 사람이라 그러셨죠?\n몇 해 전에도 우리 배에 조선말 하는 사내가 탔었어요."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "금발에 동그란 안경을 쓰고… 밤마다 갑판에서 낡은 천 조각을 들여다보더라고요.\n화란 바닷가 마을로 간다던데."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "금발에… 동그란 애체…\n(서휘…? 정말 서휘야?)"},
+	{"who": "얀", "pic": "redhair_sailor", "text": "아는 사람이에요? 그럼 잘됐네!\n이 배가 바로 그 마을 항구로 가요."},
 	{"who": "", "text": "(선의 자리를 얻었다: 엽전 +5냥, 약병 +1)", "coin": 5, "potion": 1},
 ]
 
@@ -689,9 +685,14 @@ const C5_SHADOW_FLEE := [
 
 const CH6F_INTRO := [
 	{"bg": "palace", "who": "", "text": "― 제6장 「작별」 ―"},
+	{"bg": "yakbang_calm", "who": "", "text": "허 의원의 사십구재가 지난 날. {name|은} 약방 서랍을 하나씩 정리하고 있었다."},
+	{"who": "", "text": "맨 안쪽 서랍에서 기름종이에 싼 책 한 권이 나왔다.\n꼬부랑 서양 글씨 옆에, 허 의원의 붓글씨 번역이 빼곡히 적혀 있었다."},
+	{"who": "", "text": "'화란 상인에게 얻은 해부서. 사람 몸속을 이리 자세히 그리다니.\n…언젠가 저 나라에 가서, 이 의술을 직접 배워 보고 싶구나.'"},
+	{"who": "{name}", "pose": "hero", "text": "의원님이 끝내 못 가 본 곳… 화란.\n…의원님 대신, 제가 가서 배워 올게요."},
+	{"who": "{name}", "pose": "hero", "text": "(…서휘도 그 나라에 있을까. 아니, 그건 핑계가 아니야.)"},
 	{"who": "{name}", "pose": "hero", "text": "…이제 조선에 내가 고칠 사람은 다 고쳤어.\n의원님이 보지 못한 넓은 세상을, 의원님 대신 보고 싶어."},
-	{"who": "", "text": "경복궁 강녕전. {name|은} 임금 앞에 엎드렸다."},
-	{"who": "임금", "pose": "king", "text": "세상을 보러 떠나겠다고? 아니 된다.\n그대는 이 나라의 어의다. 궁을 비우는 것을 허락할 수 없노라."},
+	{"bg": "palace", "who": "", "text": "경복궁 강녕전. {name|은} 임금 앞에 엎드렸다."},
+	{"who": "임금", "pose": "king", "text": "바다 건너 화란까지 의술을 배우러 가겠다고? 아니 된다.\n그대는 이 나라의 어의다. 궁을 비우는 것을 허락할 수 없노라."},
 	{"who": "{name}", "pose": "hero", "text": "전하…"},
 	{"who": "", "text": "그때, 뒤에 서 있던 포도대장 윤도결이 무릎을 꿇었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "전하, 신 포도대장 윤도결 감히 아뢰옵니다.\n저 아이는 누명을 쓰고도 끝내 백성을 먼저 살핀 의원이옵니다."},
@@ -1148,7 +1149,7 @@ const ALL := {
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
-	"CH6_INTRO": CH6_INTRO, "C6_PORT": C6_PORT, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
+	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 
