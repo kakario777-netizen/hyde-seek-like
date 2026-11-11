@@ -1055,7 +1055,7 @@ const WHO_PIC := {"약재 상인": "yakjae", "엿장수": "yeotjangsu", "주막 
 
 ## 이 칸에서 만날 사람 (칸마다 정해져 있어 맵에 미리 보인다)
 func _talk_at(i: int) -> Dictionary:
-	var pool: Array = StoryData.talks(main.chapter)
+	var pool: Array = PODO_TALKS if stage_cfg.has("me_name") else StoryData.talks(main.chapter)
 	var k := 0
 	for j in i:
 		if tiles[j]["type"] == "talk":
@@ -1072,7 +1072,8 @@ func _resolve() -> void:
 			var e: Dictionary = GameData.ENEMIES[eid]
 			var idx := pos
 			main.sfx("alarm")
-			var bl: String = BLOCK_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
+			var podo: bool = stage_cfg.has("me_name")   # 서휘가 주인공인 맵(포도청 수련)
+			var bl: String = (PODO_LINES if podo else BLOCK_LINES).get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
 			var bparts: PackedStringArray = bl.split("\n", false, 1)
 			# 상황 설명은 이름 없이, 따옴표 대사만 그 사람 이름으로
 			# 상황 설명은 그림 없이 (그림이 있으면 그 사람이 말하는 것처럼 보임)
@@ -1080,12 +1081,12 @@ func _resolve() -> void:
 			if bparts.size() > 1:
 				talk.append({"who": e["name"], "pic": e["sprite"], "text": bparts[1].replace("\"", "")})
 			var disg: bool = main.chapter in main.DISGUISED
-			for ln in BLOCK_REPLY.get(eid, BLOCK_REPLY["_"]):
+			for ln in (PODO_REPLY.get(eid, PODO_REPLY["_"]) if podo else BLOCK_REPLY.get(eid, BLOCK_REPLY["_"])):
 				var l2: Dictionary = ln.duplicate()
-				if not str(l2["who"]).begins_with("{"):
+				if not str(l2["who"]).begins_with("{") and l2["who"] != "서휘":
 					# 상대 대사는 실제로 길을 막은 그 적의 이름·그림으로
 					l2["who"] = e["name"]; l2["pic"] = e["sprite"]
-				if not disg:
+				if not disg and not podo:
 					l2["who"] = l2["who"].replace("{alias}", "{name}")
 					l2["pic"] = l2["pic"].replace("hero_disguise", "hero")
 				talk.append(l2)
@@ -1132,9 +1133,9 @@ func _resolve() -> void:
 			main.popup("길섶에서 약초 주머니를 주웠다!\n곧 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", func(): _after_land(false), "약초")
 			return
 		"buff":
-			_clear(pos); _apply_event(GameData.BUFFS.pick_random()); return
+			_clear(pos); _apply_event(_pick_ev(GameData.BUFFS)); return
 		"debuff":
-			_clear(pos); _apply_event(GameData.DEBUFFS.pick_random()); return
+			_clear(pos); _apply_event(_pick_ev(GameData.DEBUFFS)); return
 		"trap":
 			comp_say("trap")
 			_clear(pos); _apply_event(GameData.TRAPS.pick_random()); return
@@ -1181,6 +1182,32 @@ func _shake() -> void:
 	tw.tween_property(token, "position:x", token.position.x + 10, 0.05)
 	tw.tween_property(token, "position:x", token.position.x - 10, 0.08)
 	tw.tween_property(token, "position:x", token.position.x, 0.05)
+
+## 좋은 일·나쁜 일 고르기: 서휘가 주인공인 맵에서는 다래·의원님 이야기를 빼고
+func _pick_ev(pool: Array) -> Dictionary:
+	if not stage_cfg.has("me_name"):
+		return pool.pick_random()
+	var ok: Array = pool.filter(func(ev): return not ev.has("pic") and not str(ev["text"]).contains("의원님") and not ev.has("battle"))
+	return (ok if not ok.is_empty() else pool).pick_random()
+
+## 포도청 수련(서휘가 주인공): 길막이 대화와 동네 사람 대화
+const PODO_LINES := {
+	"walpae": "종로 왈패가 길을 턱 막아섰다!\n\"어이 포졸, 이 골목은 우리 구역이다.\"",
+	"rival": "흑룡파 왈패들이 몰려왔다!\n\"포졸 한 놈이 겁도 없이 여길 와?\"",
+}
+const PODO_REPLY := {
+	"_": [{"who": "서휘", "pic": "seohwi_podo", "text": "포도청이다. 길을 비켜라."}],
+	"walpae": [{"who": "서휘", "pic": "seohwi_podo", "text": "포도청이다. 순순히 따라와라."},
+		{"who": "왈패", "pic": "walpae", "text": "푸, 푸른 눈…? 청안파 서휘가 포졸이 됐다고?!"}],
+	"rival": [{"who": "서휘", "pic": "seohwi_podo", "text": "흑룡파 잔당이군. 오늘은 내가 포졸이다."},
+		{"who": "흑룡파 왈패", "pic": "gatekeeper", "text": "웃기지 마라, 다리 밑 떨거지가!"}],
+}
+const PODO_TALKS := [
+	{"who": "물장수", "pic": "muljangsu", "text": "푸른 눈 포졸 나리라니, 세상 참 좋아졌구먼!\n물 한 바가지 들고 가시오.", "potion": 1},
+	{"who": "엿장수", "pic": "yeotjangsu", "text": "아이고, 옛날에 엿 훔쳐 가던 그 녀석이 포졸이 됐어?\n…이번 엿은 공짜다.", "coin": 2},
+	{"who": "약재 상인", "pic": "yakjae", "text": "허 의원님 제자 아가씨가 기다리겠소.\n순찰 끝나면 이 감초 좀 전해 주시오.", "potion": 1},
+	{"who": "밤톨", "pic": "bamtol_happy", "text": "형님 포졸 옷 진짜 잘 어울려요!\n다들 형님 보러 나왔어요!", "coin": 3},
+]
 
 ## 길막이와 마주쳤을 때 주고받는 짧은 이야기
 const BLOCK_REPLY := {
