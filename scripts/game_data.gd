@@ -166,7 +166,7 @@ const DEBUFFS := [
 ]
 const TRAPS := [
 	{"title": "사냥꾼의 덫", "text": "수풀 속 덫에 발목이 걸렸다!\n\n(체력 -8)", "hp": -8},
-	{"title": "산적 매복", "text": "고갯길 수풀에서 산적이 뛰쳐나왔다!\n\"가진 것 다 내놓고 가라!\"", "battle": "sanjeok"},
+	{"title": "산적 매복", "text": "길가 수풀에서 산적이 뛰쳐나왔다!\n\"가진 것 다 내놓고 가라!\"", "battle": "sanjeok"},
 	{"title": "관아 검문", "pic": "pojol", "text": "고을 어귀에 검문이 섰다. 방에 그려진 얼굴과 대조하고 있다!\n산길로 돌아가느라 이틀을 잃었다.\n\n(남은 날 -2)", "day": -2},
 ]
 const REST := {"title": "주막", "pic": "jumo", "text": "주막에서 하룻밤 묵어 갔다.\n따뜻한 국밥에 기운이 돈다.\n\n(체력 +20)", "heal": 20}
@@ -217,7 +217,7 @@ const ENEMIES := {
 	"walpae": {"name": "종로 왈패", "sprite": "walpae", "hp": 26, "coin": 3, "charge": 3,
 		"moves": [{"t": "atk", "v": 6, "n": "주먹질"}, {"t": "def", "v": 6, "n": "버티기"}, {"t": "atk", "v": 7, "n": "발길질"}],
 		"heavy": {"t": "atk", "v": 13, "n": "몽둥이 내려치기"}},
-	"sanjeok": {"name": "고갯길 산적", "sprite": "walpae", "hp": 30, "coin": 5, "charge": 3,
+	"sanjeok": {"name": "산적", "sprite": "walpae", "hp": 30, "coin": 5, "charge": 3,
 		"moves": [{"t": "atk", "v": 7, "n": "몽둥이질"}, {"t": "atk", "v": 5, "n": "멱살잡이"}, {"t": "def", "v": 7, "n": "버티기"}],
 		"heavy": {"t": "atk", "v": 14, "n": "통나무 휘두르기"}},
 	"rival": {"name": "흑룡파 왈패", "sprite": "gatekeeper", "hp": 30, "coin": 4, "charge": 3,

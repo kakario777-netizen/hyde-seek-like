@@ -80,7 +80,7 @@ S = [
     ("s4_0", "성 밖 병든 마을", "grass", "village_outside", 38, 40, {"events": ["talk", "item", "rest", "shop"], "watchers": 3, "herbs": 5}),
     ("s4_1", "비 오는 청계천", "stone", "stream", 40, 41, {"events": ["talk", "debuff", "item", "shop"]}),
     ("s4_2", "군산 포구 뒤지기", "wood", "gunsan_port", 42, 42, {"events": ["shop", "trap", "talk", "rest"], "watchers": 4, "boss": BM("C4_MASK1", "C4_MASK1_FLEE")}),
-    ("s4_3", "화엄골 가는 길", "dirt", "stream", 40, 43, {"events": ["rest", "trap", "talk", "shop"], "spikes": 3, "boss": BM("C4_MASK2", "C4_MASK2_FLEE")}),
+    ("s4_3", "화엄골 가는 길", "dirt", "mungyeong_pass", 40, 43, {"events": ["rest", "trap", "talk", "shop"], "spikes": 3, "boss": BM("C4_MASK2", "C4_MASK2_FLEE")}),
     ("s4_f1", "백운의 성 1층 · 창고", "wood", "vault", 34, 141, {"events": ["item", "shop", "trap"], "watchers": 3, "blockers": 2, "boss": {"battle": "gatekeeper", "pre": "C4_F1_PRE", "post": "C4_F1_POST"}}),
     ("s4_f2", "백운의 성 2층 · 독안개 회랑", "cave", "corridor", 36, 142, {"events": ["debuff", "trap", "shop", "rest"], "watchers": 3, "spikes": 5, "boss": {"battle": "heukdu", "pre": "C4_F2_PRE", "post": "C4_F2_POST"}}),
     ("s4_f3", "백운의 성 3층 · 약 공방", "brick", "corridor", 36, 143, {"events": ["talk", "item", "shop", "debuff"], "watchers": 4, "herbs": 5, "boss": {"battle": "mob_boss", "pre": "C4_F3_PRE", "post": "C4_F3_POST"}}),

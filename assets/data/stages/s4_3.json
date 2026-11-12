@@ -2,7 +2,7 @@
  "id": "s4_3",
  "name": "화엄골 가는 길",
  "tile": "dirt",
- "bg": "stream",
+ "bg": "mungyeong_pass",
  "turns": 21,
  "tiles": [
   {
