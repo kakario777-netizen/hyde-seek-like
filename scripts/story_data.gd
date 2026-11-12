@@ -1042,13 +1042,27 @@ const CH9_INTRO := [
 ]
 
 const C9_MEM := [
-	{"bg": "stream", "who": "", "text": "청계천 수표교 아래.\n옛 왈패 소굴은 이제 아이들 글방이 되어 있었다."},
+	{"bg": "stream_day", "who": "", "text": "볕 좋은 한낮, 청계천 수표교 아래.\n옛 왈패 소굴은 이제 아이들 글방이 되어 있었다."},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "여기서 네가 처음 내 애체를 노렸지. 한 번도 못 맞혔지만."},
 	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그땐 사람을 때려 본 적이 없었으니까!\n…지금은 다르다는 거, 아까 그 왈패들한테서 봤지?"},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "봤다. 등을 맡길 수 있는 사람이 생긴다는 게 이런 거로군."},
+	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그날 밤 당신은 다래를 붙잡고 날 협박했죠.\n소굴의 의원이 되어 달라고."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "…협박이 아니라 거래였다.\n아이들이 열에 들떠 있었으니까."},
+	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "알아요. 그래서 따라간 거예요.\n아이들 이마를 짚는 당신 손이… 떨리고 있었거든요."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "…그걸 봤나.\n평생 들키지 않을 줄 알았는데."},
+	{"ifnot": "wed_dogyeol", "who": "", "text": "글방 창문으로 아이 하나가 고개를 쏙 내밀었다."},
+	{"ifnot": "wed_dogyeol", "who": "글방 아이", "text": "우포도대장 나리다! 의원님도 같이 왔다!"},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "…여기선 대장 아니라니까. 글이나 읽어라.\n밤톨 훈장한테 이른다."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan", "text": "이 다리 위였다. 비 오는 밤, 네가 강물로 뛰어든 게.\n…다시는 그런 꼴 안 본다."},
 	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그때 나리가 뛰어들어 건져 줬잖아요.\n…그날부터였어요? 심장이 시끄러웠다는 거."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…그건 묻지 마라. 대장 체면이 있다."},
+	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "처음엔 정말 무서웠어요.\n빈 돈궤만 보고 저를 끝까지 쫓아오셨잖아요."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan", "text": "…그 일은 평생 갚을 생각이다."},
+	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "벌써 다 갚으셨어요.\n화란에서 돌아오던 날, 숭례문에서 기다려 주셨잖아요."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…기다리겠다고 했으니까.\n나는 한 번 한 약속은 지킨다."},
+	{"if": "wed_dogyeol", "who": "", "text": "글방 창문으로 아이 하나가 고개를 쏙 내밀었다."},
+	{"if": "wed_dogyeol", "who": "글방 아이", "text": "좌포도대장 나리다! 의원님 손 잡고 있다!"},
+	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…글 읽어라. 대장 지나간다."},
 	{"who": "", "text": "다리 밑에서 글 읽는 아이들의 소리가 냇물처럼 흘렀다."},
 ]
 
