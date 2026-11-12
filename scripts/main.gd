@@ -252,7 +252,16 @@ func _debug_capture() -> void:
 			await get_tree().create_timer(0.9).timeout
 			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
 				l.queue_free()
+			coins = 60; goods = {"smoke": 2, "charm": 1}
 			open_shop(Callable(), "보따리장수", board.data.get("bg", "jangteo"))
+			if args.has("bag"):
+				for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+					l.queue_free()
+				show_bag()
+			elif args.has("buy"):
+				await get_tree().create_timer(0.3).timeout
+				var bs: Array = get_tree().root.find_children("*", "Button", true, false).filter(func(b): return b.text.ends_with("냥"))
+				bs[1].pressed.emit()
 		"reward":
 			start_board()
 			choose_reward(Callable())
@@ -1427,10 +1436,11 @@ func show_bag(cb := Callable()) -> void:
 	var vb: VBoxContainer = o[1]
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
+	vb.add_child(_goods_box())
 	var info := _note("")
 	vb.add_child(info)
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(560, 760)
+	scroll.custom_minimum_size = Vector2(560, 640)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.scroll_deadzone = 18
 	vb.add_child(scroll)
@@ -1574,6 +1584,37 @@ func goods_count(id: String) -> int:
 func use_goods(id: String) -> void:
 	goods[id] = maxi(0, goods_count(id) - 1)
 
+## 가지고 있는 물건 목록 (보따리 화면 위쪽)
+func _goods_box() -> Control:
+	var pc := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("f3e6c8"); sb.border_color = Color("9a7a4a")
+	sb.set_border_width_all(3); sb.set_corner_radius_all(10); sb.set_content_margin_all(10)
+	pc.add_theme_stylebox_override("panel", sb)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 6)
+	pc.add_child(v)
+	v.add_child(make_label("가진 물건", 26, RED))
+	var hf := HFlowContainer.new()
+	hf.add_theme_constant_override("h_separation", 16)
+	hf.add_theme_constant_override("v_separation", 6)
+	v.add_child(hf)
+	var any := false
+	for g in SHOP_GOODS:
+		var n := goods_count(g["id"])
+		if n <= 0:
+			continue
+		any = true
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 4)
+		var tex: Texture2D = load("res://assets/ui/tiles/deco_herb.png") if g["icon"] == "herb" else icon(g["icon"])
+		row.add_child(tex_rect(tex, Vector2(34, 34)))
+		row.add_child(make_label("%s ×%d" % [g["name"], n], 22, INK))
+		hf.add_child(row)
+	if not any:
+		hf.add_child(make_label("없음 · 보따리장수에게서 살 수 있어요", 22, INK_SOFT))
+	return pc
+
 func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 	var pc := PanelContainer.new()
 	var sb := StyleBoxFlat.new()
@@ -1599,6 +1640,8 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 	var buy := make_button("%d냥" % g["price"], 24)
 	buy.custom_minimum_size = Vector2(0, 56)
 	v.add_child(buy)
+	if g["id"] == "ginseng" and int(flags.get("ginseng_ch", 0)) == chapter:
+		buy.disabled = true; buy.text = "이번 장에 샀음"; pc.modulate = Color(0.8, 0.8, 0.8)
 	buy.pressed.connect(func():
 		if coins < int(g["price"]):
 			msg.text = "엽전이 모자랍니다 (%s %d냥)" % [g["name"], g["price"]]
@@ -1617,6 +1660,10 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 		else:
 			goods[g["id"]] = goods_count(g["id"]) + 1
 			msg.text = "〈%s〉을(를) 샀습니다! (가진 것 %d개)" % [g["name"], goods_count(g["id"])]
+		# 장수를 만날 때마다 물건마다 하나씩만
+		buy.disabled = true
+		buy.text = "샀음"
+		pc.modulate = Color(0.8, 0.8, 0.8)
 		msg.add_theme_color_override("font_color", INK_SOFT)
 		refresh.call())
 	return pc
