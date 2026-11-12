@@ -281,7 +281,7 @@ func _build_hud() -> void:
 	var title: Label = main.make_label(cfg.get("title", "제1장  누명"), 34, main.GOLD, true)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title)
-	var me: Button = main.make_button("◎", 26)
+	var me: Button = main.make_button("내위치로", 26)
 	me.custom_minimum_size = Vector2(60, 66)
 	tools.add_child(me)
 	me.pressed.connect(func(): _focus(_node_px(pos)))

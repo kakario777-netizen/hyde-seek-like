@@ -859,7 +859,7 @@ func _build_hud() -> void:
 	title_lbl = main.make_label(cfg.get("title", ""), 30, main.GOLD, true)
 	title_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title_lbl)
-	var me: Button = main.make_button("◎", 24)
+	var me: Button = main.make_button("내위치로", 24)
 	me.custom_minimum_size = Vector2(56, 62)
 	tools.add_child(me)
 	me.pressed.connect(func(): _focus(tile_center(pos)))
