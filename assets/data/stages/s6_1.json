@@ -2,7 +2,7 @@
  "id": "s6_1",
  "name": "다래와 북한산 오르기",
  "tile": "grass",
- "bg": "stream",
+ "bg": "mountain",
  "turns": 21,
  "tiles": [
   {

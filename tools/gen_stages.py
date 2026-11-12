@@ -90,7 +90,7 @@ S = [
     ("s5_2", "종로에서 약재 구하기", "stone", "jangteo", 40, 52, {"events": ["shop", "talk", "debuff", "shop"]}),
     ("s5_3", "궁궐 담장 아래", "palace", "palace", 40, 53, {"events": ["rest", "buff", "shop"], "watchers": 4, "boss": SH("C5_SHADOW", "C5_SHADOW_FLEE")}),
     ("s5_4", "허 의원 약방으로", "stone", "yakbang", 44, 54, {"events": ["trap", "item", "talk", "shop"], "blockers": 2, "spikes": 3}),
-    ("s6_1", "다래와 북한산 오르기", "grass", "stream", 40, 61, {"events": ["talk", "talk", "item", "rest", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
+    ("s6_1", "다래와 북한산 오르기", "grass", "mountain", 40, 61, {"events": ["talk", "talk", "item", "rest", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
     ("s6_2", "산마루 약초밭으로", "dirt", "mountain", 42, 62, {"events": ["talk", "talk", "buff", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
     ("s7_1", "역병 도는 마을", "brick", "holland", 50, 71, {"events": ["talk", "item", "talk", "shop"]}),
     ("s7_2", "풍차 언덕 약초밭", "grass", "holland", 50, 72, {"events": ["rest", "shop", "debuff", "talk"], "herbs": 5}),
