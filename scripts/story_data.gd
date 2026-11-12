@@ -88,7 +88,7 @@ static func lines(key: String) -> Array:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD
-		"C9_GRAVE_RET": return C9_GRAVE + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
 		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
@@ -1009,7 +1009,7 @@ const C9_SHOP := [
 const CH9_INTRO := [
 	{"bg": "title", "who": "", "text": "― 마지막 장 「한양의 봄」 ―"},
 	{"who": "", "text": "몇 해가 흘렀다.\n열다섯 살 소녀는 어느덧 단아한 아가씨가 되어 있었다."},
-	{"who": "", "pose": "hero_adult", "text": "남장을 벗고, 다시 댕기를 맨 {name}.\n서휘와 함께 한양 숭례문을 들어섰다."},
+	{"bg": "jangteo", "who": "", "pose": "hero_adult", "text": "산을 내려온 {name|은}\n서휘와 함께 한양 숭례문을 들어섰다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "{name}아아아!!\n진짜… 진짜 너야? 바보, 편지라도 좀 하지! 보고 싶었단 말이야!"},
 	{"who": "{name}", "pose": "hero_adult", "text": "다래야! 나도 보고 싶었어.\n…서휘도 같이 왔어. 너도 아는 사람이지?"},
 	{"who": "다래", "pose": "darae_adult", "text": "그 도라지 말이야, 올봄에 꽃이 피었어!\n너 돌아오면 같이 캐려고 아껴 뒀지!"},
