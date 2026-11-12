@@ -10,7 +10,10 @@ func _ready() -> void:
 	var book: Dictionary = main.title_book()
 	cleared = int(book.get("_clears", 0)) > 0
 	var bg := TextureRect.new()
-	if cleared:
+	var ends: Array = book.get("_endings", [])
+	if "seohwi" in ends and "dogyeol" in ends and main.backdrop("title_both"):
+		bg.texture = main.backdrop("title_both")   # 두 엔딩을 다 보면: 서휘와 윤도결 사이의 주인공
+	elif cleared:
 		bg.texture = main.backdrop("title_clear")
 	else:
 		bg.texture = main.backdrop("title") if main.backdrop("title") else load("res://assets/ui/board_map.jpg")
