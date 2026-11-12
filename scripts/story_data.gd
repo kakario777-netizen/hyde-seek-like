@@ -1217,7 +1217,7 @@ const ENEMY_MAP := {
 	5: {"walpae": "mob", "pojol": "rival"},
 	6: {"walpae": "sanjeok", "pojol": "sanjeok"},
 	7: {"walpae": "haejeok", "pojol": "haejeok"},
-	8: {"walpae": "rat", "pojol": "haejeok"},
+	8: {"walpae": "rat", "pojol": "rat"},
 	9: {"walpae": "walpae", "pojol": "walpae"},
 }
 
