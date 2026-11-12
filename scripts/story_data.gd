@@ -581,8 +581,8 @@ const EPILOGUE := [
 	{"ifnot": "wed_dogyeol", "who": "", "text": "마당엔 금빛 머리칼과 검은 머리칼의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
 	{"if": "wed_dogyeol", "who": "", "text": "마당엔 짙은 눈썹의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
-	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이오. 무슨 일 있으면 부르시오."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "…아이들 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이오. 무슨 일 있으면 부르시오."},
+	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이다. 무슨 일 있으면 불러라."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "…아이들 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이다. 무슨 일 있으면 불러라."},
 	{"who": "", "text": "해 질 녘, 마당에서 뛰놀던 딸아이가 대문 위 현판을 가리켰다."},
 	{"who": "딸", "pose": "children", "text": "어머니, 저기 '허씨 약방'의 허씨는 누구예요?\n우리 집은 허씨가 아니잖아요."},
 	{"ifnot": "wed_dogyeol", "who": "아들", "pose": "children", "text": "맞아! 아버지는 서씨고, 어머니는… 음, 어머니는 뭐더라?"},
@@ -830,7 +830,7 @@ const C9_DARAE := [
 	{"who": "다래", "pose": "darae_adult", "text": "근데 이제 네가 와 줬으니까,\n둘이서 훨씬 더 많은 사람들을 낫게 해 줄 수 있겠다!"},
 	{"who": "{name}", "pose": "hero_adult", "text": "응. 이번엔 혼자 두지 않을게. 같이 하자, 다래야."},
 	{"who": "다래", "pose": "darae_adult", "text": "그리고 그쪽, 우리 {name} 데려간 그 푸른 눈.\n흠… 얼굴은 합격. 근데 이 애 울리면 고춧가루 뿌린다? 나 그거 잘하거든."},
-	{"who": "서휘", "pose": "seohwi", "text": "…기억하고 있소. 첫날 포졸 눈에 그걸 뿌렸다던 이야기.\n울릴 일은 없을 거요."},
+	{"who": "서휘", "pose": "seohwi", "text": "…기억하고 있다. 첫날 포졸 눈에 그걸 뿌렸다던 이야기.\n울릴 일은 없을 거다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "다래야, 정말 고마워. 네가 궁을 지켜 줘서 마음 놓고 다녀올 수 있었어."},
 	{"who": "다래", "pose": "darae_adult", "text": "…치. 그런 말 하면 울잖아, 바보야.\n…잘 왔어. 정말, 잘 돌아왔어."},
 ]
@@ -845,9 +845,9 @@ const C9_BRIDGE := [
 	{"who": "", "text": "둘은 문서를 함께 찢어 강물에 띄워 보냈다.\n종잇조각이 달빛을 받으며 천천히 흘러갔다."},
 	{"who": "", "text": "윤도결이 돌아서다 말고, 다리 아래에서 기다리던 서휘를 불렀다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "서휘. 네가 곁에 있어 준 덕에 저 사람이 무사히 돌아왔다.\n…고맙다."},
-	{"who": "서휘", "pose": "seohwi", "text": "…나리가 한양에서 지켜 온 만큼, 나도 바다에서 지켰을 뿐이오."},
+	{"who": "서휘", "pose": "seohwi", "text": "…나리가 한양에서 지켜 온 만큼, 나도 바다에서 지켰을 뿐이다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 하나 더. 청안파 아이들을 이끌던 그 솜씨, 이제 나라를 위해 써 보지 않겠나.\n포도청에 들어와라. 내가 직접 가르치겠다."},
-	{"who": "서휘", "pose": "seohwi", "text": "한때 쫓기던 몸이 포졸이 된다라… 재밌군.\n받아들이지. 대신 봐주지는 마시오."},
+	{"who": "서휘", "pose": "seohwi", "text": "한때 쫓기던 몸이 포졸이 된다라… 재밌군.\n받아들이지. 대신 봐주지는 마라."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "봐줄 생각 없다. 내일 새벽, 포도청 마당으로 와라."},
 	{"who": "", "text": "윤도결이 떠나고, 서휘가 다리 아래로 내려서는 순간이었다.\n낯익은 다리 밑에서 누군가 짐을 내려놓고 멈춰 섰다."},
 	{"who": "밤톨", "pose": "bamtol_happy", "text": "…형님? 서휘 형님!!"},
@@ -861,7 +861,7 @@ const C9_BRIDGE := [
 const C9_SPAR_PRE := [
 	{"bg": "podocheong", "who": "", "text": "순찰을 마친 저녁, 포도청 마당.\n윤도결이 육모방망이를 들고 서 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘 수련의 마지막이다. 나를 한 번이라도 쓰러뜨려 봐라."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "…청안파 시절처럼 해도 되겠소?"},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…청안파 시절처럼 해도 되겠나?"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "그래야 가르칠 맛이 나지."},
 ]
 
@@ -897,7 +897,7 @@ const CH9_INTRO := [
 	{"who": "서휘", "pose": "seohwi", "text": "고맙소, 포도대장 나리. 그대가 지켜 준 덕에 이 사람이 여기 있지."},
 	{"bg": "wedding", "who": "", "text": "그해 가을, 허 의원의 옛 약방 마당에서 혼례가 열렸다.\n다래는 하루 종일 울다 웃다 했고, 윤도결은 맨 앞자리에서 끝까지 박수를 쳤다."},
 	{"bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 서휘가 {name}의 손을 잡았다."},
-	{"who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을 다시 걸어 보지 않겠소?\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
+	{"who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을, 다시 걸어 보자.\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
 	{"who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
 ]
 
@@ -905,7 +905,7 @@ const C9_MEM := [
 	{"bg": "stream", "who": "", "text": "청계천 수표교 아래.\n옛 왈패 소굴은 이제 아이들 글방이 되어 있었다."},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "여기서 네가 처음 내 애체를 노렸지. 한 번도 못 맞혔지만."},
 	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그땐 사람을 때려 본 적이 없었으니까!\n…지금은 다르다는 거, 아까 그 왈패들한테서 봤지?"},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "봤소. 등을 맡길 수 있는 사람이 생긴다는 게 이런 거로군."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "봤다. 등을 맡길 수 있는 사람이 생긴다는 게 이런 거로군."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan", "text": "이 다리 위였다. 비 오는 밤, 네가 강물로 뛰어든 게.\n…다시는 그런 꼴 안 본다."},
 	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그때 나리가 뛰어들어 건져 줬잖아요.\n…그날부터였어요? 심장이 시끄러웠다는 거."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…그건 묻지 마라. 대장 체면이 있다."},
@@ -921,8 +921,8 @@ const CH9_END := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그건 내가 몰아 준 거다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "두 대장 나리, 또 싸우세요?\n약방에서 도시락 싸 왔으니까, 싸우지 말고 드세요."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락이오. 천천히 드시오."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락에 정신이 팔렸군. 천천히 드시오, 대장 나리."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락이다. 천천히 먹어라."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락에 정신이 팔렸군. 천천히 먹어, 대장 나리."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…내 아내 도시락이다. 넌 반만 먹어라."}
 ]
 
@@ -1283,7 +1283,7 @@ const C10_FALL := [
 	{"who": "다래", "pose": "darae_prison", "text": "{name}아… 나 정말 아니야.\n할아버지 일 때문에 다들 날 그렇게 볼 거라는 거, 알고 있었어. 그래도…"},
 	{"who": "{name}", "pose": "hero_adult", "text": "알아. 나도 똑같이 쫓겨 봤잖아.\n그때 네가 고춧가루 한 줌으로 날 구해 줬지. 이번엔 내 차례야."},
 	{"who": "다래", "pose": "darae_prison", "text": "…바보. 빨리 와. 여기 밥 진짜 맛없단 말이야."},
-	{"bg": "podocheong", "who": "서휘", "pose": "seohwi_podo", "text": "포도청 부장 서휘, 지금부터 수사에 나서겠소.\n대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고요."},
+	{"bg": "podocheong", "who": "서휘", "pose": "seohwi_podo", "text": "포도청 부장 서휘, 지금부터 수사에 나선다.\n대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "밤에 몰래 들어가 뒤져라. 낮엔 누가 지켜볼지 모른다.\n…정 의관, 그자가 오늘 유난히 서둘렀다."},
 	{"who": "", "text": "【목표】\n서휘와 함께 밤의 궁궐에 숨어들어\n내의원 약재 창고에서 흑심단의 단서를 찾아라."},
 ]
@@ -1313,8 +1313,8 @@ const C10_JEONG1_POST := [
 
 const C10_CLUE := [
 	{"bg": "naeuiwon", "music": "dread_shadow", "who": "", "text": "정 의관이 버리고 간 서랍에는 장부 한 권이 남아 있었다."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "'마포 나루, 청 상인 창고에서 책장 값 은 백 냥'.\n대대장이 몰래 빼돌린 책장을 청 상인이 쥐고 있다가, 이자에게 판 거요."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "그리고 마지막 줄… '보름날 밤, 남은 흑심단과 용뇌를 마포에서 받는다.'\n오늘이 보름이오."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "'마포 나루, 청 상인 창고에서 책장 값 은 백 냥'.\n대대장이 몰래 빼돌린 책장을 청 상인이 쥐고 있다가, 이자에게 판 거다."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "그리고 마지막 줄… '보름날 밤, 남은 흑심단과 용뇌를 마포에서 받는다.'\n오늘이 보름이다."},
 	{"who": "", "text": "{name|은} 품에서 백운의 서책을 꺼내 다시 펼쳤다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "'환심단에 용뇌를 더하라… 청 상선으로만 들어온다.'\n마포 창고야. 거기 가면 용뇌도, 정 의관도 있어!"},
 	{"who": "{name}", "pose": "hero_adult", "text": "아버지가 만든 검은 것은… 이번엔 제 손으로 끝낼 거예요."},
@@ -1358,7 +1358,7 @@ const C10_CHOICE := [
 	{"if": "wed_dogyeol", "who": "{name}", "pose": "hero_adult", "text": "나리. 이번엔 제가 나리를 쫓아갈게요.\n…도망가지 마세요."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…도망은 네 특기였지.\n이번엔 내가 잡혔구나."},
 	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "…역시, 그렇게 되는군.\n괜찮다. 돌아올 곳은 이미 찾았으니까. 이번엔 친구로 곁에 있겠다."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "포도대장 나리. 그 사람 울리면,\n다래 고춧가루보다 매운 걸 보게 될 거요."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "포도대장 나리. 그 사람 울리면,\n다래 고춧가루보다 매운 걸 보게 될 거다."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…명심하지. 평생."},
 ]
 
@@ -1373,7 +1373,7 @@ const C10_WED := [
 	{"if": "wed_dogyeol", "who": "밤톨", "pose": "bamtol_happy", "text": "누님, 축하드려요!\n포도대장 나리, 우리 누님 울리면 청안파가 가만 안 있어요!"},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…명심하마."},
 	{"ifnot": "wed_dogyeol", "bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 서휘가 {name}의 손을 잡았다."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을 다시 걸어 보지 않겠소?\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을, 다시 걸어 보자.\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
 	{"if": "wed_dogyeol", "bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 윤도결이 {name}의 손을 잡았다."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "우리가 처음 만난 길을 다시 걸어 보지 않겠느냐.\n그때는 내가 너를 쫓았지만, 이번엔 나란히."},
