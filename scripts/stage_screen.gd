@@ -1203,7 +1203,7 @@ func _resolve() -> void:
 			_clear(pos); _apply_event(_pick_ev(GameData.DEBUFFS)); return
 		"trap":
 			comp_say("trap")
-			_clear(pos); _apply_event(GameData.TRAPS.pick_random()); return
+			_clear(pos); _apply_event(main.pick_event(GameData.TRAPS)); return
 		"rest":
 			_clear(pos); _apply_event(GameData.REST); return
 		"shop":
