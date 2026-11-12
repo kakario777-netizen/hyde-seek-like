@@ -279,6 +279,41 @@ func _debug_capture() -> void:
 			load_game("2")
 			await get_tree().create_timer(1.5).timeout
 			print("LOADTEST ", hero_name, " ", alias_name, " ", coins, " pos=", board.pos, " days=", board.days_left)
+		"loadtest2":
+			chapter = int(args.get("ch", "3")); stage_idx = int(args.get("st", "1"))
+			start_board()
+			await get_tree().create_timer(1.5).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
+			board.pos = 9; board.turns_left = 7; board.cleared[3] = true
+			print("BEFORE pos=", board.pos, " turns=", board.turns_left, " seed=", board.map_seed, " phase=", phase)
+			save_game("3")
+			var sd := read_save("3")
+			print("SAVED phase=", sd.get("phase"), " has_board=", sd.has("board"), " ver=", sd.get("ver"))
+			load_game("3")
+			await get_tree().create_timer(1.5).timeout
+			print("AFTER pos=", board.pos, " turns=", board.turns_left, " seed=", board.map_seed, " cleared=", board.cleared.keys())
+		"loadtest3":
+			chapter = 7; stage_idx = 0
+			start_board()
+			await get_tree().create_timer(1.5).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
+			var vi := -1
+			for i in board.nodes.size():
+				if board.nodes[i].get("type", "") == "voyage":
+					vi = i; break
+			board.pos = vi
+			start_voyage(board.nodes[vi]["stage"], func(): print("BACK"))
+			await get_tree().create_timer(1.5).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
+			board.pos = 7; board.turns_left = 5
+			print("BEFORE vi=", vi, " sub=", sub_stage.get("map"), " pos=", board.pos)
+			save_game("3")
+			load_game("3")
+			await get_tree().create_timer(2.0).timeout
+			print("AFTER sub=", sub_stage.get("map"), " pos=", board.pos, " turns=", board.turns_left, " world_pos=", world_board.pos if world_board else -1)
 		"over":
 			start_board()
 			game_over("해가 저물었다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n순라꾼에게 붙잡히고 말았다…", "sunra")
@@ -419,11 +454,12 @@ var sub_stage: Dictionary = {}
 var world_board: Control = null
 var voyage_done: Callable
 
-func start_voyage(cfg: Dictionary, on_done: Callable) -> void:
+func start_voyage(cfg: Dictionary, on_done: Callable, restore := {}) -> void:
 	world_board = board
 	sub_stage = cfg
 	voyage_done = on_done
 	var s := StageScreen.new()
+	s.restore = restore
 	board = s
 	_swap(s, true)
 	autosave.call_deferred()
@@ -1622,6 +1658,11 @@ func snapshot() -> Dictionary:
 	if bd and is_instance_valid(bd):
 		d["board"] = bd.get_state()
 		d["place"] = bd.place_name()
+	# 만리길 판 위의 작은 맵(항구·마을) 안에서 저장하면 그 작은 맵 자리도 함께
+	if not sub_stage.is_empty() and board and is_instance_valid(board) and board != bd:
+		d["sub"] = sub_stage
+		d["sub_board"] = board.get_state()
+		d["place"] = board.place_name()
 	return d
 
 func can_save() -> bool:
@@ -1684,6 +1725,15 @@ func load_game(slot: String) -> void:
 		board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
 		board.restore = d["board"]
 		_swap(board)
+		if d.has("sub") and d.has("sub_board") and ch_cfg().get("world", false):
+			var wb: Control = board
+			var vidx := int(d["board"].get("pos", 0))
+			await get_tree().process_frame
+			await get_tree().process_frame
+			start_voyage(d["sub"], func():
+				wb.cleared[vidx] = true
+				wb._dim_marker(vidx)
+				wb._end_turn(), d["sub_board"])
 	elif stage_idx > 0:
 		# 맵을 깬 뒤 이어지는 이야기 도중에 저장됨 → 장 첫 이야기로 되돌아가지 않고 그 이야기부터 다시
 		phase = "board"
