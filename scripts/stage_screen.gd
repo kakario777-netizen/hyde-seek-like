@@ -840,25 +840,31 @@ func _build_hud() -> void:
 	title_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title_lbl)
 	var me: Button = main.make_button("◎", 24)
-	me.custom_minimum_size = Vector2(64, 62)
+	me.custom_minimum_size = Vector2(56, 62)
 	head.add_child(me)
 	me.pressed.connect(func(): _focus(tile_center(pos)))
 	var menu: Button = main.make_button("메뉴", 24)
-	menu.custom_minimum_size = Vector2(100, 62)
+	menu.custom_minimum_size = Vector2(84, 62)
 	head.add_child(menu)
 	menu.pressed.connect(func():
 		if not busy:
 			main.open_menu())
 	brew_btn = main.make_button("약탕관", 24)
-	brew_btn.custom_minimum_size = Vector2(110, 62)
+	brew_btn.custom_minimum_size = Vector2(96, 62)
 	head.add_child(brew_btn)
 	brew_btn.pressed.connect(func():
 		if not busy:
 			main.show_brew(_update_hud))
 	var bag: Button = main.make_button("보따리", 24)
-	bag.custom_minimum_size = Vector2(110, 62)
+	bag.custom_minimum_size = Vector2(96, 62)
 	head.add_child(bag)
 	bag.pressed.connect(func():
+		if not busy:
+			main.show_goods())
+	var up: Button = main.make_button("상소", 24)
+	up.custom_minimum_size = Vector2(96, bag.custom_minimum_size.y)
+	head.add_child(up)
+	up.pressed.connect(func():
 		if not busy:
 			main.show_bag())
 	var sname: Label = main.make_label(("〈%s〉  만리길" % stage_cfg["name"]) if not main.sub_stage.is_empty() else ("〈%s〉  %d / %d" % [stage_cfg["name"], main.stage_idx + 1, cfg["stages"].size()]), 24, Color("e9c9a0"))

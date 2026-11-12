@@ -257,7 +257,7 @@ func _debug_capture() -> void:
 			if args.has("bag"):
 				for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
 					l.queue_free()
-				show_bag()
+				show_goods()
 			elif args.has("buy"):
 				await get_tree().create_timer(0.3).timeout
 				var bs: Array = get_tree().root.find_children("*", "Button", true, false).filter(func(b): return b.text.ends_with("냥"))
@@ -1431,16 +1431,15 @@ func _steam(at: Control) -> void:
 		tw.chain().tween_callback(l.queue_free)
 
 func show_bag(cb := Callable()) -> void:
-	var o := _overlay("보따리")
+	var o := _overlay("상소 단련")
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
-	vb.add_child(_goods_box())
 	var info := _note("")
 	vb.add_child(info)
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(560, 640)
+	scroll.custom_minimum_size = Vector2(560, 760)
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	scroll.scroll_deadzone = 18
 	vb.add_child(scroll)
@@ -1584,36 +1583,48 @@ func goods_count(id: String) -> int:
 func use_goods(id: String) -> void:
 	goods[id] = maxi(0, goods_count(id) - 1)
 
-## 가지고 있는 물건 목록 (보따리 화면 위쪽)
-func _goods_box() -> Control:
-	var pc := PanelContainer.new()
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color("f3e6c8"); sb.border_color = Color("9a7a4a")
-	sb.set_border_width_all(3); sb.set_corner_radius_all(10); sb.set_content_margin_all(10)
-	pc.add_theme_stylebox_override("panel", sb)
-	var v := VBoxContainer.new()
-	v.add_theme_constant_override("separation", 6)
-	pc.add_child(v)
-	v.add_child(make_label("가진 물건", 26, RED))
-	var hf := HFlowContainer.new()
-	hf.add_theme_constant_override("h_separation", 16)
-	hf.add_theme_constant_override("v_separation", 6)
-	v.add_child(hf)
+## 보따리: 보따리장수에게서 산 물건 보기
+func show_goods(cb := Callable()) -> void:
+	var o := _overlay("보따리")
+	var layer: CanvasLayer = o[0]
+	var vb: VBoxContainer = o[1]
+	var cp := coin_plaque()
+	vb.add_child(cp[0])
+	vb.add_child(_note("물건은 필요할 때 저절로 쓰입니다."))
 	var any := false
 	for g in SHOP_GOODS:
+		if g["id"] == "ginseng":
+			continue   # 인삼은 사는 즉시 먹음
 		var n := goods_count(g["id"])
-		if n <= 0:
-			continue
-		any = true
+		var pc := PanelContainer.new()
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color("f3e6c8") if n > 0 else Color("d8d2c6"); sb.border_color = Color("9a7a4a")
+		sb.set_border_width_all(3); sb.set_corner_radius_all(10); sb.set_content_margin_all(10)
+		pc.add_theme_stylebox_override("panel", sb)
 		var row := HBoxContainer.new()
-		row.add_theme_constant_override("separation", 4)
+		row.add_theme_constant_override("separation", 12)
+		pc.add_child(row)
 		var tex: Texture2D = load("res://assets/ui/tiles/deco_herb.png") if g["icon"] == "herb" else icon(g["icon"])
-		row.add_child(tex_rect(tex, Vector2(34, 34)))
-		row.add_child(make_label("%s ×%d" % [g["name"], n], 22, INK))
-		hf.add_child(row)
+		row.add_child(tex_rect(tex, Vector2(52, 52)))
+		var col := VBoxContainer.new()
+		col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(col)
+		col.add_child(make_label(g["name"], 26, RED if n > 0 else INK_SOFT))
+		col.add_child(make_label(str(g["desc"]).replace("\n", " "), 20, INK_SOFT))
+		row.add_child(make_label("×%d" % n, 32, INK if n > 0 else INK_SOFT))
+		pc.modulate = Color.WHITE if n > 0 else Color(1, 1, 1, 0.6)
+		vb.add_child(pc)
+		if n > 0:
+			any = true
 	if not any:
-		hf.add_child(make_label("없음 · 보따리장수에게서 살 수 있어요", 22, INK_SOFT))
-	return pc
+		vb.add_child(_note("아직 가진 물건이 없습니다.\n보따리장수를 만나면 살 수 있어요."))
+	var close := make_button("닫기", 30)
+	close.custom_minimum_size = Vector2(0, 86)
+	vb.add_child(close)
+	close.pressed.connect(func():
+		layer.queue_free()
+		if cb.is_valid():
+			cb.call())
 
 func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 	var pc := PanelContainer.new()

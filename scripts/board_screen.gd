@@ -267,19 +267,25 @@ func _build_hud() -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(title)
 	var me: Button = main.make_button("◎", 26)
-	me.custom_minimum_size = Vector2(70, 66)
+	me.custom_minimum_size = Vector2(60, 66)
 	head.add_child(me)
 	me.pressed.connect(func(): _focus(_node_px(pos)))
 	var menu: Button = main.make_button("메뉴", 26)
-	menu.custom_minimum_size = Vector2(110, 66)
+	menu.custom_minimum_size = Vector2(96, 66)
 	head.add_child(menu)
 	menu.pressed.connect(func():
 		if not busy:
 			main.open_menu())
 	var bag: Button = main.make_button("보따리", 26)
-	bag.custom_minimum_size = Vector2(140, 66)
+	bag.custom_minimum_size = Vector2(110, 66)
 	head.add_child(bag)
 	bag.pressed.connect(func():
+		if not busy:
+			main.show_goods())
+	var up: Button = main.make_button("상소", 26)
+	up.custom_minimum_size = Vector2(110, bag.custom_minimum_size.y)
+	head.add_child(up)
+	up.pressed.connect(func():
 		if not busy:
 			main.show_bag())
 	place_label = main.make_label("", 24, Color("e9c9a0"))
