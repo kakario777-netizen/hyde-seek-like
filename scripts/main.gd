@@ -309,7 +309,7 @@ func new_game() -> void:
 		track_stats = false
 		max_hp = 50; hp = 50; coins = 0; potions = 2; potions_small = 0; herbs = 0
 		play_sec = 0.0; stats = {}; track_stats = true
-		chapter = 1; stage_idx = 0; flags = {"hp_plus10": true}; next_energy = 0; next_guard = 0
+		chapter = 1; stage_idx = 0; flags = {"hp_plus10": true}; next_energy = 0; next_guard = 0; goods = {}
 		deck = make_deck(GameData.START_DECK)
 		phase = "prologue"
 		play_story(chapter_lines("intro"), start_board))
@@ -394,6 +394,10 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 			win = func(): dialog_chain([{"who": c["name"], "pic": comp_pic(), "text": post_line}], on_win)
 		dialog_chain(pre, func(): start_battle(enemy_id, win, opts))
 		return
+	if goods_count("charm") > 0:
+		use_goods("charm"); next_guard += 10
+	if goods_count("pill") > 0:
+		use_goods("pill"); next_energy += 1
 	var b := BattleScreen.new()
 	var stl: Array = ch_cfg().get("stages", [])
 	if stage_idx < stl.size() and stl[stage_idx].has("me_name") and not opts.has("me_name"):
@@ -1504,6 +1508,12 @@ const SHOP_GOODS := [
 ]
 var goods := {}   # 가지고 있는 물건 개수
 
+func goods_count(id: String) -> int:
+	return int(goods.get(id, 0))
+
+func use_goods(id: String) -> void:
+	goods[id] = maxi(0, goods_count(id) - 1)
+
 func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 	var pc := PanelContainer.new()
 	var sb := StyleBoxFlat.new()
@@ -1534,10 +1544,19 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 			msg.text = "엽전이 모자랍니다 (%s %d냥)" % [g["name"], g["price"]]
 			msg.add_theme_color_override("font_color", RED)
 			return
+		if g["id"] == "ginseng" and int(flags.get("ginseng_ch", 0)) == chapter:
+			msg.text = "인삼 뿌리는 이번 장에 이미 샀습니다."
+			msg.add_theme_color_override("font_color", RED)
+			return
 		coins -= int(g["price"])
 		sfx("coin")
-		goods[g["id"]] = int(goods.get(g["id"], 0)) + 1
-		msg.text = "〈%s〉을(를) 샀습니다!" % g["name"]
+		if g["id"] == "ginseng":
+			flags["ginseng_ch"] = chapter
+			max_hp += 5; hp += 5
+			msg.text = "인삼 뿌리를 달여 먹었다! 최대 체력 +5 (지금 %d)" % max_hp
+		else:
+			goods[g["id"]] = goods_count(g["id"]) + 1
+			msg.text = "〈%s〉을(를) 샀습니다! (가진 것 %d개)" % [g["name"], goods_count(g["id"])]
 		msg.add_theme_color_override("font_color", INK_SOFT)
 		refresh.call())
 	return pc
@@ -1597,7 +1616,7 @@ func _save_path(slot: String) -> String:
 func snapshot() -> Dictionary:
 	var d := {"ver": 2, "phase": phase, "stage_idx": stage_idx, "hero_name": hero_name, "alias_name": alias_name, "max_hp": max_hp, "hp": hp,
 		"coins": coins, "potions": potions, "potions_small": potions_small, "herbs": herbs, "deck": deck, "chapter": chapter, "flags": flags,
-		"next_energy": next_energy, "next_guard": next_guard,
+		"next_energy": next_energy, "next_guard": next_guard, "goods": goods,
 		"time": Time.get_datetime_string_from_system(false, true), "play_sec": play_sec, "stats": stats}
 	var bd: Control = world_board if (world_board and is_instance_valid(world_board)) else board
 	if bd and is_instance_valid(bd):
@@ -1639,7 +1658,7 @@ func load_game(slot: String) -> void:
 	if d.is_empty():
 		return
 	track_stats = false
-	play_sec = float(d.get("play_sec", 0.0)); stats = d.get("stats", {})
+	play_sec = float(d.get("play_sec", 0.0)); stats = d.get("stats", {}); goods = d.get("goods", {})
 	hero_name = d.get("hero_name", "연이"); alias_name = d.get("alias_name", "")
 	max_hp = int(d.get("max_hp", 40)); hp = int(d.get("hp", max_hp))
 	coins = int(d.get("coins", 0)); potions = int(d.get("potions", 2))

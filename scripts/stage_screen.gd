@@ -82,6 +82,10 @@ func _ready() -> void:
 				visited[i] = true
 	else:
 		turns_left = (main_len + 2) / 3 + 2
+		if main.goods_count("shoes") > 0:
+			main.use_goods("shoes")
+			turns_left += 3
+			shoes_used = true
 	visited[pos] = true
 	if "maptest" in OS.get_cmdline_user_args():
 		var cs: Array = []
@@ -408,6 +412,7 @@ func _enemy_id(t: String) -> String:
 ## 들어올 때마다 길 모양·사건·적 배치를 새로 섞는다 (저장하면 같은 배치로 이어짐)
 ## 칸 수는 그대로 두고, 길 2~3군데를 두 갈래로 갈라졌다 다시 합쳐지게 만든다.
 var map_seed := 0
+var shoes_used := false
 var main_len := 0          # 본길 칸 수 (0..main_len-1, 마지막이 대문)
 var dist_goal: Array = []  # 각 칸에서 대문까지 최단 칸 수
 var visited := {}
@@ -904,7 +909,7 @@ func _intro() -> void:
 	_layout()
 	if pos == 0 and restore.is_empty():
 		await get_tree().create_timer(0.3).timeout
-		main.popup("〈%s〉\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오." % stage_cfg["name"], "출발", func():
+		main.popup("〈%s〉\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오.%s" % [stage_cfg["name"], "\n\n(새 짚신을 신었다: 남은 시각 +3)" if shoes_used else ""], "출발", func():
 			busy = false
 			_deal(), cfg.get("title", ""), "", "", true)
 		return
@@ -1136,11 +1141,24 @@ func _resolve() -> void:
 					l2["who"] = l2["who"].replace("{alias}", "{name}")
 					l2["pic"] = l2["pic"].replace("hero_disguise", "hero")
 				talk.append(l2)
+			var fight := func():
+				main.start_battle(eid, func():
+					_clear(idx)
+					_after_land(true))
 			main.dialog_chain(talk, func():
-				main.popup("피할 길이 없다. 맞서 싸우자!", "맞서 싸운다", func():
-					main.start_battle(eid, func():
-						_clear(idx)
-						_after_land(true)), "전투", e["sprite"]))
+				if main.goods_count("smoke") > 0:
+					main.popup_choices("연막 주머니가 %d개 있다.\n연막을 터뜨리고 몰래 지나갈까?" % main.goods_count("smoke"),
+						[{"text": "연막을 쓴다"}, {"text": "맞서 싸운다"}], func(k: int):
+							if k == 0:
+								main.use_goods("smoke")
+								main.sfx("good")
+								main.popup("펑! 매캐한 연기 속에서 %s의 곁을 빠져나갔다." % e["name"], "계속", func():
+									_clear(idx)
+									_after_land(false), "연막 주머니")
+							else:
+								fight.call(), "전투", e["sprite"])
+				else:
+					main.popup("피할 길이 없다. 맞서 싸우자!", "맞서 싸운다", fight, "전투", e["sprite"]))
 			return
 		"boss":
 			var nd: Dictionary = tiles[pos]
@@ -1207,6 +1225,10 @@ func _after_land(_fought: bool) -> void:
 			var eid := _enemy_id(guards[gi]["kind"])
 			var e: Dictionary = GameData.ENEMIES[eid]
 			var g := gi
+			if main.goods_count("hat") > 0:
+				main.use_goods("hat")
+				main.popup("감시꾼의 눈길이 스쳤지만…\n삿갓을 깊이 눌러써서 들키지 않았다!", "휴…", func(): _end_turn(), "삿갓 그늘")
+				return
 			main.sfx("alarm")
 			main.stat_add("spotted")
 			_alert(gi)
