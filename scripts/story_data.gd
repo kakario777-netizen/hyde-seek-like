@@ -43,7 +43,7 @@ const CHAPTERS := {
 		"stages": [{"map": "s5_1", "foes": {"walpae": "mob", "pojol": "rival"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
 			{"map": "s5_2", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
 			{"map": "s5_3", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "궁궐 담장 아래", "after": "C5_DOGYEOL"},
-			{"map": "s5_4", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "허 의원 약방으로"}],
+			{"map": "s5_4", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "허 의원 약방으로", "ally": "dogyeol"}],
 		"goal_pre": "CH5_GOAL", "goal_battle": "shadow", "goal_ally": "dogyeol"},
 	6: {"title": "제6장  작별", "goal": "산마루 약초밭", "intro": "CH6F_INTRO", "end": "CH6F_END", "stage_ally": "darae",
 		"stages": [{"map": "s6_1", "foes": {"walpae": "sanjeok", "pojol": "sanjeok"}, "name": "다래와 북한산 오르기", "after": "C6F_LESSON"},
