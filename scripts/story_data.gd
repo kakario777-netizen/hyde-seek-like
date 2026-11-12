@@ -61,6 +61,10 @@ const CHAPTERS := {
 				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
 					{"who": "약초 캐는 할머니", "text": "허 의원님 따님이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
 					{"who": "서휘", "pic": "seohwi", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
+			{"map": "s9_b", "name": "청계천 수표교 가는 밤길", "after": "C9_BRIDGE", "after_story": true, "foes": {"walpae": "rival", "pojol": "rival"},
+				"talks": [{"who": "순라꾼", "text": "통금 지난 시각인데… 아, 포도대장 나리 손님이시오?\n지나가시오. 나리가 오늘따라 다리 위를 몇 번이나 서성이시던데.", "coin": 2},
+					{"who": "주막 주모", "text": "어머, 이 밤에 둘이서 어딜 가? 국밥 한 그릇씩 하고 가!\n…바쁘다고? 그럼 이 주먹밥이라도 들고 가.", "potion": 1},
+					{"who": "약재 상인", "text": "허 의원님 따님 아니시오! 돌아왔다는 소문 들었소.\n약방 다시 열면 감초는 내가 대 주리다.", "potion": 1}]},
 			{"map": "s9_w", "name": "새벽, 포도청 가는 길", "ally": "", "after": "C9_PODO_RET", "after_story": true, "foes": {"walpae": "rival", "pojol": "rival"},
 				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
 					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
@@ -88,7 +92,8 @@ static func lines(key: String) -> Array:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD
-		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_CALL
+		"C9_BRIDGE": return C9_BRIDGE
 		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
@@ -927,8 +932,17 @@ const C9_DARAE := [
 	{"who": "다래", "pose": "darae_adult", "text": "…치. 그런 말 하면 울잖아, 바보야.\n…잘 왔어. 정말, 잘 돌아왔어."},
 ]
 
+## 궁에서 나온 뒤: 윤도결의 부름
+const C9_CALL := [
+	{"bg": "palace", "who": "", "text": "해 질 녘, 궁을 나서는 둘에게 포졸 하나가 달려왔다."},
+	{"who": "포졸", "pose": "pojol", "text": "허 의녀님, 그리고 서휘 공이시지요?\n포도대장 나리께서 두 분을 청하십니다. 오늘 밤 청계천 수표교로 오시랍니다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "나리가…? 아까 숭례문에서 뵈었는데, 무슨 일이지?"},
+	{"who": "서휘", "pose": "seohwi", "text": "…한밤에, 그것도 다리 위로라. 그 나리다운 부름이군.\n가 보자. 나도 그 사람한테 할 말이 있다."},
+	{"who": "", "text": "【목표】\n서휘와 함께 밤길을 지나\n청계천 수표교까지 가라."},
+]
+
 const C9_BRIDGE := [
-	{"bg": "stream", "who": "", "text": "그날 밤, 청계천 수표교 위.\n순찰을 돌던 윤도결이 다리 끝에서 걸음을 멈췄다."},
+	{"bg": "stream", "who": "", "text": "청계천 수표교 위.\n등불을 든 윤도결이 다리 끝에서 둘을 기다리고 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}. 물에서 너를 건져 낸 그날부터, 네가 돌아오기를 매일 기다렸다.\n…할 말이 많지만, 오늘은 이것만 주마."},
 	{"who": "{name}", "pose": "hero_adult", "text": "나리가 없었으면 저는 그 강에서 죽었을 거예요.\n그 은혜는 평생 잊지 않을게요."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "선물이다. 받아라."},
