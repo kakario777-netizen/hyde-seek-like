@@ -1256,7 +1256,7 @@ func _shake() -> void:
 ## 좋은 일·나쁜 일 고르기: 서휘가 주인공인 맵에서는 다래·의원님 이야기를 빼고
 func _pick_ev(pool: Array) -> Dictionary:
 	if not stage_cfg.has("me_name"):
-		return pool.pick_random()
+		return main.pick_event(pool)
 	var ok: Array = pool.filter(func(ev): return not ev.has("pic") and not str(ev["text"]).contains("의원님") and not ev.has("battle"))
 	return (ok if not ok.is_empty() else pool).pick_random()
 

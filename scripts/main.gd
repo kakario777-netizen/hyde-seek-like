@@ -454,6 +454,13 @@ var sub_stage: Dictionary = {}
 var world_board: Control = null
 var voyage_done: Callable
 
+## 맵 사건 고르기: 다래가 곁에 없으면 다래가 나오는 사건은 빼고
+func pick_event(pool: Array) -> Dictionary:
+	if companion() == "darae":
+		return pool.pick_random()
+	var ok: Array = pool.filter(func(ev): return ev.get("pic", "") != "friend" and not str(ev.get("text", "")).contains("다래"))
+	return (ok if not ok.is_empty() else pool).pick_random()
+
 func start_voyage(cfg: Dictionary, on_done: Callable, restore := {}) -> void:
 	world_board = board
 	sub_stage = cfg

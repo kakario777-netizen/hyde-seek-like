@@ -399,13 +399,13 @@ func _resolve() -> void:
 				main.popup("길섶에서 약초 주머니를 주웠다!\n주운 약초로 약병 하나를 달였다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "")
 		"buff":
 			_clear(pos)
-			_apply_event(GameData.BUFFS.pick_random())
+			_apply_event(main.pick_event(GameData.BUFFS))
 		"debuff":
 			_clear(pos)
-			_apply_event(GameData.DEBUFFS.pick_random())
+			_apply_event(main.pick_event(GameData.DEBUFFS))
 		"trap":
 			_clear(pos)
-			_apply_event(GameData.TRAPS.pick_random())
+			_apply_event(main.pick_event(GameData.TRAPS))
 		"rest":
 			_clear(pos)
 			_apply_event(GameData.REST)
