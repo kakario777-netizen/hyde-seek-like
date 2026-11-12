@@ -1144,8 +1144,19 @@ func _bubble(who: Control, text: String) -> void:
 	for ln in text.split("\n"):
 		w = max(w, l.get_theme_font("font").get_string_size(ln, HORIZONTAL_ALIGNMENT_LEFT, -1, 22).x)
 	if w > 420.0:
-		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size = Vector2(420, 0)
+		# 낱말 중간에서 끊기지 않게, 띄어쓰기 자리에서 직접 줄을 나눈다
+		var font := l.get_theme_font("font")
+		var out := ""
+		var cur := ""
+		for word in text.replace("\n", " \n ").split(" ", false):
+			if word == "\n":
+				out += cur + "\n"; cur = ""; continue
+			var trial := word if cur == "" else cur + " " + word
+			if cur != "" and font.get_string_size(trial, HORIZONTAL_ALIGNMENT_LEFT, -1, 22).x > 420.0:
+				out += cur + "\n"; cur = word
+			else:
+				cur = trial
+		l.text = out + cur
 	p.add_child(l)
 	root.add_child(p)
 	# 꼬리

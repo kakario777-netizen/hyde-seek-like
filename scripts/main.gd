@@ -159,7 +159,10 @@ func _debug_capture() -> void:
 				board.card_row.get_child(0).pressed.emit()
 			if args.has("say"):   # 동행 말주머니 확인용
 				await get_tree().create_timer(2.5).timeout
-				board.comp_say("herb")
+				if args.has("long"):
+					board._bubble(board.follower, "할아버지가 늘 그랬어. 바닷바람 맞고 자란 약초가 제일 독하고 제일 귀하다고. 조심해서 캐야 해!")
+				else:
+					board.comp_say("herb")
 		"voyage":
 			chapter = 7; stage_idx = 0
 			start_board()
