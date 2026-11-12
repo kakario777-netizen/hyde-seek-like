@@ -258,6 +258,8 @@ func _place_tools() -> float:
 	var y := hud.position.y + hud.size.y + 6
 	tools.position = Vector2(8, y)
 	tools.size = Vector2(size.x - 16, tools.get_combined_minimum_size().y)
+	for b in tools.get_children():
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return y + tools.size.y + 4
 
 # ── HUD ─────────────────────────────────────────────────
@@ -269,7 +271,6 @@ func _build_hud() -> void:
 	add_child(hud)
 	# 상태창 바로 아래: 약탕관·보따리·상소 버튼 줄
 	tools = HBoxContainer.new()
-	tools.alignment = BoxContainer.ALIGNMENT_END
 	tools.add_theme_constant_override("separation", 8)
 	add_child(tools)
 	var vb := VBoxContainer.new()
@@ -282,11 +283,11 @@ func _build_hud() -> void:
 	head.add_child(title)
 	var me: Button = main.make_button("◎", 26)
 	me.custom_minimum_size = Vector2(60, 66)
-	head.add_child(me)
+	tools.add_child(me)
 	me.pressed.connect(func(): _focus(_node_px(pos)))
 	var menu: Button = main.make_button("메뉴", 26)
 	menu.custom_minimum_size = Vector2(96, 66)
-	head.add_child(menu)
+	tools.add_child(menu)
 	menu.pressed.connect(func():
 		if not busy:
 			main.open_menu())
