@@ -1189,8 +1189,8 @@ func _resolve() -> void:
 		"rest":
 			_clear(pos); _apply_event(GameData.REST); return
 		"shop":
-			main.popup("길가에 장이 섰다.\n약재와 물건을 사고팔 수 있다.", "둘러본다", func():
-				main.open_shop(func(): _after_land(false)), "장터", "", "jangteo")
+			main.popup("보따리를 짊어진 약재 장수가 길가에 짐을 풀었다.\n약재와 물건을 사고팔 수 있다.", "둘러본다", func():
+				main.open_shop(func(): _after_land(false), "보따리장수", data.get("bg", "jangteo")), "보따리장수", "yakjae", data.get("bg", "jangteo"))
 			return
 		"goal":
 			_stage_clear()

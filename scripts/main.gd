@@ -249,7 +249,7 @@ func _debug_capture() -> void:
 		"shop":
 			coins = 9
 			start_board()
-			open_shop(Callable())
+			open_shop(Callable(), "보따리장수", board.data.get("bg", "jangteo"))
 		"reward":
 			start_board()
 			choose_reward(Callable())
@@ -1490,8 +1490,8 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 const CARD_PRICE := 4
 const POTION_PRICE := 10
 
-func open_shop(cb: Callable) -> void:
-	var o := _overlay("장터", "jangteo")
+func open_shop(cb: Callable, place := "장터", bg := "jangteo") -> void:
+	var o := _overlay(place, bg)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var cp := coin_plaque()
@@ -1545,7 +1545,7 @@ func open_shop(cb: Callable) -> void:
 	bag.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(bag)
 	bag.pressed.connect(func(): show_bag(refresh))
-	var leave := make_button("장터를 떠난다", 28)
+	var leave := make_button("%s를 떠난다" % place if place == "장터" else "다시 길을 나선다", 28)
 	leave.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(leave)
 	leave.pressed.connect(func():
