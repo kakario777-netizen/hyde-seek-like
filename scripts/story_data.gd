@@ -61,8 +61,6 @@ const CHAPTERS := {
 				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
 					{"who": "약초 캐는 할머니", "text": "허 의원님 따님이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
 					{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
-			{"map": "s9_p", "name": "포도청 수련", "after": "C10_SHOP_LETTER", "after_story": true, "ally": "", "token": "seohwi_podo", "me_name": "서휘",
-				"foes": {"walpae": "walpae", "pojol": "rival"}},
 			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
@@ -86,7 +84,7 @@ static func lines(key: String) -> Array:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD
-		"C9_GRAVE_RET": return C9_GRAVE + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_GRAVE_RET": return C9_GRAVE + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
@@ -943,7 +941,23 @@ const C9_BRIDGE := [
 	{"who": "밤톨", "pose": "bamtol_happy", "text": "형님 없는 동안 다들 짐꾼이랑 목수 일 하면서 정직하게 살았어요!\n이제 아무도 우리한테 돌 안 던져요."},
 	{"who": "서휘", "pose": "seohwi", "text": "…시끄럽다. 울지 마라, 사내 녀석이."},
 	{"who": "", "text": "퉁명스러운 말과 달리, 서휘의 입가에는 웃음이 번져 있었다."},
-	{"bg": "podocheong", "who": "", "text": "【목표】\n포도청에 들어간 서휘가 되어\n윤도결과 함께 한양 순찰을 돌고, 마지막 대련을 치러라."},
+	{"bg": "podocheong", "who": "", "text": "이튿날 새벽, 포도청 마당.\n포졸 옷을 받아 입은 서휘 앞에 윤도결이 목검 두 자루를 던졌다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "봐주지 말라고 했지. 첫날이니 한 가지만 가르친다.\n포졸은 이기는 자가 아니다. 쓰러지지 않는 자다."},
+	{"who": "", "text": "목검이 부딪치는 소리가 해가 뜰 때까지 이어졌다.\n서휘는 열 번 넘어졌고, 열 번 다시 일어났다."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…하아. 청안파 시절엔 맞기 전에 도망치는 게 먼저였는데.\n도망치지 않고 버티는 건… 생각보다 훨씬 어렵군."},
+	{"who": "윤도결", "pose": "jongsagwan_smile", "text": "그걸 첫날 깨달은 놈은 처음이다.\n…내일도 와라. 모레도."},
+	{"who": "", "text": "한 달 동안, 서휘는 하루도 빠지지 않고 새벽 마당에 섰다.\n그리고 처음으로 윤도결과 함께 장터 순찰을 나간 날이었다."},
+	{"bg": "jangteo", "who": "", "text": "장터 골목 끝에서 아이 우는 소리가 났다.\n흑룡파 잔당 둘이 엿 파는 아이의 좌판을 걷어차고 있었다."},
+	{"who": "흑룡파 잔당", "pose": "walpae", "text": "어라? 이 금발 눈깔은… 청안파 두목 아니냐?\n도망간 놈이 포졸 옷을 입고 나타났네! 하하!"},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…도망간 게 아니라 돌아온 거다.\n그 아이 좌판, 원래대로 세워 놔라. 지금."},
+	{"who": "", "text": "잔당이 주먹을 휘둘렀다. 서휘는 피하지 않고 받아 낸 뒤,\n새벽마다 배운 그대로 팔을 꺾어 땅에 눌렀다. 단 한 수였다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…내가 나설 틈도 없군.\n포박해라, 서 포졸. 네가 잡은 놈이다."},
+	{"who": "밤톨", "pose": "bamtol_happy", "text": "형님!! 봤어요? 봤지, 얘들아?!\n우리 형님이 포졸이 돼서 흑룡파를 잡았어!"},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…시끄럽다. 순찰 중이다.\n…그래도, 좌판 세우는 건 너희가 도와라."},
+	{"who": "", "text": "그날 밤, 서휘는 멍든 팔을 하고 약방 문을 두드렸다."},
+	{"bg": "yakbang_calm", "who": "{name}", "pose": "hero_adult", "text": "또 맞았어요? 한 달 내내 멍투성이네.\n…이리 와요. 고약 붙여 줄게요."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "오늘은 맞기만 한 게 아니다. 처음으로… 누굴 지켰다.\n도망치지 않고. 네가 늘 하던 것처럼."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…알아요. 장터에 소문 다 났어요. 금발 포졸 나리가 아이들 좌판을 지켰다고.\n자랑스러워요, 서휘."},
 ]
 
 const C9_SPAR_PRE := [
