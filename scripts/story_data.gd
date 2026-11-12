@@ -57,7 +57,7 @@ const CHAPTERS := {
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "h_port", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "h_deck", "ally_pic": "seohwi_dutch", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
-			{"map": "s9_g", "ally_pic": "seohwi_dutch", "name": "허 의원 묘 가는 산길", "after": "C9_GRAVE_RET", "after_story": true,
+			{"map": "s9_g", "ally_pic": "seohwi_dutch", "name": "허 의원 묘 가는 산길", "after": "C9_GRAVE_RET", "after_story": true, "foes": {"walpae": "sanjeok", "pojol": "sanjeok"},
 				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
 					{"who": "약초 캐는 할머니", "text": "허 의원님 따님이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
 					{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
