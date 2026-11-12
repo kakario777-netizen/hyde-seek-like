@@ -962,7 +962,7 @@ const C9_PODO := [
 	{"who": "서휘", "pose": "seohwi_podo", "text": "…하아. 청안파 시절엔 맞기 전에 도망치는 게 먼저였는데.\n도망치지 않고 버티는 건… 생각보다 훨씬 어렵군."},
 	{"who": "윤도결", "pose": "jongsagwan_smile", "text": "그걸 첫날 깨달은 놈은 처음이다.\n…내일도 와라. 모레도."},
 	{"who": "{name}", "pose": "hero_adult", "text": "두 분 다 거기까지요! 아침부터 드시고 하세요."},
-	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…{name}? 이 새벽에 여긴 어떻게…"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…{name}? 이 새벽에 여긴 어떻게…"},
 	{"who": "{name}", "pose": "hero_adult", "text": "전해 드릴 게 있어서요. 고약이랑 주먹밥이에요.\n서휘는 첫날부터 멍들 줄 알았어요. 나리 것도 있고요. 화란 비스킷도 넣었어요."},
 	{"who": "서휘", "pose": "seohwi_podo", "text": "…잠깐. 왜 나리 비스킷이 내 것보다 많지."},
 	{"who": "{name}", "pose": "hero_adult", "text": "서휘는 화란에서 실컷 먹었잖아요."},
