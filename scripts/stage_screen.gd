@@ -227,6 +227,8 @@ func _build_world() -> void:
 		cp = "res://assets/chibi/%s.png" % rp
 	if not ResourceLoader.exists(cp):
 		cp = "res://assets/chibi/%s.png" % comp   # 예: 윤도결(jongsagwan) → chibi/dogyeol
+	if stage_cfg.has("ally_chibi"):   # 이 맵에서만 다른 옷차림 (예: 유배 섬 가는 다래 평상복)
+		cp = "res://assets/chibi/%s.png" % stage_cfg["ally_chibi"]
 	if comp != "" and ResourceLoader.exists(cp):
 		# 동행하는 인물은 평상시 모습 데포르메로, 주인공과 같은 키로 한 칸 뒤에서 따라온다
 		follower = Control.new()

@@ -69,7 +69,7 @@ const CHAPTERS := {
 				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
 					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
 					{"who": "다래", "pic": "darae_adult", "text": "나 궁에 가는 길! 그 보따리… 누구 주려고?\n둘 다? 흐응~ 욕심쟁이. 비스킷 하나만 나 줘!", "coin": 2}]},
-			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae",
+			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "seohwi"},
