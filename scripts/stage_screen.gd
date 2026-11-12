@@ -134,6 +134,7 @@ func _ready() -> void:
 			if _icon_clash(icl[a], icl.slice(a + 1), occ):
 				iclash += 1
 		print("MAPTEST icon_clash=", iclash)
+		print("MAPTEST zones=", guards.map(func(g): return [_enemy_id(g["kind"]), g["zone"].size(), g["at"]]))
 		print("MAPTEST guards_kind=", guards.map(func(g): return _enemy_id(g["kind"])), " blockers=", range(tiles.size()).filter(func(i): return tiles[i]["type"] in ["walpae","pojol"]).map(func(i): return _enemy_id(tiles[i]["type"])))
 		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid, " events=", evn, "/", orig_ev, " herbs=", herbs_total)
 		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
@@ -661,10 +662,6 @@ func _randomize_layout(s: int) -> void:
 	# 감시꾼은 반드시 자기 칸 위에 (뒤집은 뒤 좌표로 맞춤)
 	for g in guards:
 		g["x"] = tiles[int(g["at"])]["x"]; g["y"] = tiles[int(g["at"])]["y"]
-	# 화란(8장): 감시꾼 가운데 셋은 역병 쥐떼로
-	if main.chapter == 8:
-		for k in guards.size():
-			guards[k]["kind"] = "walpae" if k < 3 else "pojol"
 
 ## 두 칸의 아이콘이 화면에서 맞닿아 겹쳐 보이는가 (바로 옆·앞뒤 칸)
 func _icons_near(a: int, b: int) -> bool:
