@@ -1559,19 +1559,6 @@ func open_shop(cb: Callable, place := "장터", bg := "jangteo") -> void:
 	vb.add_child(grid)
 	for g in SHOP_GOODS:
 		grid.add_child(_goods_tile(g, msg, refresh))
-	var hb := HBoxContainer.new()
-	hb.add_theme_constant_override("separation", 12)
-	vb.add_child(hb)
-	var brew := make_button("약탕관", 28)
-	brew.custom_minimum_size = Vector2(0, 80)
-	brew.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hb.add_child(brew)
-	brew.pressed.connect(func(): show_brew(refresh))
-	var bag := make_button("보따리 · 상소 단련", 28)
-	bag.custom_minimum_size = Vector2(0, 80)
-	bag.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hb.add_child(bag)
-	bag.pressed.connect(func(): show_bag(refresh))
 	var leave := make_button("%s를 떠난다" % place if place == "장터" else "다시 길을 나선다", 28)
 	leave.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(leave)
