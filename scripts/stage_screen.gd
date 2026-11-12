@@ -365,7 +365,7 @@ func _make_token() -> Control:
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
 	var tk: Texture2D = main.illust(main.token_name())
-	var ck: String = "hero_adult" if main.chapter >= 9 else ("hero_disguise" if main.chapter in main.DISGUISED else "hero")
+	var ck: String = "hero_disguise" if main.disguised() else ("hero_adult" if main.chapter >= 9 else "hero")
 	if main.chapter in main.COURT_CHAPTERS and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
 		ck = "hero_court"
 	if stage_cfg.has("token"):   # 이 맵은 다른 인물로 걷는다 (예: 포도청 수련의 서휘)
@@ -1142,7 +1142,7 @@ func _resolve() -> void:
 			var talk: Array = [{"who": "", "text": bparts[0]}]
 			if bparts.size() > 1:
 				talk.append({"who": e["name"], "pic": e["sprite"], "text": bparts[1].replace("\"", "")})
-			var disg: bool = main.chapter in main.DISGUISED
+			var disg: bool = main.disguised()
 			for ln in (PODO_REPLY.get(eid, PODO_REPLY["_"]) if podo else BLOCK_REPLY.get(eid, BLOCK_REPLY["_"])):
 				var l2: Dictionary = ln.duplicate()
 				if not str(l2["who"]).begins_with("{") and l2["who"] != "서휘":

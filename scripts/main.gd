@@ -428,7 +428,7 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	if comp != "" and not opts.get("comp_done", false) and not opts.has("me_name"):
 		var c: Dictionary = StoryData.COMPANION.get(comp, {})
 		opts = opts.duplicate(); opts["comp_done"] = true
-		var me := "{alias}" if chapter in DISGUISED else "{name}"
+		var me := "{alias}" if disguised() else "{name}"
 		var pre: Array = FINAL_COMP.get(enemy_id, [])
 		if pre.is_empty() and c.has("pre"):
 			pre = [{"who": me, "pic": hero_pose(), "text": comp_line("pre_me")}, {"who": c["name"], "pic": comp_pic(), "text": comp_line("pre")}]
@@ -840,7 +840,13 @@ func ask_name(cb: Callable) -> void:
 const DISGUISED := [2, 3, 4, 7, 8]
 
 ## 지금 장에 맞는 주인공 전신 그림 (남장·의녀·어른·평상복)
+## 지금 남장 중인가 (마지막 장의 화란 항구 맵까지는 아직 남장)
+func disguised() -> bool:
+	return chapter in DISGUISED or (chapter == 9 and stage_idx == 0)
+
 func hero_pose() -> String:
+	if disguised():
+		return "hero_disguise"
 	if chapter >= 9:
 		return "hero_adult"
 	if chapter in DISGUISED:
@@ -848,10 +854,10 @@ func hero_pose() -> String:
 	return "hero"   # 5장은 illust()가 의녀 옷 그림으로 바꿔 준다
 
 func token_name() -> String:
-	return "token_disguise" if chapter in DISGUISED else "token_hero"
+	return "token_disguise" if disguised() else "token_hero"
 
 func face_name() -> String:
-	return "face_token" if chapter in DISGUISED else "face_hero"
+	return "face_token" if disguised() else "face_hero"
 
 func is_placeholder(pic: String) -> bool:
 	return pic in StoryData.PLACEHOLDERS

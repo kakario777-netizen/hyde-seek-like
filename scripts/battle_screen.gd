@@ -186,7 +186,7 @@ func _ready() -> void:
 	hb.add_child(info)
 	var r1 := HBoxContainer.new()
 	info.add_child(r1)
-	var me: Label = main.make_label(opts.get("me_name", main.alias() if main.chapter in main.DISGUISED else main.hero_name), 30, main.GOLD, true)
+	var me: Label = main.make_label(opts.get("me_name", main.alias() if main.disguised() else main.hero_name), 30, main.GOLD, true)
 	me.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	r1.add_child(me)
 	shield_lbl = main.make_label("", 26, Color("b8d4f0"), true)
