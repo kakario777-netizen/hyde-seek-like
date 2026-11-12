@@ -389,10 +389,6 @@ const C5_DOGYEOL := [
 	{"who": "{name}", "pic": "hero", "text": "포도대장 나리…",
 		"choices": [{"text": "\"같이 가요. 든든할 거예요.\"", "set": "c5_together"}, {"text": "\"나리는 꼭 살아 돌아오셔야 해요.\"", "set": ""}]},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "…그 말이면 충분하다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "다만 하나만 약속해라.\n그놈 앞에서 절대 혼자 앞으로 나서지 마라. 칼을 받는 건 내 일이다."},
-	{"who": "{name}", "pic": "hero", "text": "나리도 참… 저도 이제 맞고만 있지는 않아요."},
-	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "알고 있다. 그래서 더 걱정이다.\n…네가 다치는 꼴은, 다시는 보고 싶지 않다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "오늘 밤은 일찍 자라. 내일 밤은 길 테니.\n…궁 안까지는 내가 데려다주마."},
 ]
 
 const CH5_GOAL := [
