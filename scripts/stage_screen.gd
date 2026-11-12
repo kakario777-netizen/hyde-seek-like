@@ -234,9 +234,10 @@ func _build_world() -> void:
 		follower = Control.new()
 		follower.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var ft: Texture2D = load(cp)
-		var fw: float = MAP_H * ft.get_width() / max(1.0, float(ft.get_height()))
-		var fr: TextureRect = main.tex_rect(ft, Vector2(fw, MAP_H))
-		fr.position = Vector2(-fw / 2.0, -MAP_H + 8)
+		var fh: float = MAP_H * float(CHIBI_SCALE.get(cp.get_file().get_basename(), 1.0))
+		var fw: float = fh * ft.get_width() / max(1.0, float(ft.get_height()))
+		var fr: TextureRect = main.tex_rect(ft, Vector2(fw, fh))
+		fr.position = Vector2(-fw / 2.0, -fh + 8)
 		follower.add_child(fr)
 		follower.position = tile_center(_behind(pos))
 		follower.visible = _behind(pos) != pos   # 출발 칸처럼 뒤 칸이 없으면 겹치지 않게 숨김
@@ -249,7 +250,7 @@ func _build_world() -> void:
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
 const CHIBI_SCALE := {"cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.88, "baegun": 0.86, "dutch_child": 0.8, "dutch_child_sick": 0.66,
-	"rat": 0.62, "king": 1.04, "seohwi": 0.96, "seohwi_calm": 0.96, "shadow": 1.04, "dogyeol": 1.04, "heo": 1.04, "yeotjangsu": 0.98}
+	"rat": 0.62, "king": 1.04, "seohwi": 0.96, "seohwi_calm": 0.96, "shadow": 1.04, "dogyeol": 1.2, "heo": 1.04, "yeotjangsu": 0.98}
 
 func _sprite(pic: String, h: float) -> TextureRect:
 	h = MAP_H
