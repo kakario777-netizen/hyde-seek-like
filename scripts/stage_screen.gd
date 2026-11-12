@@ -607,7 +607,7 @@ func _randomize_layout(s: int) -> void:
 				inside[k] = true
 		var ec: Array = []
 		for i in range(4, main_len - 3):
-			if tiles[i]["type"] == "empty" and not reserved.has(i) and not inside.has(i) and not tiles[i].get("herb", false):
+			if tiles[i]["type"] == "empty" and not reserved.has(i) and not inside.has(i) and not tiles[i].get("herb", false) and not _icon_clash(i, [], occupied):
 				ec.append(i)
 		# 심부름 약재는 꼭 놓여야 하니, 겹치는 약초가 있으면 그 약초를 치우고 놓는다
 		for k in errands.size():
@@ -667,7 +667,7 @@ func _icon_clash(i: int, icons: Array, occupied: Array) -> bool:
 		var ds: int = (int(tiles[o[0]]["x"]) + int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) + int(tiles[i]["y"]))
 		var dd: int = absi((int(tiles[o[0]]["x"]) - int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) - int(tiles[i]["y"])))
 		# 인물 몸·머리 위 표시에 가려지는 뒤 칸, 인물 발치를 가리는 바로 앞 칸
-		if o[0] == i or (dd == 0 and ds >= 1 and ds <= 3) or (dd == 1 and absi(ds) == 1):
+		if o[0] == i or (dd == 0 and ds >= 1 and ds <= 4) or (dd == 1 and ds >= -1 and ds <= 2):
 			return true
 	return false
 
