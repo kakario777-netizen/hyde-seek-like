@@ -1730,7 +1730,9 @@ func load_game(slot: String) -> void:
 	if d.get("phase", "") == "board" and d.has("board") and int(d.get("ver", 1)) >= 2:
 		phase = "board"
 		board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
-		board.restore = d["board"]
+		board.restore = d["board"].duplicate()
+		if d.has("sub") and d.has("sub_board") and ch_cfg().get("world", false):
+			board.restore["in_sub"] = true
 		_swap(board)
 		if d.has("sub") and d.has("sub_board") and ch_cfg().get("world", false):
 			var wb: Control = board

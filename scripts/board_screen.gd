@@ -119,6 +119,9 @@ func _intro() -> void:
 	_focus(_node_px(pos), false)
 	await get_tree().create_timer(0.6).timeout
 	_focus(_node_px(pos), false)
+	# 작은 맵(항구·마을) 안에서 저장한 것을 불러왔으면, 그 작은 맵이 바로 이어지니 여기선 아무것도 하지 않는다
+	if restore.get("in_sub", false):
+		return
 	# 불러온 자리가 아직 처리 안 된 사건 칸이면 바로 이어서 처리
 	if pos > 0 and not cleared.has(pos) and _ntype(pos) != "empty":
 		_resolve()
