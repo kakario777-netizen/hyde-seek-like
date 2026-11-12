@@ -260,6 +260,11 @@ func _place_tools() -> float:
 	tools.size = Vector2(size.x - 16, tools.get_combined_minimum_size().y)
 	for b in tools.get_children():
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.custom_minimum_size = Vector2(0, 0)
+		for st in ["normal", "hover", "focus"]:
+			b.add_theme_stylebox_override(st, main.tex_box("button", 24, 8))
+		b.add_theme_stylebox_override("pressed", main.tex_box("button_pressed", 24, 8))
+		b.add_theme_font_size_override("font_size", 21)
 	return y + tools.size.y + 4
 
 # ── HUD ─────────────────────────────────────────────────
@@ -271,7 +276,7 @@ func _build_hud() -> void:
 	add_child(hud)
 	# 상태창 바로 아래: 약탕관·보따리·상소 버튼 줄
 	tools = HBoxContainer.new()
-	tools.add_theme_constant_override("separation", 8)
+	tools.add_theme_constant_override("separation", 6)
 	add_child(tools)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 2)
