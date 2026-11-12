@@ -933,7 +933,7 @@ func fig_scale(name: String) -> float:
 	if name.begins_with("friend") or name.begins_with("darae") or name == "jumo":
 		return 0.86
 	if name == "addict":
-		return 0.95   # 중독된 사내 (서 있는 어른 남자)
+		return 0.85   # 중독된 사내: 꾸부정하게 서 있어 반듯한 어른보다 작게
 	if name == "gatekeeper":
 		return 0.8    # 성 문지기: 전투 화면과 비슷한 크기로
 	if name == "haejeok_young":
