@@ -331,6 +331,7 @@ func play_story(lines: Array, on_done: Callable) -> void:
 
 func start_board() -> void:
 	hp = max_hp
+	last_dialog_bg = ""
 	next_energy = 0; next_guard = 0
 	board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
 	phase = "board"
@@ -358,6 +359,7 @@ func comp_pic() -> String:
 		return st[stage_idx]["ally_pic"]
 	return c.get("pic", "")
 
+var last_dialog_bg := ""
 var comp_k := 0
 func comp_line(kind: String) -> String:
 	var c: Dictionary = StoryData.COMPANION.get(companion(), {})
@@ -833,6 +835,8 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 		return
 	var line: Dictionary = lines[i]
 	var nbg: String = line.get("bg", bg)
+	if line.has("bg"):
+		last_dialog_bg = line["bg"]   # 싸우기 직전 대화 장소 = 전투 배경
 	apply_line_effects(line)
 	if i == 0:
 		chain_music = audio.current_bgm if audio else ""
