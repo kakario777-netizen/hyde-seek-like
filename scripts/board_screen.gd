@@ -220,7 +220,7 @@ func _draw_path() -> void:
 # ── 배치 / 카메라 ───────────────────────────────────────
 func _layout() -> void:
 	var frame: Control = get_node("MapFrame")
-	var top := hud.position.y + hud.size.y + 4
+	var top := _place_tools()
 	var bottom := tray.position.y - 4
 	frame.position = Vector2(4, top)
 	frame.size = Vector2(size.x - 8, max(240.0, bottom - top))
@@ -251,6 +251,15 @@ func _on_view_input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
 		world.position = _clamp_world(world.position + e.relative)
 
+var tools: HBoxContainer
+
+## 버튼 줄을 상태창 바로 밑에 붙이고, 그 아래 위치를 돌려준다
+func _place_tools() -> float:
+	var y := hud.position.y + hud.size.y + 6
+	tools.position = Vector2(8, y)
+	tools.size = Vector2(size.x - 16, tools.get_combined_minimum_size().y)
+	return y + tools.size.y + 4
+
 # ── HUD ─────────────────────────────────────────────────
 func _build_hud() -> void:
 	hud = PanelContainer.new()
@@ -258,6 +267,11 @@ func _build_hud() -> void:
 	hud.anchor_right = 1.0
 	hud.offset_left = 4; hud.offset_right = -4; hud.offset_top = 4
 	add_child(hud)
+	# 상태창 바로 아래: 약탕관·보따리·상소 버튼 줄
+	tools = HBoxContainer.new()
+	tools.alignment = BoxContainer.ALIGNMENT_END
+	tools.add_theme_constant_override("separation", 8)
+	add_child(tools)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 2)
 	hud.add_child(vb)
@@ -278,13 +292,13 @@ func _build_hud() -> void:
 			main.open_menu())
 	var bag: Button = main.make_button("보따리", 26)
 	bag.custom_minimum_size = Vector2(110, 66)
-	head.add_child(bag)
+	tools.add_child(bag)
 	bag.pressed.connect(func():
 		if not busy:
 			main.show_goods())
 	var up: Button = main.make_button("상소", 26)
 	up.custom_minimum_size = Vector2(110, bag.custom_minimum_size.y)
-	head.add_child(up)
+	tools.add_child(up)
 	up.pressed.connect(func():
 		if not busy:
 			main.show_bag())

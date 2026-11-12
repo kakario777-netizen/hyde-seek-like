@@ -1918,7 +1918,7 @@ func _toast(text: String) -> void:
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", plaque_style())
 	p.anchor_left = 0.5; p.anchor_right = 0.5
-	p.offset_left = -200; p.offset_right = 200; p.offset_top = 200
+	p.offset_left = -200; p.offset_right = 200; p.offset_top = 400
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(p)
 	var l := make_label(text, 26, GOLD, true)

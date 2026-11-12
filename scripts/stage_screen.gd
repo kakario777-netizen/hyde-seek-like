@@ -798,7 +798,7 @@ func _choose_way(opts: Array) -> int:
 
 # ── 배치 / 카메라 ───────────────────────────────────────
 func _layout() -> void:
-	var top := hud.position.y + hud.size.y
+	var top := _place_tools()
 	var bottom := tray.position.y
 	view.position = Vector2(0, top)
 	view.size = Vector2(size.x, max(200.0, bottom - top))
@@ -829,6 +829,15 @@ func _on_view_input(e: InputEvent) -> void:
 	if e is InputEventMouseMotion and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
 		world.position = _clamp_world(world.position + e.relative)
 
+var tools: HBoxContainer
+
+## 버튼 줄을 상태창 바로 밑에 붙이고, 그 아래 위치를 돌려준다
+func _place_tools() -> float:
+	var y := hud.position.y + hud.size.y + 6
+	tools.position = Vector2(8, y)
+	tools.size = Vector2(size.x - 16, tools.get_combined_minimum_size().y)
+	return y + tools.size.y + 4
+
 # ── HUD ─────────────────────────────────────────────────
 func _build_hud() -> void:
 	hud = PanelContainer.new()
@@ -836,6 +845,11 @@ func _build_hud() -> void:
 	hud.anchor_right = 1.0
 	hud.offset_left = 4; hud.offset_right = -4; hud.offset_top = 4
 	add_child(hud)
+	# 상태창 바로 아래: 약탕관·보따리·상소 버튼 줄
+	tools = HBoxContainer.new()
+	tools.alignment = BoxContainer.ALIGNMENT_END
+	tools.add_theme_constant_override("separation", 8)
+	add_child(tools)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 2)
 	hud.add_child(vb)
@@ -856,19 +870,19 @@ func _build_hud() -> void:
 			main.open_menu())
 	brew_btn = main.make_button("약탕관", 24)
 	brew_btn.custom_minimum_size = Vector2(96, 62)
-	head.add_child(brew_btn)
+	tools.add_child(brew_btn)
 	brew_btn.pressed.connect(func():
 		if not busy:
 			main.show_brew(_update_hud))
 	var bag: Button = main.make_button("보따리", 24)
 	bag.custom_minimum_size = Vector2(96, 62)
-	head.add_child(bag)
+	tools.add_child(bag)
 	bag.pressed.connect(func():
 		if not busy:
 			main.show_goods())
 	var up: Button = main.make_button("상소", 24)
 	up.custom_minimum_size = Vector2(96, bag.custom_minimum_size.y)
-	head.add_child(up)
+	tools.add_child(up)
 	up.pressed.connect(func():
 		if not busy:
 			main.show_bag())
@@ -1084,7 +1098,7 @@ func comp_say(kind: String) -> void:
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	p.add_child(l)
 	p.anchor_left = 0.5; p.anchor_right = 0.5
-	p.offset_left = -300; p.offset_right = 300; p.offset_top = 250
+	p.offset_left = -300; p.offset_right = 300; p.offset_top = (view.position.y + 12 if view else 250.0)
 	p.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	add_child(p)
 	var tw := create_tween()
