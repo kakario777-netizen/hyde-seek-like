@@ -57,10 +57,10 @@ const CHAPTERS := {
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "h_port", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "h_deck", "ally_pic": "seohwi_dutch", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
-			{"map": "s9_g", "ally_pic": "seohwi_dutch", "name": "허 의원 묘 가는 산길", "after": "C9_GRAVE_RET", "after_story": true, "foes": {"walpae": "sanjeok", "pojol": "sanjeok"},
+			{"map": "s9_g", "ally_pic": "seohwi", "name": "허 의원 묘 가는 산길", "after": "C9_GRAVE_RET", "after_story": true, "foes": {"walpae": "sanjeok", "pojol": "sanjeok"},
 				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
 					{"who": "약초 캐는 할머니", "text": "허 의원님 따님이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
-					{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
+					{"who": "서휘", "pic": "seohwi", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
 			{"map": "s9_w", "name": "새벽, 포도청 가는 길", "ally": "", "after": "C9_PODO_RET", "after_story": true, "foes": {"walpae": "rival", "pojol": "rival"},
 				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
 					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
@@ -883,8 +883,9 @@ const C9_HOMEWARD := [
 	{"who": "수문장", "pose": "sumunjang", "text": "응? 이 얼굴… 그때 그 고운 목소리의 조선 의원!\n…허허, 이번엔 아가씨로구먼! 어쩐지 손이 희더라니."},
 	{"who": "수문장", "pose": "sumunjang", "text": "그 포도대장 서찰, 아직 내 품에 있소.\n그리 귀한 보증은 처음이었거든. 어서 가시오, 고향이 기다리오."},
 	{"bg": "mountain", "who": "", "text": "압록강을 건너 한 달 남짓. 마침내 도성 밖 산자락에 닿았다.\n저 산마루 너머가 한양이었다."},
+	{"who": "", "text": "조선 땅에 들어서며, 서휘도 화란 옷을 벗고 쪽빛 도포를 걸쳤다.\n화란에서 쓰던 가죽 왕진 가방만은 그대로 어깨에 멨다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "서휘. 한양에 들어가기 전에… 먼저 들를 데가 있어요.\n아버지께 인사부터 드리고 싶어서."},
-	{"who": "서휘", "pose": "seohwi_dutch", "text": "…그래. 나도 꼭 뵙고 싶었다. 앞장서라."},
+	{"who": "서휘", "pose": "seohwi", "text": "…그래. 나도 꼭 뵙고 싶었다. 앞장서라."},
 	{"who": "", "text": "【목표】\n서휘와 함께 산길을 올라\n허 의원의 묘에 닿아라."},
 ]
 
@@ -894,7 +895,7 @@ const C9_GRAVE := [
 	{"who": "{name}", "pose": "hero_adult", "text": "아버지, 다녀왔어요.\n아버지가 보고 싶어 하던 넓은 세상, 끝까지 보고 왔어요."},
 	{"who": "{name}", "pose": "hero_adult", "text": "화란에서 가져온 튤립이에요. 말려서 오느라 좀 바랬지만…\n아버지 약방 마당에도 심어 볼게요."},
 	{"music": "heart_flutter", "who": "", "text": "서휘가 봉분 앞에 무릎을 꿇었다."},
-	{"who": "서휘", "pose": "seohwi_dutch", "text": "허 의원 어른. 한때 당신의 딸에게 독을 빚게 한 못난 놈입니다.\n…그래도 맹세합니다. 이 사람이 가는 길, 어디서든 지키겠습니다."},
+	{"who": "서휘", "pose": "seohwi", "text": "허 의원 어른. 한때 당신의 딸에게 독을 빚게 한 못난 놈입니다.\n…그래도 맹세합니다. 이 사람이 가는 길, 어디서든 지키겠습니다."},
 	{"who": "", "text": "산들바람이 불어, 매화 꽃잎 하나가 서휘의 어깨에 내려앉았다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "…아버지가 고맙다고 하시는 것 같아요.\n아버지는 늘, 대답 대신 꽃잎을 떨구셨거든요."},
 ]
