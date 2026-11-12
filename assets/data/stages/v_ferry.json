@@ -3,7 +3,7 @@
  "name": "압록강 나루",
  "tile": "dirt",
  "bg": "ferry",
- "turns": 16,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,17 +23,17 @@
   {
    "x": 0,
    "y": -3,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -1,
    "y": -3,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -2,
    "y": -3,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -2,
@@ -43,7 +43,7 @@
   {
    "x": -2,
    "y": -5,
-   "type": "talk"
+   "type": "shop"
   },
   {
    "x": -3,
@@ -53,7 +53,7 @@
   {
    "x": -4,
    "y": -5,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -5,
@@ -63,7 +63,7 @@
   {
    "x": -6,
    "y": -5,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -6,
@@ -73,33 +73,32 @@
   {
    "x": -6,
    "y": -7,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -6,
    "y": -8,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -6,
    "y": -9,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -7,
+   "y": -9,
+   "type": "spike"
+  },
+  {
+   "x": -8,
    "y": -9,
    "type": "empty"
   },
   {
    "x": -8,
-   "y": -9,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -8,
    "y": -10,
-   "type": "pojol"
+   "type": "buff"
   },
   {
    "x": -8,
@@ -114,39 +113,39 @@
   {
    "x": -8,
    "y": -13,
-   "type": "shop"
+   "type": "debuff"
   },
   {
    "x": -9,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -13,
-   "type": "debuff"
-  },
-  {
-   "x": -10,
-   "y": -14,
    "type": "empty",
    "herb": true
   },
   {
    "x": -10,
-   "y": -15,
+   "y": -14,
    "type": "empty"
   },
   {
    "x": -10,
-   "y": -16,
+   "y": -15,
    "type": "buff"
+  },
+  {
+   "x": -10,
+   "y": -16,
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -16,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
@@ -156,13 +155,12 @@
   {
    "x": -13,
    "y": -16,
-   "type": "rest"
+   "type": "talk"
   },
   {
    "x": -14,
    "y": -16,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -14,
@@ -177,12 +175,12 @@
   {
    "x": -14,
    "y": -19,
-   "type": "walpae"
+   "type": "buff"
   },
   {
    "x": -14,
    "y": -20,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -15,
@@ -192,7 +190,7 @@
   {
    "x": -16,
    "y": -20,
-   "type": "debuff"
+   "type": "rest"
   },
   {
    "x": -16,
@@ -207,40 +205,83 @@
   {
    "x": -16,
    "y": -23,
+   "type": "debuff"
+  },
+  {
+   "x": -17,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -23,
+   "type": "spike"
+  },
+  {
+   "x": -18,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -25,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -18,
+   "y": -26,
+   "type": "walpae"
+  },
+  {
+   "x": -18,
+   "y": -27,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -19,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -27,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -6,
-   "y": -8,
-   "at": 14,
+   "x": -10,
+   "y": -16,
+   "at": 26,
    "zone": [
-    13,
-    14
+    26,
+    27
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -10,
-   "y": -15,
-   "at": 25,
+   "x": -17,
+   "y": -23,
+   "at": 40,
    "zone": [
-    24,
-    25
+    40,
+    41
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -3,
-   "y": -5,
-   "at": 8,
+   "x": -2,
+   "y": -3,
+   "at": 5,
    "zone": [
-    8
+    5,
+    6
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   }
  ]

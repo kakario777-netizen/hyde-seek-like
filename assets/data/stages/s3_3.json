@@ -3,7 +3,7 @@
  "name": "남산 아래 결투",
  "tile": "dirt",
  "bg": "namsan_night",
- "turns": 19,
+ "turns": 22,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -33,7 +33,7 @@
   {
    "x": -4,
    "y": -1,
-   "type": "debuff"
+   "type": "rest"
   },
   {
    "x": -4,
@@ -48,12 +48,12 @@
   {
    "x": -6,
    "y": -2,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -2,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -7,
@@ -63,17 +63,17 @@
   {
    "x": -7,
    "y": -4,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -5,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -8,
    "y": -5,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -9,
@@ -83,7 +83,7 @@
   {
    "x": -10,
    "y": -5,
-   "type": "walpae"
+   "type": "debuff"
   },
   {
    "x": -11,
@@ -93,22 +93,22 @@
   {
    "x": -11,
    "y": -6,
-   "type": "empty"
-  },
-  {
-   "x": -11,
-   "y": -7,
    "type": "buff"
   },
   {
    "x": -11,
-   "y": -8,
+   "y": -7,
    "type": "empty"
   },
   {
    "x": -11,
-   "y": -9,
+   "y": -8,
    "type": "spike"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty"
   },
   {
    "x": -12,
@@ -118,8 +118,7 @@
   {
    "x": -13,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -14,
@@ -139,7 +138,8 @@
   {
    "x": -15,
    "y": -11,
-   "type": "rest"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
@@ -164,10 +164,7 @@
   {
    "x": -19,
    "y": -12,
-   "type": "boss",
-   "battle": "seohwi2",
-   "pre": "C3_BOSS",
-   "post": "C3_BOSS_WIN"
+   "type": "spike"
   },
   {
    "x": -19,
@@ -177,8 +174,7 @@
   {
    "x": -19,
    "y": -14,
-   "type": "empty",
-   "herb": true
+   "type": "pojol"
   },
   {
    "x": -19,
@@ -188,7 +184,10 @@
   {
    "x": -20,
    "y": -15,
-   "type": "spike"
+   "type": "boss",
+   "battle": "seohwi2",
+   "pre": "C3_BOSS",
+   "post": "C3_BOSS_WIN"
   },
   {
    "x": -21,
@@ -198,12 +197,12 @@
   {
    "x": -22,
    "y": -15,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -23,
    "y": -15,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -23,
@@ -213,7 +212,8 @@
   {
    "x": -23,
    "y": -17,
-   "type": "shop"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -23,
@@ -234,23 +234,22 @@
   {
    "x": -26,
    "y": -18,
-   "type": "buff"
-  },
-  {
-   "x": -27,
-   "y": -18,
    "type": "empty"
   },
   {
    "x": -27,
+   "y": -18,
+   "type": "buff"
+  },
+  {
+   "x": -27,
    "y": -19,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -27,
    "y": -20,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -27,
@@ -260,40 +259,82 @@
   {
    "x": -27,
    "y": -22,
+   "type": "talk"
+  },
+  {
+   "x": -28,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -22,
+   "type": "shop"
+  },
+  {
+   "x": -30,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -23,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -30,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -31,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -25,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -19,
-   "y": -15,
-   "at": 34,
+   "x": -23,
+   "y": -18,
+   "at": 41,
    "zone": [
-    33,
-    34,
-    35
+    40,
+    41,
+    42
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -14,
+   "y": -9,
+   "at": 23,
+   "zone": [
+    22,
+    23
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -28,
+   "y": -22,
+   "at": 50,
+   "zone": [
+    50
    ],
    "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -23,
-   "y": -16,
-   "at": 39,
-   "zone": [
-    39
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -27,
-   "y": -18,
-   "at": 45,
-   "zone": [
-    45
-   ],
-   "kind": "pojol",
    "on_path": true
   }
  ]

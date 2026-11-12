@@ -3,7 +3,7 @@
  "name": "포도청 수련",
  "tile": "stone",
  "bg": "podocheong",
- "turns": 15,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,17 +23,17 @@
   {
    "x": -3,
    "y": 0,
-   "type": "walpae"
-  },
-  {
-   "x": -4,
-   "y": 0,
    "type": "empty"
   },
   {
    "x": -4,
+   "y": 0,
+   "type": "talk"
+  },
+  {
+   "x": -4,
    "y": -1,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -43,38 +43,38 @@
   {
    "x": -4,
    "y": -3,
-   "type": "rest"
+   "type": "spike"
   },
   {
    "x": -4,
    "y": -4,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -4,
+   "type": "debuff"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -5,
+   "type": "buff"
+  },
+  {
+   "x": -6,
+   "y": -6,
    "type": "empty",
    "herb": true
   },
   {
    "x": -6,
-   "y": -4,
-   "type": "buff"
-  },
-  {
-   "x": -6,
-   "y": -5,
-   "type": "empty"
-  },
-  {
-   "x": -6,
-   "y": -6,
-   "type": "empty"
-  },
-  {
-   "x": -6,
    "y": -7,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -7,
@@ -84,18 +84,17 @@
   {
    "x": -8,
    "y": -7,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -9,
    "y": -7,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -8,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -9,
@@ -110,27 +109,23 @@
   {
    "x": -11,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -9,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -13,
    "y": -9,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -10,
-   "type": "boss",
-   "battle": "dogyeol",
-   "pre": "C9_SPAR_PRE",
-   "post": "C9_SPAR_POST",
-   "lose_ok": true
+   "type": "spike"
   },
   {
    "x": -13,
@@ -140,7 +135,7 @@
   {
    "x": -14,
    "y": -11,
-   "type": "debuff"
+   "type": "rest"
   },
   {
    "x": -15,
@@ -150,23 +145,27 @@
   {
    "x": -15,
    "y": -12,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "boss",
+   "battle": "dogyeol",
+   "pre": "C9_SPAR_PRE",
+   "post": "C9_SPAR_POST",
+   "lose_ok": true
   },
   {
    "x": -15,
    "y": -14,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
    "y": -14,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -17,
@@ -176,17 +175,18 @@
   {
    "x": -18,
    "y": -14,
-   "type": "item"
+   "type": "buff"
   },
   {
    "x": -18,
    "y": -15,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -16,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -19,
@@ -196,42 +196,82 @@
   {
    "x": -20,
    "y": -16,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -21,
    "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -16,
+   "type": "item"
+  },
+  {
+   "x": -22,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -18,
+   "type": "walpae"
+  },
+  {
+   "x": -23,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -18,
+   "type": "walpae"
+  },
+  {
+   "x": -25,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -20,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -6,
-   "y": -5,
-   "at": 11,
+   "x": -23,
+   "y": -18,
+   "at": 41,
    "zone": [
-    11,
-    12
+    41
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -13,
+   "x": -7,
+   "y": -7,
+   "at": 14,
+   "zone": [
+    14
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -15,
    "y": -11,
-   "at": 24,
+   "at": 26,
    "zone": [
-    24
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -4,
-   "y": -2,
-   "at": 6,
-   "zone": [
-    6
+    26,
+    27
    ],
    "kind": "pojol",
    "on_path": true

@@ -1333,7 +1333,6 @@ func show_brew(cb := Callable()) -> void:
 			sfx("potion")
 			msg.text = "보글보글… %s 한 병을 달였습니다!" % br["name"]
 			msg.add_theme_color_override("font_color", INK_SOFT)
-			_steam(slots)
 			refresh.call())
 	var close := make_button("닫기", 28)
 	close.custom_minimum_size = Vector2(0, 80)

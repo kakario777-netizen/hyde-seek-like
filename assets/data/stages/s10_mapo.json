@@ -3,7 +3,7 @@
  "name": "마포 나루 청 상인 창고",
  "tile": "wood",
  "bg": "mapo_warehouse",
- "turns": 17,
+ "turns": 20,
  "tiles": [
   {
    "x": 0,
@@ -23,12 +23,13 @@
   {
    "x": 0,
    "y": -3,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": 0,
    "y": -4,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -1,
@@ -38,12 +39,12 @@
   {
    "x": -2,
    "y": -4,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -4,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -3,
@@ -53,7 +54,7 @@
   {
    "x": -3,
    "y": -6,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -68,7 +69,7 @@
   {
    "x": -6,
    "y": -6,
-   "type": "shop"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -78,7 +79,7 @@
   {
    "x": -7,
    "y": -7,
-   "type": "buff"
+   "type": "trap"
   },
   {
    "x": -7,
@@ -88,18 +89,17 @@
   {
    "x": -7,
    "y": -9,
-   "type": "trap"
+   "type": "debuff"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -9,
-   "type": "pojol"
+   "type": "shop"
   },
   {
    "x": -10,
@@ -110,7 +110,8 @@
   {
    "x": -10,
    "y": -10,
-   "type": "spike"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -10,
@@ -120,7 +121,7 @@
   {
    "x": -10,
    "y": -12,
-   "type": "item"
+   "type": "debuff"
   },
   {
    "x": -10,
@@ -130,26 +131,23 @@
   {
    "x": -11,
    "y": -13,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
    "y": -13,
    "type": "debuff"
   },
   {
    "x": -13,
-   "y": -13,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -13,
    "y": -14,
-   "type": "boss",
-   "battle": "jeong_shadow",
-   "pre": "C10_JEONG_PRE",
-   "post": "C10_JEONG_POST"
+   "type": "empty"
   },
   {
    "x": -13,
@@ -159,7 +157,7 @@
   {
    "x": -13,
    "y": -16,
-   "type": "debuff"
+   "type": "item"
   },
   {
    "x": -14,
@@ -174,18 +172,20 @@
   {
    "x": -15,
    "y": -17,
-   "type": "debuff"
+   "type": "boss",
+   "battle": "jeong_shadow",
+   "pre": "C10_JEONG_PRE",
+   "post": "C10_JEONG_POST"
   },
   {
    "x": -15,
    "y": -18,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -19,
-   "type": "rest"
+   "type": "buff"
   },
   {
    "x": -15,
@@ -215,12 +215,12 @@
   {
    "x": -18,
    "y": -22,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -22,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -20,
@@ -230,29 +230,59 @@
   {
    "x": -21,
    "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "buff"
+  },
+  {
+   "x": -21,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -21,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -26,
+   "type": "pojol"
+  },
+  {
+   "x": -24,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -27,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -7,
-   "y": -8,
-   "at": 15,
+   "x": -12,
+   "y": -13,
+   "at": 25,
    "zone": [
-    15
+    24,
+    25
    ],
    "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -11,
-   "y": -13,
-   "at": 24,
-   "zone": [
-    23,
-    24
-   ],
-   "kind": "pojol",
    "on_path": true
   },
   {
@@ -261,17 +291,28 @@
    "at": 5,
    "zone": [
     4,
-    5
+    5,
+    6
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -18,
-   "y": -21,
-   "at": 39,
+   "x": -21,
+   "y": -24,
+   "at": 45,
    "zone": [
-    39
+    45
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "at": 33,
+   "zone": [
+    33
    ],
    "kind": "walpae",
    "on_path": true

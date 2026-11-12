@@ -3,7 +3,7 @@
  "name": "백운 노인 찾아가기",
  "tile": "grass",
  "bg": "byeolchae",
- "turns": 19,
+ "turns": 22,
  "tiles": [
   {
    "x": 0,
@@ -23,28 +23,27 @@
   {
    "x": 0,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -1,
    "y": -3,
-   "type": "empty"
+   "type": "trap"
   },
   {
    "x": -2,
    "y": -3,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -3,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -4,
    "y": -3,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -54,7 +53,7 @@
   {
    "x": -4,
    "y": -5,
-   "type": "trap"
+   "type": "walpae"
   },
   {
    "x": -4,
@@ -64,8 +63,7 @@
   {
    "x": -4,
    "y": -7,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -5,
@@ -75,7 +73,7 @@
   {
    "x": -6,
    "y": -7,
-   "type": "debuff"
+   "type": "talk"
   },
   {
    "x": -6,
@@ -85,28 +83,27 @@
   {
    "x": -6,
    "y": -9,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -6,
    "y": -10,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -6,
    "y": -11,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -11,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -8,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -8,
@@ -116,8 +113,7 @@
   {
    "x": -8,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "talk"
   },
   {
    "x": -8,
@@ -127,17 +123,17 @@
   {
    "x": -8,
    "y": -15,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -15,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -10,
    "y": -15,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -10,
@@ -147,7 +143,7 @@
   {
    "x": -10,
    "y": -17,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -11,
@@ -157,7 +153,7 @@
   {
    "x": -12,
    "y": -17,
-   "type": "pojol"
+   "type": "spike"
   },
   {
    "x": -13,
@@ -167,22 +163,23 @@
   {
    "x": -14,
    "y": -17,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -14,
    "y": -18,
-   "type": "buff"
-  },
-  {
-   "x": -14,
-   "y": -19,
    "type": "empty"
   },
   {
    "x": -14,
+   "y": -19,
+   "type": "buff"
+  },
+  {
+   "x": -14,
    "y": -20,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -14,
@@ -192,27 +189,29 @@
   {
    "x": -15,
    "y": -21,
-   "type": "empty"
-  },
-  {
-   "x": -16,
-   "y": -21,
    "type": "buff"
   },
   {
    "x": -16,
-   "y": -22,
+   "y": -21,
    "type": "empty"
   },
   {
    "x": -16,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -16,
    "y": -23,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -23,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -18,
@@ -222,7 +221,7 @@
   {
    "x": -18,
    "y": -24,
-   "type": "pojol"
+   "type": "spike"
   },
   {
    "x": -18,
@@ -232,7 +231,7 @@
   {
    "x": -18,
    "y": -26,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -18,
@@ -242,12 +241,12 @@
   {
    "x": -19,
    "y": -27,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -27,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -20,
@@ -257,39 +256,80 @@
   {
    "x": -20,
    "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -30,
+   "type": "debuff"
+  },
+  {
+   "x": -20,
+   "y": -31,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -31,
+   "type": "walpae"
+  },
+  {
+   "x": -22,
+   "y": -31,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -31,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -23,
+   "y": -32,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -33,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -33,
    "type": "goal"
   }
  ],
  "guards": [
   {
+   "x": -14,
+   "y": -20,
+   "at": 34,
+   "zone": [
+    34,
+    35
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "at": 10,
+   "zone": [
+    10,
+    11
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
    "x": -8,
-   "y": -14,
-   "at": 22,
+   "y": -11,
+   "at": 19,
    "zone": [
-    21,
-    22
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -18,
-   "y": -27,
-   "at": 45,
-   "zone": [
-    44,
-    45
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -1,
-   "y": -3,
-   "at": 4,
-   "zone": [
-    3,
-    4
+    19,
+    20
    ],
    "kind": "pojol",
    "on_path": true

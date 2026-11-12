@@ -6,7 +6,7 @@ OUT = os.path.join(ROOT, "assets", "data", "stages")
 os.makedirs(OUT, exist_ok=True)
 
 def make(sid, name, tile, bg, length, seed, watchers=3, blockers=2, spikes=2, herbs=4, events=None, boss=None):
-    length += 8   # 이로운 칸 4 + 해로운 칸 4 자리만큼 길을 늘림
+    length += 16   # 이로운 칸 4 + 해로운 칸 4 자리, 그리고 아이콘끼리 겹치지 않게 띄울 자리만큼 길을 늘림
     events = list(events or []) + ["buff"] * 4 + ["debuff"] * 4
     r = random.Random(seed)
     path = [(0, 0)]
@@ -92,14 +92,14 @@ S = [
     ("s5_4", "허 의원 약방으로", "stone", "yakbang", 44, 54, {"events": ["trap", "item", "talk", "shop"], "blockers": 2, "spikes": 3}),
     ("s6_1", "다래와 북한산 오르기", "grass", "stream", 40, 61, {"events": ["talk", "talk", "item", "rest", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
     ("s6_2", "산마루 약초밭으로", "dirt", "mountain", 42, 62, {"events": ["talk", "talk", "buff", "shop"], "watchers": 2, "blockers": 1, "herbs": 6}),
-    ("s7_1", "역병 도는 마을", "brick", "holland", 40, 71, {"events": ["talk", "item", "talk", "shop"]}),
-    ("s7_2", "풍차 언덕 약초밭", "grass", "holland", 42, 72, {"events": ["rest", "shop", "debuff", "talk"], "herbs": 5}),
+    ("s7_1", "역병 도는 마을", "brick", "holland", 50, 71, {"events": ["talk", "item", "talk", "shop"]}),
+    ("s7_2", "풍차 언덕 약초밭", "grass", "holland", 50, 72, {"events": ["rest", "shop", "debuff", "talk"], "herbs": 5}),
     ("s9_1", "운종가에서 청계천까지", "stone", "jangteo", 40, 91, {"events": ["talk", "talk", "shop", "talk"], "watchers": 3}),
     ("s9_2", "남산 아래 집터로", "grass", "mountain", 42, 92, {"events": ["talk", "talk", "rest", "shop"], "watchers": 3, "blockers": 2}),
 ]
 S += [
     ("s1_0", "운종가 약재 심부름", "stone", "jangteo", 26, 10, {"events": ["shop", "item", "buff", "rest"], "watchers": 1, "blockers": 1, "spikes": 1}),
-    ("s3_h", "자양강장 약재 찾기", "grass", "mountain", 28, 300, {"events": ["shop", "item", "buff", "rest"], "watchers": 2, "blockers": 1, "herbs": 5}),
+    ("s3_h", "자양강장 약재 찾기", "grass", "mountain", 36, 300, {"events": ["shop", "item", "buff", "rest"], "watchers": 2, "blockers": 1, "herbs": 5}),
     ("h_port", "화란 항구, 떠나는 날", "stone", "holland_port", 26, 901, {"events": ["shop", "rest", "item", "buff"], "watchers": 2, "blockers": 1}),
     ("h_deck", "귀향의 바닷길", "wood", "deck", 30, 902, {"events": ["rest", "item", "debuff", "trap"], "watchers": 3, "blockers": 2, "spikes": 0, "boss": {"battle": "pirate_boss", "pre": "C9_PIRATE_PRE", "post": "C9_PIRATE_POST"}}),
     ("s9_p", "포도청 수련", "stone", "podocheong", 30, 903, {"events": ["talk", "rest", "item", "buff"], "watchers": 3, "blockers": 2, "boss": {"battle": "dogyeol", "pre": "C9_SPAR_PRE", "post": "C9_SPAR_POST", "lose_ok": True}}),

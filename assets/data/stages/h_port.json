@@ -3,7 +3,7 @@
  "name": "화란 항구, 떠나는 날",
  "tile": "stone",
  "bg": "holland_port",
- "turns": 14,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -23,34 +23,33 @@
   {
    "x": 0,
    "y": -3,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": 0,
+   "y": -4,
+   "type": "item"
+  },
+  {
+   "x": -1,
    "y": -4,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -1,
+   "x": -2,
    "y": -4,
-   "type": "debuff"
+   "type": "spike"
   },
   {
-   "x": -2,
+   "x": -3,
    "y": -4,
    "type": "empty"
   },
   {
    "x": -3,
-   "y": -4,
-   "type": "item"
-  },
-  {
-   "x": -3,
    "y": -5,
-   "type": "empty",
-   "herb": true
+   "type": "buff"
   },
   {
    "x": -3,
@@ -60,33 +59,33 @@
   {
    "x": -4,
    "y": -6,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -6,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -6,
    "y": -6,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -6,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -7,
-   "y": -7,
    "type": "buff"
   },
   {
    "x": -7,
-   "y": -8,
+   "y": -7,
    "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -8,
@@ -106,42 +105,42 @@
   {
    "x": -10,
    "y": -9,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -10,
    "y": -10,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -11,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -11,
    "y": -11,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -12,
+   "y": -11,
+   "type": "buff"
+  },
+  {
+   "x": -13,
    "y": -11,
    "type": "empty"
   },
   {
    "x": -13,
-   "y": -11,
-   "type": "debuff"
-  },
-  {
-   "x": -13,
    "y": -12,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -13,
-   "type": "shop"
+   "type": "walpae"
   },
   {
    "x": -13,
@@ -151,13 +150,12 @@
   {
    "x": -13,
    "y": -15,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -14,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -15,
@@ -167,7 +165,7 @@
   {
    "x": -16,
    "y": -15,
-   "type": "rest"
+   "type": "spike"
   },
   {
    "x": -17,
@@ -177,6 +175,48 @@
   {
    "x": -17,
    "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -17,
+   "type": "rest"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -19,
+   "y": -18,
+   "type": "shop"
+  },
+  {
+   "x": -20,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -21,
+   "y": -18,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -20,
    "type": "goal"
   }
  ],
@@ -186,21 +226,20 @@
    "y": -6,
    "at": 9,
    "zone": [
-    8,
-    9
+    9,
+    10
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -10,
-   "y": -9,
-   "at": 19,
+   "x": -11,
+   "y": -11,
+   "at": 22,
    "zone": [
-    18,
-    19
+    22
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   }
  ]

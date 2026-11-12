@@ -3,7 +3,7 @@
  "name": "백운의 성 3층 · 약 공방",
  "tile": "brick",
  "bg": "corridor",
- "turns": 17,
+ "turns": 20,
  "tiles": [
   {
    "x": 0,
@@ -23,18 +23,17 @@
   {
    "x": -2,
    "y": -1,
-   "type": "talk"
+   "type": "shop"
   },
   {
    "x": -2,
    "y": -2,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -2,
-   "type": "spike"
+   "type": "buff"
   },
   {
    "x": -4,
@@ -45,7 +44,7 @@
   {
    "x": -4,
    "y": -3,
-   "type": "buff"
+   "type": "talk"
   },
   {
    "x": -4,
@@ -55,7 +54,7 @@
   {
    "x": -5,
    "y": -4,
-   "type": "debuff"
+   "type": "spike"
   },
   {
    "x": -6,
@@ -65,12 +64,12 @@
   {
    "x": -6,
    "y": -5,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -6,
    "y": -6,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -80,13 +79,12 @@
   {
    "x": -8,
    "y": -6,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -6,
-   "type": "empty",
-   "herb": true
+   "type": "item"
   },
   {
    "x": -10,
@@ -96,7 +94,7 @@
   {
    "x": -10,
    "y": -7,
-   "type": "debuff"
+   "type": "pojol"
   },
   {
    "x": -10,
@@ -106,7 +104,7 @@
   {
    "x": -10,
    "y": -9,
-   "type": "item"
+   "type": "debuff"
   },
   {
    "x": -11,
@@ -121,7 +119,7 @@
   {
    "x": -13,
    "y": -9,
-   "type": "debuff"
+   "type": "spike"
   },
   {
    "x": -13,
@@ -131,7 +129,7 @@
   {
    "x": -13,
    "y": -11,
-   "type": "walpae"
+   "type": "debuff"
   },
   {
    "x": -14,
@@ -141,21 +139,18 @@
   {
    "x": -15,
    "y": -11,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
    "y": -11,
-   "type": "boss",
-   "battle": "mob_boss",
-   "pre": "C4_F3_PRE",
-   "post": "C4_F3_POST"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -17,
@@ -165,28 +160,32 @@
   {
    "x": -17,
    "y": -13,
-   "type": "debuff"
-  },
-  {
-   "x": -18,
-   "y": -13,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -19,
+   "x": -18,
    "y": -13,
    "type": "empty"
   },
   {
    "x": -19,
+   "y": -13,
+   "type": "boss",
+   "battle": "mob_boss",
+   "pre": "C4_F3_PRE",
+   "post": "C4_F3_POST"
+  },
+  {
+   "x": -19,
    "y": -14,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -19,
@@ -206,17 +205,17 @@
   {
    "x": -21,
    "y": -17,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -22,
    "y": -17,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -22,
    "y": -18,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -22,
@@ -231,51 +230,93 @@
   {
    "x": -23,
    "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -20,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -24,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -22,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -23,
+   "type": "walpae"
+  },
+  {
+   "x": -26,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -23,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -6,
-   "y": -4,
-   "at": 10,
+   "x": -22,
+   "y": -20,
+   "at": 42,
    "zone": [
-    10
+    42,
+    43
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -16,
+   "y": -11,
+   "at": 27,
+   "zone": [
+    26,
+    27
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -8,
+   "y": -6,
+   "at": 14,
+   "zone": [
+    13,
+    14
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
    "x": -19,
-   "y": -13,
-   "at": 32,
+   "y": -16,
+   "at": 35,
    "zone": [
-    31,
-    32
+    34,
+    35
    ],
    "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -20,
-   "y": -17,
-   "at": 37,
-   "zone": [
-    37,
-    38
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -12,
-   "y": -9,
-   "at": 21,
-   "zone": [
-    20,
-    21
-   ],
-   "kind": "walpae",
    "on_path": true
   }
  ]

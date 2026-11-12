@@ -3,7 +3,7 @@
  "name": "화엄골 가는 길",
  "tile": "dirt",
  "bg": "stream",
- "turns": 18,
+ "turns": 21,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "buff"
+   "type": "shop"
   },
   {
    "x": -3,
@@ -33,7 +33,7 @@
   {
    "x": -3,
    "y": -2,
-   "type": "debuff"
+   "type": "spike"
   },
   {
    "x": -3,
@@ -43,7 +43,7 @@
   {
    "x": -3,
    "y": -4,
-   "type": "spike"
+   "type": "rest"
   },
   {
    "x": -4,
@@ -53,8 +53,7 @@
   {
    "x": -5,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -5,
@@ -64,7 +63,8 @@
   {
    "x": -5,
    "y": -6,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -5,
@@ -74,7 +74,8 @@
   {
    "x": -6,
    "y": -7,
-   "type": "pojol"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -7,
@@ -84,22 +85,22 @@
   {
    "x": -8,
    "y": -7,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -8,
-   "type": "empty"
+   "type": "trap"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -10,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -8,
@@ -109,7 +110,8 @@
   {
    "x": -9,
    "y": -11,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -10,
@@ -119,12 +121,12 @@
   {
    "x": -11,
    "y": -11,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -12,
    "y": -11,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -12,
@@ -134,7 +136,7 @@
   {
    "x": -12,
    "y": -13,
-   "type": "trap"
+   "type": "talk"
   },
   {
    "x": -13,
@@ -144,7 +146,8 @@
   {
    "x": -14,
    "y": -13,
-   "type": "spike"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -15,
@@ -154,10 +157,7 @@
   {
    "x": -15,
    "y": -14,
-   "type": "boss",
-   "battle": "baegun_mask",
-   "pre": "C4_MASK2",
-   "post": "C4_MASK2_FLEE"
+   "type": "spike"
   },
   {
    "x": -15,
@@ -167,22 +167,25 @@
   {
    "x": -15,
    "y": -16,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -17,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -16,
    "y": -17,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -17,
-   "type": "empty"
+   "type": "boss",
+   "battle": "baegun_mask",
+   "pre": "C4_MASK2",
+   "post": "C4_MASK2_FLEE"
   },
   {
    "x": -18,
@@ -192,35 +195,32 @@
   {
    "x": -18,
    "y": -18,
-   "type": "pojol"
+   "type": "buff"
   },
   {
    "x": -18,
    "y": -19,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -20,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -21,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -19,
    "y": -21,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -21,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -20,
@@ -240,7 +240,7 @@
   {
    "x": -20,
    "y": -25,
-   "type": "talk"
+   "type": "buff"
   },
   {
    "x": -21,
@@ -250,28 +250,68 @@
   {
    "x": -22,
    "y": -25,
+   "type": "debuff"
+  },
+  {
+   "x": -23,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -27,
+   "type": "debuff"
+  },
+  {
+   "x": -23,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -29,
+   "type": "walpae"
+  },
+  {
+   "x": -25,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -29,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -13,
-   "y": -13,
-   "at": 26,
+   "x": -8,
+   "y": -7,
+   "at": 15,
    "zone": [
-    26,
-    27
+    14,
+    15
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -8,
-   "y": -10,
-   "at": 18,
+   "x": -3,
+   "y": -1,
+   "at": 4,
    "zone": [
-    18,
-    19
+    4,
+    5
    ],
    "kind": "walpae",
    "on_path": true
@@ -284,7 +324,7 @@
     42,
     43
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   }
  ]

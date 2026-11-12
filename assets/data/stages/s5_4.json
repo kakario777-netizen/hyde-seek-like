@@ -3,7 +3,7 @@
  "name": "허 의원 약방으로",
  "tile": "stone",
  "bg": "yakbang",
- "turns": 20,
+ "turns": 22,
  "tiles": [
   {
    "x": 0,
@@ -23,27 +23,28 @@
   {
    "x": -3,
    "y": 0,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -1,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -3,
    "y": -2,
-   "type": "buff"
-  },
-  {
-   "x": -3,
-   "y": -3,
    "type": "empty"
   },
   {
    "x": -3,
+   "y": -3,
+   "type": "buff"
+  },
+  {
+   "x": -3,
    "y": -4,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -4,
@@ -58,12 +59,12 @@
   {
    "x": -6,
    "y": -4,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -6,
    "y": -5,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -6,
@@ -73,38 +74,37 @@
   {
    "x": -6,
    "y": -7,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -7,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -8,
    "y": -7,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -7,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -9,
    "y": -8,
-   "type": "pojol"
-  },
-  {
-   "x": -9,
-   "y": -9,
    "type": "empty"
   },
   {
    "x": -9,
+   "y": -9,
+   "type": "buff"
+  },
+  {
+   "x": -9,
    "y": -10,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -10,
@@ -119,28 +119,28 @@
   {
    "x": -11,
    "y": -11,
-   "type": "talk"
-  },
-  {
-   "x": -11,
-   "y": -12,
    "type": "empty"
   },
   {
    "x": -11,
+   "y": -12,
+   "type": "pojol"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -12,
    "y": -13,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -12,
-   "y": -13,
-   "type": "empty"
-  },
-  {
    "x": -13,
    "y": -13,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -14,
@@ -150,7 +150,7 @@
   {
    "x": -14,
    "y": -14,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -14,
@@ -160,7 +160,7 @@
   {
    "x": -14,
    "y": -16,
-   "type": "debuff"
+   "type": "item"
   },
   {
    "x": -14,
@@ -175,7 +175,7 @@
   {
    "x": -16,
    "y": -17,
-   "type": "item"
+   "type": "shop"
   },
   {
    "x": -17,
@@ -185,7 +185,7 @@
   {
    "x": -18,
    "y": -17,
-   "type": "shop"
+   "type": "trap"
   },
   {
    "x": -18,
@@ -195,23 +195,23 @@
   {
    "x": -18,
    "y": -19,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -20,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -19,
    "y": -20,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -20,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -20,
@@ -221,12 +221,12 @@
   {
    "x": -20,
    "y": -22,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -20,
    "y": -23,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -20,
@@ -236,18 +236,17 @@
   {
    "x": -21,
    "y": -24,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -22,
-   "y": -24,
    "type": "empty"
   },
   {
    "x": -22,
-   "y": -25,
+   "y": -24,
    "type": "debuff"
+  },
+  {
+   "x": -22,
+   "y": -25,
+   "type": "empty"
   },
   {
    "x": -22,
@@ -257,7 +256,7 @@
   {
    "x": -23,
    "y": -26,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -24,
@@ -267,39 +266,82 @@
   {
    "x": -25,
    "y": -26,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -25,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -28,
+   "type": "spike"
+  },
+  {
+   "x": -25,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -30,
+   "type": "spike"
+  },
+  {
+   "x": -26,
+   "y": -30,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -30,
+   "type": "spike"
+  },
+  {
+   "x": -28,
+   "y": -30,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -31,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -15,
-   "y": -17,
-   "at": 32,
+   "x": -22,
+   "y": -26,
+   "at": 48,
    "zone": [
-    31,
-    32
+    47,
+    48
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -4,
-   "y": -4,
-   "at": 8,
+   "x": -25,
+   "y": -29,
+   "at": 54,
    "zone": [
-    8,
-    9
+    53,
+    54,
+    55
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -20,
-   "y": -20,
-   "at": 40,
+   "x": -10,
+   "y": -10,
+   "at": 20,
    "zone": [
-    40,
-    41
+    19,
+    20,
+    21
    ],
    "kind": "pojol",
    "on_path": true

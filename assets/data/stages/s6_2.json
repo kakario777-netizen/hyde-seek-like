@@ -3,7 +3,7 @@
  "name": "산마루 약초밭으로",
  "tile": "dirt",
  "bg": "mountain",
- "turns": 19,
+ "turns": 22,
  "tiles": [
   {
    "x": 0,
@@ -34,17 +34,17 @@
   {
    "x": -3,
    "y": -2,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -2,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -5,
    "y": -2,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -5,
@@ -54,7 +54,8 @@
   {
    "x": -5,
    "y": -4,
-   "type": "spike"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -5,
@@ -64,28 +65,27 @@
   {
    "x": -6,
    "y": -5,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -5,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -8,
    "y": -5,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -9,
-   "y": -5,
    "type": "empty"
   },
   {
    "x": -9,
+   "y": -5,
+   "type": "talk"
+  },
+  {
+   "x": -9,
    "y": -6,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -9,
@@ -95,28 +95,27 @@
   {
    "x": -9,
    "y": -8,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -10,
    "y": -8,
-   "type": "talk"
-  },
-  {
-   "x": -11,
-   "y": -8,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -11,
-   "y": -9,
    "type": "empty"
   },
   {
    "x": -11,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "talk"
+  },
+  {
+   "x": -11,
    "y": -10,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -11,
@@ -126,8 +125,7 @@
   {
    "x": -11,
    "y": -12,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -12,
@@ -137,33 +135,33 @@
   {
    "x": -13,
    "y": -12,
-   "type": "empty"
-  },
-  {
-   "x": -13,
-   "y": -13,
-   "type": "talk"
-  },
-  {
-   "x": -13,
-   "y": -14,
-   "type": "empty"
-  },
-  {
-   "x": -14,
-   "y": -14,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -15,
+   "x": -13,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "buff"
+  },
+  {
+   "x": -14,
    "y": -14,
    "type": "empty"
   },
   {
    "x": -15,
-   "y": -15,
+   "y": -14,
    "type": "debuff"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "empty"
   },
   {
    "x": -15,
@@ -173,17 +171,18 @@
   {
    "x": -15,
    "y": -17,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
    "y": -17,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -17,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -18,
@@ -193,7 +192,8 @@
   {
    "x": -19,
    "y": -17,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -19,
@@ -203,12 +203,12 @@
   {
    "x": -19,
    "y": -19,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -20,
    "y": -19,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -21,
@@ -218,7 +218,8 @@
   {
    "x": -21,
    "y": -20,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -21,
@@ -238,7 +239,7 @@
   {
    "x": -24,
    "y": -21,
-   "type": "buff"
+   "type": "spike"
   },
   {
    "x": -24,
@@ -248,8 +249,7 @@
   {
    "x": -24,
    "y": -23,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -24,
@@ -259,6 +259,46 @@
   {
    "x": -25,
    "y": -24,
+   "type": "spike"
+  },
+  {
+   "x": -26,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -24,
+   "type": "shop"
+  },
+  {
+   "x": -28,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -25,
+   "type": "debuff"
+  },
+  {
+   "x": -28,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -26,
+   "type": "debuff"
+  },
+  {
+   "x": -30,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -31,
+   "y": -26,
    "type": "goal"
   }
  ],
@@ -268,21 +308,22 @@
    "y": -7,
    "at": 16,
    "zone": [
-    16,
-    17
+    15,
+    16
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   },
   {
    "x": -15,
-   "y": -14,
-   "at": 29,
+   "y": -16,
+   "at": 31,
    "zone": [
-    28,
-    29
+    30,
+    31,
+    32
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   }
  ]

@@ -3,7 +3,7 @@
  "name": "역병 도는 마을",
  "tile": "brick",
  "bg": "holland",
- "turns": 18,
+ "turns": 24,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": 0,
    "y": -3,
-   "type": "spike"
+   "type": "shop"
   },
   {
    "x": 0,
@@ -33,28 +33,28 @@
   {
    "x": -1,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -4,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -3,
    "y": -4,
-   "type": "debuff"
-  },
-  {
-   "x": -4,
-   "y": -4,
    "type": "empty"
   },
   {
    "x": -4,
-   "y": -5,
+   "y": -4,
    "type": "buff"
+  },
+  {
+   "x": -4,
+   "y": -5,
+   "type": "empty"
   },
   {
    "x": -4,
@@ -64,13 +64,12 @@
   {
    "x": -5,
    "y": -6,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -6,
    "y": -6,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -7,
@@ -80,7 +79,7 @@
   {
    "x": -7,
    "y": -7,
-   "type": "buff"
+   "type": "spike"
   },
   {
    "x": -7,
@@ -90,18 +89,17 @@
   {
    "x": -8,
    "y": -8,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -9,
-   "y": -8,
    "type": "empty"
   },
   {
    "x": -9,
+   "y": -8,
+   "type": "debuff"
+  },
+  {
+   "x": -9,
    "y": -9,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -9,
@@ -111,7 +109,7 @@
   {
    "x": -9,
    "y": -11,
-   "type": "pojol"
+   "type": "debuff"
   },
   {
    "x": -10,
@@ -121,7 +119,7 @@
   {
    "x": -11,
    "y": -11,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -11,
@@ -131,7 +129,7 @@
   {
    "x": -11,
    "y": -13,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -12,
@@ -152,17 +150,17 @@
   {
    "x": -15,
    "y": -13,
-   "type": "debuff"
-  },
-  {
-   "x": -15,
-   "y": -14,
    "type": "empty"
   },
   {
    "x": -15,
+   "y": -14,
+   "type": "spike"
+  },
+  {
+   "x": -15,
    "y": -15,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -16,
@@ -172,17 +170,18 @@
   {
    "x": -17,
    "y": -15,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -18,
    "y": -15,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -15,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -19,
@@ -192,7 +191,8 @@
   {
    "x": -19,
    "y": -17,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -20,
@@ -202,12 +202,12 @@
   {
    "x": -21,
    "y": -17,
-   "type": "empty"
+   "type": "item"
   },
   {
    "x": -22,
    "y": -17,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -23,
@@ -217,17 +217,17 @@
   {
    "x": -23,
    "y": -18,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -23,
    "y": -19,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -24,
    "y": -19,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -25,
@@ -237,7 +237,7 @@
   {
    "x": -26,
    "y": -19,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -27,
@@ -247,39 +247,133 @@
   {
    "x": -27,
    "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -23,
+   "type": "debuff"
+  },
+  {
+   "x": -29,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -23,
+   "type": "walpae"
+  },
+  {
+   "x": -30,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -30,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -31,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -26,
+   "type": "talk"
+  },
+  {
+   "x": -32,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -33,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -34,
+   "y": -29,
+   "type": "buff"
+  },
+  {
+   "x": -35,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -36,
+   "y": -29,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -20,
-   "y": -17,
-   "at": 37,
+   "x": -16,
+   "y": -15,
+   "at": 31,
    "zone": [
-    37,
-    38
+    30,
+    31,
+    32
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -4,
-   "y": -4,
-   "at": 8,
+   "x": -23,
+   "y": -18,
+   "at": 41,
    "zone": [
-    8
+    40,
+    41
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -32,
+   "y": -29,
+   "at": 61,
+   "zone": [
+    60,
+    61,
+    62
    ],
    "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -25,
-   "y": -19,
-   "at": 44,
-   "zone": [
-    44
-   ],
-   "kind": "walpae",
    "on_path": true
   }
  ]

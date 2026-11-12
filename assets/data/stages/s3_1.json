@@ -3,7 +3,7 @@
  "name": "청계천 약재 심부름",
  "tile": "wood",
  "bg": "stream",
- "turns": 18,
+ "turns": 21,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "buff"
+   "type": "spike"
   },
   {
    "x": -3,
@@ -33,7 +33,7 @@
   {
    "x": -3,
    "y": -2,
-   "type": "debuff"
+   "type": "spike"
   },
   {
    "x": -4,
@@ -43,7 +43,8 @@
   {
    "x": -5,
    "y": -2,
-   "type": "pojol"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -6,
@@ -64,22 +65,22 @@
   {
    "x": -7,
    "y": -4,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -8,
    "y": -4,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -4,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -10,
    "y": -4,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -10,
@@ -89,34 +90,32 @@
   {
    "x": -10,
    "y": -6,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -6,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -12,
    "y": -6,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -7,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -12,
    "y": -8,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -8,
-   "type": "empty"
+   "type": "item"
   },
   {
    "x": -14,
@@ -126,7 +125,7 @@
   {
    "x": -15,
    "y": -8,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -16,
@@ -146,7 +145,7 @@
   {
    "x": -17,
    "y": -10,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -18,
@@ -156,15 +155,12 @@
   {
    "x": -19,
    "y": -10,
-   "type": "boss",
-   "battle": "dogyeol",
-   "pre": "C3_DG_FIGHT",
-   "post": "C3_DG_AFTER"
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -10,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -20,
@@ -174,7 +170,7 @@
   {
    "x": -20,
    "y": -12,
-   "type": "walpae"
+   "type": "pojol"
   },
   {
    "x": -21,
@@ -184,12 +180,15 @@
   {
    "x": -22,
    "y": -12,
-   "type": "empty"
+   "type": "boss",
+   "battle": "dogyeol",
+   "pre": "C3_DG_FIGHT",
+   "post": "C3_DG_AFTER"
   },
   {
    "x": -22,
    "y": -13,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -22,
@@ -199,8 +198,7 @@
   {
    "x": -22,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -22,
@@ -210,7 +208,7 @@
   {
    "x": -23,
    "y": -16,
-   "type": "debuff"
+   "type": "talk"
   },
   {
    "x": -24,
@@ -220,7 +218,7 @@
   {
    "x": -24,
    "y": -17,
-   "type": "buff"
+   "type": "shop"
   },
   {
    "x": -24,
@@ -230,7 +228,8 @@
   {
    "x": -24,
    "y": -19,
-   "type": "talk"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -24,
@@ -240,7 +239,7 @@
   {
    "x": -25,
    "y": -20,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -26,
@@ -250,40 +249,83 @@
   {
    "x": -26,
    "y": -21,
+   "type": "buff"
+  },
+  {
+   "x": -26,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -28,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -25,
+   "type": "debuff"
+  },
+  {
+   "x": -28,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -26,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -7,
-   "y": -4,
-   "at": 11,
-   "zone": [
-    10,
-    11
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
    "x": -22,
    "y": -14,
    "at": 36,
    "zone": [
+    35,
     36,
     37
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -3,
-   "y": -1,
-   "at": 4,
+   "x": -18,
+   "y": -10,
+   "at": 28,
    "zone": [
-    4
+    28,
+    29
    ],
    "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -10,
+   "y": -6,
+   "at": 16,
+   "zone": [
+    15,
+    16
+   ],
+   "kind": "walpae",
    "on_path": true
   }
  ]

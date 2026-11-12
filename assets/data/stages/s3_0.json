@@ -3,7 +3,7 @@
  "name": "서휘와 흑룡파 몰아내기",
  "tile": "stone",
  "bg": "alley",
- "turns": 18,
+ "turns": 21,
  "tiles": [
   {
    "x": 0,
@@ -33,12 +33,12 @@
   {
    "x": -1,
    "y": -4,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -4,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -2,
@@ -53,39 +53,38 @@
   {
    "x": -2,
    "y": -7,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -8,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -3,
    "y": -8,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -8,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -5,
+   "y": -8,
+   "type": "debuff"
+  },
+  {
+   "x": -6,
    "y": -8,
    "type": "empty"
   },
   {
    "x": -6,
-   "y": -8,
-   "type": "pojol"
-  },
-  {
-   "x": -6,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "shop"
   },
   {
    "x": -6,
@@ -95,7 +94,7 @@
   {
    "x": -7,
    "y": -10,
-   "type": "pojol"
+   "type": "rest"
   },
   {
    "x": -8,
@@ -105,7 +104,7 @@
   {
    "x": -9,
    "y": -10,
-   "type": "shop"
+   "type": "debuff"
   },
   {
    "x": -9,
@@ -115,24 +114,22 @@
   {
    "x": -9,
    "y": -12,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -10,
    "y": -12,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -12,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -12,
    "y": -12,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -12,
@@ -142,7 +139,7 @@
   {
    "x": -12,
    "y": -14,
-   "type": "debuff"
+   "type": "talk"
   },
   {
    "x": -12,
@@ -157,10 +154,8 @@
   {
    "x": -14,
    "y": -15,
-   "type": "boss",
-   "battle": "heukdu1",
-   "pre": "C3_HK1_PRE",
-   "post": "C3_HK1_POST"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -15,
@@ -170,27 +165,30 @@
   {
    "x": -16,
    "y": -15,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -16,
    "y": -16,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -16,
    "y": -17,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -17,
-   "type": "empty"
+   "type": "boss",
+   "battle": "heukdu1",
+   "pre": "C3_HK1_PRE",
+   "post": "C3_HK1_POST"
   },
   {
    "x": -18,
    "y": -17,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -18,
@@ -205,7 +203,8 @@
   {
    "x": -18,
    "y": -20,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -19,
@@ -215,27 +214,28 @@
   {
    "x": -20,
    "y": -20,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -21,
-   "type": "empty"
+   "type": "item"
   },
   {
    "x": -20,
    "y": -22,
-   "type": "debuff"
-  },
-  {
-   "x": -20,
-   "y": -23,
    "type": "empty"
   },
   {
    "x": -20,
+   "y": -23,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -20,
    "y": -24,
-   "type": "rest"
+   "type": "empty"
   },
   {
    "x": -21,
@@ -245,56 +245,97 @@
   {
    "x": -22,
    "y": -24,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -22,
    "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -26,
+   "type": "debuff"
+  },
+  {
+   "x": -23,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -26,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -28,
+   "type": "spike"
+  },
+  {
+   "x": -26,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -28,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -6,
-   "y": -10,
-   "at": 16,
+   "x": 0,
+   "y": -4,
+   "at": 4,
    "zone": [
-    15,
-    16
+    4,
+    5
    ],
    "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -3,
-   "y": -8,
-   "at": 11,
-   "zone": [
-    11,
-    12
-   ],
-   "kind": "walpae",
    "on_path": true
   },
   {
    "x": -20,
-   "y": -21,
-   "at": 41,
+   "y": -22,
+   "at": 42,
    "zone": [
-    41
+    42,
+    43
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "at": 25,
+   "zone": [
+    24,
+    25
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -13,
-   "y": -15,
-   "at": 28,
+   "x": -16,
+   "y": -17,
+   "at": 33,
    "zone": [
-    27,
-    28
+    32,
+    33
    ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   }
  ]

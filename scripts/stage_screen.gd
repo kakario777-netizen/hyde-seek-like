@@ -121,6 +121,15 @@ func _ready() -> void:
 		for t in data["tiles"]:
 			if t["type"] in ["buff", "debuff", "item", "trap", "rest", "spike"]:
 				orig_ev += 1
+		var icl: Array = []
+		for i in tiles.size():
+			if tiles[i]["type"] in ["buff", "debuff", "item", "trap", "rest", "spike"] or tiles[i].get("herb", false) or tiles[i].has("errand"):
+				icl.append(i)
+		var iclash := 0
+		for a in icl.size():
+			if _icon_clash(icl[a], icl.slice(a + 1), occ):
+				iclash += 1
+		print("MAPTEST icon_clash=", iclash)
 		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid, " events=", evn, "/", orig_ev, " herbs=", herbs_total)
 		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
 
@@ -549,7 +558,7 @@ func _randomize_layout(s: int) -> void:
 		var target := 3.0 + (k + 0.5) * span / chars.size()
 		var best := -1
 		# 붉은 칸 사이에도 빈칸 하나, 인물끼리 화면에서 겹쳐 보이지 않게 (안 되면 조금씩 완화, 붉은 칸 겹침은 절대 안 됨)
-		for pss in [[4, true], [3, true], [4, false], [3, false]]:
+		for pss in [[4, true], [3, true]]:   # 겹쳐 보이는 자리는 절대 안 씀 (자리가 없으면 그 인물은 빠짐)
 			var best_d := 1e9
 			for i in order:
 				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, pss[0]):
@@ -580,10 +589,15 @@ func _randomize_layout(s: int) -> void:
 		if tiles[i]["type"] == "empty" and not reserved.has(i):
 			hc.append(i)
 	_shuffle(rng, hc)
-	hc = hc.filter(func(a): return not _behind_char(a, occupied))
 	herb_cnt += 2   # 맵마다 약초 두 개 더
-	for i in hc.slice(0, herb_cnt):
-		tiles[i]["herb"] = true
+	var icons: Array = []   # 아이콘(약초·약재·사건)이 놓인 칸 — 서로, 그리고 인물과 화면에서 겹치지 않게
+	var put := 0
+	for i in hc:
+		if put >= herb_cnt:
+			break
+		if _icon_clash(i, icons, occupied):
+			continue
+		tiles[i]["herb"] = true; icons.append(i); put += 1
 	# ②-0 심부름 약재: 갈림길로 비켜 가지 않는 본길 칸에 고르게 (지나가기만 해도 줍는다)
 	var errands: Array = stage_cfg.get("errand", [])
 	if errands.size() > 0:
@@ -595,6 +609,7 @@ func _randomize_layout(s: int) -> void:
 		for i in range(4, main_len - 3):
 			if tiles[i]["type"] == "empty" and not reserved.has(i) and not inside.has(i) and not tiles[i].get("herb", false):
 				ec.append(i)
+		# 심부름 약재는 꼭 놓여야 하니, 겹치는 약초가 있으면 그 약초를 치우고 놓는다
 		for k in errands.size():
 			if ec.is_empty():
 				break
@@ -605,6 +620,10 @@ func _randomize_layout(s: int) -> void:
 					best = c
 			tiles[best]["errand"] = errands[k]
 			ec.erase(best)
+			for j in icons.duplicate():
+				if _icons_near(best, j) and tiles[j].get("herb", false):
+					tiles[j].erase("herb"); icons.erase(j)
+			icons.append(best)
 	# ② 나머지 사건(이로운·해로운 칸, 함정 등)은 남은 빈칸에
 	var slots: Array = []
 	for i in tiles.size():
@@ -618,14 +637,39 @@ func _randomize_layout(s: int) -> void:
 	others = others.filter(func(t): return t != "empty")   # 빈칸 말고 진짜 사건만 (자리가 모자라면 사건이 먼저)
 	slots.sort_custom(func(a, b): return int(_behind_char(a, occupied)) < int(_behind_char(b, occupied)))
 	slots = slots.filter(func(a): return not _behind_char(a, occupied))
-	for k2 in mini(slots.size(), others.size()):
-		tiles[slots[k2]]["type"] = others[k2]
+	var k2 := 0
+	for sl in slots:
+		if k2 >= others.size():
+			break
+		if _icon_clash(sl, icons, occupied):
+			continue
+		tiles[sl]["type"] = others[k2]; icons.append(sl); k2 += 1
 	if rng.randi() % 2 == 1:   # 길을 좌우로 뒤집기
 		for t in tiles:
 			var x = t["x"]; t["x"] = t["y"]; t["y"] = x
 	# 감시꾼은 반드시 자기 칸 위에 (뒤집은 뒤 좌표로 맞춤)
 	for g in guards:
 		g["x"] = tiles[int(g["at"])]["x"]; g["y"] = tiles[int(g["at"])]["y"]
+
+## 두 칸의 아이콘이 화면에서 맞닿아 겹쳐 보이는가 (바로 옆·앞뒤 칸)
+func _icons_near(a: int, b: int) -> bool:
+	var ds: int = absi((int(tiles[a]["x"]) + int(tiles[a]["y"])) - (int(tiles[b]["x"]) + int(tiles[b]["y"])))
+	var dd: int = absi((int(tiles[a]["x"]) - int(tiles[a]["y"])) - (int(tiles[b]["x"]) - int(tiles[b]["y"])))
+	return a != b and ds <= 1 and dd <= 1
+
+## i칸에 아이콘을 놓으면 다른 아이콘이나 인물 그림과 겹치는가
+func _icon_clash(i: int, icons: Array, occupied: Array) -> bool:
+	for j in icons:
+		# 작은 동그라미 표시끼리는 옆 칸이어도 안 겹침, 큰 '약재' 팻말 옆에는 아무것도 두지 않음
+		if _icons_near(i, j) and (tiles[j].has("errand") or tiles[i].has("errand")):
+			return true
+	for o in occupied:
+		var ds: int = (int(tiles[o[0]]["x"]) + int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) + int(tiles[i]["y"]))
+		var dd: int = absi((int(tiles[o[0]]["x"]) - int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) - int(tiles[i]["y"])))
+		# 인물 몸·머리 위 표시에 가려지는 뒤 칸, 인물 발치를 가리는 바로 앞 칸
+		if o[0] == i or (dd == 0 and ds >= 1 and ds <= 3) or (dd == 1 and absi(ds) == 1):
+			return true
+	return false
 
 ## a칸의 인물 그림이 b칸(화면 위쪽)을 가리는가
 func _covers(a: int, b: int) -> bool:

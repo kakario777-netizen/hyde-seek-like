@@ -3,7 +3,7 @@
  "name": "밤의 궁궐 잠입",
  "tile": "palace",
  "bg": "palace_night",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -1,
    "y": -2,
-   "type": "item"
+   "type": "debuff"
   },
   {
    "x": -2,
@@ -43,7 +43,8 @@
   {
    "x": -3,
    "y": -4,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
@@ -59,7 +60,7 @@
   {
    "x": -5,
    "y": -5,
-   "type": "walpae"
+   "type": "buff"
   },
   {
    "x": -5,
@@ -69,59 +70,58 @@
   {
    "x": -5,
    "y": -7,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -6,
    "y": -7,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -7,
-   "type": "empty",
-   "herb": true
+   "type": "buff"
   },
   {
    "x": -7,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -9,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -10,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -7,
    "y": -11,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -9,
    "y": -11,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -11,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
    "y": -11,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -11,
@@ -131,21 +131,17 @@
   {
    "x": -11,
    "y": -13,
-   "type": "debuff"
+   "type": "item"
   },
   {
    "x": -11,
    "y": -14,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -11,
    "y": -15,
-   "type": "boss",
-   "battle": "jeong_shadow1",
-   "pre": "C10_JEONG1_PRE",
-   "post": "C10_JEONG1_POST"
+   "type": "trap"
   },
   {
    "x": -12,
@@ -155,12 +151,12 @@
   {
    "x": -13,
    "y": -15,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -16,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -13,
@@ -170,7 +166,10 @@
   {
    "x": -13,
    "y": -18,
-   "type": "buff"
+   "type": "boss",
+   "battle": "jeong_shadow1",
+   "pre": "C10_JEONG1_PRE",
+   "post": "C10_JEONG1_POST"
   },
   {
    "x": -13,
@@ -180,7 +179,7 @@
   {
    "x": -14,
    "y": -19,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -15,
@@ -190,7 +189,7 @@
   {
    "x": -16,
    "y": -19,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -16,
@@ -210,7 +209,8 @@
   {
    "x": -16,
    "y": -23,
-   "type": "rest"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -17,
@@ -220,27 +220,78 @@
   {
    "x": -18,
    "y": -23,
+   "type": "spike"
+  },
+  {
+   "x": -18,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -25,
+   "type": "rest"
+  },
+  {
+   "x": -20,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -26,
+   "type": "walpae"
+  },
+  {
+   "x": -20,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -27,
    "type": "goal"
   }
  ],
  "guards": [
   {
    "x": -11,
-   "y": -12,
-   "at": 23,
+   "y": -14,
+   "at": 25,
    "zone": [
-    23
+    25
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -5,
-   "y": -6,
-   "at": 11,
+   "x": -9,
+   "y": -11,
+   "at": 20,
    "zone": [
-    11,
-    12
+    20,
+    21
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "at": 15,
+   "zone": [
+    15,
+    16
    ],
    "kind": "walpae",
    "on_path": true
@@ -250,31 +301,20 @@
    "y": -22,
    "at": 38,
    "zone": [
-    38
+    38,
+    39
    ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -7,
-   "y": -10,
-   "at": 17,
-   "zone": [
-    17,
-    18
-   ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
    "x": -13,
-   "y": -16,
-   "at": 29,
+   "y": -17,
+   "at": 30,
    "zone": [
-    29,
     30
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   }
  ]

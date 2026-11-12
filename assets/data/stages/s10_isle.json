@@ -3,7 +3,7 @@
  "name": "남쪽 유배 섬 가는 길",
  "tile": "dirt",
  "bg": "exile_hut",
- "turns": 17,
+ "turns": 20,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -2,
    "y": -1,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -2,
@@ -33,12 +33,12 @@
   {
    "x": -3,
    "y": -2,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -2,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -5,
@@ -48,7 +48,7 @@
   {
    "x": -6,
    "y": -2,
-   "type": "walpae"
+   "type": "spike"
   },
   {
    "x": -6,
@@ -58,7 +58,7 @@
   {
    "x": -6,
    "y": -4,
-   "type": "rest"
+   "type": "buff"
   },
   {
    "x": -6,
@@ -73,7 +73,7 @@
   {
    "x": -8,
    "y": -5,
-   "type": "item"
+   "type": "walpae"
   },
   {
    "x": -8,
@@ -83,23 +83,23 @@
   {
    "x": -8,
    "y": -7,
-   "type": "empty"
-  },
-  {
-   "x": -8,
-   "y": -8,
    "type": "empty",
    "herb": true
   },
   {
-   "x": -9,
+   "x": -8,
    "y": -8,
    "type": "empty"
   },
   {
-   "x": -10,
+   "x": -9,
    "y": -8,
    "type": "shop"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty"
   },
   {
    "x": -11,
@@ -109,7 +109,8 @@
   {
    "x": -12,
    "y": -8,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
@@ -119,7 +120,7 @@
   {
    "x": -12,
    "y": -10,
-   "type": "debuff"
+   "type": "talk"
   },
   {
    "x": -12,
@@ -129,34 +130,33 @@
   {
    "x": -13,
    "y": -11,
-   "type": "spike"
+   "type": "item"
   },
   {
    "x": -14,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -15,
    "y": -11,
-   "type": "talk"
+   "type": "buff"
   },
   {
    "x": -16,
    "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -12,
    "type": "empty",
    "herb": true
   },
   {
    "x": -16,
-   "y": -12,
-   "type": "empty"
-  },
-  {
-   "x": -16,
    "y": -13,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -16,
@@ -166,8 +166,7 @@
   {
    "x": -16,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -17,
@@ -177,7 +176,7 @@
   {
    "x": -18,
    "y": -15,
-   "type": "debuff"
+   "type": "rest"
   },
   {
    "x": -19,
@@ -208,17 +207,17 @@
   {
    "x": -20,
    "y": -19,
-   "type": "buff"
-  },
-  {
-   "x": -21,
-   "y": -19,
    "type": "empty"
   },
   {
    "x": -21,
+   "y": -19,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
    "y": -20,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -21,
@@ -228,31 +227,51 @@
   {
    "x": -21,
    "y": -22,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -23,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -23,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -25,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -25,
    "type": "goal"
   }
  ],
  "guards": [
-  {
-   "x": -11,
-   "y": -8,
-   "at": 19,
-   "zone": [
-    19
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -17,
-   "y": -15,
-   "at": 32,
-   "zone": [
-    31,
-    32
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
   {
    "x": -6,
    "y": -5,
@@ -260,6 +279,27 @@
    "zone": [
     11,
     12
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -21,
+   "y": -20,
+   "at": 41,
+   "zone": [
+    41,
+    42
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "at": 25,
+   "zone": [
+    25
    ],
    "kind": "walpae",
    "on_path": true

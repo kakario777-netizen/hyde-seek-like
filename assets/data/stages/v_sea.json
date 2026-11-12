@@ -3,7 +3,7 @@
  "name": "천축 앞바다",
  "tile": "wood",
  "bg": "deck",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -23,29 +23,27 @@
   {
    "x": 0,
    "y": -3,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": 0,
    "y": -4,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -1,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -4,
-   "type": "rest"
+   "type": "buff"
   },
   {
    "x": -3,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -4,
@@ -55,7 +53,7 @@
   {
    "x": -4,
    "y": -5,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -4,
@@ -65,27 +63,28 @@
   {
    "x": -4,
    "y": -7,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -4,
    "y": -8,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -8,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -6,
    "y": -8,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -7,
    "y": -8,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -7,
@@ -105,17 +104,17 @@
   {
    "x": -8,
    "y": -11,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -9,
    "y": -11,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -10,
@@ -125,7 +124,7 @@
   {
    "x": -10,
    "y": -13,
-   "type": "trap"
+   "type": "debuff"
   },
   {
    "x": -11,
@@ -135,21 +134,17 @@
   {
    "x": -12,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -13,
-   "type": "boss",
-   "battle": "pirate_boss",
-   "pre": "C7_PIRATE_PRE",
-   "post": "C7_PIRATE_POST"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -14,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -13,
@@ -159,7 +154,7 @@
   {
    "x": -13,
    "y": -16,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -14,
@@ -169,18 +164,21 @@
   {
    "x": -15,
    "y": -16,
-   "type": "pojol"
+   "type": "boss",
+   "battle": "pirate_boss",
+   "pre": "C7_PIRATE_PRE",
+   "post": "C7_PIRATE_POST"
   },
   {
    "x": -16,
    "y": -16,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -16,
    "y": -17,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -16,
@@ -190,22 +188,23 @@
   {
    "x": -17,
    "y": -18,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -18,
    "y": -18,
-   "type": "item"
-  },
-  {
-   "x": -18,
-   "y": -19,
    "type": "empty"
   },
   {
    "x": -18,
+   "y": -19,
+   "type": "trap"
+  },
+  {
+   "x": -18,
    "y": -20,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -18,
@@ -215,45 +214,87 @@
   {
    "x": -19,
    "y": -21,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -20,
    "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -20,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "item"
+  },
+  {
+   "x": -22,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -23,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -25,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -7,
-   "y": -11,
-   "at": 18,
+   "x": -16,
+   "y": -16,
+   "at": 32,
    "zone": [
-    18,
-    19
+    32,
+    33
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -16,
-   "y": -18,
-   "at": 34,
+   "x": -4,
+   "y": -6,
+   "at": 10,
    "zone": [
-    34
+    10,
+    11
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
-   "x": -11,
-   "y": -13,
-   "at": 24,
+   "x": -22,
+   "y": -23,
+   "at": 45,
    "zone": [
-    24,
-    25
+    45,
+    46
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   }
  ]

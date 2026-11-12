@@ -3,7 +3,7 @@
  "name": "광주 항구",
  "tile": "wood",
  "bg": "port",
- "turns": 16,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": -3,
    "y": 0,
-   "type": "pojol"
+   "type": "buff"
   },
   {
    "x": -3,
@@ -33,17 +33,17 @@
   {
    "x": -3,
    "y": -2,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -4,
    "y": -2,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -5,
    "y": -2,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -6,
@@ -63,27 +63,29 @@
   {
    "x": -6,
    "y": -5,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -6,
    "y": -6,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -7,
+   "y": -6,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
    "y": -6,
    "type": "empty"
   },
   {
    "x": -8,
-   "y": -6,
-   "type": "spike"
-  },
-  {
-   "x": -8,
    "y": -7,
-   "type": "shop"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -8,
@@ -93,7 +95,7 @@
   {
    "x": -8,
    "y": -9,
-   "type": "rest"
+   "type": "item"
   },
   {
    "x": -9,
@@ -103,17 +105,17 @@
   {
    "x": -10,
    "y": -9,
-   "type": "buff"
-  },
-  {
-   "x": -10,
-   "y": -10,
    "type": "empty"
   },
   {
    "x": -10,
+   "y": -10,
+   "type": "spike"
+  },
+  {
+   "x": -10,
    "y": -11,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -10,
@@ -124,33 +126,32 @@
   {
    "x": -11,
    "y": -12,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -12,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -12,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -14,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -13,
    "y": -14,
-   "type": "empty"
+   "type": "rest"
   },
   {
    "x": -14,
    "y": -14,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -15,
@@ -161,38 +162,37 @@
   {
    "x": -16,
    "y": -14,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -16,
    "y": -15,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -16,
    "y": -16,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -16,
    "y": -17,
-   "type": "empty"
+   "type": "pojol"
   },
   {
    "x": -17,
    "y": -17,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -17,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -18,
    "y": -18,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -18,
@@ -202,45 +202,84 @@
   {
    "x": -18,
    "y": -20,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -18,
    "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -21,
+   "type": "trap"
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -21,
+   "type": "spike"
+  },
+  {
+   "x": -22,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -23,
+   "type": "shop"
+  },
+  {
+   "x": -22,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -24,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -6,
-   "y": -5,
-   "at": 11,
+   "x": -18,
+   "y": -21,
+   "at": 39,
    "zone": [
-    10,
-    11
+    39
    ],
-   "kind": "walpae",
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -22,
+   "y": -22,
+   "at": 44,
+   "zone": [
+    43,
+    44
+   ],
+   "kind": "pojol",
    "on_path": true
   },
   {
    "x": -3,
-   "y": -2,
-   "at": 5,
+   "y": -1,
+   "at": 4,
    "zone": [
-    4,
-    5
+    4
    ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -9,
-   "y": -9,
-   "at": 18,
-   "zone": [
-    18
-   ],
-   "kind": "pojol",
+   "kind": "walpae",
    "on_path": true
   }
  ]

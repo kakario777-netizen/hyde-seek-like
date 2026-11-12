@@ -3,7 +3,7 @@
  "name": "귀향의 바닷길",
  "tile": "wood",
  "bg": "deck",
- "turns": 15,
+ "turns": 18,
  "tiles": [
   {
    "x": 0,
@@ -23,46 +23,42 @@
   {
    "x": 0,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "trap"
   },
   {
    "x": 0,
    "y": -4,
-   "type": "trap"
+   "type": "empty"
   },
   {
    "x": -1,
    "y": -4,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -4,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -3,
-   "y": -4,
    "type": "buff"
   },
   {
-   "x": -4,
+   "x": -3,
    "y": -4,
    "type": "empty"
   },
   {
    "x": -4,
+   "y": -4,
+   "type": "debuff"
+  },
+  {
+   "x": -4,
    "y": -5,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -6,
-   "type": "buff"
+   "type": "item"
   },
   {
    "x": -4,
@@ -72,7 +68,8 @@
   {
    "x": -5,
    "y": -7,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -6,
@@ -87,37 +84,38 @@
   {
    "x": -7,
    "y": -8,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -7,
    "y": -9,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -9,
    "y": -9,
-   "type": "buff"
-  },
-  {
-   "x": -10,
-   "y": -9,
    "type": "empty"
   },
   {
-   "x": -11,
+   "x": -10,
    "y": -9,
    "type": "debuff"
   },
   {
    "x": -11,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -11,
    "y": -10,
-   "type": "pojol"
+   "type": "buff"
   },
   {
    "x": -11,
@@ -127,10 +125,7 @@
   {
    "x": -12,
    "y": -11,
-   "type": "boss",
-   "battle": "pirate_boss",
-   "pre": "C9_PIRATE_PRE",
-   "post": "C9_PIRATE_POST"
+   "type": "buff"
   },
   {
    "x": -13,
@@ -140,12 +135,12 @@
   {
    "x": -14,
    "y": -11,
-   "type": "empty"
+   "type": "walpae"
   },
   {
    "x": -15,
    "y": -11,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -15,
@@ -155,7 +150,10 @@
   {
    "x": -15,
    "y": -13,
-   "type": "debuff"
+   "type": "boss",
+   "battle": "pirate_boss",
+   "pre": "C9_PIRATE_PRE",
+   "post": "C9_PIRATE_POST"
   },
   {
    "x": -15,
@@ -190,49 +188,93 @@
   {
    "x": -19,
    "y": -16,
-   "type": "rest"
-  },
-  {
-   "x": -19,
-   "y": -17,
    "type": "empty"
   },
   {
    "x": -19,
+   "y": -17,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -19,
    "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -19,
+   "type": "rest"
+  },
+  {
+   "x": -21,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -20,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -23,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -4,
-   "y": -7,
-   "at": 11,
+   "x": -13,
+   "y": -11,
+   "at": 24,
    "zone": [
-    11
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -15,
-   "y": -15,
-   "at": 30,
-   "zone": [
-    29,
-    30
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -10,
-   "y": -9,
-   "at": 19,
-   "zone": [
-    19
+    24
    ],
    "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -6,
+   "y": -7,
+   "at": 13,
+   "zone": [
+    12,
+    13
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -19,
+   "y": -16,
+   "at": 35,
+   "zone": [
+    34,
+    35,
+    36
+   ],
+   "kind": "walpae",
    "on_path": true
   }
  ]

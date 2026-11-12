@@ -3,7 +3,7 @@
  "name": "비 오는 청계천",
  "tile": "stone",
  "bg": "stream",
- "turns": 18,
+ "turns": 21,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,8 @@
   {
    "x": 0,
    "y": -3,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -1,
@@ -33,8 +34,7 @@
   {
    "x": -2,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -2,
@@ -49,12 +49,12 @@
   {
    "x": -3,
    "y": -5,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -5,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -5,
@@ -64,18 +64,17 @@
   {
    "x": -5,
    "y": -6,
-   "type": "debuff"
-  },
-  {
-   "x": -5,
-   "y": -7,
    "type": "empty"
   },
   {
    "x": -5,
+   "y": -7,
+   "type": "walpae"
+  },
+  {
+   "x": -5,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -5,
@@ -85,18 +84,17 @@
   {
    "x": -6,
    "y": -9,
-   "type": "talk"
+   "type": "walpae"
   },
   {
    "x": -7,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "pojol"
+   "type": "debuff"
   },
   {
    "x": -9,
@@ -111,7 +109,7 @@
   {
    "x": -9,
    "y": -11,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -9,
@@ -121,7 +119,8 @@
   {
    "x": -10,
    "y": -12,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -11,
@@ -131,7 +130,7 @@
   {
    "x": -12,
    "y": -12,
-   "type": "buff"
+   "type": "spike"
   },
   {
    "x": -13,
@@ -146,7 +145,7 @@
   {
    "x": -13,
    "y": -14,
-   "type": "walpae"
+   "type": "shop"
   },
   {
    "x": -13,
@@ -156,7 +155,7 @@
   {
    "x": -14,
    "y": -15,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -15,
@@ -166,18 +165,17 @@
   {
    "x": -16,
    "y": -15,
-   "type": "empty",
-   "herb": true
-  },
-  {
-   "x": -16,
-   "y": -16,
    "type": "empty"
   },
   {
    "x": -16,
+   "y": -16,
+   "type": "item"
+  },
+  {
+   "x": -16,
    "y": -17,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -16,
@@ -187,7 +185,8 @@
   {
    "x": -16,
    "y": -19,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -17,
@@ -197,7 +196,7 @@
   {
    "x": -18,
    "y": -19,
-   "type": "shop"
+   "type": "buff"
   },
   {
    "x": -19,
@@ -207,37 +206,38 @@
   {
    "x": -20,
    "y": -19,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -20,
    "y": -20,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -21,
-   "type": "empty"
+   "type": "talk"
   },
   {
    "x": -21,
    "y": -21,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -22,
    "y": -21,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -22,
    "y": -22,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -22,
    "y": -23,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -22,
@@ -247,41 +247,79 @@
   {
    "x": -22,
    "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -25,
+   "type": "debuff"
+  },
+  {
+   "x": -24,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -26,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -28,
+   "type": "buff"
+  },
+  {
+   "x": -25,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -29,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -15,
-   "y": -15,
-   "at": 30,
+   "x": -7,
+   "y": -9,
+   "at": 16,
    "zone": [
-    29,
-    30,
-    31
+    16
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -9,
-   "y": -12,
-   "at": 21,
+   "x": -13,
+   "y": -13,
+   "at": 26,
    "zone": [
-    21
+    25,
+    26
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -4,
-   "y": -5,
-   "at": 9,
+   "x": -19,
+   "y": -19,
+   "at": 38,
    "zone": [
-    9,
-    10
+    38
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   }
  ]

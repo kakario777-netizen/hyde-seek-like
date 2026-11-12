@@ -3,7 +3,7 @@
  "name": "문경새재 넘기",
  "tile": "dirt",
  "bg": "mungyeong_pass",
- "turns": 19,
+ "turns": 22,
  "tiles": [
   {
    "x": 0,
@@ -23,17 +23,17 @@
   {
    "x": 0,
    "y": -3,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -1,
    "y": -3,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -2,
    "y": -3,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -3,
@@ -43,8 +43,7 @@
   {
    "x": -4,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -4,
@@ -54,7 +53,7 @@
   {
    "x": -4,
    "y": -5,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -64,7 +63,7 @@
   {
    "x": -4,
    "y": -7,
-   "type": "buff"
+   "type": "pojol"
   },
   {
    "x": -5,
@@ -89,8 +88,7 @@
   {
    "x": -8,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -8,
@@ -100,7 +98,7 @@
   {
    "x": -8,
    "y": -10,
-   "type": "rest"
+   "type": "talk"
   },
   {
    "x": -9,
@@ -110,13 +108,12 @@
   {
    "x": -10,
    "y": -10,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "debuff"
   },
   {
    "x": -10,
@@ -126,7 +123,7 @@
   {
    "x": -10,
    "y": -13,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -11,
@@ -136,7 +133,7 @@
   {
    "x": -12,
    "y": -13,
-   "type": "pojol"
+   "type": "buff"
   },
   {
    "x": -12,
@@ -146,7 +143,8 @@
   {
    "x": -12,
    "y": -15,
-   "type": "pojol"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -12,
@@ -156,12 +154,12 @@
   {
    "x": -13,
    "y": -16,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -14,
    "y": -16,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -15,
@@ -171,7 +169,7 @@
   {
    "x": -15,
    "y": -17,
-   "type": "shop"
+   "type": "buff"
   },
   {
    "x": -15,
@@ -181,12 +179,12 @@
   {
    "x": -15,
    "y": -19,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -16,
    "y": -19,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -17,
@@ -196,7 +194,7 @@
   {
    "x": -18,
    "y": -19,
-   "type": "debuff"
+   "type": "spike"
   },
   {
    "x": -19,
@@ -206,18 +204,17 @@
   {
    "x": -19,
    "y": -20,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -21,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -19,
    "y": -22,
-   "type": "talk"
+   "type": "rest"
   },
   {
    "x": -20,
@@ -232,7 +229,8 @@
   {
    "x": -22,
    "y": -22,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -23,
@@ -242,30 +240,73 @@
   {
    "x": -23,
    "y": -23,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -23,
    "y": -24,
-   "type": "debuff"
-  },
-  {
-   "x": -23,
-   "y": -25,
    "type": "empty"
   },
   {
    "x": -23,
+   "y": -25,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -23,
    "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -26,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -25,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -27,
+   "type": "pojol"
+  },
+  {
+   "x": -25,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -30,
+   "type": "buff"
+  },
+  {
+   "x": -26,
+   "y": -30,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -30,
    "type": "goal"
   }
  ],
  "guards": [
   {
    "x": -23,
-   "y": -23,
-   "at": 46,
+   "y": -22,
+   "at": 45,
    "zone": [
+    44,
     45,
     46
    ],
@@ -273,25 +314,26 @@
    "on_path": true
   },
   {
-   "x": -8,
-   "y": -9,
-   "at": 17,
+   "x": -4,
+   "y": -3,
+   "at": 7,
    "zone": [
-    16,
-    17
+    6,
+    7,
+    8
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -10,
-   "y": -12,
-   "at": 22,
+   "x": -16,
+   "y": -19,
+   "at": 35,
    "zone": [
-    21,
-    22
+    35,
+    36
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   }
  ]

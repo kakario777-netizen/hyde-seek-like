@@ -3,7 +3,7 @@
  "name": "운종가 약재 심부름",
  "tile": "stone",
  "bg": "jangteo",
- "turns": 14,
+ "turns": 16,
  "tiles": [
   {
    "x": 0,
@@ -23,12 +23,13 @@
   {
    "x": -3,
    "y": 0,
-   "type": "item"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -3,
    "y": -1,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -3,
@@ -38,7 +39,7 @@
   {
    "x": -3,
    "y": -3,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -4,
@@ -48,13 +49,12 @@
   {
    "x": -5,
    "y": -3,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -6,
    "y": -3,
-   "type": "rest"
+   "type": "debuff"
   },
   {
    "x": -7,
@@ -64,7 +64,8 @@
   {
    "x": -7,
    "y": -4,
-   "type": "walpae"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -7,
@@ -74,7 +75,7 @@
   {
    "x": -8,
    "y": -5,
-   "type": "spike"
+   "type": "pojol"
   },
   {
    "x": -9,
@@ -84,7 +85,8 @@
   {
    "x": -9,
    "y": -6,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -9,
@@ -94,7 +96,7 @@
   {
    "x": -9,
    "y": -8,
-   "type": "buff"
+   "type": "spike"
   },
   {
    "x": -10,
@@ -104,18 +106,17 @@
   {
    "x": -11,
    "y": -8,
-   "type": "debuff"
+   "type": "item"
   },
   {
    "x": -12,
    "y": -8,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -9,
-   "type": "shop"
+   "type": "buff"
   },
   {
    "x": -12,
@@ -135,7 +136,7 @@
   {
    "x": -14,
    "y": -11,
-   "type": "buff"
+   "type": "shop"
   },
   {
    "x": -15,
@@ -145,29 +146,28 @@
   {
    "x": -16,
    "y": -11,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -16,
    "y": -12,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -16,
    "y": -13,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -17,
    "y": -13,
-   "type": "empty",
-   "herb": true
+   "type": "rest"
   },
   {
    "x": -18,
    "y": -13,
-   "type": "buff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -18,
@@ -177,17 +177,57 @@
   {
    "x": -18,
    "y": -15,
+   "type": "buff"
+  },
+  {
+   "x": -18,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -17,
+   "type": "buff"
+  },
+  {
+   "x": -20,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -17,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -20,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -3,
-   "y": -1,
-   "at": 4,
+   "x": -4,
+   "y": -3,
+   "at": 7,
    "zone": [
-    4,
-    5
+    7,
+    8
    ],
    "kind": "walpae",
    "on_path": true

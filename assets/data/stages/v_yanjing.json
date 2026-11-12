@@ -3,7 +3,7 @@
  "name": "연경 약재 시장",
  "tile": "stone",
  "bg": "yanjing",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -23,28 +23,28 @@
   {
    "x": -2,
    "y": -1,
-   "type": "empty"
-  },
-  {
-   "x": -2,
-   "y": -2,
-   "type": "buff"
-  },
-  {
-   "x": -3,
-   "y": -2,
-   "type": "empty"
-  },
-  {
-   "x": -4,
-   "y": -2,
    "type": "empty",
    "herb": true
   },
   {
+   "x": -2,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "buff"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
    "x": -5,
    "y": -2,
-   "type": "walpae"
+   "type": "debuff"
   },
   {
    "x": -5,
@@ -54,7 +54,7 @@
   {
    "x": -5,
    "y": -4,
-   "type": "debuff"
+   "type": "buff"
   },
   {
    "x": -6,
@@ -74,7 +74,7 @@
   {
    "x": -9,
    "y": -4,
-   "type": "shop"
+   "type": "buff"
   },
   {
    "x": -9,
@@ -84,7 +84,7 @@
   {
    "x": -9,
    "y": -6,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -9,
@@ -94,56 +94,53 @@
   {
    "x": -10,
    "y": -7,
-   "type": "empty"
-  },
-  {
-   "x": -11,
-   "y": -7,
-   "type": "buff"
-  },
-  {
-   "x": -12,
-   "y": -7,
    "type": "empty",
    "herb": true
   },
   {
+   "x": -11,
+   "y": -7,
+   "type": "empty"
+  },
+  {
    "x": -12,
-   "y": -8,
+   "y": -7,
    "type": "shop"
   },
   {
    "x": -12,
-   "y": -9,
+   "y": -8,
    "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -9,
+   "type": "pojol"
   },
   {
    "x": -12,
    "y": -10,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -12,
    "y": -11,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -13,
    "y": -11,
-   "type": "pojol"
+   "type": "empty"
   },
   {
    "x": -14,
    "y": -11,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -15,
    "y": -11,
-   "type": "boss",
-   "battle": "cheong_merchant",
-   "pre": "C7_YANJING_PRE",
-   "post": "C7_YANJING_POST"
+   "type": "empty"
   },
   {
    "x": -15,
@@ -153,7 +150,7 @@
   {
    "x": -15,
    "y": -13,
-   "type": "spike"
+   "type": "debuff"
   },
   {
    "x": -16,
@@ -163,49 +160,50 @@
   {
    "x": -17,
    "y": -13,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -13,
-   "type": "empty"
+   "type": "boss",
+   "battle": "cheong_merchant",
+   "pre": "C7_YANJING_PRE",
+   "post": "C7_YANJING_POST"
   },
   {
    "x": -18,
    "y": -14,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -18,
    "y": -15,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -19,
    "y": -15,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -20,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "spike"
   },
   {
    "x": -21,
    "y": -15,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -22,
    "y": -15,
-   "type": "empty",
-   "herb": true
+   "type": "item"
   },
   {
    "x": -22,
    "y": -16,
-   "type": "item"
+   "type": "empty"
   },
   {
    "x": -22,
@@ -215,42 +213,84 @@
   {
    "x": -22,
    "y": -18,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -22,
    "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -19,
+   "type": "buff"
+  },
+  {
+   "x": -24,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -20,
+   "type": "pojol"
+  },
+  {
+   "x": -24,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -25,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -23,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -8,
-   "y": -4,
-   "at": 12,
-   "zone": [
-    12
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
    "x": -18,
-   "y": -13,
-   "at": 31,
+   "y": -14,
+   "at": 32,
    "zone": [
-    30,
-    31
+    32,
+    33
    ],
    "kind": "walpae",
    "on_path": true
   },
   {
-   "x": -14,
-   "y": -11,
-   "at": 25,
+   "x": -24,
+   "y": -19,
+   "at": 43,
    "zone": [
-    25
+    43
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "at": 6,
+   "zone": [
+    6
    ],
    "kind": "pojol",
    "on_path": true

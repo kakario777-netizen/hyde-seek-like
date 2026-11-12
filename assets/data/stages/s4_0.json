@@ -3,7 +3,7 @@
  "name": "성 밖 병든 마을",
  "tile": "grass",
  "bg": "village_outside",
- "turns": 18,
+ "turns": 20,
  "tiles": [
   {
    "x": 0,
@@ -23,7 +23,7 @@
   {
    "x": 0,
    "y": -3,
-   "type": "rest"
+   "type": "item"
   },
   {
    "x": 0,
@@ -33,7 +33,7 @@
   {
    "x": -1,
    "y": -4,
-   "type": "buff"
+   "type": "debuff"
   },
   {
    "x": -2,
@@ -43,22 +43,23 @@
   {
    "x": -3,
    "y": -4,
-   "type": "spike"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -4,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -4,
    "y": -5,
-   "type": "walpae"
+   "type": "empty"
   },
   {
    "x": -4,
    "y": -6,
-   "type": "empty"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -5,
@@ -68,18 +69,18 @@
   {
    "x": -6,
    "y": -6,
-   "type": "debuff"
-  },
-  {
-   "x": -6,
-   "y": -7,
    "type": "empty"
   },
   {
    "x": -6,
-   "y": -8,
+   "y": -7,
    "type": "empty",
    "herb": true
+  },
+  {
+   "x": -6,
+   "y": -8,
+   "type": "empty"
   },
   {
    "x": -6,
@@ -89,18 +90,17 @@
   {
    "x": -7,
    "y": -9,
-   "type": "spike"
+   "type": "pojol"
   },
   {
    "x": -8,
    "y": -9,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -9,
    "y": -9,
-   "type": "walpae"
+   "type": "rest"
   },
   {
    "x": -10,
@@ -115,13 +115,12 @@
   {
    "x": -10,
    "y": -11,
-   "type": "empty",
-   "herb": true
+   "type": "empty"
   },
   {
    "x": -10,
    "y": -12,
-   "type": "buff"
+   "type": "walpae"
   },
   {
    "x": -10,
@@ -131,12 +130,12 @@
   {
    "x": -11,
    "y": -13,
-   "type": "empty"
+   "type": "shop"
   },
   {
    "x": -12,
    "y": -13,
-   "type": "buff"
+   "type": "empty"
   },
   {
    "x": -13,
@@ -147,12 +146,12 @@
   {
    "x": -14,
    "y": -13,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -14,
    "y": -14,
-   "type": "empty"
+   "type": "buff"
   },
   {
    "x": -14,
@@ -162,7 +161,7 @@
   {
    "x": -15,
    "y": -15,
-   "type": "item"
+   "type": "spike"
   },
   {
    "x": -16,
@@ -188,7 +187,8 @@
   {
    "x": -17,
    "y": -18,
-   "type": "debuff"
+   "type": "empty",
+   "herb": true
   },
   {
    "x": -18,
@@ -208,12 +208,12 @@
   {
    "x": -19,
    "y": -20,
-   "type": "empty"
+   "type": "debuff"
   },
   {
    "x": -19,
    "y": -21,
-   "type": "shop"
+   "type": "empty"
   },
   {
    "x": -19,
@@ -223,12 +223,12 @@
   {
    "x": -20,
    "y": -22,
-   "type": "debuff"
+   "type": "empty"
   },
   {
    "x": -21,
    "y": -22,
-   "type": "empty"
+   "type": "spike"
   },
   {
    "x": -22,
@@ -238,18 +238,60 @@
   {
    "x": -22,
    "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -24,
+   "type": "buff"
+  },
+  {
+   "x": -23,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -24,
+   "type": "talk"
+  },
+  {
+   "x": -26,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -26,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -27,
    "type": "goal"
   }
  ],
  "guards": [
   {
-   "x": -19,
-   "y": -22,
-   "at": 41,
+   "x": -5,
+   "y": -6,
+   "at": 11,
    "zone": [
-    41
+    10,
+    11,
+    12
    ],
-   "kind": "walpae",
+   "kind": "pojol",
    "on_path": true
   },
   {
@@ -257,17 +299,18 @@
    "y": -18,
    "at": 36,
    "zone": [
+    35,
     36
    ],
    "kind": "pojol",
    "on_path": true
   },
   {
-   "x": 0,
-   "y": -4,
-   "at": 4,
+   "x": -10,
+   "y": -13,
+   "at": 23,
    "zone": [
-    4
+    23
    ],
    "kind": "walpae",
    "on_path": true
