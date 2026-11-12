@@ -1450,7 +1450,6 @@ const C10_FALL := [
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "역적의 손녀가 역적의 약을 넣었다. 이보다 분명한 일이 어디 있겠습니까.\n의금부는 무엇을 하는가! 당장 끌어내라!"},
 	{"who": "", "text": "그때, 문 앞을 막아선 사람이 있었다. 포도대장 윤도결이었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "멈춰라. 증거는 약사발 하나와, 할아버지가 누구냐는 것뿐인가."},
-	{"music": "lonely_night", "who": "윤도결", "pose": "jongsagwan", "text": "'그 집 사람'이라는 이유만으로 끌려간 사람을 안다.\n…내 아버지였다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "3년 전 나도 빈 돈궤만 보고 {name|을} 쫓았다.\n같은 잘못은 두 번 하지 않는다."},
 	{"music": "dread_shadow", "who": "윤도결", "pose": "jongsagwan", "text": "다래는 의금부에 두되, 아무도 손대지 못하게 한다.\n증거가 나올 때까지 이 사건은 포도청이 맡는다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "…나리."},
