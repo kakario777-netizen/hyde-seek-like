@@ -1500,8 +1500,7 @@ const SHOP_GOODS := [
 	{"id": "hat", "name": "삿갓 그늘", "price": 15, "icon": "debuff", "desc": "감시꾼에게\n한 번 들켜도 무사"},
 	{"id": "charm", "name": "호신 부적", "price": 17, "icon": "buff", "desc": "다음 전투 시작 때\n막기 10"},
 	{"id": "pill", "name": "각성 환", "price": 19, "icon": "yak", "desc": "다음 전투 첫 차례\n기력 +1"},
-	{"id": "herbs", "name": "약초 한 줌", "price": 14, "icon": "herb", "desc": "약초 2개"},
-	{"id": "ginseng", "name": "인삼 뿌리", "price": 25, "icon": "potion", "desc": "최대 체력 +5\n(장마다 1개)"},
+	{"id": "ginseng", "name": "인삼 뿌리", "price": 25, "icon": "herb", "desc": "최대 체력 +5\n(장마다 1개)"},
 ]
 var goods := {}   # 가지고 있는 물건 개수
 
