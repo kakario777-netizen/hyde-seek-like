@@ -75,8 +75,7 @@ const CHAPTERS := {
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "seohwi"},
 			{"map": "s10_mapo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
 				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
-			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
-			{"map": "s9_2", "name": "남산 아래 집터로"}],
+			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],
 		"goal_text": "남산 아래, 볕 잘 드는 빈터에 닿았다.\n서휘가 말뚝 하나를 박았다. \"여기에 짓자.\"", "goal_title": "새 보금자리", "goal_pic": "seohwi", "goal_bg": "family"},
 }
 
@@ -1064,6 +1063,7 @@ const C9_MEM := [
 	{"if": "wed_dogyeol", "who": "글방 아이", "text": "좌포도대장 나리다! 의원님 손 잡고 있다!"},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…글 읽어라. 대장 지나간다."},
 	{"who": "", "text": "다리 밑에서 글 읽는 아이들의 소리가 냇물처럼 흘렀다."},
+	{"who": "", "text": "둘은 아이들 글 읽는 소리를 뒤로하고, 나란히 남산 쪽으로 걸었다."},
 ]
 
 const CH9_END := [

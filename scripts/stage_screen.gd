@@ -1479,7 +1479,10 @@ func _stage_clear() -> void:
 		return
 	main.popup(msg, "계속", func():
 		if last:
-			_reach_goal()
+			if stage_cfg.get("after", "") != "":   # 마지막 맵 뒤 이야기 → 목적지
+				main.dialog_chain(StoryData.lines(stage_cfg["after"]), _reach_goal)
+			else:
+				_reach_goal()
 		else:
 			var ab: Dictionary = stage_cfg.get("after_battle", {})
 			if ab.is_empty():
