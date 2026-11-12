@@ -1056,7 +1056,7 @@ func illust(name: String) -> Texture2D:
 ## 아직 그림이 없을 때 임시로 쓰는 그림
 const CHAR_FALLBACK := {"hero_disguise_hair": "hero_disguise_sad"}
 
-const BG_FALLBACK := {"yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
+const BG_FALLBACK := {"grave_path": "mountain", "yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
 	"flash_plague": "village_outside", "flash_carried": "mountain", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
 
 func backdrop(name: String) -> Texture2D:
