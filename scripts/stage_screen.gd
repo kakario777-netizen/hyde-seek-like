@@ -276,7 +276,7 @@ func _make_tile_ent(i: int) -> void:
 		"walpae", "pojol":
 			var eid := _enemy_id(typ)
 			root.add_child(_sprite(GameData.ENEMIES[eid]["sprite"], 170))
-			root.add_child(_badge("walpae" if typ == "walpae" or main.chapter >= 9 else "pojol", Vector2(-22, -210), Color("f3d0c8")))  # 한양 귀환 뒤엔 쫓기는 몸이 아니니 포졸 표시 없음
+			root.add_child(_badge("pojol" if eid == "pojol" else "walpae", Vector2(-22, -210), Color("f3d0c8")))  # 진짜 포졸일 때만 포졸 표시
 		"boss":
 			root.add_child(_sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210))
 			root.add_child(_badge("walpae", Vector2(-22, -250), Color("ffb0a0")))
