@@ -918,7 +918,7 @@ func fig_scale(name: String) -> float:
 		return 0.66
 	if name.begins_with("hero_adult"):
 		return 0.92
-	if name.begins_with("hero_disguise") and name != "hero_disguise_hair":
+	if name.begins_with("hero_disguise") and not name.begins_with("hero_disguise_hair"):
 		return 0.88   # 남장 주인공 (패랭이 포함 원래 크기)
 	if name.begins_with("hero_court"):
 		return 0.82   # 의녀·어의 옷 주인공은 평상복 주인공과 같은 크기
