@@ -40,7 +40,7 @@ const CHAPTERS := {
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
-		"stages": [{"map": "s5_1", "foes": {"walpae": "mob", "pojol": "mob"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
+		"stages": [{"map": "s5_1", "foes": {"walpae": "mob", "pojol": "rival"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
 			{"map": "s5_2", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
 			{"map": "s5_3", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "궁궐 담장 아래", "after": "C5_DOGYEOL"},
 			{"map": "s5_4", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "허 의원 약방으로"}],
@@ -1203,7 +1203,7 @@ const ALL := {
 const ENEMY_MAP := {
 	3: {"walpae": "rival", "pojol": "pojol"},
 	4: {"walpae": "sanjeok", "pojol": "pojol"},
-	5: {"walpae": "mob", "pojol": "mob"},
+	5: {"walpae": "mob", "pojol": "rival"},
 	6: {"walpae": "sanjeok", "pojol": "sanjeok"},
 	7: {"walpae": "haejeok", "pojol": "haejeok"},
 	8: {"walpae": "rat", "pojol": "haejeok"},
