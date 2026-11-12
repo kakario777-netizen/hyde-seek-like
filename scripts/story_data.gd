@@ -46,8 +46,7 @@ const CHAPTERS := {
 			{"map": "s5_4", "foes": {"walpae": "walpae", "pojol": "rival"}, "name": "허 의원 약방으로", "ally": "dogyeol"}],
 		"goal_pre": "CH5_GOAL", "goal_battle": "shadow", "goal_ally": "dogyeol"},
 	6: {"title": "제6장  작별", "goal": "산마루 약초밭", "intro": "CH6F_INTRO", "end": "CH6F_END", "stage_ally": "darae",
-		"stages": [{"map": "s6_1", "foes": {"walpae": "sanjeok", "pojol": "sanjeok"}, "name": "다래와 북한산 오르기", "after": "C6F_LESSON"},
-			{"map": "s6_2", "name": "산마루 약초밭으로"}],
+		"stages": [{"map": "s6_2", "name": "산마루 약초밭으로"}],
 		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "mountain"},
 	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 36, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
@@ -746,7 +745,14 @@ const C6F_LESSON := [
 ]
 
 const CH6F_END := [
-	{"bg": "mountain", "who": "", "text": "산마루 양지바른 비탈. 둘은 해가 질 때까지 흙을 일구었다."},
+	{"bg": "mountain", "who": "", "text": "산마루로 오르는 길. 다래가 바위틈의 풀 한 포기를 가리켰다."},
+	{"who": "다래", "pic": "friend", "text": "이건 내가 알아! 도라지야. 근데 이걸 어떻게 약으로 써?"},
+	{"who": "{name}", "pic": "hero", "text": "뿌리를 캐서 껍질을 벗기고 볕에 말려.\n기침과 가래에 좋아. 감초를 조금 넣어 달이면 쓴맛도 덜하고."},
+	{"who": "다래", "pic": "friend_worried", "text": "그럼 이건? 할아버지가 독초라고 절대 만지지 말랬던 거."},
+	{"who": "{name}", "pic": "hero", "text": "미치광이풀. 할아버지가 나한테도 처음 가르쳐 주신 거야.\n…좋은 의원은 약보다 독을 먼저 알아보는 사람이래."},
+	{"who": "다래", "pic": "friend_worried", "text": "…할아버지 생각난다. 그 가르침만큼은 진짜였을 거야."},
+	{"who": "", "potion": 2, "text": "(다래가 캔 약초로 약을 달였다: 약병 +2)"},
+	{"who": "", "text": "산마루 양지바른 비탈. 둘은 해가 질 때까지 흙을 일구었다."},
 	{"who": "{name}", "pose": "hero", "text": "약초는 해가 잘 드는 데 심고, 물은 흙이 마를 때만 줘.\n뿌리 약초는 삼 년은 기다려야 해. 조급하면 안 돼."},
 	{"who": "다래", "pose": "friend", "text": "삼 년… 그럼 이 도라지가 다 자랄 때쯤엔 너도 돌아와 있겠다."},
 	{"who": "{name}", "pose": "hero", "text": "응. 약속할게."},
