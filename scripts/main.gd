@@ -249,6 +249,9 @@ func _debug_capture() -> void:
 		"shop":
 			coins = 9
 			start_board()
+			await get_tree().create_timer(0.9).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
 			open_shop(Callable(), "보따리장수", board.data.get("bg", "jangteo"))
 		"reward":
 			start_board()
@@ -1490,6 +1493,56 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 const CARD_PRICE := 4
 const POTION_PRICE := 10
 
+## 보따리장수가 파는 물건
+const SHOP_GOODS := [
+	{"id": "shoes", "name": "새 짚신", "price": 16, "icon": "step", "desc": "다음 맵 남은 시각 +3"},
+	{"id": "smoke", "name": "연막 주머니", "price": 18, "icon": "gochu", "desc": "길막이 하나를\n싸우지 않고 지나감"},
+	{"id": "hat", "name": "삿갓 그늘", "price": 15, "icon": "debuff", "desc": "감시꾼에게\n한 번 들켜도 무사"},
+	{"id": "charm", "name": "호신 부적", "price": 17, "icon": "buff", "desc": "다음 전투 시작 때\n막기 10"},
+	{"id": "pill", "name": "각성 환", "price": 19, "icon": "yak", "desc": "다음 전투 첫 차례\n기력 +1"},
+	{"id": "herbs", "name": "약초 한 줌", "price": 14, "icon": "herb", "desc": "약초 2개"},
+	{"id": "ginseng", "name": "인삼 뿌리", "price": 25, "icon": "potion", "desc": "최대 체력 +5\n(장마다 1개)"},
+]
+var goods := {}   # 가지고 있는 물건 개수
+
+func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
+	var pc := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("f3e6c8"); sb.border_color = Color("9a7a4a")
+	sb.set_border_width_all(3); sb.set_corner_radius_all(10); sb.set_content_margin_all(10)
+	pc.add_theme_stylebox_override("panel", sb)
+	pc.custom_minimum_size = Vector2(300, 0)
+	pc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 4)
+	pc.add_child(v)
+	var top := HBoxContainer.new()
+	top.add_theme_constant_override("separation", 8)
+	v.add_child(top)
+	var tex: Texture2D = load("res://assets/ui/tiles/deco_herb.png") if g["icon"] == "herb" else icon(g["icon"])
+	top.add_child(tex_rect(tex, Vector2(48, 48)))
+	var nm := make_label(g["name"], 28, RED)
+	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	top.add_child(nm)
+	var d := make_label(g["desc"], 21, INK_SOFT)
+	d.custom_minimum_size = Vector2(0, 58)
+	v.add_child(d)
+	var buy := make_button("%d냥" % g["price"], 24)
+	buy.custom_minimum_size = Vector2(0, 56)
+	v.add_child(buy)
+	buy.pressed.connect(func():
+		if coins < int(g["price"]):
+			msg.text = "엽전이 모자랍니다 (%s %d냥)" % [g["name"], g["price"]]
+			msg.add_theme_color_override("font_color", RED)
+			return
+		coins -= int(g["price"])
+		sfx("coin")
+		goods[g["id"]] = int(goods.get(g["id"], 0)) + 1
+		msg.text = "〈%s〉을(를) 샀습니다!" % g["name"]
+		msg.add_theme_color_override("font_color", INK_SOFT)
+		refresh.call())
+	return pc
+
 func open_shop(cb: Callable, place := "장터", bg := "jangteo") -> void:
 	var o := _overlay(place, bg)
 	var layer: CanvasLayer = o[0]
@@ -1497,53 +1550,27 @@ func open_shop(cb: Callable, place := "장터", bg := "jangteo") -> void:
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
 	var refresh: Callable = cp[1]
-	var msg := _note("상소 한 장 %d냥 · 진한 탕약 %d냥 · 단련 5~15냥" % [CARD_PRICE, POTION_PRICE])
+	var msg := _note("필요한 물건을 골라 보세요.")
 	vb.add_child(msg)
-	var row := HBoxContainer.new()
-	row.alignment = BoxContainer.ALIGNMENT_CENTER
-	row.add_theme_constant_override("separation", 12)
-	vb.add_child(row)
-	for i in 3:
-		var e := {"id": GameData.REWARD_POOL.pick_random(), "lv": 1}
-		var b := card_button(e, 172, 286)
-		row.add_child(b)
-		b.pressed.connect(func():
-			if coins < CARD_PRICE:
-				msg.text = "엽전이 모자랍니다 (상소 %d냥)" % CARD_PRICE
-				msg.add_theme_color_override("font_color", RED)
-				b.pivot_offset = b.size / 2.0
-				var sh := create_tween()
-				sh.tween_property(b, "rotation", 0.06, 0.05); sh.tween_property(b, "rotation", -0.06, 0.08); sh.tween_property(b, "rotation", 0.0, 0.05)
-				return
-			coins -= CARD_PRICE
-			sfx("coin")
-			deck.append(e)
-			b.disabled = true
-			b.modulate = Color(0.55, 0.55, 0.55)
-			msg.text = "〈%s〉 상소를 샀습니다! 보따리에 넣었어요." % GameData.stats(e["id"], 1)["name"]
-			msg.add_theme_color_override("font_color", INK_SOFT)
-			refresh.call())
-	var pot := make_button("진한 탕약 사기 · 체력 +40 (%d냥)" % POTION_PRICE, 28)
-	pot.custom_minimum_size = Vector2(0, 86)
-	vb.add_child(pot)
-	pot.pressed.connect(func():
-		if coins < POTION_PRICE:
-			msg.text = "엽전이 모자랍니다 (약병 %d냥)" % POTION_PRICE
-			msg.add_theme_color_override("font_color", RED)
-			return
-		coins -= POTION_PRICE
-		sfx("coin")
-		potions += 1
-		msg.text = "진한 탕약을 샀습니다! (지금 %d병)" % potions
-		msg.add_theme_color_override("font_color", INK_SOFT)
-		refresh.call())
-	var brew := make_button("약탕관 · 약초로 약 달이기", 28)
-	brew.custom_minimum_size = Vector2(0, 86)
-	vb.add_child(brew)
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 12)
+	grid.add_theme_constant_override("v_separation", 12)
+	vb.add_child(grid)
+	for g in SHOP_GOODS:
+		grid.add_child(_goods_tile(g, msg, refresh))
+	var hb := HBoxContainer.new()
+	hb.add_theme_constant_override("separation", 12)
+	vb.add_child(hb)
+	var brew := make_button("약탕관", 28)
+	brew.custom_minimum_size = Vector2(0, 80)
+	brew.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hb.add_child(brew)
 	brew.pressed.connect(func(): show_brew(refresh))
-	var bag := make_button("보따리 열기 · 상소 단련", 28)
-	bag.custom_minimum_size = Vector2(0, 86)
-	vb.add_child(bag)
+	var bag := make_button("보따리 · 상소 단련", 28)
+	bag.custom_minimum_size = Vector2(0, 80)
+	bag.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hb.add_child(bag)
 	bag.pressed.connect(func(): show_bag(refresh))
 	var leave := make_button("%s를 떠난다" % place if place == "장터" else "다시 길을 나선다", 28)
 	leave.custom_minimum_size = Vector2(0, 86)
