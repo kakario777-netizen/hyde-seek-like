@@ -1509,8 +1509,10 @@ const C10_JEONG_PRE := [
 ]
 
 const C10_JEONG_POST := [
-	{"bg": "mapo_warehouse", "music": "sad_farewell", "who": "정 의관", "pose": "jeong_shadow", "text": "크으윽…! 안 돼… 이 힘이… 빠져나간다…"},
+	{"bg": "mapo_warehouse", "music": "sad_farewell", "who": "정 의관", "pose": "jeong_shadow", "text": "크으윽…! 아직… 아직 끝나지 않았다…!"},
 	{"who": "", "text": "{name|은} 품에서 환약 한 알을 꺼냈다.\n허 의원의 환심단에 백운이 건넨 해독법대로 용뇌를 더해 빚은 약 ― 새 환심단이었다."},
+	{"who": "", "text": "{name|은} 무릎 꿇은 정 의관의 입에 새 환심단을 밀어 넣었다."},
+	{"who": "정 의관", "pose": "jeong_shadow", "text": "크윽…! 이, 이건…! 안 돼… 힘이… 빠져나간다…"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "떼어 낸 검은 것은 사라지지 않아요. 더 큰 미움이 되어 돌아올 뿐.\n그러니까… 돌려놓는 거예요. 원래 있던 자리로."},
 	{"who": "", "text": "검은 연기가 걷히자, 바닥에 주저앉은 것은 지친 늙은 의관 하나였다."},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…서른 해. 나도 처음엔… 아픈 사람을 살리고 싶어서 의관이 되었는데.\n언제부터 자리만 보였을까."},
