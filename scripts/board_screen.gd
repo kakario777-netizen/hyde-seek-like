@@ -411,7 +411,7 @@ func _resolve() -> void:
 			_apply_event(main.pick_event(GameData.TRAPS))
 		"rest":
 			_clear(pos)
-			_apply_event(GameData.REST)
+			_apply_event(main.rest_event())
 		"story":
 			_clear(pos)
 			var lines: Array = StoryData.lines(nodes[pos].get("sid", nodes[pos]["type"]))

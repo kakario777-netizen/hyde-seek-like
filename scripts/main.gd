@@ -454,6 +454,23 @@ var sub_stage: Dictionary = {}
 var world_board: Control = null
 var voyage_done: Callable
 
+## 쉼터 칸: 조선 땅에서는 주막(주모), 그 밖에서는 장소에 맞게
+func rest_event(bg := "") -> Dictionary:
+	var ev: Dictionary = GameData.REST.duplicate()
+	if bg in ["deck", "deck_night", "sea", "port", "holland_port"]:
+		ev["title"] = "선실"; ev.erase("pic")
+		ev["text"] = "선실 해먹에 몸을 누이고 한숨 푹 잤다.\n뱃사람이 끓여 준 수프에 기운이 돈다.\n\n(체력 +20)"
+	elif chapter == 7 or bg in ["yanjing"]:
+		ev["title"] = "객잔"; ev.erase("pic")
+		ev["text"] = "길가 객잔에서 하룻밤 묵어 갔다.\n낯선 땅의 따뜻한 국수에 기운이 돈다.\n\n(체력 +20)"
+	elif chapter == 8 or bg in ["holland"]:
+		ev["title"] = "여관"; ev.erase("pic")
+		ev["text"] = "풍차 옆 작은 여관에서 하룻밤 묵어 갔다.\n따끈한 빵과 수프에 기운이 돈다.\n\n(체력 +20)"
+	elif bg in ["castle", "vault", "corridor", "cheonsugak"]:
+		ev["title"] = "숨 고르기"; ev.erase("pic")
+		ev["text"] = "빈 곳간 구석에 몸을 숨기고 잠시 숨을 골랐다.\n\n(체력 +20)"
+	return ev
+
 ## 맵 사건 고르기: 다래가 곁에 없으면 다래가 나오는 사건은 빼고
 func pick_event(pool: Array) -> Dictionary:
 	if companion() == "darae":
