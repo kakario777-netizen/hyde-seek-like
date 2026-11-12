@@ -57,6 +57,10 @@ const CHAPTERS := {
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "h_port", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "h_deck", "ally_pic": "seohwi_dutch", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s9_g", "ally_pic": "seohwi_dutch", "name": "허 의원 묘 가는 산길", "after": "C9_GRAVE_RET", "after_story": true,
+				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
+					{"who": "약초 캐는 할머니", "text": "허 의원님 따님이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
+					{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
 			{"map": "s9_p", "name": "포도청 수련", "after": "C10_SHOP_LETTER", "after_story": true, "ally": "", "token": "seohwi_podo", "me_name": "서휘",
 				"foes": {"walpae": "walpae", "pojol": "rival"}},
 			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae",
@@ -81,7 +85,8 @@ static func lines(key: String) -> Array:
 	match key:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
-		"C9_RETURN": return C9_HOMEWARD + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_RETURN": return C9_HOMEWARD
+		"C9_GRAVE_RET": return C9_GRAVE + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
@@ -874,7 +879,15 @@ const C9_HOMEWARD := [
 	{"bg": "ferry", "who": "", "text": "그리고 압록강 나루."},
 	{"who": "수문장", "pose": "sumunjang", "text": "응? 이 얼굴… 그때 그 고운 목소리의 조선 의원!\n…허허, 이번엔 아가씨로구먼! 어쩐지 손이 희더라니."},
 	{"who": "수문장", "pose": "sumunjang", "text": "그 포도대장 서찰, 아직 내 품에 있소.\n그리 귀한 보증은 처음이었거든. 어서 가시오, 고향이 기다리오."},
-	{"bg": "grave", "who": "", "text": "한양에 들기 전, 둘은 먼저 도성 밖 산자락에 올랐다.\n매화 꽃잎이 흩날리는 작은 봉분. 허 의원의 묘였다."},
+	{"bg": "mountain", "who": "", "text": "압록강을 건너 한 달 남짓. 마침내 도성 밖 산자락에 닿았다.\n저 산마루 너머가 한양이었다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "서휘. 한양에 들어가기 전에… 먼저 들를 데가 있어요.\n아버지께 인사부터 드리고 싶어서."},
+	{"who": "서휘", "pose": "seohwi_dutch", "text": "…그래. 나도 꼭 뵙고 싶었다. 앞장서라."},
+	{"who": "", "text": "【목표】\n서휘와 함께 산길을 올라\n허 의원의 묘에 닿아라."},
+]
+
+## 허 의원 묘 산길 맵을 지난 뒤
+const C9_GRAVE := [
+	{"bg": "grave", "who": "", "text": "산길 끝, 볕 잘 드는 비탈.\n매화 꽃잎이 흩날리는 작은 봉분. 허 의원의 묘였다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "아버지, 다녀왔어요.\n아버지가 보고 싶어 하던 넓은 세상, 끝까지 보고 왔어요."},
 	{"who": "{name}", "pose": "hero_adult", "text": "화란에서 가져온 튤립이에요. 말려서 오느라 좀 바랬지만…\n아버지 약방 마당에도 심어 볼게요."},
 	{"music": "heart_flutter", "who": "", "text": "서휘가 봉분 앞에 무릎을 꿇었다."},

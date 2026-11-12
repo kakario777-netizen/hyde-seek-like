@@ -1137,7 +1137,7 @@ const WHO_PIC := {"약재 상인": "yakjae", "엿장수": "yeotjangsu", "주막 
 
 ## 이 칸에서 만날 사람 (칸마다 정해져 있어 맵에 미리 보인다)
 func _talk_at(i: int) -> Dictionary:
-	var pool: Array = PODO_TALKS if stage_cfg.has("me_name") else StoryData.talks(main.chapter)
+	var pool: Array = stage_cfg["talks"] if stage_cfg.has("talks") else (PODO_TALKS if stage_cfg.has("me_name") else StoryData.talks(main.chapter))
 	var k := 0
 	for j in i:
 		if tiles[j]["type"] == "talk":
