@@ -1264,7 +1264,7 @@ const BLOCK_REPLY := {
 		{"who": "포졸", "pic": "pojol", "text": "약초꾼이 왜 그리 눈을 피해? 수상하다, 이리 와 봐라!"}],
 	"walpae": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "가진 거라곤 약초 몇 뿌리뿐이에요. 비켜 주세요."},
 		{"who": "왈패", "pic": "walpae", "text": "흐흐, 약초도 돈이지. 순순히 안 내놓겠다 이거냐?"}],
-	"mob": [{"who": "{name}", "pic": "hero", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
+	"mob": [{"who": "{alias}", "pic": "hero_disguise_sad", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
 		{"who": "중독된 사내", "pic": "addict", "text": "약…! 그 약 냄새… 내놔아아!"}],
 	"masked_henchman": [{"who": "{name}", "pic": "hero_adult", "text": "정 의관이 보낸 사람이군요. 비켜요, 대비마마를 살려야 해요!"},
 		{"who": "복면 하수인", "pic": "masked_henchman", "text": "살아서 궁 밖으로 나갈 생각은 버려라."}],
