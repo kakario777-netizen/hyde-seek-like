@@ -8,7 +8,7 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
-const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "stream"}
+const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "alley", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "namsan_night"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
