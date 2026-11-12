@@ -1027,7 +1027,7 @@ func fig_scale(name: String) -> float:
 		return 0.5    # 주저앉은 아이
 	if name == "rat":
 		return 0.5
-	if name == "addict":
+	if name == "addict" or name == "addict_well":
 		return 0.85   # 중독된 사내: 꾸부정하게 서 있어 반듯한 어른보다 작게
 	if name == "gatekeeper":
 		return 0.8    # 성 문지기: 전투 화면과 비슷한 크기로
