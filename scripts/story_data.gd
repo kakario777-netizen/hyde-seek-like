@@ -706,7 +706,7 @@ const C5_SHADOW_FLEE := [
 	{"who": "윤도결", "pic": "jongsagwan", "text": "{name}! …다친 데는 없나? 손등이 긁혔잖아."},
 	{"who": "{name}", "pic": "hero", "text": "괜찮아요, 나리. 살짝 스친 거예요."},
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "괜찮긴. 혼자 그놈 앞에 서 있는 걸 보고 심장이 멎는 줄 알았다.\n…다음엔 반드시 날 먼저 불러라."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "또 놓쳤군. 하지만 이제 알겠다. 놈은 그 약방으로 돌아간다."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "놈은 반드시 그 약방으로 돌아간다."},
 ]
 
 const CH6F_INTRO := [
