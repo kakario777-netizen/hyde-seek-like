@@ -1016,6 +1016,7 @@ func fig_scale(name: String) -> float:
 		return 0.86
 	if name.begins_with("dutch_baker"): return 0.84
 	if name.begins_with("dutch_miller"): return 0.8
+	if name == "seohwi_dutch_sick": return 0.72   # 의자에 앉은 모습
 	if name == "dutch_fisherman": return 0.84
 	if name == "dutch_woman": return 0.8
 	if name == "dutch_sick_man":
