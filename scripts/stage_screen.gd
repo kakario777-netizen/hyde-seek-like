@@ -1389,7 +1389,7 @@ const BLOCK_REPLY := {
 		{"who": "왈패", "pic": "walpae", "text": "흐흐, 약초도 돈이지. 순순히 안 내놓겠다 이거냐?"}],
 	"mob": [{"who": "{alias}", "pic": "hero_disguise_sad", "text": "진정하세요! 제가 고쳐 드릴 수 있어요!"},
 		{"who": "중독된 사내", "pic": "addict", "text": "약…! 그 약 냄새… 내놔아아!"}],
-	"masked_henchman": [{"who": "{name}", "pic": "hero_adult", "text": "정 의관이 보낸 사람이군요. 비켜요, 대비마마를 살려야 해요!"},
+	"masked_henchman": [{"who": "{name}", "pic": "hero_adult_tense", "text": "정 의관이 보낸 사람이군요. 비켜요, 대비마마를 살려야 해요!"},
 		{"who": "복면 하수인", "pic": "masked_henchman", "text": "살아서 궁 밖으로 나갈 생각은 버려라."}],
 	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병 도는 마을에 약을 가져가는 길이에요. 비켜요!"},
 		{"who": "뱃사람", "pic": "haejeok_young", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],

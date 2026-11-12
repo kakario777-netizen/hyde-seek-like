@@ -863,7 +863,7 @@ const C9_PIRATE_PRE := [
 	{"bg": "deck", "who": "", "text": "희망의 곶을 앞둔 밤, 검은 돛을 단 배가 다시 나타났다."},
 	{"who": "해적 두목", "pic": "pirate_captain", "text": "크하하! 몇 해 전 내 배를 망신 준 동양 의원 놈 아니냐!\n이번엔 갑판째로 바다에 처넣어 주마!"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 사람한테 손대는 순간, 네가 먼저 바다에 빠질 거다."},
-	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "이번엔 둘이에요. 덤벼요!"},
+	{"who": "{name}", "pic": "hero_adult_tense", "text": "이번엔 둘이에요. 덤벼요!"},
 ]
 
 const C9_PIRATE_POST := [
@@ -1403,7 +1403,7 @@ const PLACEHOLDERS := []
 const C10_LETTER := [
 	{"bg": "yakbang_calm", "music": "lonely_night", "who": "", "text": "며칠 뒤, 문을 닫은 밤의 약방.\n{name|은} 맨 아래 약장 서랍을 닦다가 손을 멈췄다. 서랍 바닥이 이중으로 되어 있었다."},
 	{"bg": "heo_letter", "who": "", "text": "숨은 칸 안에는 누렇게 바랜 편지 한 통과 작은 놋쇠 열쇠가 들어 있었다.\n겉봉에는 낯익은 붓글씨. ― '내 딸에게.'"},
-	{"who": "{name}", "pose": "hero_adult", "text": "…의원님 글씨야."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "…의원님 글씨야."},
 	{"who": "허 의원", "pose": "heo", "text": "(편지) {name}아. 네가 이 글을 읽는다면, 나는 끝내 너에게 직접 말하지 못한 것이겠지.\n그날 내가 삼킨 말부터 적으마."},
 	{"bg": "flash_plague", "who": "", "text": "(편지) 네 부모는 내 동문이었다. 역병이 번진 마을에 누구도 들어가지 않을 때,\n둘은 약 보따리를 지고 제 발로 그 마을에 들어갔다."},
 	{"who": "", "text": "(편지) 나도 따라가겠다 해 놓고, 두려워서 하루를 미뤘다.\n그 하루 사이에 두 사람은 쓰러졌고, 나는 마을 어귀에서 약 바구니를 든 너만 찾아냈다."},
@@ -1412,7 +1412,7 @@ const C10_LETTER := [
 	{"bg": "yakbang_calm", "music": "lonely_night", "who": "", "text": "(편지) 환심단 처방은 지하 책장에 남겼다. 그러나 흑심단 만드는 책장 일부가 청나라 쪽으로 흘러간 걸 알았다.\n청 약재와 섞이면 지금의 환심단으로는 되돌릴 수 없을 게다."},
 	{"who": "", "text": "(편지) 청 상인들과 거래하던 백운 스승님만이 그 독을 아신다.\n이 열쇠는 스승님의 약궤 열쇠다."},
 	{"who": "허 의원", "pose": "heo_smile", "text": "(편지) 길에서 거둔 아이라 한 말, 평생 후회했다.\n너는 내 친구의 딸이고… 내 딸이다. 미안하다. 그리고 고맙다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "…아버지.\n저도 이제 알아요. 화란에서 아이들을 살린 거… 어머니 아버지가 못다 한 일을 제가 이어 간 거였네요."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "…아버지.\n저도 이제 알아요. 화란에서 아이들을 살린 거… 어머니 아버지가 못다 한 일을 제가 이어 간 거였네요."},
 	{"who": "", "text": "그때 약방 문이 벌컥 열렸다. 등불을 든 다래였다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "{name}아, 아직 안 잤…\n…너 울었어? 무슨 일이야?"},
 	{"who": "", "text": "{name|은} 편지를 보여 주었다. 다래는 '백운'이라는 이름에서 한참 눈을 떼지 못했다."},
@@ -1429,7 +1429,7 @@ const C10_EXILE := [
 	{"who": "다래", "pose": "darae_adult_cry", "text": "나는 그 사람들 약을 달이면서 매일 생각했어. 이건 우리 할아버지가 한 짓이다…\n…근데 왜, 왜 아직도 할아버지가 보고 싶은 건데!"},
 	{"who": "백운", "pose": "baegun_exile", "text": "……."},
 	{"who": "백운", "pose": "baegun_exile", "text": "변명은 않으마. 나는 셈을 했고, 그 셈 끝에 사람이 있다는 걸 잊었다.\n여기서 삼 년, 매일 그 얼굴들을 셌다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "선생님. 허 의원님의 편지를 가져왔어요.\n청나라 약재가 섞인 흑심단의 독은 선생님만 아신다고."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "선생님. 허 의원님의 편지를 가져왔어요.\n청나라 약재가 섞인 흑심단의 독은 선생님만 아신다고."},
 	{"who": "", "text": "{name|이} 놋쇠 열쇠를 내밀자, 백운의 손이 떨렸다.\n그는 방구석의 낡은 약궤를 열고, 얇은 서책 한 권을 꺼냈다."},
 	{"who": "백운", "pose": "baegun_exile_cry", "text": "…허가 놈. 끝까지 나를 스승이라 부르는구나.\n청심보명단에 쓴 청나라 약재, 그 독을 푸는 법이다. 죄를 지은 손으로 배운 것이지."},
 	{"who": "백운", "pose": "baegun_exile_cry", "text": "환심단에 용뇌(龍腦)를 더하거라.\n조선 땅에선 구하기 어렵고, 청 상선으로만 들어온다."},
@@ -1455,7 +1455,7 @@ const C10_FALL := [
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "…나리."},
 	{"bg": "uigeumbu", "music": "lonely_night", "who": "", "text": "그날 밤, 의금부 옥사. 달빛이 창살 사이로 가늘게 떨어졌다."},
 	{"who": "다래", "pose": "darae_prison", "text": "{name}아… 나 정말 아니야.\n할아버지 일 때문에 다들 날 그렇게 볼 거라는 거, 알고 있었어. 그래도…"},
-	{"who": "{name}", "pose": "hero_adult", "text": "알아. 나도 똑같이 쫓겨 봤잖아.\n그때 네가 고춧가루 한 줌으로 날 구해 줬지. 이번엔 내 차례야."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "알아. 나도 똑같이 쫓겨 봤잖아.\n그때 네가 고춧가루 한 줌으로 날 구해 줬지. 이번엔 내 차례야."},
 	{"who": "다래", "pose": "darae_prison", "text": "…바보. 빨리 와. 여기 밥 진짜 맛없단 말이야."},
 	{"bg": "podocheong", "who": "서휘", "pose": "seohwi_podo", "text": "포도청 부장 서휘, 지금부터 수사에 나선다.\n대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "밤에 몰래 들어가 뒤져라. 낮엔 누가 지켜볼지 모른다.\n…정 의관, 그자가 오늘 유난히 서둘렀다."},
@@ -1522,7 +1522,7 @@ const C10_CHOICE := [
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…서휘가 먼저 왔군. 그래도 이번엔 끝까지 말하겠다.\n그날 결전 전에, 끝내 삼켰던 말이다."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "증거 없이 너를 쫓던 그 새벽부터, 너만 보면 심장이 시끄러웠다.\n물에서 너를 건진 날도, 네가 바다를 건너간 날도."},
 	{"who": "윤도결", "pose": "jongsagwan_smile", "text": "{name}. 내 곁에 있어 다오.\n이번엔 쫓지 않고, 나란히 걷겠다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "(두 사람 모두… 내 목숨을 몇 번이나 구해 준 사람들.\n그리고 내 마음이 향하는 곳은…)",
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "(두 사람 모두… 내 목숨을 몇 번이나 구해 준 사람들.\n그리고 내 마음이 향하는 곳은…)",
 		"choices": [{"text": "서휘의 손을 잡는다", "set": "wed_seohwi"}, {"text": "윤도결의 손을 잡는다", "set": "wed_dogyeol"}]},
 	{"if": "wed_seohwi", "who": "{name}", "pose": "hero_adult", "text": "서휘. 이번엔 내가 붙잡을게요.\n다시는 혼자 떠돌지 마요."},
 	{"if": "wed_seohwi", "who": "서휘", "pose": "seohwi", "text": "…그래. 이제 여기가, 내가 돌아올 곳이다."},
