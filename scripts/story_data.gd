@@ -61,6 +61,10 @@ const CHAPTERS := {
 				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
 					{"who": "약초 캐는 할머니", "text": "허 의원님 따님이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
 					{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 산길, 네 아버지도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
+			{"map": "s9_w", "name": "새벽, 포도청 가는 길", "ally": "", "after": "C9_PODO_RET", "after_story": true, "foes": {"walpae": "rival", "pojol": "rival"},
+				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
+					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
+					{"who": "다래", "pic": "darae_adult", "text": "나 궁에 가는 길! 그 보따리… 누구 주려고?\n둘 다? 흐응~ 욕심쟁이. 비스킷 하나만 나 줘!", "coin": 2}]},
 			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
@@ -84,7 +88,8 @@ static func lines(key: String) -> Array:
 		"PROLOGUE": return GameData.PROLOGUE
 		"PROLOGUE_B": return GameData.PROLOGUE_B
 		"C9_RETURN": return C9_HOMEWARD
-		"C9_GRAVE_RET": return C9_GRAVE + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE + C9_SHOP + C10_LETTER
+		"C9_GRAVE_RET": return C9_GRAVE + [{"bg": "title", "who": "", "text": "그리고, 한양."}] + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_BRIDGE
+		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
@@ -941,11 +946,26 @@ const C9_BRIDGE := [
 	{"who": "밤톨", "pose": "bamtol_happy", "text": "형님 없는 동안 다들 짐꾼이랑 목수 일 하면서 정직하게 살았어요!\n이제 아무도 우리한테 돌 안 던져요."},
 	{"who": "서휘", "pose": "seohwi", "text": "…시끄럽다. 울지 마라, 사내 녀석이."},
 	{"who": "", "text": "퉁명스러운 말과 달리, 서휘의 입가에는 웃음이 번져 있었다."},
-	{"bg": "podocheong", "who": "", "text": "이튿날 새벽, 포도청 마당.\n포졸 옷을 받아 입은 서휘 앞에 윤도결이 목검 두 자루를 던졌다."},
+	{"bg": "yakbang", "who": "", "text": "이튿날, 해가 뜨기 전.\n오래 비어 있던 약방 부뚜막에서 {name|은} 고약을 개고 있었다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "봐주지 말라고 했으니… 서휘는 첫날부터 멍투성이가 될 게 뻔해.\n나리도 한양에 돌아와서 제대로 인사 한 번 못 드렸고."},
+	{"who": "", "text": "고약 두 통, 갓 지은 주먹밥 두 덩이.\n그리고 화란 빵집 주인이 싸 준 비스킷 꾸러미까지 보자기에 단단히 묶었다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "비스킷은… 나리 몫을 조금 더 넣어야지. 서휘는 화란에서 실컷 먹었으니까."},
+	{"who": "", "text": "【목표】\n두 사람에게 줄 보따리를 들고\n새벽 한양 거리를 지나 포도청까지 가라."},
+]
+
+## 포도청 가는 길 맵을 지난 뒤: 서휘의 첫 수련
+const C9_PODO := [
+	{"bg": "podocheong", "who": "", "text": "포도청 대문을 들어서자, 마당에서 목검 부딪치는 소리가 울렸다.\n포졸 옷을 입은 서휘와 윤도결이 새벽 안개 속에서 맞서 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "봐주지 말라고 했지. 첫날이니 한 가지만 가르친다.\n포졸은 이기는 자가 아니다. 쓰러지지 않는 자다."},
 	{"who": "", "text": "목검이 부딪치는 소리가 해가 뜰 때까지 이어졌다.\n서휘는 열 번 넘어졌고, 열 번 다시 일어났다."},
 	{"who": "서휘", "pose": "seohwi_podo", "text": "…하아. 청안파 시절엔 맞기 전에 도망치는 게 먼저였는데.\n도망치지 않고 버티는 건… 생각보다 훨씬 어렵군."},
 	{"who": "윤도결", "pose": "jongsagwan_smile", "text": "그걸 첫날 깨달은 놈은 처음이다.\n…내일도 와라. 모레도."},
+	{"who": "{name}", "pose": "hero_adult", "text": "두 분 다 거기까지요! 아침부터 드시고 하세요."},
+	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…{name}? 이 새벽에 여긴 어떻게…"},
+	{"who": "{name}", "pose": "hero_adult", "text": "전해 드릴 게 있어서요. 고약이랑 주먹밥이에요.\n서휘는 첫날부터 멍들 줄 알았어요. 나리 것도 있고요. 화란 비스킷도 넣었어요."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…잠깐. 왜 나리 비스킷이 내 것보다 많지."},
+	{"who": "{name}", "pose": "hero_adult", "text": "서휘는 화란에서 실컷 먹었잖아요."},
+	{"who": "윤도결", "pose": "jongsagwan_smile", "text": "…잘 먹겠다. 누가 챙겨 준 아침은 참 오랜만이군.\n서휘. 비스킷 한 개는 나눠 주마. 오늘 열 번 일어난 값이다."},
 	{"who": "", "text": "한 달 동안, 서휘는 하루도 빠지지 않고 새벽 마당에 섰다.\n그리고 처음으로 윤도결과 함께 장터 순찰을 나간 날이었다."},
 	{"bg": "jangteo", "who": "", "text": "장터 골목 끝에서 아이 우는 소리가 났다.\n흑룡파 잔당 둘이 엿 파는 아이의 좌판을 걷어차고 있었다."},
 	{"who": "흑룡파 잔당", "pose": "walpae", "text": "어라? 이 금발 눈깔은… 청안파 두목 아니냐?\n도망간 놈이 포졸 옷을 입고 나타났네! 하하!"},
