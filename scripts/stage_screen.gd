@@ -1198,7 +1198,7 @@ func _resolve() -> void:
 			main.dialog_chain(StoryData.lines(nd.get("pre", "")), func():
 				main.start_battle(nd["battle"], func():
 					_clear(idx)
-					main.dialog_chain(StoryData.lines(nd.get("post", "")), func(): _after_land(true)), {"lose_ok": nd.get("lose_ok", false)}))
+					main.dialog_chain(StoryData.lines(nd.get("post", "")), func(): _after_land(true)), {"lose_ok": nd.get("lose_ok", false), "comp_done": nd.get("pre", "") != ""}))
 			return
 		"spike":
 			main.hp = max(1, main.hp - 6)
