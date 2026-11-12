@@ -597,7 +597,7 @@ const C7_MID := [
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "피기까지 몇 해는 걸린다더군.\n…오래 정성을 들여야 하는 꽃이다."},
 	{"who": "마을 아이", "pic": "dutch_child", "text": "서휘 아저씨가 조선말도 가르쳐 줬어요!\n\"고, 맙, 습, 니, 다!\""},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "푸흡… 아저씨래요, 서휘."},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "…형이라고 부르라고 분명히 가르쳤는데."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…선생님이라고 부르라고 분명히 가르쳤는데."},
 	{"who": "", "bg": "holland", "text": "밤늦은 학교 교실. 앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
 	{"who": "", "pic": "dutch_child", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 돈 때문에 독을 팔던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
@@ -620,7 +620,7 @@ const CH7_END := [
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "불행이라 여긴 길이, 돌아보니 전부 너에게 오는 길이었군."},
 	{"if": "c7_honest", "who": "{name}", "pic": "hero_disguise", "text": "…서휘. 그때 교실에서, 역병이 끝나면 어디로 갈지 말해 준다고 했죠?"},
 	{"ifnot": "c7_honest", "who": "{name}", "pic": "hero_disguise", "text": "…서휘는 역병이 끝나면, 이제 어디로 갈 거예요?"},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "…조금만 더 생각할 시간을 다오.\n이번엔 아무렇게나 정하고 싶지 않다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…조금만 더 생각할 시간을 줘.\n이번엔 아무렇게나 정하고 싶지 않아."},
 	{"who": "", "text": "풍차 날개가 돌아가는 소리 속에서, 둘은 해가 질 때까지 말없이 앉아 있었다.", "end": true},
 ]
 
@@ -1047,7 +1047,7 @@ const C7_SICK := [
 	{"who": "{alias}", "pic": "hero_disguise", "text": "놓으면… 당신이 어디 가 버릴 것 같아서요."},
 	{"who": "", "text": "며칠 뒤. 서휘가 누운 교실 문이 벌컥 열리고, 아이들이 우르르 몰려 들어왔다."},
 	{"who": "마을 아이", "pic": "dutch_child", "text": "서휘 아저씨! 다 나았어요?\n우리가 그림 그려 왔어요! 이건 아저씨, 이건 의원님이에요!"},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "…아저씨가 아니라 형이라니까.\n그런데 왜 내 얼굴은 이렇게 찡그리고 있지."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…아저씨가 아니라 선생님이라니까.\n그런데 왜 내 얼굴은 이렇게 찡그리고 있지."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "똑같은데요, 뭘.\n…봐요. 곁에 머무는 사람한테는 이렇게 사람들이 모여요."},
 	{"who": "", "text": "그날 이후, 둘 사이엔 말하지 않아도 알 수 있는 무언가가 생겼다."},
 ]
