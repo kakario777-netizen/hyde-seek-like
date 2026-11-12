@@ -399,9 +399,11 @@ func _closed(p: PackedVector2Array) -> PackedVector2Array:
 
 func _enemy_id(t: String) -> String:
 	var f: Dictionary = stage_cfg.get("foes", {})
-	if f.has(t):
-		return f[t]
-	return StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t)
+	var e: String = f[t] if f.has(t) else StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t)
+	# 포졸과 한편인 윤도결이 함께 다닐 때는 포졸과 싸우지 않는다
+	if e == "pojol" and main.companion() == "dogyeol":
+		e = "walpae"
+	return e
 
 ## 들어올 때마다 길 모양·사건·적 배치를 새로 섞는다 (저장하면 같은 배치로 이어짐)
 ## 칸 수는 그대로 두고, 길 2~3군데를 두 갈래로 갈라졌다 다시 합쳐지게 만든다.
