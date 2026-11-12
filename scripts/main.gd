@@ -1309,7 +1309,7 @@ func show_brew(cb := Callable()) -> void:
 			cb.call()
 	for br in BREWS:
 		var need: int = int(br["herbs"])
-		var b := make_button("%s 달이기 (%s) · 체력 +%d\n약초 %d개 + %d냥" % [br["name"], br["lv"], br["heal"], need, br["cost"]], 26)
+		var b := make_button("%s 달이기 (체력 %d 회복)\n약초 %d개 사용 · %d냥" % [br["name"], br["heal"], need, br["cost"]], 26)
 		b.set_meta("need", need)
 		b.custom_minimum_size = Vector2(0, 104)
 		vb.add_child(b)
