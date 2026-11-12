@@ -1138,9 +1138,14 @@ func _bubble(who: Control, text: String) -> void:
 	sb.content_margin_top = 10; sb.content_margin_bottom = 10
 	p.add_theme_stylebox_override("panel", sb)
 	var l: Label = main.make_label(text, 22, main.INK)
-	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	l.custom_minimum_size = Vector2(320, 0)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	# 말 길이에 맞춘 폭: 짧으면 딱 그만큼, 길면 420에서 줄바꿈
+	var w: float = 0.0
+	for ln in text.split("\n"):
+		w = max(w, l.get_theme_font("font").get_string_size(ln, HORIZONTAL_ALIGNMENT_LEFT, -1, 22).x)
+	if w > 420.0:
+		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		l.custom_minimum_size = Vector2(420, 0)
 	p.add_child(l)
 	root.add_child(p)
 	# 꼬리
