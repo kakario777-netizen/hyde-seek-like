@@ -1121,7 +1121,6 @@ func comp_say(kind: String) -> void:
 var bubble_node: Control
 
 func _bubble(who: Control, text: String) -> void:
-	text = main.sentence_breaks(text)   # 마침표 뒤에서는 다음 줄로
 	if bubble_node and is_instance_valid(bubble_node):
 		bubble_node.queue_free()
 	var root := Control.new()

@@ -157,6 +157,9 @@ func _debug_capture() -> void:
 			await get_tree().create_timer(0.8).timeout
 			if not args.has("still"):
 				board.card_row.get_child(0).pressed.emit()
+			if args.has("pop"):   # 이야기 칸 팝업 확인용
+				var tk: Dictionary = board._talk_at(int(args["pop"]))
+				popup(tk["text"] + "\n\n(약병 +1)", "고맙습니다", Callable(), tk["who"], tk.get("pic", ""))
 			if args.has("say"):   # 동행 말주머니 확인용
 				await get_tree().create_timer(2.5).timeout
 				if args.has("long"):
@@ -944,7 +947,7 @@ func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic 
 	var o := _overlay(title, bg, pic, true)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
+	var l := make_label(sentence_breaks(fmt(text)), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
@@ -1296,7 +1299,7 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 	var o := _overlay(title, bg, pic, not centered)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var l := make_label(fmt(text), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
+	var l := make_label(sentence_breaks(fmt(text)), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
