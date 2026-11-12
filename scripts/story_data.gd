@@ -73,8 +73,8 @@ const CHAPTERS := {
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "seohwi"},
-			{"map": "s10_mapo", "ally_pic": "seohwi_podo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
-				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "seohwi"},
+			{"map": "s10_mapo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
+				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
 			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"},
 			{"map": "s9_2", "name": "남산 아래 집터로"}],
 		"goal_text": "남산 아래, 볕 잘 드는 빈터에 닿았다.\n서휘가 말뚝 하나를 박았다. \"여기에 짓자.\"", "goal_title": "새 보금자리", "goal_pic": "seohwi", "goal_bg": "family"},
@@ -1492,15 +1492,20 @@ const C10_CLUE := [
 	{"who": "", "text": "{name|은} 품에서 백운의 서책을 꺼내 다시 펼쳤다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "'환심단에 용뇌를 더하라… 청 상선으로만 들어온다.'\n마포 창고야. 거기 가면 용뇌도, 정 의관도 있어!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "아버지가 만든 검은 것은… 이번엔 제 손으로 끝낼 거예요."},
-	{"who": "", "text": "【목표】\n마포 나루의 청 상인 창고로 가서\n용뇌를 찾고, 정 의관을 막아라."},
+	{"who": "서휘", "pose": "seohwi_podo", "text": "…잠깐. 궁지에 몰린 놈은 증인부터 없애려 든다.\n옥에 갇힌 다래가 위험해. 나는 의금부로 가서 다래 곁을 지키겠다."},
+	{"who": "", "text": "그때, 창고 문밖으로 등불 하나가 다가왔다.\n궁궐의 소란을 듣고 달려온 포도대장 윤도결이었다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…마포라고 했나. 정 의관은 포도청이 잡는다.\n서휘는 다래를 지켜라. 마포에는 내가 간다."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "저도 가요, 나리. 해독약을 만들 수 있는 건 저뿐이에요."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…알았다. 대신 내 뒤에서 떨어지지 마라."},
+	{"who": "", "text": "【목표】\n윤도결과 함께 마포 나루의 청 상인 창고로 가서\n용뇌를 찾고, 정 의관을 막아라."},
 ]
 
 const C10_JEONG_PRE := [
 	{"bg": "mapo_warehouse", "music": "dread_shadow", "who": "", "text": "청나라 글씨가 적힌 궤짝이 쌓인 창고 안쪽.\n{name|은} 궤짝 사이에서 '龍腦'라고 적힌 작은 상자를 찾아냈다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "흑심단을 버무린 곳에, 그걸 푸는 약재도 있었어…!"},
 	{"who": "", "text": "{name|은} 그 자리에서 환심단에 용뇌를 더해 갈았다.\n허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다."},
-	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 또 왔느냐, 허가 놈의 딸.\n남은 흑심단은 전부 내 배 속에 넣었다. 이번엔 끝장을 내주마!"},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "이번엔 달라요. 아버지의 약과, 백운 선생님의 해독법이 다 여기 있어요.\n서휘, 마지막이에요!"},
+	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 또 왔느냐, 어의 나리. 이번엔 포도대장까지 데려왔구나.\n남은 흑심단은 전부 내 배 속에 넣었다. 이번엔 끝장을 내주마!"},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "이번엔 달라요. 아버지의 약과, 백운 선생님의 해독법이 다 여기 있어요.\n나리, 마지막이에요!"},
 ]
 
 const C10_JEONG_POST := [
@@ -1509,8 +1514,8 @@ const C10_JEONG_POST := [
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "떼어 낸 검은 것은 사라지지 않아요. 더 큰 미움이 되어 돌아올 뿐.\n그러니까… 돌려놓는 거예요. 원래 있던 자리로."},
 	{"who": "", "text": "검은 연기가 걷히자, 바닥에 주저앉은 것은 지친 늙은 의관 하나였다."},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…서른 해. 나도 처음엔… 아픈 사람을 살리고 싶어서 의관이 되었는데.\n언제부터 자리만 보였을까."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "장부, 책장, 흑심단 병, 그리고 지금 네 입으로 한 말.\n이제야 증거가 말하는군. 포도청 부장 서휘다. 정 의관, 너를 대비마마 시해 미수로 묶는다."},
-	{"who": "", "text": "서휘가 포승줄을 단단히 감았다. 한때 쫓기던 푸른 눈의 왈패가, 이제 죄인을 묶고 있었다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "장부, 책장, 흑심단 병, 그리고 지금 네 입으로 한 말.\n이제야 증거가 말하는군. 포도대장 윤도결이다. 정 의관, 너를 포박한다."},
+	{"who": "", "text": "윤도결이 포승줄을 단단히 감았다.\n증거 없이 사람을 쫓던 그 손이, 이번엔 증거를 쥐고 진짜 죄인을 묶고 있었다."},
 ]
 
 ## 정 의관 사건 뒤 · 혼례 전: 결혼 상대 고르기 (마음 점수 없이 이 선택 하나로 정해진다)
@@ -1556,6 +1561,7 @@ const C10_WED := [
 
 const C10_CURE := [
 	{"bg": "uigeumbu", "music": "darae_cheer", "who": "", "text": "이튿날 아침, 의금부 옥사의 문이 열렸다."},
+	{"who": "", "text": "옥 앞에는 밤새 다래를 지킨 서휘가 창에 기대어 꾸벅꾸벅 졸고 있었다."},
 	{"who": "다래", "pose": "darae_prison", "text": "…{name}아? 끝났어? 진짜?"},
 	{"who": "{name}", "pose": "hero_adult", "text": "응. 끝났어. 늦어서 미안해. …밥 진짜 맛없었지?"},
 	{"who": "다래", "pose": "darae_adult_cry", "text": "바보야아…! 진짜, 진짜 맛없었단 말이야…!\n…고마워. 와 줘서."},
