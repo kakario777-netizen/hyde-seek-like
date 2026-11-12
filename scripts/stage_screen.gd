@@ -957,7 +957,7 @@ func place_name() -> String:
 
 var said_start := false
 func _deal() -> void:
-	if not said_start:
+	if not said_start and (follower == null or follower.visible):   # 동행이 보일 때 말주머니로
 		said_start = true
 		comp_say("start")
 	for c in card_row.get_children():
@@ -1095,6 +1095,9 @@ func comp_say(kind: String) -> void:
 	if t == "":
 		return
 	var c: Dictionary = StoryData.COMPANION.get(main.companion(), {})
+	if follower and follower.visible:
+		_bubble(follower, t)
+		return
 	var p := PanelContainer.new()
 	p.add_theme_stylebox_override("panel", main.plaque_style())
 	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1111,6 +1114,55 @@ func comp_say(kind: String) -> void:
 	tw.tween_interval(2.4)
 	tw.tween_property(p, "modulate:a", 0.0, 0.5)
 	tw.tween_callback(p.queue_free)
+
+## 따라오는 동행 머리 위 말주머니
+var bubble_node: Control
+
+func _bubble(who: Control, text: String) -> void:
+	if bubble_node and is_instance_valid(bubble_node):
+		bubble_node.queue_free()
+	var root := Control.new()
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.z_index = 100
+	root.z_as_relative = false
+	var p := PanelContainer.new()
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("fbf3e0")
+	sb.border_color = Color("5a3a22")
+	sb.set_border_width_all(3)
+	sb.set_corner_radius_all(18)
+	sb.content_margin_left = 16; sb.content_margin_right = 16
+	sb.content_margin_top = 10; sb.content_margin_bottom = 10
+	p.add_theme_stylebox_override("panel", sb)
+	var l: Label = main.make_label(text, 22, main.INK)
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size = Vector2(320, 0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	p.add_child(l)
+	root.add_child(p)
+	# 꼬리
+	var tail := Polygon2D.new()
+	tail.polygon = PackedVector2Array([Vector2(-12, -MAP_H - 21), Vector2(12, -MAP_H - 21), Vector2(0, -MAP_H - 2)])
+	tail.color = Color("fbf3e0")
+	root.add_child(tail)
+	var edge := Line2D.new()
+	edge.points = PackedVector2Array([Vector2(-12, -MAP_H - 20), Vector2(0, -MAP_H - 2), Vector2(12, -MAP_H - 20)])
+	edge.width = 3; edge.default_color = Color("5a3a22")
+	root.add_child(edge)
+	who.add_child(root)
+	bubble_node = root
+	root.modulate.a = 0.0
+	await get_tree().process_frame   # 줄바꿈된 실제 높이를 잰 뒤 꼬리 위에 올린다
+	if not is_instance_valid(p):
+		return
+	p.size = p.get_combined_minimum_size()
+	p.position = Vector2(-p.size.x / 2.0, -MAP_H - p.size.y - 18)
+	var tw := create_tween()
+	tw.tween_property(root, "modulate:a", 1.0, 0.2)
+	tw.tween_interval(2.8)
+	tw.tween_property(root, "modulate:a", 0.0, 0.4)
+	tw.tween_callback(root.queue_free)
 
 func _pick_herb(i: int) -> void:
 	var t: Dictionary = tiles[i]

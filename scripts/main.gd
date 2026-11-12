@@ -157,6 +157,9 @@ func _debug_capture() -> void:
 			await get_tree().create_timer(0.8).timeout
 			if not args.has("still"):
 				board.card_row.get_child(0).pressed.emit()
+			if args.has("say"):   # 동행 말주머니 확인용
+				await get_tree().create_timer(2.5).timeout
+				board.comp_say("herb")
 		"voyage":
 			chapter = 7; stage_idx = 0
 			start_board()
