@@ -840,9 +840,9 @@ func _place_tools() -> float:
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.custom_minimum_size = Vector2(0, 0)
 		for st in ["normal", "hover", "focus"]:
-			b.add_theme_stylebox_override(st, main.tex_box("button", 24, 8))
-		b.add_theme_stylebox_override("pressed", main.tex_box("button_pressed", 24, 8))
-		b.add_theme_font_size_override("font_size", 21)
+			b.add_theme_stylebox_override(st, main.tex_box("button", 28, 14))
+		b.add_theme_stylebox_override("pressed", main.tex_box("button_pressed", 28, 14))
+		b.add_theme_font_size_override("font_size", 22)
 	return y + tools.size.y + 4
 
 # ── HUD ─────────────────────────────────────────────────
