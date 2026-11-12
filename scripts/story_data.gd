@@ -76,7 +76,7 @@ const CHAPTERS := {
 			{"map": "s10_mapo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
 				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
 			{"map": "s9_1", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],
-		"goal_text": "남산 아래, 볕 잘 드는 빈터에 닿았다.\n서휘가 말뚝 하나를 박았다. \"여기에 짓자.\"", "goal_title": "새 보금자리", "goal_pic": "seohwi", "goal_bg": "family"},
+		"goal_text": "남산 아래, 볕 잘 드는 언덕.\n마침내 둘만의 보금자리에 닿았다.", "goal_title": "새 보금자리", "goal_pic": "", "goal_bg": "family"},
 }
 
 static func talks(ch: int) -> Array:
@@ -1067,8 +1067,8 @@ const C9_MEM := [
 ]
 
 const CH9_END := [
-	{"ifnot": "wed_dogyeol", "bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
-	{"if": "wed_dogyeol", "bg": "mountain", "who": "", "text": "볕 잘 드는 빈터에서, 윤도결과 {name|은} 손수 주춧돌을 놓았다."},
+	{"ifnot": "wed_dogyeol", "bg": "mountain", "who": "", "text": "둘만의 보금자리가 될 그 자리에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
+	{"if": "wed_dogyeol", "bg": "mountain", "who": "", "text": "둘만의 보금자리가 될 그 자리에서, 윤도결과 {name|은} 손수 주춧돌을 놓았다."},
 	{"bg": "podocheong", "who": "", "text": "그리고 몇 해가 흘렀다.\n서휘는 공을 쌓아 도성 서쪽을 맡는 우포도대장이 되었다.\n윤도결은 좌포도대장으로, 둘은 나란히 도성의 밤을 지켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘은 내 쪽에서 도적을 더 잡았다. 열둘이다."},
 	{"who": "서휘", "pose": "seohwi_podo", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 흑룡파 잔당 두목 하나."},
