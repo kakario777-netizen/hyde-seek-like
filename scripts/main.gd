@@ -159,6 +159,7 @@ func _debug_capture() -> void:
 				board.card_row.get_child(0).pressed.emit()
 			if args.has("pop"):   # 이야기 칸 팝업 확인용
 				var tk: Dictionary = board._talk_at(int(args["pop"]))
+				if args.has("pic"): tk = {"who": "복면 하수인", "pic": args["pic"], "text": "비켜라. 대비마마께 가는 길은 여기서 끝이다."}
 				popup(tk["text"] + "\n\n(약병 +1)", "고맙습니다", Callable(), tk["who"], tk.get("pic", ""))
 			if args.has("say"):   # 동행 말주머니 확인용
 				await get_tree().create_timer(2.5).timeout
@@ -1025,6 +1026,7 @@ func fig_scale(name: String) -> float:
 		return 0.86
 	if name.begins_with("dutch_baker"): return 0.84
 	if name.begins_with("dutch_miller"): return 0.8
+	if name == "masked_henchman": return 0.66   # 복면 하수인: 넓게 선 자세라 줄임
 	if name == "seohwi_dutch_sick": return 0.72   # 의자에 앉은 모습
 	if name == "dutch_fisherman": return 0.84
 	if name == "dutch_woman": return 0.8
