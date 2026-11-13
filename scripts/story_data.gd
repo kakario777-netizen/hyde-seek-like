@@ -161,7 +161,7 @@ const CH2_END := [
 	{"who": "", "text": "…서휘는 강했다.\n{alias}의 주먹은 단 한 번도 그의 애체를 건드리지 못했다."},
 	{"who": "서휘", "pose": "seohwi", "text": "기술은 나쁘지 않아. 하지만 넌 사람을 때려 본 적이 없는 손이야.\n…그 대신, 약초 냄새가 짙군."},
 	{"who": "", "text": "그때, 왈패 둘이 몸부림치는 다래를 끌고 들어왔다."},
-	{"who": "다래", "pose": "friend_worried", "text": "이거 놔! {alias}, 도망쳐!"},
+	{"who": "다래", "pose": "friend_worried", "text": "이거 놔! 놓으란 말이야! {alias}, 도와줘!"},
 	{"who": "서휘", "pose": "seohwi", "text": "거래를 하지. 내 아이들 중엔 다친 놈, 병든 놈이 많다.\n네가 우리 소굴의 의원이 되어 준다면, 이 아가씨는 털끝 하나 건드리지 않겠다."},
 	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "…거절하면?"},
 	{"who": "서휘", "pose": "seohwi", "text": "거절할 리가 없지. 넌 저 아이를 버리고 갈 사람이 아니니까.",
