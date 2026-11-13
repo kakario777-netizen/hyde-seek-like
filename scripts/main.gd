@@ -430,7 +430,7 @@ const FINAL_COMP := {
 	"baegun": [{"who": "{alias}", "pose": "hero_disguise_angry", "text": "서휘. 이건… 내가 끝내야 해."},
 		{"who": "서휘", "pose": "seohwi", "text": "…그래. 이건 네 싸움이다.\n나는 저 문 앞에서 흑룡파 놈들을 막겠다. 하나도 못 들어오게."}],
 	"shadow": [{"who": "{name}", "pose": "hero_angry", "text": "나리, 저 사람의 패거리를 막아 주세요.\n아버지는… 제가 되찾을 거예요."},
-		{"who": "윤도결", "pose": "jongsagwan", "text": "가라. 포졸들과 내가 뒤를 막는다.\n네 아버지는 네가 데려와라."}],
+		{"who": "윤도결", "pose": "jongsagwan", "text": "가라. 포졸들과 내가 뒤를 막는다.\n허 의원은 네가 데려와라."}],
 }
 
 func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
