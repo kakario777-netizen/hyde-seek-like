@@ -608,9 +608,10 @@ func _title_ok(name: String) -> bool:
 		"느긋한 여행자": return play_sec >= 36000.0
 		"돌아온 의원": return int(title_book().get("_clears", 0)) + 1 >= 3
 		"두 길을 걸은 의원":
-			var ends: Array = title_book().get("_endings", [])
+			var bk := title_book()
+			var ends: Array = bk.get("_endings", [])
 			var me := "dogyeol" if flags.has("wed_dogyeol") else "seohwi"
-			return ("seohwi" in ends or me == "seohwi") and ("dogyeol" in ends or me == "dogyeol")
+			return ("seohwi" in ends or bk.has("서휘의 반려") or me == "seohwi") and ("dogyeol" in ends or bk.has("윤도결의 반려") or me == "dogyeol")
 		"서휘의 반려": return not flags.has("wed_dogyeol")
 		"윤도결의 반려": return flags.has("wed_dogyeol")
 	return false

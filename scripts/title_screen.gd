@@ -11,7 +11,10 @@ func _ready() -> void:
 	cleared = int(book.get("_clears", 0)) > 0
 	var bg := TextureRect.new()
 	var ends: Array = book.get("_endings", [])
-	if "seohwi" in ends and "dogyeol" in ends and main.backdrop("title_both"):
+	# 엔딩 기록이 생기기 전에 깬 판은 '반려' 칭호로 알아본다
+	var saw_s: bool = "seohwi" in ends or book.has("서휘의 반려")
+	var saw_d: bool = "dogyeol" in ends or book.has("윤도결의 반려")
+	if saw_s and saw_d and main.backdrop("title_both"):
 		bg.texture = main.backdrop("title_both")   # 두 엔딩을 다 보면: 서휘와 윤도결 사이의 주인공
 	elif cleared:
 		bg.texture = main.backdrop("title_clear")
