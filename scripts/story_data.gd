@@ -16,7 +16,6 @@ const CHAPTERS := {
 		"end_battle": "shadow_s", "end_after": "CH1_AFTER_SHADOW"},
 	2: {"title": "제2장  남장", "goal": "한양 약방", "intro": "CH2_INTRO", "end": "CH2_END",
 		"stages": [{"map": "s2_1", "name": "검문소 피해 가기", "after": "C2_DOGYEOL"},
-			{"map": "s2_2", "name": "새재 너머 주막거리"},
 			{"map": "s2_3", "name": "한양 약방으로"}],
 		"goal_pre": "CH2_GOAL", "goal_battle": "seohwi", "goal_lose_ok": true},
 	3: {"title": "제3장  왈패 소굴", "goal": "왈패 소굴", "intro": "CH3_INTRO", "end": "CH3_END",
