@@ -1069,7 +1069,7 @@ func illust(name: String) -> Texture2D:
 const CHAR_FALLBACK := {"hero_disguise_hair": "hero_disguise_sad", "hero_adult_tense": "hero_adult"}
 
 ## 인물이 화면 가득 차서 잘리는 그림: 한 겹 작게 줄여 가운데에 얹고, 뒤는 같은 그림을 흐리게 깐다
-const BG_SHRINK := {"family_dogyeol": 0.8}
+const BG_SHRINK := {"family_dogyeol": 0.8, "family": 0.8}
 
 func shrink_overlay(parent: Control, name: String, under: TextureRect) -> void:
 	var old := parent.get_node_or_null("ShrinkPic")

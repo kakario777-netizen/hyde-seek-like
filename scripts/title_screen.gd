@@ -26,6 +26,7 @@ func _ready() -> void:
 	var pick := ""
 	if not unlocked.is_empty():
 		pick = unlocked[randi() % unlocked.size()]
+	if OS.has_environment("TITLE_PIC"): pick = OS.get_environment("TITLE_PIC")   # 캡처 확인용
 	if pick != "" and main.backdrop(pick):
 		bg.texture = main.backdrop(pick)
 	else:
