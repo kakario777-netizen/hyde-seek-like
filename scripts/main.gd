@@ -1077,7 +1077,7 @@ const CHAR_FALLBACK := {"hero_disguise_hair": "hero_disguise_sad", "hero_adult_t
 
 ## 인물이 화면 가득 차서 잘리는 그림: 한 겹 작게 줄여 가운데에 얹고, 뒤는 같은 그림을 흐리게 깐다
 ## 화면이 그림보다 길쭉해 양옆이 잘릴 때 어느 쪽을 보여 줄지 (0 = 왼쪽 끝, 0.5 = 가운데)
-const BG_ALIGN := {"title_clear": 0.2}
+const BG_ALIGN := {}
 
 func align_cover(name: String, under: TextureRect) -> void:
 	if not BG_ALIGN.has(name) or under.texture == null:
@@ -1094,7 +1094,7 @@ func align_cover(name: String, under: TextureRect) -> void:
 		under.position = Vector2((W - tw * k) * float(BG_ALIGN[name]), (H - th * k) * 0.5)
 	fit.call_deferred()
 
-const BG_SHRINK := {"family_dogyeol": 0.8, "family": 0.8}
+const BG_SHRINK := {}
 
 func shrink_overlay(parent: Control, name: String, under: TextureRect) -> void:
 	var old := parent.get_node_or_null("ShrinkPic")
