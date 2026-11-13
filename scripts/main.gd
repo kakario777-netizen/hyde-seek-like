@@ -217,7 +217,14 @@ func _debug_capture() -> void:
 		"chstory":
 			chapter = int(args.get("ch", "2"))
 			if args.has("flag"): flags[args["flag"]] = true
-			play_story(StoryData.lines(args.get("key", "CH2_INTRO")).slice(int(args.get("from", "0"))), show_title)
+			var all_l: Array = StoryData.lines(args.get("key", "CH2_INTRO"))
+			var fr := int(args.get("from", "0"))
+			var sl: Array = all_l.slice(fr)
+			if not sl.is_empty() and not sl[0].has("bg"):   # 중간부터 볼 때도 그 장면의 배경을 이어서
+				for j in range(fr - 1, -1, -1):
+					if all_l[j].has("bg"):
+						sl[0] = sl[0].duplicate(); sl[0]["bg"] = all_l[j]["bg"]; break
+			play_story(sl, show_title)
 		"chpop":
 			chapter = int(args.get("ch", "2"))
 			start_board()
