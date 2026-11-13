@@ -7,23 +7,6 @@ var cleared := false
 var unlocked: Array = []
 const GALLERY := {"title_clear": "허 의원과 잠든 연이", "family": "서휘와 연이의 가족", "family_dogyeol": "윤도결과 연이의 가족", "title_both": "세 사람"}
 
-func _pick_gallery() -> void:
-	var names: Array = [{"text": "켤 때마다 무작위로"}]
-	for k in unlocked:
-		names.append({"text": GALLERY[k]})
-	var locked := GALLERY.size() - unlocked.size()
-	var msg := "처음 화면에 띄울 그림을 고르세요."
-	if locked > 0:
-		msg += "\n아직 열리지 않은 그림이 %d장 남았어요." % locked
-	main.popup_choices(msg, names, func(k: int):
-		var book: Dictionary = main.title_book()
-		book["_title_pic"] = "" if k == 0 else unlocked[k - 1]
-		var f := FileAccess.open(main.TITLE_BOOK, FileAccess.WRITE)
-		if f:
-			f.store_string(JSON.stringify(book))
-			f.close()
-		main.show_title(), "그림 고르기")
-
 func _ready() -> void:
 	# 한 번 끝까지 하면 처음 화면이 허 의원과 잠든 어린 주인공 그림으로 바뀐다
 	var book: Dictionary = main.title_book()
@@ -39,8 +22,8 @@ func _ready() -> void:
 	if saw_s: unlocked.append("family")
 	if saw_d: unlocked.append("family_dogyeol")
 	if saw_s and saw_d: unlocked.append("title_both")
-	var pick: String = str(book.get("_title_pic", ""))
-	if not pick in unlocked and not unlocked.is_empty():
+	var pick := ""
+	if not unlocked.is_empty():
 		pick = unlocked[randi() % unlocked.size()]
 	if pick != "" and main.backdrop(pick):
 		bg.texture = main.backdrop(pick)
@@ -137,12 +120,6 @@ func _ready() -> void:
 		tb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		vb.add_child(tb)
 		tb.pressed.connect(func(): main.open_title_book())
-	if unlocked.size() > 1:
-		var gb: Button = main.make_button("그림 고르기", 30)
-		gb.custom_minimum_size = Vector2(420, 90)
-		gb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		vb.add_child(gb)
-		gb.pressed.connect(_pick_gallery)
 	var setb: Button = main.make_button("설정", 30)
 	setb.custom_minimum_size = Vector2(420, 90)
 	setb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
