@@ -1086,7 +1086,7 @@ func shrink_overlay(parent: Control, name: String, under: TextureRect) -> void:
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	t.anchor_left = (1.0 - k) / 2.0; t.anchor_right = 1.0 - (1.0 - k) / 2.0
-	t.anchor_top = 0.04; t.anchor_bottom = 0.04 + k
+	t.anchor_top = 1.0 - k - 0.03; t.anchor_bottom = 1.0 - 0.03   # 아래로 붙여 제목 글씨와 얼굴이 안 겹치게
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(t)
 	parent.move_child(t, under.get_index() + 1)
