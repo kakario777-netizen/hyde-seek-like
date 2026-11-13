@@ -17,6 +17,9 @@ var typing := false
 var waiting_choice := false
 var ended := false
 var last_pose := ""
+var box: PanelContainer
+var goal_panel: PanelContainer
+var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
 const BOX_H := 520
@@ -41,7 +44,7 @@ func _ready() -> void:
 	add_child(portrait)
 
 	# 대화창
-	var box := PanelContainer.new()
+	box = PanelContainer.new()
 	box.add_theme_stylebox_override("panel", main.panel_style())
 	box.anchor_left = 0.0; box.anchor_right = 1.0
 	box.anchor_top = 1.0; box.anchor_bottom = 1.0
@@ -81,6 +84,34 @@ func _ready() -> void:
 	choice_box.alignment = BoxContainer.ALIGNMENT_END
 	choice_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(choice_box)
+
+	# 【목표】는 화면 한가운데 큰 판으로
+	goal_panel = PanelContainer.new()
+	goal_panel.add_theme_stylebox_override("panel", main.panel_style())
+	goal_panel.anchor_left = 0.0; goal_panel.anchor_right = 1.0
+	goal_panel.anchor_top = 0.5; goal_panel.anchor_bottom = 0.5
+	goal_panel.offset_left = 40; goal_panel.offset_right = -40
+	goal_panel.offset_top = -200; goal_panel.offset_bottom = 200
+	goal_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	goal_panel.visible = false
+	add_child(goal_panel)
+	var gv := VBoxContainer.new()
+	gv.alignment = BoxContainer.ALIGNMENT_CENTER
+	gv.add_theme_constant_override("separation", 22)
+	gv.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	goal_panel.add_child(gv)
+	var gt: Label = main.make_label("목표", 40, main.RED, true)
+	gt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	gv.add_child(gt)
+	goal_lbl = main.make_label("", 36, Color("6b3a1e"))
+	goal_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	goal_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	goal_lbl.add_theme_constant_override("line_spacing", 14)
+	gv.add_child(goal_lbl)
+	var tap: Label = main.make_label("화면을 누르면 시작합니다", 24, main.INK)
+	tap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tap.modulate.a = 0.6
+	gv.add_child(tap)
 
 	_set_bg("yakbang")
 	_next()
@@ -168,10 +199,20 @@ func _next() -> void:
 	text_lbl.text = main.sentence_breaks(main.fmt(line["text"]))
 	var goal: bool = line["text"].begins_with("【목표】")
 	text_lbl.add_theme_color_override("font_color", Color("6b3a1e") if goal else main.INK)
+	box.visible = not goal
+	goal_panel.visible = goal
+	if goal:
+		_show_pose("")
+		goal_lbl.text = main.fmt(line["text"].trim_prefix("【목표】").strip_edges())
+		goal_panel.modulate.a = 0.0
+		create_tween().tween_property(goal_panel, "modulate:a", 1.0, 0.3)
 	text_lbl.visible_characters = 0
 	type_acc = 0.0
 	typing = true
 	arrow.modulate.a = 0.0
+	if goal:   # 목표 판은 한 번 누르면 바로 넘어가게
+		typing = false
+		text_lbl.visible_ratio = 1.0
 
 func _show_pose(pose: String) -> void:
 	if cur_bg in SCENE_ILLUST:
