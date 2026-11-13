@@ -22,6 +22,7 @@ func _ready() -> void:
 	if saw_s: unlocked.append("family")
 	if saw_d: unlocked.append("family_dogyeol")
 	if saw_s and saw_d: unlocked.append("title_both")
+	if int(book.get("_clears", 0)) >= 5 and main.backdrop("title_group"): unlocked.append("title_group")   # 다섯 번 완주: 단체 사진
 	var pick := ""
 	if not unlocked.is_empty():
 		pick = unlocked[randi() % unlocked.size()]
