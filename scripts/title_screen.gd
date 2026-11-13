@@ -5,7 +5,10 @@ var main
 
 var cleared := false
 var unlocked: Array = []
-const GALLERY := {"title_clear": "허 의원과 잠든 연이", "family": "서휘와 연이의 가족", "family_dogyeol": "윤도결과 연이의 가족", "title_both": "세 사람"}
+## 일러스트 보기: 순서대로 (열린 것만 보인다)
+const ILLUST := [["title_clear", "허 의원과 잠든 연이"], ["wedding", "서휘와의 혼례"], ["family", "서휘와 연이의 가족"],
+	["wedding_dogyeol", "윤도결과의 혼례"], ["family_dogyeol", "윤도결과 연이의 가족"], ["title_both", "세 사람"], ["title_group", "허씨 약방 앞에서"]]
+var seen: Array = []
 
 func _ready() -> void:
 	# 한 번 끝까지 하면 처음 화면이 허 의원과 잠든 어린 주인공 그림으로 바뀐다
@@ -19,10 +22,13 @@ func _ready() -> void:
 	# 처음 화면 그림 모음: 조건을 이룰 때마다 하나씩 열리고, 켤 때마다 무작위(또는 고른 그림)
 	unlocked = []
 	if cleared: unlocked.append("title_clear")
-	if saw_s: unlocked.append("family")
-	if saw_d: unlocked.append("family_dogyeol")
+	if saw_s: unlocked.append("wedding")
+	if saw_d: unlocked.append("wedding_dogyeol")
 	if saw_s and saw_d: unlocked.append("title_both")
 	if int(book.get("_clears", 0)) >= 5 and main.backdrop("title_group"): unlocked.append("title_group")   # 다섯 번 완주: 단체 사진
+	seen = unlocked.duplicate()
+	if saw_s: seen.append("family")
+	if saw_d: seen.append("family_dogyeol")
 	var pick := ""
 	if not unlocked.is_empty():
 		pick = unlocked[randi() % unlocked.size()]
@@ -124,6 +130,12 @@ func _ready() -> void:
 		tb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		vb.add_child(tb)
 		tb.pressed.connect(func(): main.open_title_book())
+	if not seen.is_empty():
+		var ib: Button = main.make_button("일러스트 보기", 30)
+		ib.custom_minimum_size = Vector2(420, 90)
+		ib.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		vb.add_child(ib)
+		ib.pressed.connect(_open_gallery)
 	var setb: Button = main.make_button("설정", 30)
 	setb.custom_minimum_size = Vector2(420, 90)
 	setb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
@@ -137,3 +149,59 @@ func _ready() -> void:
 	var cr: Label = main.ink_text(main.make_label("아이콘 game-icons.net(CC BY 3.0)\n질감 ambientCG(CC0) · 글꼴 송명·고운바탕(OFL)", 18, Color("cbb898")), 4)
 	cr.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	vb.add_child(cr)
+
+
+## 열린 일러스트를 한 장씩 크게 본다 (좌우로 넘기기)
+func _open_gallery() -> void:
+	var list: Array = []
+	for it in ILLUST:
+		if it[0] in seen and main.backdrop(it[0]):
+			list.append(it)
+	if list.is_empty():
+		return
+	var layer := CanvasLayer.new()
+	layer.layer = 50
+	add_child(layer)
+	var root := Control.new()
+	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	layer.add_child(root)
+	var dark := ColorRect.new()
+	dark.color = Color(0.03, 0.02, 0.02, 0.96)
+	dark.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(dark)
+	var pic := TextureRect.new()
+	pic.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	pic.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	pic.offset_top = 110; pic.offset_bottom = -170
+	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(pic)
+	var cap: Label = main.make_label("", 32, main.GOLD, true)
+	cap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cap.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
+	cap.offset_top = 30; cap.offset_bottom = 100
+	root.add_child(cap)
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 16)
+	row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	row.offset_top = -140; row.offset_bottom = -40
+	root.add_child(row)
+	var prev: Button = main.make_button("◀", 34)
+	var close: Button = main.make_button("닫기", 30)
+	var nxt: Button = main.make_button("▶", 34)
+	for b in [prev, close, nxt]:
+		b.custom_minimum_size = Vector2(150 if b != close else 220, 90)
+		row.add_child(b)
+	var locked := ILLUST.size() - list.size()
+	var st := {"i": 0}
+	var show := func():
+		var it: Array = list[st["i"]]
+		pic.texture = main.backdrop(it[0])
+		cap.text = "%s  (%d / %d)" % [it[1], st["i"] + 1, list.size()]
+		if locked > 0:
+			cap.text += "\n아직 열리지 않은 그림 %d장" % locked
+	show.call()
+	prev.pressed.connect(func(): st["i"] = (st["i"] - 1 + list.size()) % list.size(); show.call())
+	nxt.pressed.connect(func(): st["i"] = (st["i"] + 1) % list.size(); show.call())
+	close.pressed.connect(func(): layer.queue_free())

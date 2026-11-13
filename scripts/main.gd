@@ -204,6 +204,9 @@ func _debug_capture() -> void:
 		"titlebg":
 			seed(int(args.get("seed", "1")))
 			show_title()
+			if args.has("gal"):
+				await get_tree().create_timer(0.5).timeout
+				current._open_gallery()
 		"slots":
 			show_title()
 		"cards":
