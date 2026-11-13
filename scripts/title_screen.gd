@@ -4,6 +4,25 @@ extends Control
 var main
 
 var cleared := false
+var unlocked: Array = []
+const GALLERY := {"title_clear": "허 의원과 잠든 연이", "family": "서휘와 연이의 가족", "family_dogyeol": "윤도결과 연이의 가족", "title_both": "세 사람"}
+
+func _pick_gallery() -> void:
+	var names: Array = [{"text": "켤 때마다 무작위로"}]
+	for k in unlocked:
+		names.append({"text": GALLERY[k]})
+	var locked := GALLERY.size() - unlocked.size()
+	var msg := "처음 화면에 띄울 그림을 고르세요."
+	if locked > 0:
+		msg += "\n아직 열리지 않은 그림이 %d장 남았어요." % locked
+	main.popup_choices(msg, names, func(k: int):
+		var book: Dictionary = main.title_book()
+		book["_title_pic"] = "" if k == 0 else unlocked[k - 1]
+		var f := FileAccess.open(main.TITLE_BOOK, FileAccess.WRITE)
+		if f:
+			f.store_string(JSON.stringify(book))
+			f.close()
+		main.show_title(), "그림 고르기")
 
 func _ready() -> void:
 	# 한 번 끝까지 하면 처음 화면이 허 의원과 잠든 어린 주인공 그림으로 바뀐다
@@ -14,10 +33,17 @@ func _ready() -> void:
 	# 엔딩 기록이 생기기 전에 깬 판은 '반려' 칭호로 알아본다
 	var saw_s: bool = "seohwi" in ends or book.has("서휘의 반려")
 	var saw_d: bool = "dogyeol" in ends or book.has("윤도결의 반려")
-	if saw_s and saw_d and main.backdrop("title_both"):
-		bg.texture = main.backdrop("title_both")   # 두 엔딩을 다 보면: 서휘와 윤도결 사이의 주인공
-	elif cleared:
-		bg.texture = main.backdrop("title_clear")
+	# 처음 화면 그림 모음: 조건을 이룰 때마다 하나씩 열리고, 켤 때마다 무작위(또는 고른 그림)
+	unlocked = []
+	if cleared: unlocked.append("title_clear")
+	if saw_s: unlocked.append("family")
+	if saw_d: unlocked.append("family_dogyeol")
+	if saw_s and saw_d: unlocked.append("title_both")
+	var pick: String = str(book.get("_title_pic", ""))
+	if not pick in unlocked and not unlocked.is_empty():
+		pick = unlocked[randi() % unlocked.size()]
+	if pick != "" and main.backdrop(pick):
+		bg.texture = main.backdrop(pick)
 	else:
 		bg.texture = main.backdrop("title") if main.backdrop("title") else load("res://assets/ui/board_map.jpg")
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -111,6 +137,12 @@ func _ready() -> void:
 		tb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		vb.add_child(tb)
 		tb.pressed.connect(func(): main.open_title_book())
+	if unlocked.size() > 1:
+		var gb: Button = main.make_button("그림 고르기", 30)
+		gb.custom_minimum_size = Vector2(420, 90)
+		gb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		vb.add_child(gb)
+		gb.pressed.connect(_pick_gallery)
 	var setb: Button = main.make_button("설정", 30)
 	setb.custom_minimum_size = Vector2(420, 90)
 	setb.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
