@@ -10,7 +10,7 @@ const CHAPTERS := {
 	1: {"title": "제1장  누명", "goal": "화엄골", "intro": "PROLOGUE", "end": "CHAPTER1_END",
 		"stages": [{"map": "s1_0", "name": "운종가 약재 심부름", "after": "PROLOGUE_B", "after_story": true,
 				"errand": ["당귀", "감초", "숙지황"], "foes": {"walpae": "walpae", "pojol": "walpae"}, "extra_guards": 1},
-			{"map": "s1_2", "name": "화엄골 가는 길", "after": "C1_ROAD", "ally": "darae_flee"}],
+			{"map": "s1_2", "name": "화엄골 가는 길", "ally": "darae_flee"}],
 		"goal_text": "안개 낀 계곡 끝, 대숲 속 초당이 보인다.\n지리산 화엄골에 도착했다!", "goal_title": "화엄골", "goal_pic": "friend", "goal_bg": "byeolchae",
 		"end_battle": "shadow_s", "end_after": "CH1_AFTER_SHADOW"},
 	2: {"title": "제2장  남장", "goal": "한양 약방", "intro": "CH2_INTRO", "end": "CH2_END",
@@ -87,7 +87,9 @@ static func talks(ch: int) -> Array:
 static func lines(key: String) -> Array:
 	match key:
 		"PROLOGUE": return GameData.PROLOGUE
-		"PROLOGUE_B": return GameData.PROLOGUE_B
+		"PROLOGUE_B":   # 도망친 뒤 → 문경새재 주막 → 지리산 모닥불 → 목표 → 화엄골 가는 길 맵
+			var pb: Array = GameData.PROLOGUE_B.slice(0, GameData.PROLOGUE_B.size() - 1)
+			return pb + GameData.STORY1 + GameData.STORY2 + [GameData.PROLOGUE_B[-1]]
 		"C9_RETURN": return C9_HOMEWARD
 		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_CALL
 		"C9_BRIDGE": return C9_BRIDGE
