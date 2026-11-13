@@ -35,6 +35,7 @@ func _ready() -> void:
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.modulate = Color(0.62, 0.55, 0.5) if bg.texture == null else Color.WHITE
 	add_child(bg)
+	main.shrink_overlay(self, pick, bg)
 	if cleared:   # 글자가 잘 보이게 아래쪽만 살짝 어둡게
 		var g2 := Gradient.new()
 		g2.set_color(0, Color(0.06, 0.04, 0.03, 0.0)); g2.set_color(1, Color(0.06, 0.04, 0.03, 0.55))

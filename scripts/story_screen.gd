@@ -100,7 +100,9 @@ func _set_bg(name: String) -> void:
 	if t:
 		bg.texture = t
 		bg.modulate = Color.WHITE
+		main.shrink_overlay(self, name, bg)
 	else:
+		main.shrink_overlay(self, "", bg)
 		bg.texture = load("res://assets/ui/board_map.jpg")
 		bg.modulate = Color(0.35, 0.3, 0.28)
 

@@ -1068,6 +1068,29 @@ func illust(name: String) -> Texture2D:
 ## 아직 그림이 없을 때 임시로 쓰는 그림
 const CHAR_FALLBACK := {"hero_disguise_hair": "hero_disguise_sad", "hero_adult_tense": "hero_adult"}
 
+## 인물이 화면 가득 차서 잘리는 그림: 한 겹 작게 줄여 가운데에 얹고, 뒤는 같은 그림을 흐리게 깐다
+const BG_SHRINK := {"family_dogyeol": 0.8}
+
+func shrink_overlay(parent: Control, name: String, under: TextureRect) -> void:
+	var old := parent.get_node_or_null("ShrinkPic")
+	if old:
+		old.queue_free()
+	under.self_modulate = Color.WHITE
+	if not BG_SHRINK.has(name) or under.texture == null:
+		return
+	var k: float = BG_SHRINK[name]
+	under.self_modulate = Color(0.45, 0.4, 0.38)
+	var t := TextureRect.new()
+	t.name = "ShrinkPic"
+	t.texture = under.texture
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.anchor_left = (1.0 - k) / 2.0; t.anchor_right = 1.0 - (1.0 - k) / 2.0
+	t.anchor_top = 0.04; t.anchor_bottom = 0.04 + k
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(t)
+	parent.move_child(t, under.get_index() + 1)
+
 const BG_FALLBACK := {"stream_day": "jangteo", "grave_path": "grave", "yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
 	"flash_plague": "village_outside", "flash_carried": "mountain", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
 
