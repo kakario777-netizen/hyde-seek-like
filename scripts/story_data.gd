@@ -67,6 +67,8 @@ const CHAPTERS := {
 				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
 					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
 					{"who": "다래", "pic": "darae_adult", "text": "나 궁에 가는 길! 그 보따리… 누구 주려고?\n둘 다? 흐응~ 욕심쟁이. 비스킷 하나만 나 줘!", "coin": 2}]},
+			{"map": "s10_isle", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
+				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "seohwi"},
 			{"map": "s10_mapo", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
@@ -89,7 +91,7 @@ static func lines(key: String) -> Array:
 		"C9_RETURN": return C9_HOMEWARD
 		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 9) + C9_KING + C9_DARAE + C9_CALL
 		"C9_BRIDGE": return C9_BRIDGE
-		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER + C10_EXILE + C10_FALL
+		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
@@ -1448,10 +1450,10 @@ const C10_LETTER := [
 	{"who": "", "text": "그때 약방 문이 벌컥 열렸다. 등불을 든 다래였다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "{name}아, 아직 안 잤…\n…너 울었어? 무슨 일이야?"},
 	{"who": "", "text": "{name|은} 편지를 보여 주었다. 다래는 '백운'이라는 이름에서 한참 눈을 떼지 못했다."},
-	{"who": "다래", "pose": "darae_adult", "text": "…할아버지, 남쪽 바닷가 마을에 유배 가신 지 삼 년째야.\n나… 한 번도 못 갔어. 무서워서. 미워서."},
+	{"who": "다래", "pose": "darae_adult", "text": "…할아버지, 남쪽 섬에 유배 가신 지 삼 년째야.\n나… 한 번도 못 갔어. 무서워서. 미워서."},
 	{"who": "다래", "pose": "darae_adult", "text": "{name}아. …같이 가 줄래?"},
 	{"who": "{name}", "pose": "hero_adult", "text": "당연하지. 이번엔 혼자 두지 않는다고 했잖아."},
-	{"who": "", "text": "이튿날 새벽, 둘은 말을 빌려 남쪽으로 길을 떠났다.\n사흘을 쉬지 않고 달린 끝에, 바다 내음이 실려 왔다."},
+	{"who": "", "text": "【목표】\n다래와 함께 남쪽 바다를 건너\n백운이 유배된 섬의 초가까지 가라."},
 ]
 
 const C10_EXILE := [
@@ -1471,7 +1473,7 @@ const C10_EXILE := [
 ]
 
 const C10_FALL := [
-	{"bg": "daebi_room", "music": "dread_shadow", "who": "", "text": "유배지에서 돌아온 이튿날 새벽. 대비전에 곡소리 같은 비명이 울렸다.\n대비마마가 탕약을 드신 뒤 쓰러지셨다는 것이었다."},
+	{"bg": "daebi_room", "music": "dread_shadow", "who": "", "text": "섬에서 돌아온 이튿날 새벽. 대비전에 곡소리 같은 비명이 울렸다.\n대비마마가 탕약을 드신 뒤 쓰러지셨다는 것이었다."},
 	{"who": "대비", "pose": "daebi_ill", "text": "…머리가… 머리 속에서 검은 것이 들끓는구나…"},
 	{"who": "", "text": "{name|은} 약사발 바닥에 남은 찌꺼기를 혀끝에 대 보았다.\n달콤한 감초 맛 뒤로… 비린 쇠 냄새. 잊을 수 없는 그 냄새였다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "(흑심단…! 아버지와 함께 사라진 줄 알았는데…)"},
