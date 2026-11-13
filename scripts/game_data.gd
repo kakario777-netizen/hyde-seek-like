@@ -96,13 +96,13 @@ const STORY1 := [
 ]
 
 const STORY2 := [
-	{"who": "", "bg": "ferry", "text": "남원 땅, 섬진강 나루.\n지리산으로 건너갈 배를 기다리며 두 소녀는 모닥불 곁에 앉았다."},
+	{"who": "", "bg": "mountain", "text": "지리산 자락, 화엄골 어귀.\n날이 저물어 두 소녀는 산길 옆 바위 아래 모닥불을 피웠다."},
 	{"who": "{name}", "pic": "hero_sad", "text": "(의원님 편지… 이 안에 무슨 일이 있었는지 다 적혀 있을지도 몰라.)",
 		"choices": [{"text": "몰래 봉인을 뜯어 본다", "set": "opened"}, {"text": "약속을 지킨다", "set": ""}]},
 	{"if": "opened", "who": "", "pic": "hero_surprised", "text": "'스승님, 저는 둘이 되었습니다.\n해가 지면 제 안의 검은 것이 저를 밀어내고 거리로 나갑니다…'\n떨리는 글씨는 거기서 번져 끊겨 있었다."},
 	{"if": "opened", "who": "{name}", "pic": "hero_surprised", "text": "둘이…? 그럼 그 검은 갓의 사내가…"},
 	{"ifnot": "opened", "who": "다래", "pic": "friend", "text": "잘 참았어. 의원님이 열지 말라고 한 데는 이유가 있을 거야."},
-	{"who": "다래", "pic": "friend_worried", "text": "…그런데 아까부터 누가 우리를 따라오는 것 같아.\n강을 건너면 조금만 더 서두르자."},
+	{"who": "다래", "pic": "friend_worried", "text": "…그런데 아까부터 누가 우리를 따라오는 것 같아.\n날이 밝으면 곧장 할아버지께 가자. 이제 거의 다 왔어."},
 ]
 
 const CHAPTER1_END := [
