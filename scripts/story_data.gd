@@ -122,6 +122,7 @@ const CH2_INTRO := [
 
 const C2_DOGYEOL := [
 	{"who": "", "bg": "checkpoint_road", "text": "어느 고을 어귀, 검문소.\n붉은 술 전립을 쓴 포졸들 사이로, 검은 철릭의 젊은 관리 하나가 걸어 나왔다."},
+	{"who": "", "text": "초소 기둥에 붙은 방 속 얼굴은 댕기 머리 소녀였다.\n{alias}는 패랭이를 더 깊이 눌러 썼다."},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "포도청 종사관 윤도결이다.\n한양 약방 사건의 계집아이를 쫓아 여기까지 왔지."},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "…약초꾼이냐. 어디서 오는 길이냐?",
 		"choices": [{"text": "지리산 약초꾼이라 둘러댄다", "set": "c2_lie"}, {"text": "고개를 숙이고 입을 다문다", "set": ""}]},
