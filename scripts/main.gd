@@ -1131,7 +1131,7 @@ func shrink_overlay(parent: Control, name: String, under: TextureRect) -> void:
 	parent.add_child(t)
 	parent.move_child(t, under.get_index() + 1)
 
-const BG_FALLBACK := {"stream_day": "jangteo", "grave_path": "grave", "yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
+const BG_FALLBACK := {"dutch_classroom": "dutch_child_room", "stream_day": "jangteo", "grave_path": "grave", "yakbang_calm": "yakbang", "palace_night": "palace", "naeuiwon": "yakbang", "mapo_warehouse": "den",
 	"flash_plague": "village_outside", "flash_carried": "mountain", "flash_seohwi_parents": "island", "flash_dogyeol": "alley"}
 
 func backdrop(name: String) -> Texture2D:
