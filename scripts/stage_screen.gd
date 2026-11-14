@@ -985,13 +985,17 @@ func _intro() -> void:
 		var txt := "〈%s〉" % stage_cfg["name"]
 		if g != "":
 			txt += "\n\n【목표】\n" + _wrap_words(main.fmt(g), 17)
-		if main.chapter == 1 and main.stage_idx == 0 and main.sub_stage.is_empty():   # 감시칸 설명은 첫 맵에서만
-			txt += "\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오."
 		if shoes_used:
 			txt += "\n\n(새 짚신을 신었다: 남은 시각 +3)"
-		main.popup(txt, "출발", func():
+		var go := func():
 			busy = false
-			_deal(), cfg.get("title", ""), "", "", true)
+			_deal()
+		if main.chapter == 1 and main.stage_idx == 0 and main.sub_stage.is_empty():   # 감시칸 설명은 첫 맵에서만, 목표 뒤에 따로
+			main.popup(txt, "다음", func():
+				main.popup("〈%s〉\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오." % stage_cfg["name"], "출발", go, cfg.get("title", ""), "", "", true),
+				cfg.get("title", ""), "", "", true)
+		else:
+			main.popup(txt, "출발", go, cfg.get("title", ""), "", "", true)
 		return
 	await get_tree().create_timer(0.4).timeout
 	_deal()

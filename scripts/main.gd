@@ -141,6 +141,11 @@ func _debug_capture() -> void:
 			last_goal = args.get("goal", "")
 			start_board()
 			await get_tree().create_timer(1.5).timeout
+			if args.has("next"):
+				for b in get_tree().root.find_children("*", "Button", true, false):
+					if b.text == "다음":
+						b.pressed.emit(); break
+				await get_tree().create_timer(0.8).timeout
 		"stagewalk":
 			chapter = int(args.get("ch", "1"))
 			stage_idx = int(args.get("st", "0"))
