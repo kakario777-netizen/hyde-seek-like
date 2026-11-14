@@ -992,7 +992,7 @@ func _intro() -> void:
 			_deal()
 		if main.chapter == 1 and main.stage_idx == 0 and main.sub_stage.is_empty():   # 감시칸 설명은 첫 맵에서만, 목표 뒤에 따로
 			main.popup(txt, "다음", func():
-				main.popup("〈%s〉\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오." % stage_cfg["name"], "출발", go, cfg.get("title", ""), "", "", true),
+				main.popup("붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오.", "출발", go, "", "", "", true),
 				cfg.get("title", ""), "", "", true)
 		else:
 			main.popup(txt, "출발", go, cfg.get("title", ""), "", "", true)
