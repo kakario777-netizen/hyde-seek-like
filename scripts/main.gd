@@ -135,6 +135,12 @@ func _debug_capture() -> void:
 					else:
 						current._advance()
 			print("FLOW chapter=", chapter, " stage=", stage_idx, " phase=", phase, " screen=", current.get_script().resource_path.get_file() if current else "none")
+		"stageintro":   # 맵 시작 목표 팝업 확인용
+			chapter = int(args.get("ch", "1"))
+			stage_idx = int(args.get("st", "0"))
+			last_goal = args.get("goal", "")
+			start_board()
+			await get_tree().create_timer(1.5).timeout
 		"stagewalk":
 			chapter = int(args.get("ch", "1"))
 			stage_idx = int(args.get("st", "0"))
@@ -952,6 +958,8 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 				flags[st] = true
 			next.call(), fmt(line.get("who", "")), line.get("pic", line.get("pose", "")), nbg)
 	else:
+		if line["text"].begins_with("【목표】"):
+			last_goal = line["text"].trim_prefix("【목표】").strip_edges()
 		popup(line["text"], "다음", next, fmt(line.get("who", "")), line.get("pic", line.get("pose", "")), nbg,
 			line["text"].begins_with("【목표】"))
 
@@ -1840,6 +1848,8 @@ func snapshot() -> Dictionary:
 		d["sub_board"] = board.get_state()
 		d["place"] = board.place_name()
 	return d
+
+var last_goal := ""   # 이야기에서 마지막으로 보여 준 목표 (다음 맵 시작 때 다시 띄움)
 
 func can_save() -> bool:
 	return phase == "board" or phase == "prologue"

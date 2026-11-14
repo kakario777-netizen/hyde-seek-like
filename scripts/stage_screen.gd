@@ -980,13 +980,35 @@ func _intro() -> void:
 	_layout()
 	if pos == 0 and restore.is_empty():
 		await get_tree().create_timer(0.3).timeout
-		main.popup("〈%s〉\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오.%s" % [stage_cfg["name"], "\n\n(새 짚신을 신었다: 남은 시각 +3)" if shoes_used else ""], "출발", func():
+		var g: String = main.last_goal if main.last_goal != "" else str(stage_cfg.get("goal", ""))
+		main.last_goal = ""
+		var txt := "〈%s〉" % stage_cfg["name"]
+		if g != "":
+			txt += "\n\n【목표】\n" + _wrap_words(main.fmt(g), 17)
+		if main.chapter == 1 and main.stage_idx == 0 and main.sub_stage.is_empty():   # 감시칸 설명은 첫 맵에서만
+			txt += "\n\n붉은 칸은 감시꾼의 눈길입니다. 그 칸에서 멈추면 들킵니다.\n남은 시각 안에 대문까지 가십시오."
+		if shoes_used:
+			txt += "\n\n(새 짚신을 신었다: 남은 시각 +3)"
+		main.popup(txt, "출발", func():
 			busy = false
 			_deal(), cfg.get("title", ""), "", "", true)
 		return
 	await get_tree().create_timer(0.4).timeout
 	_deal()
 	busy = false
+
+## 낱말이 중간에서 끊기지 않게 한 줄 max_c 글자 안팎으로 직접 줄바꿈
+func _wrap_words(t: String, max_c: int) -> String:
+	var out: Array = []
+	for para in t.split("\n"):
+		var cur := ""
+		for w in para.split(" ", false):
+			if cur != "" and cur.length() + 1 + w.length() > max_c:
+				out.append(cur); cur = w
+			else:
+				cur = w if cur == "" else cur + " " + w
+		out.append(cur)
+	return "\n".join(out)
 
 func get_state() -> Dictionary:
 	return {"seed": map_seed, "pos": pos, "turns": turns_left, "herbs": herbs_got, "talk_idx": talk_idx,
