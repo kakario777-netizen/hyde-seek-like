@@ -8,6 +8,8 @@ var enemy_id := "walpae"
 var on_win: Callable
 var opts: Dictionary = {}
 var ally: Dictionary = {}
+## 사람보다 작은 적은 전투 그림도 작게 (발끝은 같은 자리)
+const BATTLE_SCALE := {"rat": 0.6}
 const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "namsan_night", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "namsan_night"}
 
 const BASE_ENERGY := 3
@@ -272,7 +274,7 @@ func _layout() -> void:
 	var bottom: float = ptop - 6
 	var room: float = max(220.0, bottom - (tbot + 8 + (ip_panel.size.y if ip_panel else 70) + 8))
 	var k: float = min(1.0, room / max(1.0, enemy_full.y))
-	var sz := enemy_full * k
+	var sz := enemy_full * k * float(BATTLE_SCALE.get(enemy_id, 1.0))
 	enemy_sprite.custom_minimum_size = sz
 	enemy_sprite.size = sz
 	enemy_sprite.pivot_offset = sz * Vector2(0.5, 1.0)
