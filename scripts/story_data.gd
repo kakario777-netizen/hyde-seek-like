@@ -24,7 +24,7 @@ const CHAPTERS := {
 			{"map": "s3_1", "goal": "청계천을 돌며 약재를 더 모아\n왈패 소굴로 돌아와라.", "name": "청계천 약재 심부름", "after": "C3_DOGYEOL"},
 			{"map": "s3_k", "goal": "서휘와 함께 청계천 하류 소금 창고로 숨어들어\n흑룡파 두목을 쓰러뜨리고 아이들을 구하라.", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "goal": "구한 아이들을 데리고\n종로 뒷골목을 지나 왈패 소굴로 돌아가라.", "name": "종로 뒷골목", "after": "C3_TRUTH"},
-			{"map": "s3_3", "goal": "남산 아래까지 가서\n결판을 지어라.", "name": "남산 아래 결투"}],
+			{"map": "s3_3", "goal": "서휘가 기다리는\n남산 아래 공터로 가라.", "name": "남산 아래 결투"}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
@@ -235,11 +235,16 @@ const C3_TRUTH := [
 		"choices": [{"text": "\"…알겠어.\" 일단 따르는 척한다", "set": "c3_pretend"}, {"text": "\"싫어. 차라리 날 때려.\"", "set": "c3_refuse"}]},
 	{"if": "c3_refuse", "who": "서휘", "pic": "seohwi", "text": "…그 눈빛. 정말 싫군.\n오늘은 넘어가지. 하지만 약은 내일도 나간다. 아이들 밥줄이니까."},
 	{"if": "c3_pretend", "who": "{alias}", "pic": "hero_disguise_sad", "text": "(…몰래 그 붉은 씨앗과 가루를 빼고 감초만 넣자. 그거라도 해야 해.)"},
+	{"if": "c3_refuse", "who": "{alias}", "pic": "hero_disguise_sad", "text": "(…그래도 빚어야 한다면, 붉은 씨앗은 빼자. 감초만 넣는 거야.)"},
 	{"who": "", "text": "다음 날도, 그다음 날도 사람들은 청심보명단을 사러 줄을 섰다."},
+	{"who": "", "bg": "namsan_night", "text": "며칠 뒤 밤, 서휘가 남산 아래 공터로 {alias}를 불러냈다."},
+	{"who": "", "text": "【목표】\n서휘가 기다리는\n남산 아래 공터로 가라."},
 ]
 
 const C3_BOSS := [
-	{"who": "서휘", "pic": "seohwi_battle", "text": "몰래 처방을 바꿨더군. 위에서 약발이 떨어졌다고 난리다.\n네가 이러면 다치는 건 내 아이들이야."},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "왔군. …몰래 처방을 바꿨더군.\n위에서 약발이 떨어졌다고 난리다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "독인 걸 알면서 계속 팔 순 없어요."},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "네가 이러면 다치는 건 내 아이들이야.\n…말로는 안 되겠군."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이번엔 안 져!"},
 ]
 const C3_BOSS_WIN := [
