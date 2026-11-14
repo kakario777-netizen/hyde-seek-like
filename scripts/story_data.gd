@@ -33,7 +33,8 @@ const CHAPTERS := {
 			{"map": "s4_3", "goal": "서휘와 함께\n지리산 화엄골, 백운의 성 앞까지 가라.", "name": "화엄골 가는 길", "after": "C4_CASTLE", "ally": "seohwi",
 				"after_battle": {"battle": "seohwi3", "pre": "C4_GATE_PRE", "post": "C4_GATE_POST", "lose_ok": true}},
 			{"map": "s4_f1", "goal": "백운의 성 1층 창고를 지나\n위층으로 오르는 계단을 찾아라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1", "ally": "seohwi"},
-			{"map": "s4_f2", "goal": "독안개 낀 2층 회랑을 지나\n3층으로 올라가라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2X", "ally": "seohwi"},
+			{"map": "s4_f3", "goal": "쓴 약 냄새가 진동하는 2층 공방을 지나\n3층으로 올라가라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 약 공방", "after": "C4_F3", "ally": "seohwi"},
+			{"map": "s4_f2", "goal": "독안개 낀 3층 회랑을 지나\n천수각으로 올라가라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 3층 · 독안개 회랑", "after": "C4_F2X", "ally": "seohwi"},
 			{"map": "s4_f5", "goal": "성 꼭대기 천수각으로 올라가\n백운과 마주하라.", "foes": {"walpae": "gatekeeper", "pojol": "mob"}, "name": "백운의 성 4층 · 천수각", "ally": "seohwi"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
@@ -101,7 +102,7 @@ static func lines(key: String) -> Array:
 		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
-		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
+		"C4_F2X": return C4_F2 + C4_F4
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
 		"C10_ISLE": return C10_EXILE + C10_FALL
 		"C10_CURE_WED": return C10_CURE + C10_CHOICE + C10_WED
@@ -1259,7 +1260,7 @@ const C4_F1 := [
 ]
 
 const C4_F2_PRE := [
-	{"bg": "corridor", "who": "", "text": "성 2층, 독안개가 깔린 긴 회랑.\n검은 용 문신의 사내가 쇠사슬을 끌며 나타났다."},
+	{"bg": "corridor", "who": "", "text": "성 3층, 독안개가 깔린 긴 회랑.\n검은 용 문신의 사내가 쇠사슬을 끌며 나타났다."},
 	{"who": "흑룡파 두목", "pic": "heukdu", "text": "기다렸다, 청안파. 골목에서 한 번, 소금 창고에서 한 번…\n세 번째는 없다. 백 노인 어르신이 네 목에 은 백 냥을 거셨거든."},
 ]
 
@@ -1274,8 +1275,10 @@ const C4_F2 := [
 ]
 
 const C4_F3_PRE := [
-	{"bg": "corridor", "who": "", "text": "성 3층, 쓴 약 냄새가 진동하는 공방.\n눈이 풀린 일꾼들이 비틀거리며 다가왔다."},
+	{"bg": "corridor", "who": "", "text": "성 2층, 쓴 약 냄새가 진동하는 공방.\n눈이 풀린 일꾼들이 비틀거리며 다가왔다."},
 	{"who": "중독된 일꾼", "pic": "addict", "text": "약… 약을 더… 노인 어르신이… 일하면 약을 준다고…"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(청심보명단… 내가 빚었던 그 약에 이 사람들이…)"},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "의원, 다치지 않게 제압만 하자.\n저들도 당한 사람들이다."},
 ]
 
 const C4_F3_POST := [
@@ -1283,8 +1286,9 @@ const C4_F3_POST := [
 ]
 
 const C4_F3 := [
-	{"bg": "corridor", "who": "", "text": "회랑 끝 공방 안쪽, 쇠사슬에 묶인 마을 사람들이 청심보명단을 빚고 있었다."},
+	{"bg": "corridor", "who": "", "text": "공방 안쪽, 쇠사슬에 묶인 마을 사람들이 청심보명단을 빚고 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 사람들, 다 화엄골 마을 사람들이에요…!\n약을 미끼로 붙잡아 두고 일을 시킨 거야."},
+	{"who": "서휘", "pic": "seohwi", "text": "…내가 건넨 붉은 씨앗이 여기서 빚어지고 있었군."},
 	{"who": "", "text": "{alias}는 사슬을 풀고, 가지고 있던 해독 약재로 사람들의 손목을 짚어 가며 약을 먹였다."},
 	{"who": "마을 노인", "text": "고맙소, 젊은 의원…\n백 노인이 저리 변하기 전엔, 이 골짜기 사람들을 공짜로 고쳐 주던 분이었는데…"},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…약보다 독을 먼저 알아보라던 할아버지. 그 가르침은 진짜였는데…)"},
@@ -1312,7 +1316,7 @@ const C4_F5_POST := [
 ]
 
 const C4_F4 := [
-	{"bg": "vault", "who": "", "text": "그때, 아래층 계단에서 다급한 발소리가 들렸다."},
+	{"bg": "corridor", "who": "", "text": "그때, 아래층 계단에서 다급한 발소리가 들렸다."},
 	{"who": "다래", "pic": "friend_worried", "text": "{alias}! 여기 있었구나!\n마을 사람들이 그러는데 할아버지가 이 성에 붙잡혀 계신다고…"},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "다, 다래야…! 여긴 위험해. 아래에서 기다려."},
 	{"who": "다래", "pic": "friend_worried", "text": "싫어! 할아버지를 구하러 온 거야. 나도 갈 거야!"},
