@@ -343,6 +343,8 @@ const CH4_GOAL := [
 
 const CH4_END := [
 	{"bg": "cheonsugak", "who": "", "text": "백운이 무릎을 꿇었다.\n성 아래에서 뒤따라 올라온 윤도결과 포졸들이 노인을 오랏줄로 묶었다."},
+	{"who": "", "text": "회랑에 쓰러져 있던 흑룡파 두목도 포졸들 손에 오랏줄로 묶여 끌려 나왔다."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "청심보명단을 퍼뜨린 노인, 아이들을 잡아다 판 흑룡파 두목.\n…오늘 한꺼번에 포도청으로 간다."},
 	{"who": "다래", "pose": "friend_worried", "text": "할아버지?! …{alias}, 너…\n우리 할아버지한테 무슨 짓을 한 거야!"},
 	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "다래야, 들어 봐. 할아버지가 청심보명단을…"},
 	{"who": "다래", "pose": "friend_worried", "text": "듣기 싫어! 너만 믿고 따라왔는데…\n결국 우리 할아버지를 포도청에 넘기려고 날 이용한 거잖아!", "end": true},
