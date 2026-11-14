@@ -72,8 +72,8 @@ func _ready() -> void:
 			for mv in enemy["moves"] + [enemy["heavy"]]:
 				if mv["t"] == "atk":
 					mv["v"] += 2 + max(0, main.chapter - 1)
-	# 난이도 조정: 모든 적 공격 -2 (최소 2)
-	var cut := 2 + (5 if main.chapter == 7 else 0)   # 한양→화란 뱃길(7장)은 공격 -5 더
+	# 난이도 조정: 한양→화란 뱃길(7장)만 공격 -5 (최소 2) — 예전의 '모든 적 공격 -2'는 없앰(+2)
+	var cut := 5 if main.chapter == 7 else 0
 	for mv in enemy["moves"] + [enemy["heavy"]]:
 		if mv["t"] == "atk":
 			mv["v"] = max(2, int(mv["v"]) - cut)
