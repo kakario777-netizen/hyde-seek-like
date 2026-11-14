@@ -34,7 +34,7 @@ const CHAPTERS := {
 				"after_battle": {"battle": "seohwi3", "pre": "C4_GATE_PRE", "post": "C4_GATE_POST", "lose_ok": true}},
 			{"map": "s4_f1", "goal": "백운의 성 1층 창고를 지나\n위층으로 오르는 계단을 찾아라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1", "ally": "seohwi"},
 			{"map": "s4_f2", "goal": "독안개 낀 2층 회랑을 지나\n3층으로 올라가라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 독안개 회랑", "after": "C4_F2X", "ally": "seohwi"},
-			{"map": "s4_f5", "goal": "성 꼭대기 천수각으로 올라가\n백운과 마주하라.", "foes": {"walpae": "gatekeeper", "pojol": "mob"}, "name": "백운의 성 3층 · 천수각", "ally": "seohwi"}],
+			{"map": "s4_f5", "goal": "성 꼭대기 천수각으로 올라가\n백운과 마주하라.", "foes": {"walpae": "gatekeeper", "pojol": "mob"}, "name": "백운의 성 4층 · 천수각", "ally": "seohwi"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
@@ -327,7 +327,7 @@ const C4_CLUE := [
 ]
 
 const CH4_GOAL := [
-	{"who": "", "bg": "cheonsugak", "text": "백운의 성 3층, 천수각.\n금칠한 기둥 사이로 화엄골 골짜기가 발아래 펼쳐졌다."},
+	{"who": "", "bg": "cheonsugak", "text": "백운의 성 4층, 천수각.\n금칠한 기둥 사이로 화엄골 골짜기가 발아래 펼쳐졌다."},
 	{"who": "???", "pic": "baegun_boss", "text": "기어이 여기까지 왔구나. 서휘, 그리고… 허가 놈의 계집아이."},
 	{"who": "", "text": "삿갓 그늘 아래로 하얗게 센 수염 한 자락이 흘러내렸다.\n그리고 그 목소리… 자애롭게 웃던 다래의 할아버지였다."},
 	{"who": "백운", "pic": "baegun_boss", "text": "흑심단은 원래 내 처방이었다. 마음의 검은 것을 떼어 내는 약?\n그건 허가 놈의 헛된 꿈이었지. 나는 그 약으로 사람을 길들이는 법을 알아냈을 뿐."},
@@ -1220,9 +1220,9 @@ const C7_SICK := [
 
 const C4_CASTLE := [
 	{"bg": "castle", "who": "", "text": "산길을 올라 대숲을 빠져나오자, 화엄골 골짜기가 한눈에 들어왔다."},
-	{"who": "", "text": "다래의 고향, 조용하던 산골 마을 위로—\n붉은 기와를 세 겹으로 올린 거대한 성이 우뚝 솟아 있었다."},
+	{"who": "", "text": "다래의 고향, 조용하던 산골 마을 위로—\n붉은 기와를 네 겹으로 올린 거대한 성이 우뚝 솟아 있었다."},
 	{"who": "서휘", "pic": "seohwi", "text": "…장부에 적힌 은 수천 냥이 다 저기로 들어갔군.\n청심보명단으로 번 돈으로 제 성을 쌓다니."},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "마을 사람들 말로는 삼 층 꼭대기에 '백 노인'이 산대요.\n…층마다 지키는 자들이 있다고."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "마을 사람들 말로는 사 층 꼭대기에 '백 노인'이 산대요.\n…층마다 지키는 자들이 있다고."},
 	{"who": "서휘", "pic": "seohwi", "text": "한 층씩 올라가자. 등은 내가 맡지."},
 ]
 
@@ -1239,7 +1239,7 @@ const C4_GATE_POST := [
 	{"who": "서휘", "pic": "seohwi", "text": "됐다. 이 정도면 등을 맡길 수 있겠어.\n…아니, 이제는 내가 네 등을 맡기겠다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "서휘의 애체에 비친 햇빛, 진짜 눈부셨어요.\n…다음엔 그거 안 통할 거예요."},
 	{"who": "서휘", "pic": "seohwi", "text": "흥. 기대하지."},
-	{"who": "", "text": "【목표】\n백운의 성 세 층을 차례로 올라\n꼭대기 천수각에 닿아라."},
+	{"who": "", "text": "【목표】\n백운의 성 네 층을 차례로 올라\n꼭대기 천수각에 닿아라."},
 ]
 
 const C4_F1_PRE := [
@@ -1274,7 +1274,7 @@ const C4_F2 := [
 ]
 
 const C4_F3_PRE := [
-	{"bg": "corridor", "who": "", "text": "성 2층 안쪽, 쓴 약 냄새가 진동하는 공방.\n눈이 풀린 일꾼들이 비틀거리며 다가왔다."},
+	{"bg": "corridor", "who": "", "text": "성 3층, 쓴 약 냄새가 진동하는 공방.\n눈이 풀린 일꾼들이 비틀거리며 다가왔다."},
 	{"who": "중독된 일꾼", "pic": "addict", "text": "약… 약을 더… 노인 어르신이… 일하면 약을 준다고…"},
 ]
 
@@ -1292,7 +1292,7 @@ const C4_F3 := [
 ]
 
 const C4_F5_PRE := [
-	{"bg": "cheonsugak", "who": "", "text": "성 3층, 천수각으로 오르는 마지막 계단참.\n삿갓 쓴 노인이 난간에 기대어 기다리고 있었다."},
+	{"bg": "cheonsugak", "who": "", "text": "성 4층, 천수각으로 오르는 마지막 계단참.\n삿갓 쓴 노인이 난간에 기대어 기다리고 있었다."},
 	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "세 번째로구나, 아이들아.\n허나 천수각 문턱은 한 발짝도 넘지 못한다."},
 ]
 
