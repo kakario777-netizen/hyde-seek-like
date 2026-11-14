@@ -771,7 +771,7 @@ const C3_SHADOW_FLEE := [
 const C4_MASK1 := [
 	{"bg": "gunsan_port", "who": "", "text": "포구 뒷길. 은 궤짝을 실은 수레 곁에 삿갓 쓴 노인이 서 있었다."},
 	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "…청안파의 서휘로구나. 그리고 그 꼬마 의원.\n장부를 뒤지는 쥐새끼들이 있다더니."},
-	{"who": "서휘", "pic": "seohwi_battle", "text": "대대장…! 이번엔 얼굴을 보여 주시지."},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "…대대장. 직접 납시다니.\n늘 삿갓 뒤에 숨어 계시더니, 오늘은 그 얼굴 좀 봐야겠소."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "(저 목소리… 설마…)"},
 ]
 
