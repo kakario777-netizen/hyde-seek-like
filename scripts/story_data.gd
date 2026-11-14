@@ -28,8 +28,7 @@ const CHAPTERS := {
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
-			{"map": "s4_1", "goal": "비 오는 청계천을 지나\n병의 원인을 찾아라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM", "ally": "seohwi"},
-			{"map": "s4_2", "goal": "서휘와 함께 군산 포구를 뒤져\n대대장의 돈이 흘러간 흔적을 찾아라.", "name": "군산 포구 뒤지기", "after": "C4_CLUE", "ally": "seohwi"},
+			{"map": "s4_1", "goal": "비 오는 청계천을 지나\n병의 원인을 찾아라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM_CLUE", "ally": "seohwi"},
 			{"map": "s4_3", "goal": "서휘와 함께\n지리산 화엄골, 백운의 성 앞까지 가라.", "name": "화엄골 가는 길", "after": "C4_CASTLE", "ally": "seohwi",
 				"after_battle": {"battle": "seohwi3", "pre": "C4_GATE_PRE", "post": "C4_GATE_POST", "lose_ok": true}},
 			{"map": "s4_f1", "goal": "백운의 성 1층 창고를 지나\n위층으로 오르는 계단을 찾아라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1", "ally": "seohwi"},
@@ -102,6 +101,7 @@ static func lines(key: String) -> Array:
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F3 + C4_F4
+		"C4_STREAM_CLUE": return C4_STREAM + C4_CLUE
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
 		"C10_ISLE": return C10_EXILE + C10_FALL
 		"C10_CURE_WED": return C10_CURE + C10_CHOICE + C10_WED
@@ -282,6 +282,7 @@ const CH4_INTRO := [
 	{"who": "서휘", "pose": "seohwi", "text": "이미 풀어 줬다. 할아버지께 알리겠다며 먼저 지리산으로 떠났지.\n…그리고, 너한테 이것도 돌려주마."},
 	{"who": "", "text": "서휘가 내민 것은 허 의원 약방 지하실의 열쇠였다."},
 	{"who": "서휘", "pose": "seohwi", "text": "지하실엔 아무것도 없었다. 해독약 처방을 적은 책장만 통째로 뜯겨 나갔더군.\n가져간 사람은… 대대장일 거다."},
+	{"who": "{alias}", "pose": "hero_disguise_angry", "text": "의원님 해독약 처방을 찾아야 해요.\n…같이 가요, 서휘."},
 	{"bg": "den", "who": "", "text": "그날 오후, 서휘는 청안파 아이들을 모두 소굴 마당에 불러 모았다."},
 	{"who": "", "pose": "seohwi", "text": "서휘가 붉은 씨앗과 가루가 든 주머니를 하나씩 풀어, 청계천 물에 쏟아 버렸다."},
 	{"who": "서휘", "pose": "seohwi", "text": "오늘부터 청안파는 청심보명단을 팔지 않는다."},
@@ -319,7 +320,7 @@ const C4_STREAM := [
 ]
 
 const C4_CLUE := [
-	{"who": "", "bg": "gunsan_port", "text": "어느 포구의 객주.\n장부를 뒤지던 서휘가 손가락으로 한 줄을 짚었다."},
+	{"who": "", "bg": "gunsan_port", "text": "며칠 뒤, 서쪽 바닷길 어느 포구의 객주.\n장부를 뒤지던 서휘가 손가락으로 한 줄을 짚었다."},
 	{"who": "서휘", "pic": "seohwi", "text": "'청심보명단 대금, 은 삼백 냥. 화엄골 백(白) 노인 앞.'\n…화엄골. 다래라는 아이의 고향 아닌가?"},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "백… 노인…?\n설마. 설마 다래 할아버지가…"},
 	{"who": "서휘", "pic": "seohwi", "text": "아직 모른다. 하지만 각오는 해 두는 게 좋겠군."},
