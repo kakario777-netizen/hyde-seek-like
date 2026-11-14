@@ -138,6 +138,13 @@ func _ready() -> void:
 		print("MAPTEST guards_kind=", guards.map(func(g): return _enemy_id(g["kind"])), " blockers=", range(tiles.size()).filter(func(i): return tiles[i]["type"] in ["walpae","pojol"]).map(func(i): return _enemy_id(tiles[i]["type"])))
 		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid, " events=", evn, "/", orig_ev, " herbs=", herbs_total)
 		print("MAPTEST ", stage_cfg["map"], " chars=", cs.size(), " guards=", guards.size(), " forks=", tiles.size() - main_len, " bad=", bad)
+		var nb := 0
+		var off := 0
+		for i in tiles.size():
+			if tiles[i]["type"] in BLOCKERS:
+				nb += 1
+				if not _must_pass(i): off += 1
+		print("BLOCKERS ", nb, " off_path=", off)
 
 	var bgr := TextureRect.new()
 	bgr.texture = main.backdrop(data.get("bg", "alley"))
@@ -554,6 +561,19 @@ func _randomize_layout(s: int) -> void:
 			chars.append(t)
 		else:
 			others.append(t)
+	# 강제 전투(길막이)는 보스 포함 2~3개, 그리고 반드시 지나가는 칸에만
+	var blk: Array = chars.filter(func(t): return t in ["walpae", "pojol"])
+	var lo := 1 if boss_i >= 0 else 2
+	var hi := 2 if boss_i >= 0 else 3
+	var keep: int = clampi(blk.size(), lo, hi)
+	while blk.size() > keep:
+		chars.erase(blk.pop_back())
+	while blk.size() < keep:
+		blk.append("walpae"); chars.append("walpae")
+	var must := {}
+	for i in tiles.size():
+		if _must_pass(i):
+			must[i] = true
 	var gcnt: int = guards.size() + int(stage_cfg.get("extra_guards", 2))
 	for g in gcnt:
 		chars.append("guard")
@@ -577,6 +597,8 @@ func _randomize_layout(s: int) -> void:
 			var best_d := 1e9
 			for i in order:
 				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, pss[0]):
+					continue
+				if kind in ["walpae", "pojol"] and not must.has(i):
 					continue
 				if pss[1] and _hidden_by_any(i, occupied):
 					continue
@@ -722,6 +744,21 @@ func _cheb(a: int, b: int) -> int:
 	return maxi(absi(int(tiles[a]["x"]) - int(tiles[b]["x"])), absi(int(tiles[a]["y"]) - int(tiles[b]["y"])))
 
 ## 인물을 세워도 되는 칸인가: 다른 인물과 사이에 빈칸 하나 이상, 감시꾼끼리는 붉은 칸이 겹치지 않게
+## 이 칸을 막으면 출발에서 대문까지 갈 수 없는가 (= 반드시 지나가는 칸)
+func _must_pass(skip: int) -> bool:
+	if skip == 0 or skip == main_len - 1:
+		return false
+	var seen := {0: true}
+	var q: Array = [0]
+	while not q.is_empty():
+		var c: int = q.pop_front()
+		if c == main_len - 1:
+			return false
+		for x in tiles[c]["next"]:
+			if x != skip and not seen.has(x):
+				seen[x] = true; q.append(x)
+	return true
+
 func _char_ok(i: int, guard: bool, occupied: Array, reserved: Dictionary, dist_start: Array, gg := 4) -> bool:
 	if tiles[i]["type"] != "empty" or reserved.has(i) or dist_start[i] < 3 or dist_goal[i] < 2:
 		return false
