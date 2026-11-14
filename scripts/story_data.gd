@@ -50,8 +50,9 @@ const CHAPTERS := {
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
 		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
-			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3}],
-		"goal_text": "풍차 옆 언덕에 쓴 약초가 가득하다.\n이것이면 마을을 살릴 수 있다!", "goal_title": "풍차 언덕", "goal_pic": "seohwi_dutch", "goal_bg": "holland"},
+			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3},
+			{"map": "s7_3", "name": "겨울 항구 가는 길", "ally": "", "foes": {"walpae": "haejeok", "pojol": "haejeok"}}],
+		"goal_text": "해 질 녘 항구 창고 앞.\n등불을 든 서휘가 커다란 보따리를 안고 기다리고 있었다.", "goal_title": "겨울 항구", "goal_pic": "seohwi_dutch", "goal_bg": "holland_port"},
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "h_port", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "h_deck", "ally_pic": "seohwi_dutch", "name": "귀향의 바닷길", "after": "C9_RETURN", "after_story": true, "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
@@ -648,7 +649,7 @@ const C7_MID := [
 ]
 
 const CH7_END := [
-	{"bg": "dutch_child_room", "who": "", "text": "역병이 물러간 겨울.\n서휘는 며칠씩 마을을 비우더니, 어느 날 무거운 보따리를 메고 돌아왔다."},
+	{"bg": "holland_port", "who": "", "text": "항구 창고 앞. 서휘가 무거운 보따리를 풀었다."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "바닷가 큰 도시 의학교에서 구해 왔다. 해부서와 약학서다.\n네 스승이 보고 싶어 했다던 그 책이지."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "…이 귀한 걸 어떻게…"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "의원님 대신 배우러 왔다며. 빈손으로 돌려보낼 수는 없지."},
@@ -1198,6 +1199,11 @@ const C7_SICK := [
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…아저씨가 아니라 선생님이라니까.\n그런데 왜 내 얼굴은 이렇게 찡그리고 있지."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "똑같은데요, 뭘.\n…봐요. 곁에 머무는 사람한테는 이렇게 사람들이 모여요."},
 	{"who": "", "text": "그날 이후, 둘 사이엔 말하지 않아도 알 수 있는 무언가가 생겼다."},
+	{"bg": "dutch_child_room", "who": "", "text": "역병이 물러간 겨울.\n서휘는 바닷가 큰 도시에 볼일이 있다며 며칠째 마을을 비웠다."},
+	{"who": "", "text": "그러던 어느 아침, 다락방 창틈에 쪽지 한 장이 끼워져 있었다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "(쪽지)\n\"모레 해 질 녘, 항구 창고 앞으로 와 다오. 꼭 보여 줄 것이 있다.\n…겨울엔 항구 길에 해적 떼가 어슬렁거린다. 조심해서 와라.\""},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "보여 줄 거라니… 뭘까.\n해적이든 뭐든, 가 봐야겠어."},
+	{"who": "", "text": "【목표】\n해적들이 어슬렁거리는 겨울 바닷길을 지나\n서휘가 기다리는 항구 창고까지 가라."},
 ]
 
 const C4_CASTLE := [
