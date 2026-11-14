@@ -10,7 +10,7 @@ var opts: Dictionary = {}
 var ally: Dictionary = {}
 ## 사람보다 작은 적은 전투 그림도 작게 (발끝은 같은 자리)
 const BATTLE_SCALE := {"rat": 0.6}
-const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "baegun_mask": "stream", "shadow_s": "namsan_night", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "namsan_night"}
+const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "shadow_s": "namsan_night", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "namsan_night"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
@@ -88,7 +88,7 @@ func _ready() -> void:
 		var sbg: String = main.board.data.get("bg", "")
 		if sbg in ["vault", "corridor", "cheonsugak", "podocheong"] and not (bgname in ["vault", "corridor", "cheonsugak"]):
 			bgname = sbg
-		elif sbg != "" and not enemy.get("boss", false):
+		elif sbg != "" and (not enemy.get("boss", false) or not BATTLE_BG.has(enemy_id)):   # 장소가 정해지지 않은 보스(삿갓 노인 등)도 맵 배경에서
 			# 일반 적은 지금 걷고 있는 맵의 배경에서 싸운다 (보스는 정해 둔 장소 그대로)
 			bgname = "mountain" if sbg == "title" else sbg
 	# 싸우기 직전 대화에서 장소 그림을 보여 줬으면 그 그림에서 싸운다
