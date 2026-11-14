@@ -196,7 +196,7 @@ func _next() -> void:
 	elif who == "":
 		_show_pose("")
 	main.line_music(line)
-	text_lbl.text = main.sentence_breaks(main.fmt(line["text"]))
+	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 5)
 	var goal: bool = line["text"].begins_with("【목표】")
 	text_lbl.add_theme_color_override("font_color", Color("6b3a1e") if goal else main.INK)
 	box.visible = not goal

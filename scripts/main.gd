@@ -959,7 +959,7 @@ func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic 
 	var o := _overlay(title, bg, pic, true)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var l := make_label(sentence_breaks(fmt(text)), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
+	var l := make_label(smart_breaks(fmt(text), 30, 520.0), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
@@ -1014,6 +1014,18 @@ func sentence_breaks(t: String) -> String:
 	var re := RegEx.new()
 	re.compile("([.?!。]+[\"'」)]?) +(?=\\S)")
 	return re.sub(t, "$1\n", true)
+
+## 문장 끝 줄바꿈을 넣되, 그러면 너무 길어질 때(max_lines 초과)는 넣지 않는다
+func smart_breaks(t: String, fsize: int, width: float, max_lines := 4) -> String:
+	var broken := sentence_breaks(t)
+	if broken == t:
+		return t
+	var font: Font = ThemeDB.fallback_font   # 설정에서 고른 글꼴
+	var lines := 0
+	for para in broken.split("\n"):
+		var w: float = font.get_string_size(para, HORIZONTAL_ALIGNMENT_LEFT, -1, fsize).x
+		lines += max(1, int(ceil(w / max(1.0, width))))
+	return broken if lines <= max_lines else t
 
 ## 대화 그림 키 비율: 남자 어른 1.0 기준, 주인공·여자는 조금 작게, 아이는 더 작게
 func fig_scale(name: String) -> float:
@@ -1353,7 +1365,7 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 	var o := _overlay(title, bg, pic, not centered)
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
-	var l := make_label(sentence_breaks(fmt(text)), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
+	var l := make_label(smart_breaks(fmt(text), 30, 520.0), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
 	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
