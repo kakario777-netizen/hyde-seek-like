@@ -50,6 +50,7 @@ const CHAPTERS := {
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
 		"stages": [{"map": "s7_1", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
+			{"map": "s7_r", "name": "쥐 떼 소탕, 다락방 가는 길", "after": "C7_NIGHT", "ally": ""},
 			{"map": "s7_2", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3},
 			{"map": "s7_3", "name": "겨울 항구 가는 길", "ally": "", "foes": {"walpae": "haejeok", "pojol": "haejeok"}}],
 		"goal_text": "해 질 녘 항구 창고 앞.\n등불을 든 서휘가 커다란 보따리를 안고 기다리고 있었다.", "goal_title": "겨울 항구", "goal_pic": "seohwi_dutch", "goal_bg": "holland_port"},
@@ -624,7 +625,16 @@ const C7_MID := [
 	{"who": "{alias}", "pic": "hero_disguise", "text": "…그래도 될까요? 고맙습니다.\n그럼 밥값은 약으로 갚을게요."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "(작게) …잘됐군. 교실에서 멀지 않은 집이다."},
 	{"who": "", "text": "그날 밤부터, 지붕 밑 작은 다락방이 {alias}의 화란 집이 되었다."},
-	{"bg": "dutch_child_room", "who": "", "text": "그날 밤. 다락방 계단을 오르는 발소리와 함께, 문틈으로 등불 빛이 새어 들었다. 서휘였다."},
+	{"bg": "dutch_classroom", "who": "", "text": "해가 지고 교실을 정리하는데, 마룻바닥 밑에서 찍찍거리는 소리가 쏟아져 나왔다.\n붉은 눈의 쥐 떼가 이부자리 사이로 줄지어 달렸다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병은 쥐가 옮겨요! 약만 달여서는 끝이 없어.\n서휘는 환자들 곁을 지켜요. 쥐는 제가 잡을게요!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…조심해라. 놈들 굴은 학교 뒤 골목을 따라 마을 쪽으로 이어져 있다."},
+	{"who": "", "text": "【목표】\n학교에서 다락방까지 이어진 골목을 지나며\n역병을 옮기는 쥐 떼를 소탕하라."},
+]
+
+## 쥐 떼를 소탕하며 다락방에 닿은 밤
+const C7_NIGHT := [
+	{"bg": "dutch_child_room", "who": "", "text": "쥐 굴을 모두 막고 다락방에 닿았을 때는, 밤이 깊어 있었다."},
+	{"who": "", "text": "그때. 다락방 계단을 오르는 발소리와 함께, 문틈으로 등불 빛이 새어 들었다. 서휘였다."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…자나?"},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(문을 열며) 아직요. 이 밤에 웬일이에요, 서휘?"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "오늘 서른 명 넘게 맥을 짚었지.\n옆에서 보는 내가 다 숨이 차더군."},
@@ -640,7 +650,7 @@ const C7_MID := [
 	{"who": "마을 아이", "pic": "dutch_child", "text": "서휘 아저씨가 조선말도 가르쳐 줬어요!\n\"고, 맙, 습, 니, 다!\""},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "푸흡… 아저씨래요, 서휘."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…선생님이라고 부르라고 분명히 가르쳤는데."},
-	{"who": "", "bg": "dutch_classroom", "text": "밤늦은 학교 교실. 앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
+	{"who": "", "bg": "dutch_classroom", "text": "며칠 뒤, 밤늦은 학교 교실.\n앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
 	{"who": "", "pic": "dutch_child", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 돈 때문에 독을 팔던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…깼군. 나는 내 아버지처럼 떠도는 사람이 되기 싫었다.\n누군가 곁에 머물러 주는 사람이 되고 싶었지. 그때 그 다리 밑에서도."},
@@ -1417,7 +1427,7 @@ const ALL := {
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
-	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
+	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 
 ## 장마다 보드의 적 이름을 바꿔 끼움
