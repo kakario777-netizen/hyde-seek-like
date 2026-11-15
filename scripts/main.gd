@@ -407,11 +407,25 @@ func play_story(lines: Array, on_done: Callable) -> void:
 	s.on_done = on_done
 	_swap(s)
 
+## 지금 맵이 세계 지도 보드인가 (7장 전체, 또는 장 중간의 귀향 만리길 같은 보드 맵)
+func board_cfg() -> Dictionary:
+	var c := ch_cfg()
+	var st: Array = c.get("stages", [])
+	if not c.get("world", false) and stage_idx < st.size() and st[stage_idx].has("board"):
+		var d: Dictionary = st[stage_idx].duplicate()
+		d["title"] = c.get("title", "")
+		d["stage_board"] = true
+		return d
+	return c
+
+func is_world_board() -> bool:
+	return ch_cfg().get("world", false) or board_cfg().get("stage_board", false)
+
 func start_board() -> void:
 	hp = max_hp
 	last_dialog_bg = ""
 	next_energy = 0; next_guard = 0
-	board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
+	board = BoardScreen.new() if is_world_board() else StageScreen.new()
 	phase = "board"
 	_swap(board)
 	autosave.call_deferred("자동 저장")
@@ -433,6 +447,8 @@ func companion() -> String:
 func comp_pic() -> String:
 	var c: Dictionary = StoryData.COMPANION.get(companion(), {})
 	var st: Array = ch_cfg().get("stages", [])
+	if not sub_stage.is_empty() and sub_stage.has("ally_pic"):
+		return sub_stage["ally_pic"]
 	if sub_stage.is_empty() and stage_idx < st.size() and st[stage_idx].has("ally_pic"):
 		return st[stage_idx]["ally_pic"]
 	return c.get("pic", "")
@@ -1918,12 +1934,12 @@ func load_game(slot: String) -> void:
 		board.queue_free(); board = null
 	if d.get("phase", "") == "board" and d.has("board") and int(d.get("ver", 1)) >= 2:
 		phase = "board"
-		board = BoardScreen.new() if ch_cfg().get("world", false) else StageScreen.new()
+		board = BoardScreen.new() if is_world_board() else StageScreen.new()
 		board.restore = d["board"].duplicate()
-		if d.has("sub") and d.has("sub_board") and ch_cfg().get("world", false):
+		if d.has("sub") and d.has("sub_board") and is_world_board():
 			board.restore["in_sub"] = true
 		_swap(board)
-		if d.has("sub") and d.has("sub_board") and ch_cfg().get("world", false):
+		if d.has("sub") and d.has("sub_board") and is_world_board():
 			var wb: Control = board
 			var vidx := int(d["board"].get("pos", 0))
 			await get_tree().process_frame

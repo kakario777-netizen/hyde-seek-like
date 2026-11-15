@@ -1,0 +1,369 @@
+{
+ "map": "world_map.jpg",
+ "scale": 2.3,
+ "nodes": [
+  {
+   "x": 0.2501,
+   "y": 0.2324,
+   "type": "start",
+   "name": "화란"
+  },
+  {
+   "type": "empty",
+   "x": 0.2187,
+   "y": 0.222
+  },
+  {
+   "x": 0.1847,
+   "y": 0.2245,
+   "type": "empty"
+  },
+  {
+   "x": 0.1506,
+   "y": 0.226,
+   "type": "item"
+  },
+  {
+   "type": "buff",
+   "x": 0.1165,
+   "y": 0.2276
+  },
+  {
+   "x": 0.0866,
+   "y": 0.2427,
+   "type": "empty"
+  },
+  {
+   "type": "empty",
+   "x": 0.067,
+   "y": 0.2688
+  },
+  {
+   "x": 0.0586,
+   "y": 0.3012,
+   "type": "walpae"
+  },
+  {
+   "x": 0.0646,
+   "y": 0.3327,
+   "type": "empty"
+  },
+  {
+   "x": 0.094,
+   "y": 0.35,
+   "type": "buff",
+   "name": "포르투갈"
+  },
+  {
+   "type": "rest",
+   "x": 0.0605,
+   "y": 0.3845
+  },
+  {
+   "x": 0.0283,
+   "y": 0.4198,
+   "type": "empty"
+  },
+  {
+   "type": "talk",
+   "x": 0.012,
+   "y": 0.4651
+  },
+  {
+   "x": 0.0104,
+   "y": 0.5132,
+   "type": "debuff"
+  },
+  {
+   "x": 0.0136,
+   "y": 0.5612,
+   "type": "empty"
+  },
+  {
+   "type": "empty",
+   "x": 0.0282,
+   "y": 0.606
+  },
+  {
+   "x": 0.0525,
+   "y": 0.6475,
+   "type": "talk"
+  },
+  {
+   "type": "rest",
+   "x": 0.0773,
+   "y": 0.6888
+  },
+  {
+   "x": 0.0954,
+   "y": 0.7334,
+   "type": "empty"
+  },
+  {
+   "type": "debuff",
+   "x": 0.1123,
+   "y": 0.7785
+  },
+  {
+   "x": 0.1304,
+   "y": 0.8231,
+   "type": "walpae"
+  },
+  {
+   "x": 0.1514,
+   "y": 0.8664,
+   "type": "empty"
+  },
+  {
+   "type": "empty",
+   "x": 0.1854,
+   "y": 0.9004
+  },
+  {
+   "x": 0.2301,
+   "y": 0.8937,
+   "type": "rest",
+   "name": "희망의 곶"
+  },
+  {
+   "x": 0.2621,
+   "y": 0.9044,
+   "type": "rest"
+  },
+  {
+   "x": 0.2932,
+   "y": 0.9069,
+   "type": "empty"
+  },
+  {
+   "type": "walpae",
+   "x": 0.3218,
+   "y": 0.889
+  },
+  {
+   "x": 0.3478,
+   "y": 0.8675,
+   "type": "empty"
+  },
+  {
+   "type": "walpae",
+   "x": 0.3715,
+   "y": 0.8436
+  },
+  {
+   "x": 0.3925,
+   "y": 0.8173,
+   "type": "trap"
+  },
+  {
+   "x": 0.4086,
+   "y": 0.7876,
+   "type": "empty"
+  },
+  {
+   "type": "item",
+   "x": 0.4188,
+   "y": 0.7555
+  },
+  {
+   "x": 0.4254,
+   "y": 0.7225,
+   "type": "shop"
+  },
+  {
+   "type": "item",
+   "x": 0.4296,
+   "y": 0.689
+  },
+  {
+   "x": 0.4333,
+   "y": 0.6554,
+   "type": "empty"
+  },
+  {
+   "x": 0.438,
+   "y": 0.622,
+   "name": "먼바다",
+   "type": "voyage",
+   "pre_text": "화란을 떠나 한 달째.\n수평선 너머로 검은 깃발을 단 배가 따라붙었다…",
+   "stage": {
+    "map": "h_deck",
+    "name": "귀향의 바닷길",
+    "bg": "deck",
+    "after": "C9_SEA_NIGHT",
+    "ally_pic": "seohwi_dutch",
+    "foes": {
+     "walpae": "haejeok",
+     "pojol": "haejeok"
+    }
+   }
+  },
+  {
+   "x": 0.4575,
+   "y": 0.6168,
+   "type": "talk"
+  },
+  {
+   "x": 0.4749,
+   "y": 0.6292,
+   "type": "empty"
+  },
+  {
+   "type": "trap",
+   "x": 0.4929,
+   "y": 0.6406
+  },
+  {
+   "x": 0.5139,
+   "y": 0.6448,
+   "type": "debuff",
+   "name": "천축"
+  },
+  {
+   "type": "buff",
+   "x": 0.535,
+   "y": 0.649
+  },
+  {
+   "x": 0.5563,
+   "y": 0.6505,
+   "type": "empty"
+  },
+  {
+   "x": 0.5777,
+   "y": 0.6513,
+   "type": "empty"
+  },
+  {
+   "type": "empty",
+   "x": 0.5992,
+   "y": 0.652
+  },
+  {
+   "x": 0.6206,
+   "y": 0.6505,
+   "type": "item"
+  },
+  {
+   "type": "debuff",
+   "x": 0.642,
+   "y": 0.6489
+  },
+  {
+   "x": 0.6604,
+   "y": 0.6416,
+   "type": "empty"
+  },
+  {
+   "x": 0.6741,
+   "y": 0.6251,
+   "type": "story",
+   "sid": "C9_ISLAND_RET",
+   "name": "바타비아"
+  },
+  {
+   "x": 0.7109,
+   "y": 0.6007,
+   "type": "empty"
+  },
+  {
+   "x": 0.742,
+   "y": 0.5695,
+   "name": "광주 항구",
+   "type": "voyage",
+   "pre_text": "다시 찾은 광주 항구.\n물과 약재를 싣고, 부두 끝 상선까지 돌아가야 한다.",
+   "stage": {
+    "map": "v_port",
+    "name": "광주 항구",
+    "bg": "port",
+    "foes": {
+     "walpae": "haejeok",
+     "pojol": "haejeok"
+    },
+    "patients": 2,
+    "patient_pic": "redhair_sailor",
+    "patient_who": "열병 난 선원",
+    "patient_text": "으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…",
+    "ally_pic": "seohwi_dutch",
+    "after": ""
+   }
+  },
+  {
+   "type": "debuff",
+   "x": 0.7508,
+   "y": 0.5347
+  },
+  {
+   "x": 0.764,
+   "y": 0.5014,
+   "type": "empty"
+  },
+  {
+   "type": "empty",
+   "x": 0.7792,
+   "y": 0.4689
+  },
+  {
+   "x": 0.7887,
+   "y": 0.4348,
+   "type": "walpae"
+  },
+  {
+   "type": "buff",
+   "x": 0.7908,
+   "y": 0.3992
+  },
+  {
+   "x": 0.7861,
+   "y": 0.3638,
+   "type": "empty"
+  },
+  {
+   "x": 0.7649,
+   "y": 0.3349,
+   "type": "talk"
+  },
+  {
+   "x": 0.745,
+   "y": 0.305,
+   "name": "연경(청)",
+   "type": "voyage",
+   "pre_text": "배에서 내려 다시 연경.\n약재 시장을 지나 북쪽 성문까지 가야 한다.",
+   "stage": {
+    "map": "v_yanjing",
+    "name": "연경 약재 시장",
+    "bg": "yanjing",
+    "after": "C9_YANJING_RET",
+    "foes": {
+     "walpae": "merchant_gang",
+     "pojol": "merchant_gang"
+    },
+    "ally_pic": "seohwi_dutch"
+   }
+  },
+  {
+   "x": 0.7783,
+   "y": 0.3299,
+   "name": "압록강",
+   "type": "voyage",
+   "pre_text": "마침내 압록강.\n강 건너가 조선 땅이다. 나루까지만 가면 된다.",
+   "stage": {
+    "map": "v_ferry",
+    "name": "압록강 나루",
+    "bg": "ferry",
+    "after": "C9_FERRY_RET",
+    "foes": {
+     "walpae": "qing_soldier",
+     "pojol": "qing_soldier"
+    },
+    "ally_pic": "seohwi_dutch"
+   }
+  },
+  {
+   "x": 0.807,
+   "y": 0.3696,
+   "type": "goal",
+   "name": "한양"
+  }
+ ]
+}

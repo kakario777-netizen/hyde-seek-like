@@ -38,7 +38,7 @@ var hud: PanelContainer
 var tray: PanelContainer
 
 func _ready() -> void:
-	cfg = main.ch_cfg()
+	cfg = main.board_cfg()
 	days_left = int(cfg.get("days", DAY_LIMIT))
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/%s.json" % cfg.get("board", "board1")))
 	nodes = data["nodes"]
@@ -408,7 +408,7 @@ func _resolve() -> void:
 	match t:
 		"talk":
 			_clear(pos)
-			var pool: Array = StoryData.talks(main.chapter)
+			var pool: Array = cfg.get("talks", StoryData.talks(main.chapter))
 			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
 			var extra := ""
@@ -461,7 +461,7 @@ func _resolve() -> void:
 					_dim_marker(idx)
 					main.dialog_chain(StoryData.lines(nd.get("post", "")), _end_turn)))
 		"pojol", "walpae":
-			var eid: String = StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t)
+			var eid: String = cfg.get("foes", {}).get(t, StoryData.ENEMY_MAP.get(main.chapter, {}).get(t, t))
 			var e: Dictionary = GameData.ENEMIES[eid]
 			var line: String = ENEMY_LINES.get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
 			if main.chapter == 1 and eid == "pojol":
@@ -488,6 +488,12 @@ const ENEMY_LINES := {
 
 ## 목적지: 이야기 → (싸움) → 장 끝
 func _reach_goal() -> void:
+	if cfg.get("stage_board", false):   # 장 중간의 보드 맵: 도착 → 뒤 이야기 → 다음 맵
+		main.popup(cfg.get("goal_text", "목적지에 도착했다!"), "계속", func():
+			main.board = null
+			main.play_story(StoryData.lines(cfg.get("after", "")), main.next_stage),
+			cfg.get("goal_title", ""), cfg.get("goal_pic", ""), cfg.get("goal_bg", ""))
+		return
 	if cfg.has("goal_battle"):
 		main.sfx("alarm")
 		main.dialog_chain(StoryData.lines(cfg.get("goal_pre", "")), func():
