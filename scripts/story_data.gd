@@ -710,7 +710,7 @@ const C7_NIGHT_B := [
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "그리고… 처음 너를 봤을 때부터, 이상하게 네 곁에선 떠나고 싶지 않더군.\n…아니다. 피곤해서 헛소리를 하는군."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(가슴이… 왜 이렇게 뛰지.)",
 		"choices": [{"text": "\"…헛소리 아니었으면 좋겠어.\"", "set": "c7_honest"}, {"text": "말없이 담요를 덮어 준다", "set": ""}]},
-	{"if": "c7_honest", "who": "서휘", "pic": "seohwi_dutch", "text": "…!\n그럼, 역병이 끝나면… 내가 어디로 가야 할지 말하지."},
+	{"if": "c7_honest", "who": "서휘", "pic": "seohwi_dutch", "text": "…!\n오래 떠돌았는데… 이제야 머물 데를 찾은 것 같군."},
 ]
 
 const CH7_END := [
