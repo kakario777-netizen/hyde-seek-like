@@ -439,7 +439,7 @@ const C5_SEOHWI := [
 
 const C5_DOGYEOL := [
 	{"who": "", "bg": "palace_night", "text": "궁궐 담장 아래, 달밤.\n순찰을 돌던 윤도결이 걸음을 멈췄다."},
-	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "{name}. 내일 밤, 그 검은 사내를 상대하러 간다고 들었다.\n…나도 간다. 말리지 마라."},
+	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "{name}. 내일이 그믐밤이군.\n…나도 간다. 말리지 마라."},
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "처음엔 너를 흉악범으로 쫓았고, 도망자라며 칼까지 겨눴지.\n…물에서 너를 건져 낸 그날부터는, 네 얼굴만 떠오르더군."},
 	{"who": "{name}", "pic": "hero", "text": "포도대장 나리…",
 		"choices": [{"text": "\"같이 가요. 든든할 거예요.\"", "set": "c5_together"}, {"text": "\"나리는 꼭 살아 돌아오셔야 해요.\"", "set": ""}]},
@@ -832,12 +832,15 @@ const C5_SHADOW := [
 
 const C5_SHADOW_FLEE := [
 	{"who": "검은 사내", "pic": "shadow", "text": "크윽…! 그 약 냄새만 맡아도 머리가… 허가 놈이 깨어난다…!"},
+	{"who": "검은 사내", "pic": "shadow", "text": "…좋다, 꼬마야. 그믐밤, 허가의 약방으로 와라.\n모든 게 시작된 그곳에서 끝을 내 주마!"},
 	{"who": "", "text": "사내는 담을 넘어 달아났다.\n담벼락엔 붉은 손톱자국이 길게 남아 있었다."},
 	{"who": "", "text": "횃불을 든 윤도결이 골목 끝에서 달려왔다."},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "{name}! …다친 데는 없나? 손등이 긁혔잖아."},
 	{"who": "{name}", "pic": "hero", "text": "괜찮아요, 나리. 살짝 스친 거예요."},
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "괜찮긴. 혼자 그놈 앞에 서 있는 걸 보고 심장이 멎는 줄 알았다.\n…다음엔 반드시 날 먼저 불러라."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "놈은 반드시 그 약방으로 돌아간다."},
+	{"who": "{name}", "pic": "hero", "text": "나리, 그 사내가 달아나면서\n그믐밤에 의원님 약방으로 오라고 했어요."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "그믐밤, 약방이라…\n놈이 판 함정일 수도 있다."},
+	{"who": "{name}", "pic": "hero", "text": "그래도 가야 해요.\n의원님을 되찾을 마지막 기회예요."},
 ]
 
 const CH6F_INTRO := [
