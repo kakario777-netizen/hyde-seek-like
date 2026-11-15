@@ -764,7 +764,7 @@ const C2_DG_FIGHT := [
 	{"bg": "alley", "who": "", "text": "한양 도성 안, 약방으로 가는 어두운 골목.\n등불 아래 붉은 술 전립 사이로, 검은 철릭이 길을 막았다."},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "거기 서라, 약초꾼. 결국 한양 골목까지 따라왔다.\n…가만, 사내아이치곤 손이 참 곱구나. 패랭이를 벗어 봐라."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "(벗으면 끝이야…) 싫어요! 길 비켜 주세요!"},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "그렇다면 힘으로 확인하겠다."},
+	{"who": "윤도결", "pic": "jongsagwan_battle", "text": "그렇다면 힘으로 확인하겠다."},
 ]
 
 const C2_DG_FLEE := [
@@ -777,7 +777,7 @@ const C3_DG_FIGHT := [
 	{"bg": "stream", "who": "", "text": "청계천 다리 위.\n약재 꾸러미를 든 {alias} 앞을 포졸들이 에워쌌다."},
 	{"who": "포졸", "pic": "pojol", "text": "나리! 이놈입니다, 패랭이 쓴 약초꾼!\n운종가에서 고춧가루를 뿌리고 달아난 바로 그 일행이랍니다."},
 	{"who": "포졸", "pic": "pojol", "text": "검문소에서 놓친 놈도, 고갯길에서 놓친 놈도 이놈이었습지요.\n방에 붙은 약방 사건 도망자와 한패가 틀림없습니다!"},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "…그랬군. 네가 바로 그 도망자였어.\n두 번이나 속았다. 세 번은 없다."},
+	{"who": "윤도결", "pic": "jongsagwan_battle", "text": "…그랬군. 네가 바로 그 도망자였어.\n두 번이나 속았다. 세 번은 없다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "저는 아무 죄도 없어요!"},
 ]
 
