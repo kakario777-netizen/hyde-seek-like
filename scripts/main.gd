@@ -1013,7 +1013,7 @@ func icon(name: String) -> Texture2D:
 
 ## 맵 위에 서는 데포르메(SD) 그림. 없으면 null
 const CHIBI_OF := {"hero_adult": "hero_adult", "hero_angry": "hero", "hero_sad": "hero", "hero_surprised": "hero", "hero_disguise_angry": "hero_disguise", "hero_disguise_sad": "hero_disguise", "hero_disguise_surprised": "hero_disguise",
-	"seohwi": "seohwi_calm", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_blush": "dogyeol",
+	"seohwi": "seohwi_calm", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_battle": "dogyeol", "jongsagwan_blush": "dogyeol",
 	"heo": "heo", "heo_ill": "heo", "pojol_battle": "pojol", "friend_worried": "friend", "darae_court": "friend", "baegun_boss": "baegun_boss", "addict": "addict", "bamtol_happy": "bamtol", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
 
 ## 진짜 데포르메 그림만 (없으면 null)

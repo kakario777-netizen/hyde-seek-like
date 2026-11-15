@@ -280,7 +280,7 @@ const ENEMIES := {
 	"pojol": {"name": "포도청 포졸", "sprite": "pojol_battle", "hp": 34, "coin": 5, "charge": 4,
 		"moves": [{"t": "atk", "v": 7, "n": "창대 치기"}, {"t": "def", "v": 8, "n": "창 겨누기"}, {"t": "atk", "v": 8, "n": "오랏줄 던지기"}],
 		"heavy": {"t": "atk", "v": 16, "n": "창 찌르기"}},
-	"dogyeol": {"name": "종사관 윤도결", "sprite": "jongsagwan", "hp": 64, "coin": 8, "charge": 3, "boss": true,
+	"dogyeol": {"name": "종사관 윤도결", "sprite": "jongsagwan_battle", "hp": 64, "coin": 8, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 7, "n": "오랏줄 던지기"}, {"t": "def", "v": 9, "n": "칼집으로 막기"}, {"t": "atk", "v": 9, "n": "육모방망이"}],
 		"heavy": {"t": "atk", "v": 17, "n": "포도청 체포술"}},
 	"shadow_s": {"name": "검은 사내", "sprite": "shadow", "hp": 78, "coin": 6, "charge": 3, "boss": true,
