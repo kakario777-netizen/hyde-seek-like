@@ -1134,13 +1134,21 @@ func _play(steps: int, chosen: Button) -> void:
 func _brew_hint() -> void:
 	var l: Label = main.ink_text(main.make_label("진한 탕약까지 달일 수 있어요!" if main.herbs >= main.BREW_HERBS else "묽은 탕약을 달일 수 있어요!", 30, main.GOLD, true), 8)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	l.position.y = 230
-	add_child(l)
+	# 메뉴 버튼 줄 바로 아래, 반투명 띠 위에 (지도와 겹쳐도 잘 보이게)
+	var band := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.08, 0.05, 0.03, 0.72)
+	sb.content_margin_top = 6; sb.content_margin_bottom = 6
+	band.add_theme_stylebox_override("panel", sb)
+	band.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	band.add_child(l)
+	add_child(band)
+	band.size = Vector2(size.x, band.get_combined_minimum_size().y)
+	band.position = Vector2(0, tools.position.y + tools.size.y + 6)
 	var lt := create_tween()
 	lt.tween_interval(1.8)
-	lt.tween_property(l, "modulate:a", 0.0, 0.6)
-	lt.tween_callback(l.queue_free)
+	lt.tween_property(band, "modulate:a", 0.0, 0.6)
+	lt.tween_callback(band.queue_free)
 	if brew_btn:
 		brew_btn.pivot_offset = brew_btn.size / 2.0
 		var tw := create_tween().set_loops(3)

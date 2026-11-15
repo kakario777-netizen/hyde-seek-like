@@ -162,6 +162,9 @@ func _debug_capture() -> void:
 					if board.tiles[i]["next"].size() > 1:
 						board.pos = i; board.token.position = board.tile_center(i); break
 			board._deal()
+			if args.has("brewhint"):
+				herbs = 6
+				board._brew_hint()
 			if args.has("brew"):
 				herbs = 6; coins = 12
 				show_brew(board._update_hud)
