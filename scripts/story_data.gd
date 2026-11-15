@@ -701,7 +701,7 @@ const C7_NIGHT := [
 
 const C7_NIGHT_B := [
 	{"who": "", "bg": "dutch_classroom", "text": "밤늦은 학교 교실.\n앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
-	{"who": "", "pic": "dutch_child", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
+	{"who": "", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 돈 때문에 독을 팔던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
 	{"who": "", "text": "탕약 바구니를 내려놓는 소리에, 서휘가 부스스 눈을 떴다."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…왔나. 깜빡 졸았군."},
