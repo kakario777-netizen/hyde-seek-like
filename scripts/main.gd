@@ -918,6 +918,7 @@ func apply_line_effects(line: Dictionary) -> void:
 	if line.has("guard"): next_guard += int(line["guard"])
 	if line.has("maxhp"): max_hp += int(line["maxhp"])
 	if line.has("heal"): hp = min(max_hp, hp + int(line["heal"]))
+	if line.has("flag"): flags[line["flag"]] = true
 	if line.has("coin") or line.has("potion") or line.has("maxhp"):
 		sfx("good")
 
@@ -1087,9 +1088,13 @@ func fig_scale(name: String) -> float:
 ## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
 const COURT_CHAPTERS := [5]
 
+## 의녀 옷은 임금께 어의 소임을 받은 뒤부터 (5장 처음 한양 가는 길·궁 가는 길은 평소 옷)
+func in_court() -> bool:
+	return chapter in COURT_CHAPTERS and (flags.has("court") or stage_idx >= 2)
+
 func illust(name: String) -> Texture2D:
 	name = _ret(name)
-	if chapter in COURT_CHAPTERS and (name == "hero" or name.begins_with("hero_")) and not name.begins_with("hero_disguise") and not name.begins_with("hero_adult"):
+	if in_court() and (name == "hero" or name.begins_with("hero_")) and not name.begins_with("hero_disguise") and not name.begins_with("hero_adult"):
 		var cn := "hero_court" + name.substr(4)
 		if ResourceLoader.exists("res://assets/chars/%s.png" % cn):
 			name = cn

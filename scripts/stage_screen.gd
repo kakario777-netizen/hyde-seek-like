@@ -391,7 +391,7 @@ func _make_token() -> Control:
 	root.add_child(sh)
 	var tk: Texture2D = main.illust(main.token_name())
 	var ck: String = "hero_disguise" if main.disguised() else ("hero_adult" if main.chapter >= 9 else "hero")
-	if main.chapter in main.COURT_CHAPTERS and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
+	if main.in_court() and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
 		ck = "hero_court"
 	if stage_cfg.has("token"):   # 이 맵은 다른 인물로 걷는다 (예: 포도청 수련의 서휘)
 		ck = stage_cfg["token"]
