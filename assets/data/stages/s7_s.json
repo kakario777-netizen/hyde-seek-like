@@ -1,0 +1,380 @@
+{
+ "id": "s7_s",
+ "name": "학교 가는 밤길",
+ "tile": "brick",
+ "bg": "holland",
+ "turns": 24,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "shop"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "buff"
+  },
+  {
+   "x": -4,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "spike"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "type": "debuff"
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -11,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "debuff"
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -14,
+   "type": "spike"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -18,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -15,
+   "type": "walpae"
+  },
+  {
+   "x": -19,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -17,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -20,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -17,
+   "type": "item"
+  },
+  {
+   "x": -22,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -19,
+   "type": "talk"
+  },
+  {
+   "x": -24,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -23,
+   "type": "debuff"
+  },
+  {
+   "x": -29,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -23,
+   "type": "walpae"
+  },
+  {
+   "x": -30,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -30,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -31,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -26,
+   "type": "talk"
+  },
+  {
+   "x": -32,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -33,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -34,
+   "y": -29,
+   "type": "buff"
+  },
+  {
+   "x": -35,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -36,
+   "y": -29,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -16,
+   "y": -15,
+   "at": 31,
+   "zone": [
+    30,
+    31,
+    32
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -23,
+   "y": -18,
+   "at": 41,
+   "zone": [
+    40,
+    41
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -32,
+   "y": -29,
+   "at": 61,
+   "zone": [
+    60,
+    61,
+    62
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}

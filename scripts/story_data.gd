@@ -54,6 +54,7 @@ const CHAPTERS := {
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
 		"stages": [{"map": "s7_1", "goal": "역병 도는 마을을 돌며\n앓는 사람들을 치료하라.", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
 			{"map": "s7_r", "goal": "학교에서 다락방까지 이어진 골목을 지나며\n역병을 옮기는 쥐 떼를 소탕하라.", "name": "쥐 떼 소탕, 다락방 가는 길", "after": "C7_NIGHT", "ally": ""},
+			{"map": "s7_s", "name": "학교 가는 밤길", "after": "C7_NIGHT_B", "ally": "", "patients": 2},
 			{"map": "s7_2", "goal": "풍차 언덕 약초밭으로 가며\n앓는 마을 사람들을 돌봐라.", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3},
 			{"map": "s7_3", "goal": "서휘의 쪽지를 따라\n겨울 항구 창고까지 가라.", "name": "겨울 항구 가는 길", "ally": "", "foes": {"walpae": "haejeok", "pojol": "haejeok"}}],
 		"goal_text": "해 질 녘 항구 창고 앞.\n등불을 든 서휘가 커다란 보따리를 안고 기다리고 있었다.", "goal_title": "겨울 항구", "goal_pic": "seohwi_dutch", "goal_bg": "holland_port"},
@@ -693,7 +694,13 @@ const C7_NIGHT := [
 	{"who": "마을 아이", "pic": "dutch_child", "text": "서휘 아저씨가 조선말도 가르쳐 줬어요!\n\"고, 맙, 습, 니, 다!\""},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "푸흡… 아저씨래요, 서휘."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…선생님이라고 부르라고 분명히 가르쳤는데."},
-	{"who": "", "bg": "dutch_classroom", "text": "며칠 뒤, 밤늦은 학교 교실.\n앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
+	{"who": "", "text": "며칠 뒤, 저녁.\n서휘는 열이 오른 아이들 곁을 지킨다며 일찍 학교로 건너갔다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "밤새 먹일 탕약을 더 달여 가야겠어.\n…서휘 저녁도 챙겨 가고."},
+	{"who": "", "text": "【목표】\n탕약 바구니를 들고 밤길을 지나\n마을 학교까지 가라.", "end": true},
+]
+
+const C7_NIGHT_B := [
+	{"who": "", "bg": "dutch_classroom", "text": "밤늦은 학교 교실.\n앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
 	{"who": "", "pic": "dutch_child", "text": "열이 내린 여자아이가 서휘의 소매를 꼭 쥔 채 잠들어 있었다."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 돈 때문에 독을 팔던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…깼군. 나는 내 아버지처럼 떠도는 사람이 되기 싫었다.\n누군가 곁에 머물러 주는 사람이 되고 싶었지. 그때 그 다리 밑에서도."},
@@ -1526,7 +1533,7 @@ const ALL := {
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
-	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
+	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 
 ## 장마다 보드의 적 이름을 바꿔 끼움
