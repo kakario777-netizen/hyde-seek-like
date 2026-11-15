@@ -995,7 +995,8 @@ func _intro() -> void:
 	_layout()
 	if pos == 0 and restore.is_empty():
 		await get_tree().create_timer(0.3).timeout
-		var g: String = main.last_goal if main.last_goal != "" else str(stage_cfg.get("goal", ""))
+		# 바로 앞 이야기에서 목표를 이미 보여 줬으면 다시 띄우지 않는다 (두 번 나오지 않게)
+		var g: String = "" if main.last_goal != "" else str(stage_cfg.get("goal", ""))
 		main.last_goal = ""
 		var txt := "〈%s〉" % stage_cfg["name"]
 		if g != "":
