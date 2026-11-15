@@ -514,7 +514,7 @@ const C7_YANJING_PRE := [
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "녹용, 서양에서 온 쓴 나무껍질, 남방 열매까지…\n조선에선 이름도 못 들어 본 약재들이야."},
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "어이, 조선 손님! 백 년 묵은 고려 인삼이오.\n특별히 반값에 드리지!"},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…잠깐. 이건 도라지 뿌리에 인삼 껍질을 붙인 가짜잖아요.\n방금 저 할아버지한테도 이걸 비싸게 파셨죠?"},
-	{"who": "약재 상인", "pic": "cheong_merchant", "text": "이, 이놈이 남의 장사를 망치려고!\n얘들아, 이 조선 놈 혼쭐을 내 줘라!"},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "이, 이놈이 남의 장사를 망치려고!\n이 조선 놈, 내가 직접 혼쭐을 내 주마!"},
 ]
 
 const C7_YANJING_POST := [
@@ -985,7 +985,7 @@ const C9_YANJING_RET := [
 	{"who": "노인", "text": "그때 되찾은 돈으로 손주 약을 지어 먹였지.\n저 녀석 보시오. 이제 약재 짐을 저렇게 번쩍번쩍 나른다오."},
 	{"who": "", "text": "노인의 손주가 약재 자루를 메고 씩씩하게 시장 골목을 뛰어다니고 있었다."},
 	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "(갈 때 뿌린 작은 인연들이…\n돌아오는 길엔 꽃이 되어 있었네.)"},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "…혼자서 청나라 장사꾼 패거리랑 맞붙었다고?\n내가 없는 동안 무슨 무모한 짓을 한 거냐."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…혼자서 청나라 장사꾼이랑 맞붙었다고?\n내가 없는 동안 무슨 무모한 짓을 한 거냐."},
 	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "서휘 찾으러 가는 길이었잖아요.\n무모해도 가야 했어요."},
 	{"who": "노인", "text": "자, 이건 내 가게에서 제일 좋은 감초요. 조선 가는 길에 쓰시오."},
 	{"who": "", "text": "(노인의 선물: 약병 +1, 엽전 +3냥)", "potion": 1, "coin": 3},
