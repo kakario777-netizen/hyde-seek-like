@@ -39,7 +39,8 @@ const CHAPTERS := {
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
-		"stages": [{"map": "s5_0", "foes": {"walpae": "walpae", "pojol": "mob"}, "name": "한양으로 돌아가는 길", "after": "CH5_PALACE", "ally": "darae", "ally_chibi": "friend", "ally2_chibi": "seohwi"},
+		"stages": [{"map": "s5_0", "foes": {"walpae": "walpae", "pojol": "mob"}, "name": "한양으로 돌아가는 길", "after": "CH5_SUMMON", "ally": "darae", "ally_chibi": "friend", "ally2_chibi": "seohwi"},
+			{"map": "s5_g", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "경복궁 가는 길", "after": "CH5_PALACE", "ally": "dogyeol"},
 			{"map": "s5_1", "goal": "내의원을 돌며\n아픈 환자들을 돌봐라.", "foes": {"walpae": "mob", "pojol": "walpae"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
 			{"map": "s5_2", "goal": "종로 약재상을 돌며\n필요한 약재를 구해 와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
 			{"map": "s5_3", "goal": "궁궐 담장 아래를 지나\n남은 약재를 모아라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "궁궐 담장 아래", "after": "C5_DOGYEOL"},
@@ -373,12 +374,18 @@ const CH5_INTRO := [
 	{"who": "", "text": "【목표】\n다래, 서휘와 함께 지리산을 내려가\n한양 도성까지 돌아가라.", "end": true},
 ]
 
-const CH5_PALACE := [
-	{"bg": "palace", "who": "", "text": "며칠 뒤, 한양."},
+const CH5_SUMMON := [
+	{"bg": "jangteo", "who": "", "text": "며칠 뒤, 한양."},
+	{"who": "서휘", "pose": "seohwi", "text": "나는 여기서 다리 밑으로 간다.\n…아이들 얼굴부터 봐야겠어. 무슨 일 있으면 찾아와라, 의원."},
 	{"who": "", "text": "청안파와 그 대대장을 쓰러뜨린 소녀 의원.\n왈패를 때려잡은 약방 아이의 소문은 바람보다 빨리 팔도에 퍼졌다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 너의 누명은 모두 벗겨졌다.\n그리고… 전하께서 너를 부르신다."},
 	{"who": "", "text": "그 사건의 공으로 윤도결은 포도청을 이끄는 포도대장이 되었다."},
-	{"who": "", "text": "경복궁 강녕전."},
+	{"who": "다래", "pose": "friend", "text": "전하께서?! {name}아, 얼른 가 봐!\n나는 약방에서 기다리고 있을게."},
+	{"who": "", "text": "【목표】\n윤도결과 함께 경복궁 강녕전까지 가라.", "end": true},
+]
+
+const CH5_PALACE := [
+	{"bg": "palace", "who": "", "text": "경복궁 강녕전."},
 	{"who": "임금", "pose": "king", "text": "그대가 청심보명단의 독을 밝히고 백성을 구한 의원이로구나.\n여인의 몸으로 그리 하였다니 더욱 기특하도다."},
 	{"who": "임금", "pose": "king", "text": "내 그대를 내의원의 의녀로 삼고, 특별히 어의의 소임을 맡기겠노라.\n청심보명단에 상한 백성들을 고쳐 다오."},
 	{"who": "{name}", "pose": "hero", "text": "황공하옵니다, 전하.\n…다만 한 가지 청이 있사옵니다. 제 동무 다래도 궁에 함께 들게 해 주시옵소서."},
@@ -1450,7 +1457,7 @@ const ALL := {
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
-	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
+	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
