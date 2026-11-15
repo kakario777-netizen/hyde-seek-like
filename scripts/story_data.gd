@@ -39,7 +39,7 @@ const CHAPTERS := {
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
-		"stages": [{"map": "s5_0", "foes": {"walpae": "walpae", "pojol": "mob"}, "name": "한양으로 돌아가는 길", "after": "CH5_SUMMON", "ally": "darae", "ally_chibi": "friend", "ally2_chibi": "seohwi"},
+		"stages": [{"map": "s5_0", "foes": {"walpae": "walpae", "pojol": "mob"}, "name": "한양으로 돌아가는 길", "after": "CH5_SUMMON", "ally": "darae", "ally_chibi": "friend", "ally2_chibi": "seohwi_calm"},
 			{"map": "s5_g", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "경복궁 가는 길", "after": "CH5_PALACE", "ally": "dogyeol"},
 			{"map": "s5_1", "goal": "내의원을 돌며\n아픈 환자들을 돌봐라.", "foes": {"walpae": "mob", "pojol": "walpae"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
 			{"map": "s5_2", "goal": "종로 약재상을 돌며\n필요한 약재를 구해 와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
