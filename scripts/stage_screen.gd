@@ -249,6 +249,21 @@ func _build_world() -> void:
 		follower.position = tile_center(_behind(pos))
 		follower.visible = _behind(pos) != pos   # 출발 칸처럼 뒤 칸이 없으면 겹치지 않게 숨김
 		world.add_child(follower)
+	# 두 번째 동행 (예: 천수각 가는 길의 다래) — 첫 동행 한 칸 뒤에서 따라온다
+	if stage_cfg.has("ally2_chibi") and ResourceLoader.exists("res://assets/chibi/%s.png" % stage_cfg["ally2_chibi"]):
+		var c2: String = stage_cfg["ally2_chibi"]
+		follower2 = Control.new()
+		follower2.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var t2: Texture2D = load("res://assets/chibi/%s.png" % c2)
+		var h2: float = MAP_H * float(CHIBI_SCALE.get(c2, 1.0))
+		var w2: float = h2 * t2.get_width() / max(1.0, float(t2.get_height()))
+		var r2: TextureRect = main.tex_rect(t2, Vector2(w2, h2))
+		r2.position = Vector2(-w2 / 2.0, -h2 + 8)
+		follower2.add_child(r2)
+		var b2 := _behind(_behind(pos))
+		follower2.position = tile_center(b2)
+		follower2.visible = b2 != _behind(pos)
+		world.add_child(follower2)
 	token = _make_token()
 	token.position = tile_center(pos)
 	world.add_child(token)
@@ -1087,6 +1102,18 @@ func _play(steps: int, chosen: Button) -> void:
 				fpic.pivot_offset = Vector2(fpic.size.x / 2.0, fpic.size.y)
 				ftw.tween_property(fpic, "scale", Vector2(1.08, 0.92), 0.06)
 				ftw.tween_property(fpic, "scale", Vector2.ONE, 0.08)
+		if follower2:
+			var b2 := _behind(_behind(pos))
+			var fto2 := tile_center(b2)
+			if b2 != _behind(pos):
+				follower2.visible = true
+			var ftw2 := create_tween()
+			ftw2.tween_property(follower2, "position", follower2.position.lerp(fto2, 0.5) - Vector2(0, 40), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			ftw2.tween_property(follower2, "position", fto2, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+			var fpic2: Control = follower2.get_child(0)
+			fpic2.pivot_offset = Vector2(fpic2.size.x / 2.0, fpic2.size.y)
+			ftw2.tween_property(fpic2, "scale", Vector2(1.08, 0.92), 0.06)
+			ftw2.tween_property(fpic2, "scale", Vector2.ONE, 0.08)
 		var tw := create_tween()
 		tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 40), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
@@ -1133,6 +1160,7 @@ func _pick_errand(i: int) -> void:
 	_update_hud()
 
 var follower: Control = null
+var follower2: Control = null
 
 func _is_companion_pic(pic: String) -> bool:
 	var comp: String = main.companion()

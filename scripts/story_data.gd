@@ -35,7 +35,7 @@ const CHAPTERS := {
 			{"map": "s4_f1", "goal": "백운의 성 1층 창고를 지나\n위층으로 오르는 계단을 찾아라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 1층 · 창고", "after": "C4_F1", "ally": "seohwi"},
 			{"map": "s4_f3", "goal": "쓴 약 냄새가 진동하는 2층 공방을 지나\n3층으로 올라가라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 2층 · 약 공방", "after": "C4_F3", "ally": "seohwi"},
 			{"map": "s4_f2", "goal": "독안개 낀 3층 회랑을 지나\n천수각으로 올라가라.", "foes": {"walpae": "rival", "pojol": "mob"}, "name": "백운의 성 3층 · 독안개 회랑", "after": "C4_F2X", "ally": "seohwi"},
-			{"map": "s4_f5", "goal": "성 꼭대기 천수각으로 올라가\n백운과 마주하라.", "foes": {"walpae": "gatekeeper", "pojol": "mob"}, "name": "백운의 성 4층 · 천수각", "ally": "seohwi"}],
+			{"map": "s4_f5", "goal": "성 꼭대기 천수각으로 올라가\n백운과 마주하라.", "foes": {"walpae": "gatekeeper", "pojol": "mob"}, "name": "백운의 성 4층 · 천수각", "ally": "seohwi", "ally2_chibi": "friend"}],
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
