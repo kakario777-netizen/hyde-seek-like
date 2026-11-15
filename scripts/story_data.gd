@@ -707,7 +707,7 @@ const C7_NIGHT_B := [
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…왔나. 깜빡 졸았군."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "깨우기 미안할 만큼 곤히 자던데요.\n그 아이, 서휘 소매를 꼭 쥐고 안 놓더라고요."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "(잠든 아이를 내려다보며) …나는 내 아버지처럼 떠도는 사람이 되기 싫었다.\n누군가 곁에 머물러 주는 사람이 되고 싶었지. 그때 그 다리 밑에서도."},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "그리고… 처음 너를 봤을 때부터, 너는 늘 머무는 사람이었다.\n…아니다. 피곤해서 헛소리를 하는군."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "그리고… 처음 너를 봤을 때부터, 이상하게 네 곁에선 떠나고 싶지 않더군.\n…아니다. 피곤해서 헛소리를 하는군."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(가슴이… 왜 이렇게 뛰지.)",
 		"choices": [{"text": "\"…헛소리 아니었으면 좋겠어.\"", "set": "c7_honest"}, {"text": "말없이 담요를 덮어 준다", "set": ""}]},
 	{"if": "c7_honest", "who": "서휘", "pic": "seohwi_dutch", "text": "…!\n그럼, 역병이 끝나면… 내가 어디로 가야 할지 말하지."},
