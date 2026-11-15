@@ -1146,8 +1146,8 @@ func _brew_hint() -> void:
 	band.size = Vector2(size.x, band.get_combined_minimum_size().y)
 	band.position = Vector2(0, tools.position.y + tools.size.y + 6)
 	var lt := create_tween()
-	lt.tween_interval(4.0)
-	lt.tween_property(band, "modulate:a", 0.0, 0.8)
+	lt.tween_interval(3.4)
+	lt.tween_property(band, "modulate:a", 0.0, 0.6)
 	lt.tween_callback(band.queue_free)
 	if brew_btn:
 		brew_btn.pivot_offset = brew_btn.size / 2.0
