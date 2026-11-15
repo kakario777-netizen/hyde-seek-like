@@ -702,7 +702,7 @@ const C7_NIGHT := [
 const C7_NIGHT_B := [
 	{"who": "", "bg": "dutch_classroom", "text": "밤늦은 학교 교실.\n앓아누운 아이들 사이에서 서휘가 꾸벅꾸벅 졸고 있었다."},
 	{"who": "", "text": "열이 내린 여자아이가 서휘의 손을 꼭 잡은 채 잠들어 있었다."},
-	{"who": "{alias}", "pic": "hero_disguise", "text": "(조선에선 다리 밑 왈패 두목이던 사람이…\n여기선 아이들 곁을 한시도 떠나지 않는구나.)"},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "(다리 밑에서도, 바다 건너 여기서도…\n서휘는 늘 누군가의 아이들을 품고 있었구나.)"},
 	{"who": "", "text": "탕약 바구니를 내려놓는 소리에, 서휘가 부스스 눈을 떴다."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…왔나. 깜빡 졸았군."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "깨우기 미안할 만큼 곤히 자던데요.\n그 아이, 서휘 손을 꼭 잡고 안 놓더라고요."},
