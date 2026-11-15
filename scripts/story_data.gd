@@ -949,7 +949,7 @@ const C9_PIRATE_PRE := [
 	{"bg": "deck", "who": "", "text": "희망의 곶을 앞둔 밤, 검은 돛을 단 배가 다시 나타났다."},
 	{"who": "해적 두목", "pic": "pirate_captain", "text": "크하하! 몇 해 전 내 배를 망신 준 동양 의원 놈 아니냐!\n이번엔 갑판째로 바다에 처넣어 주마!"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 사람한테 손대는 순간, 네가 먼저 바다에 빠질 거다."},
-	{"who": "{name}", "pic": "hero_adult_tense", "text": "이번엔 둘이에요. 덤벼요!"},
+	{"who": "{name}", "pic": "hero_adult_tense", "text": "(몇 해 전에도 이 사람을 이겼어.\n이번에도 질 수 없어…!)"},
 ]
 
 const C9_PIRATE_POST := [
