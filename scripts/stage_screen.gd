@@ -397,14 +397,10 @@ func _make_token() -> Control:
 		ck = stage_cfg["token"]
 	if main.chibi_only(ck) != null:
 		tk = main.chibi_only(ck)
-	token_pic = main.tex_rect(tk, Vector2(132, 140))
-	token_pic.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	token_pic.position = Vector2(-66, -132)
-	token_pic.pivot_offset = Vector2(66, 140)
-	# 주인공 말도 다른 인물과 같은 키
+	# 주인공 말도 다른 인물과 같은 키 — 그림 틀을 처음부터 그림 크기로 만들어야 발이 칸 한가운데 온다
 	var th_: float = MAP_H * float(CHIBI_SCALE.get(ck, 1.0))
 	var tw_: float = th_ * tk.get_width() / max(1.0, float(tk.get_height()))
-	token_pic.custom_minimum_size = Vector2(tw_, th_); token_pic.size = Vector2(tw_, th_)
+	token_pic = main.tex_rect(tk, Vector2(tw_, th_))
 	token_pic.position = Vector2(-tw_ / 2.0, -th_ + 8); token_pic.pivot_offset = Vector2(tw_ / 2.0, th_)
 	root.add_child(token_pic)
 	return root
