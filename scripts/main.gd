@@ -1062,6 +1062,8 @@ func smart_breaks(t: String, fsize: int, width: float, max_lines := 4) -> String
 
 ## 대화 그림 키 비율: 남자 어른 1.0 기준, 주인공·여자는 조금 작게, 아이는 더 작게
 func fig_scale(name: String) -> float:
+	if name == "dutch_child_sick":
+		return 0.5    # 주저앉은 아이 (아래 아이 크기보다 먼저 봐야 함)
 	if name.begins_with("dutch_child") or name.begins_with("island_child") or name == "children":
 		return 0.66
 	if name.begins_with("hero_adult"):
