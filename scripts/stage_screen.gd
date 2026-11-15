@@ -986,8 +986,15 @@ func _build_tray() -> void:
 	card_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vb.add_child(card_row)
 
+## 맵 배경음: 화란 마을·항구 맵에서는 화란 노래가 끊기지 않고 이어지게
+func _map_music() -> String:
+	var b: String = str(stage_cfg.get("bg", data.get("bg", "")))
+	if b in ["holland", "holland_port", "dutch_classroom", "dutch_child_room"]:
+		return "holland_town"
+	return "travel"
+
 func _intro() -> void:
-	main.bgm("travel")
+	main.bgm(_map_music())
 	busy = true
 	_update_hud()
 	await get_tree().process_frame
@@ -1549,7 +1556,7 @@ func _hide_ent(i: int, animate: bool) -> void:
 func _end_turn() -> void:
 	_update_hud()
 	overlay.queue_redraw()
-	main.bgm("travel")
+	main.bgm(_map_music())
 	if turns_left <= 0:
 		main.sfx("gong")
 		main.game_over("시각이 다 되었다.\n\"게 섰거라! 통금 시각에 어딜 쏘다니느냐!\"\n순라꾼에게 붙잡히고 말았다…", "sunra")

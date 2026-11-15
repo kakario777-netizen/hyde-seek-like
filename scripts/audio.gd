@@ -5,6 +5,8 @@ const FADE := 1.2
 var bgm_a: AudioStreamPlayer
 var bgm_b: AudioStreamPlayer
 var current_bgm := ""
+var cur_p: AudioStreamPlayer = null   # 지금 곡을 맡은 플레이어
+var fade_tw: Tween = null
 var sfx_players: Array = []
 var bgm_volume := 0.7
 var sfx_volume := 0.9
@@ -50,20 +52,26 @@ func bgm(name: String) -> void:
 		return
 	current_bgm = name
 	var s: AudioStream = _load("bgm", name) if name != "" else null
-	var old := bgm_a if bgm_a.playing else bgm_b
-	var nw := bgm_b if old == bgm_a else bgm_a
+	# 곡이 빠르게 연달아 바뀌어도 새 곡이 끊기지 않게: 앞 페이드를 멈추고, 맡은 플레이어를 직접 기억한다
+	if fade_tw and fade_tw.is_valid():
+		fade_tw.kill()
+	var old: AudioStreamPlayer = cur_p if cur_p else bgm_a
+	var nw: AudioStreamPlayer = bgm_b if old == bgm_a else bgm_a
+	nw.stop()
+	fade_tw = create_tween().set_parallel()
 	if old.playing:
-		var t := create_tween()
-		t.tween_property(old, "volume_db", -40.0, FADE)
-		t.tween_callback(old.stop)
+		fade_tw.tween_property(old, "volume_db", -40.0, FADE)
+	cur_p = nw
 	if s == null:
+		fade_tw.chain().tween_callback(old.stop)
 		return
 	if s is AudioStreamOggVorbis:
 		s.loop = true
 	nw.stream = s
 	nw.volume_db = -40.0
 	nw.play()
-	create_tween().tween_property(nw, "volume_db", 0.0, FADE)
+	fade_tw.tween_property(nw, "volume_db", 0.0, FADE)
+	fade_tw.chain().tween_callback(old.stop)
 
 ## 효과음. pitch_var: 음높이를 조금씩 흔들어 반복감 줄이기
 func sfx(name: String, vol_db := 0.0, pitch_var := 0.06) -> void:
