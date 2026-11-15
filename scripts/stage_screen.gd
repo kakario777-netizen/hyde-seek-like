@@ -323,7 +323,7 @@ func _make_tile_ent(i: int) -> void:
 				root.add_child(_sprite(pic, 165))
 				root.add_child(_badge("talk", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 			else:
-				root.add_child(_badge("talk", Vector2(-24, -70), Color("f3e6c8")))
+				root.add_child(_badge("talk", Vector2(-24, -28), Color("f3e6c8")))
 		"patient":
 			root.add_child(_sprite(_patient_pic(i), 160))
 			root.add_child(_badge("rest", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
@@ -331,7 +331,7 @@ func _make_tile_ent(i: int) -> void:
 			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
 			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"item", "buff", "debuff", "trap", "rest":
-			root.add_child(_badge(typ, Vector2(-24, -70), Color("f3e6c8")))
+			root.add_child(_badge(typ, Vector2(-24, -28), Color("f3e6c8")))
 	if t.has("errand"):
 		var eb := PanelContainer.new()
 		eb.add_theme_stylebox_override("panel", main.plaque_style())
@@ -346,7 +346,7 @@ func _make_tile_ent(i: int) -> void:
 			eb.visible = false
 	if t.get("herb", false):
 		var h: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_herb.png"), Vector2(64, 78))
-		h.position = Vector2(-10, -64)
+		h.position = Vector2(-32, -68)   # 칸 한가운데에 서게
 		h.name = "Herb"
 		root.add_child(h)
 		if typ == "empty":
