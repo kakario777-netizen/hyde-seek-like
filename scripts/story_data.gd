@@ -61,7 +61,7 @@ const CHAPTERS := {
 		"stages": [{"map": "h_port", "goal": "배웅 나온 마을 사람들 사이를 지나\n항구에 정박한 상선까지 가라.", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"board": "board7", "world": true, "days": 36, "name": "귀향의 만리길", "goal": "한양", "after": "C9_RETURN", "after_story": true, "ally_pic": "seohwi_dutch", "foes": {"walpae": "haejeok", "pojol": "haejeok"},
 				"goal_text": "강 건너 산마루 너머로 낯익은 산세가 보인다.\n마침내 조선 땅에 돌아왔다!", "goal_title": "조선 땅", "goal_pic": "", "goal_bg": "grave_path",
-				"talks": [{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 조선까지 이 배가 끝까지 모셔다드릴게요!\n…멀미약은 이번에도 의원님 거 주세요.", "potion": 1},
+				"talks": [{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 광주 항구까지는 이 배가 꼭 모셔다드릴게요!\n…멀미약은 이번에도 의원님 거 주세요.", "potion": 1},
 					{"who": "선장", "pic": "dutch_captain", "text": "갈 때 받은 선의 품삯일세. 올 때 몫까지 미리 주지.\n조선에 닿거든 좋은 약방 차리게나.", "coin": 4},
 					{"who": "서휘", "pic": "seohwi_dutch", "text": "…돌아가는 바닷길은 갈 때보다 짧게 느껴지는군.\n네가 옆에 있어서 그런가.", "potion": 1},
 					{"who": "얀", "pic": "redhair_sailor", "text": "남쪽 바다 해적들, 선생님이 지난번에 혼쭐을 내서\n요즘은 잠잠하대요! 그래도 조심하세요.", "coin": 2}]},
@@ -964,19 +964,48 @@ const C9_SEA_NIGHT := [
 ]
 
 const C9_ISLAND_RET := [
-	{"who": "", "bg": "island", "text": "바타비아. 갈 때 들렀던 섬에 다시 닻을 내렸다."},
-	{"who": "섬마을 아이", "pose": "island_child", "text": "의원님! 저 기억해요? 이제 동생도 저만큼 컸어요!\n의원님이 준 약 덕분이에요!"},
+	{"who": "", "bg": "island", "text": "바타비아. 물을 채우러 갈 때 들렀던 섬에 다시 닻을 내렸다.\n부두에 내리자마자 맨발의 아이 하나가 달려왔다."},
+	{"who": "섬마을 아이", "pic": "island_child", "text": "의원님! 저 기억해요? 동생 배 아플 때 고쳐 주셨잖아요!\n…어? 그런데 머리가 길어졌네? 의원님, 누나였어요?"},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "후후, 들켰네. 그땐 사정이 있었어.\n동생은 잘 지내?"},
+	{"who": "섬마을 아이", "pic": "island_child", "text": "네! 이제 동생도 저만큼 컸어요.\n물은 꼭 끓여 마시라던 말, 온 마을 사람들이 다 지켜요!"},
+	{"if": "c7_gave", "who": "섬마을 아이", "pic": "island_child", "text": "그 부적, 아직 가지고 있어요?\n…헤헤, 할머니가 의원님은 꼭 다시 올 거라고 했어요."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…네가 지나간 자리마다 이렇게 아이들이 웃고 있군.\n화란에서도, 여기서도."},
+	{"who": "섬마을 아이", "pic": "island_child", "text": "이거 가져가요! 엄마가 말린 열매예요.\n먼 길에 배고프면 꼭 드세요!"},
+	{"who": "", "text": "(섬 아이의 말린 열매: 체력 +10)", "heal": 10},
 ]
 
 const C9_YANJING_RET := [
-	{"bg": "yanjing", "who": "", "text": "연경 약재 시장에선, 가짜 인삼에 속을 뻔했던 노인의 손주가\n씩씩하게 약재를 나르고 있었다."},
-	{"who": "{name}", "pose": "hero_adult_ribbon", "text": "(갈 때 뿌린 작은 인연들이…\n돌아오는 길엔 꽃이 되어 있었네.)"},
+	{"bg": "yanjing", "who": "", "text": "다시 찾은 연경 약재 시장.\n시장 어귀에서 낯익은 노인이 손을 번쩍 들었다."},
+	{"who": "노인", "text": "아이고, 그때 가짜 인삼에서 날 구해 준 조선 의원 아니오!\n…허허, 고운 아가씨였구먼. 어쩐지 손끝이 곱더라니."},
+	{"who": "노인", "text": "그때 되찾은 돈으로 손주 약을 지어 먹였지.\n저 녀석 보시오. 이제 약재 짐을 저렇게 번쩍번쩍 나른다오."},
+	{"who": "", "text": "노인의 손주가 약재 자루를 메고 씩씩하게 시장 골목을 뛰어다니고 있었다."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "(갈 때 뿌린 작은 인연들이…\n돌아오는 길엔 꽃이 되어 있었네.)"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "가짜 인삼을 알아봤다고? …그 버릇은 여전하군.\n소굴에서도 내 약재 장부를 뒤져서 혼냈었지."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "그건 서휘가 장부를 엉망으로 적어서 그랬잖아요."},
+	{"who": "노인", "text": "자, 이건 내 가게에서 제일 좋은 감초요. 조선 가는 길에 쓰시오."},
+	{"who": "", "text": "(노인의 선물: 약병 +1, 엽전 +3냥)", "potion": 1, "coin": 3},
 ]
 
 const C9_FERRY_RET := [
-	{"bg": "ferry", "who": "", "text": "그리고 압록강 나루."},
-	{"who": "수문장", "pose": "sumunjang", "text": "응? 이 얼굴… 그때 그 고운 목소리의 조선 의원!\n…허허, 이번엔 아가씨로구먼! 어쩐지 손이 희더라니."},
-	{"who": "수문장", "pose": "sumunjang", "text": "그 포도대장 서찰, 아직 내 품에 있소.\n그리 귀한 보증은 처음이었거든. 어서 가시오, 고향이 기다리오."},
+	{"bg": "ferry", "who": "", "text": "마침내 압록강 나루.\n강 건너, 안개 너머로 조선의 산이 보였다."},
+	{"who": "수문장", "pic": "sumunjang", "text": "멈춰라, 통행첩부터… 응? 이 얼굴…\n그때 그 고운 목소리의 조선 의원!"},
+	{"who": "수문장", "pic": "sumunjang", "text": "…허허, 이번엔 아가씨로구먼! 어쩐지 손이 희더라니.\n그때 맥 짚어 준 덕에 요즘은 속이 하나도 안 쓰리오."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "그때는 속여서 죄송했어요.\n사정이 있어서 사내로 다녀야 했거든요."},
+	{"who": "수문장", "pic": "sumunjang", "text": "그 포도대장 서찰, 아직 내 품에 있소.\n그리 귀한 보증은 처음이었거든."},
+	{"who": "수문장", "pic": "sumunjang", "text": "그런데 옆에 이 금발 사내는 또 누구요?\n…화란 옷에 조선말이라. 허허, 별일이로세."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 사람 일행이오. 조선 사람이고.\n오래 떠나 있었을 뿐이오."},
+	{"who": "수문장", "pic": "sumunjang", "text": "좋소, 건너가시오. 고향이 기다리오.\n…포도대장 나리께 안부나 전해 주시오."},
+	{"who": "", "text": "(수문장의 배웅: 엽전 +4냥)", "coin": 4},
+]
+
+const C9_PORT_RET := [
+	{"bg": "port", "who": "", "text": "다시 찾은 광주 항구.\n화란 상선은 여기서 짐을 내리고, 다시 서쪽으로 떠난다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 여기서부턴 뭍길이죠?\n…같이 가고 싶은데, 저는 이 배 돛잡이니까요."},
+	{"who": "선장", "pic": "dutch_captain", "text": "갈 때도 올 때도 우리 배의 선의였지.\n이건 그동안의 품삯일세. 조선에 가거든 좋은 약방 차리게."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "선장님, 얀… 정말 고마웠어요.\n두 분 덕분에 서쪽 끝까지 갔다가 돌아올 수 있었어요."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "선생님! 의원님 잘 지켜 드려야 해요.\n…또 넋 놓고 쳐다보다가 바다에 빠지지 마시고요!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "시, 시끄럽다. 어서 배로 돌아가라."},
+	{"who": "", "text": "(선장의 품삯: 엽전 +6냥, 약병 +1)", "coin": 6, "potion": 1},
 ]
 
 const C9_ARRIVE := [
@@ -1475,7 +1504,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
