@@ -891,9 +891,9 @@ func ask_name(cb: Callable) -> void:
 const DISGUISED := [2, 3, 4, 7, 8]
 
 ## 지금 장에 맞는 주인공 전신 그림 (남장·의녀·어른·평상복)
-## 지금 남장 중인가 (마지막 장의 화란 항구 맵까지는 아직 남장)
+## 지금 남장 중인가 (마지막 장도 화란에 있는 동안 — 마지막 왕진 길·떠나는 항구 — 은 아직 남장)
 func disguised() -> bool:
-	return chapter in DISGUISED or (chapter == 9 and stage_idx == 0)
+	return chapter in DISGUISED or (chapter == 9 and stage_idx <= 1)
 
 func hero_pose() -> String:
 	if disguised():
