@@ -272,7 +272,7 @@ func _build_world() -> void:
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
 const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.12, "addict": 0.88, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
-	"rat": 0.62, "king": 1.04, "seohwi": 0.78, "seohwi_calm": 0.96, "shadow": 1.04, "dogyeol": 1.0, "heo": 1.04, "yeotjangsu": 0.98}
+	"rat": 0.62, "king": 1.04, "seohwi": 0.78, "seohwi_calm": 0.96, "seohwi_podo": 1.15, "shadow": 1.04, "dogyeol": 1.0, "heo": 1.04, "yeotjangsu": 0.98}
 
 func _sprite(pic: String, h: float) -> TextureRect:
 	h = MAP_H
