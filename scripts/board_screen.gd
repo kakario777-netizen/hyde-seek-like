@@ -427,16 +427,25 @@ func _play(steps: int, chosen: Button) -> void:
 			_set_ship(_at_sea(pos), true)
 		if on_ship and absf(target.x - token.position.x) > 2.0:
 			token_pic.flip_h = target.x < token.position.x   # 뱃머리가 가는 쪽을 보게
-		var tw := create_tween()
-		tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 34), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-		tw.tween_callback(func(): main.sfx("step", -4.0))
-		tw.tween_property(token_pic, "scale", Vector2(1.08, 0.92), 0.06)
-		tw.tween_property(token_pic, "scale", Vector2.ONE, 0.08)
-		await tw.finished
-		path_layer.queue_redraw()
-		_update_hud()
-		await get_tree().create_timer(STEP_PAUSE).timeout
+		if on_ship:
+			# 배는 통통 튀지 않고 물 위를 주욱 미끄러져 간다 (칸마다 멈추지 않고 이어서)
+			var sail := HOP_TIME + STEP_PAUSE
+			var stw := create_tween()
+			stw.tween_property(token, "position", target, sail)
+			await stw.finished
+			path_layer.queue_redraw()
+			_update_hud()
+		else:
+			var tw := create_tween()
+			tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 34), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+			tw.tween_callback(func(): main.sfx("step", -4.0))
+			tw.tween_property(token_pic, "scale", Vector2(1.08, 0.92), 0.06)
+			tw.tween_property(token_pic, "scale", Vector2.ONE, 0.08)
+			await tw.finished
+			path_layer.queue_redraw()
+			_update_hud()
+			await get_tree().create_timer(STEP_PAUSE).timeout
 		var t := _ntype(pos)
 		if (t in ENEMY_TYPES or t == "story" or t == "boss" or t == "voyage") and not cleared.has(pos):
 			break   # 적이나 이야기 칸에서는 멈춘다
