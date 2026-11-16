@@ -239,6 +239,7 @@ func _debug_capture() -> void:
 				hb2.add_child(card_button({"id": "pum", "lv": lv}))
 		"chstory":
 			chapter = int(args.get("ch", "2"))
+			stage_idx = int(args.get("st", str(stage_idx)))
 			if args.has("flag"): flags[args["flag"]] = true
 			var all_l: Array = StoryData.lines(args.get("key", "CH2_INTRO"))
 			var fr := int(args.get("from", "0"))
