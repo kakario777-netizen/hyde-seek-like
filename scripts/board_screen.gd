@@ -26,6 +26,9 @@ var map_rect: TextureRect
 var path_layer: Control
 var token: Control
 var token_pic: TextureRect
+var person_tex: Texture2D
+var token_shadow: Panel
+var on_ship := false
 var markers := {}
 var cam_tween: Tween
 var dragging := false
@@ -199,14 +202,47 @@ func _make_token() -> Control:
 	sh.size = Vector2(56, 16); sh.position = Vector2(-28, -6)
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
+	token_shadow = sh
 	var t: Texture2D = main.illust(main.token_name())
 	var ck: Texture2D = main.chibi_only("hero_disguise" if main.disguised() else "hero")
 	if ck:
 		t = ck
+	person_tex = t
 	token_pic = main.tex_rect(t, Vector2(108, 114))
 	token_pic.position = Vector2(-54, -108)
+	token_pic.pivot_offset = Vector2(54, 108)
 	root.add_child(token_pic)
+	_set_ship(_at_sea(pos), false)
+	if on_ship and pos + 1 < nodes.size():
+		token_pic.flip_h = _node_px(pos + 1).x < _node_px(pos).x
 	return root
+
+## 바닷길(광주 항구와 화란 사이)에서는 사람 대신 배가 움직인다
+func _at_sea(i: int) -> bool:
+	var port := -1; var holland := -1
+	for k in nodes.size():
+		var nm := str(nodes[k].get("name", ""))
+		if nm == "광주 항구": port = k
+		elif nm == "화란": holland = k
+	if port < 0 or holland < 0:
+		return false
+	return i > min(port, holland) and i < max(port, holland)
+
+func _set_ship(ship: bool, pop: bool) -> void:
+	if ship == on_ship and pop:
+		return
+	on_ship = ship
+	var ship_tex: Texture2D = load("res://assets/chibi/token_ship.png") if ResourceLoader.exists("res://assets/chibi/token_ship.png") else null
+	if ship and ship_tex == null:
+		on_ship = false
+		return
+	token_pic.texture = ship_tex if on_ship else person_tex
+	token_shadow.visible = not on_ship
+	if not on_ship:
+		token_pic.flip_h = false
+	if pop:
+		token_pic.scale = Vector2(0.6, 0.6)
+		create_tween().tween_property(token_pic, "scale", Vector2.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _draw_path() -> void:
 	for i in range(nodes.size() - 1):
@@ -385,6 +421,10 @@ func _play(steps: int, chosen: Button) -> void:
 		pos += 1
 		var target := _node_px(pos)
 		_focus(target, true, HOP_TIME + STEP_PAUSE)
+		if _at_sea(pos) != on_ship:
+			_set_ship(_at_sea(pos), true)
+		if on_ship and absf(target.x - token.position.x) > 2.0:
+			token_pic.flip_h = target.x < token.position.x   # 뱃머리가 가는 쪽을 보게
 		var tw := create_tween()
 		tw.tween_property(token, "position", token.position.lerp(target, 0.5) - Vector2(0, 34), HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(token, "position", target, HOP_TIME * 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)

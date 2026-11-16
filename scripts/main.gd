@@ -109,6 +109,12 @@ func _debug_capture() -> void:
 			chapter = int(args.get("ch", "1"))
 			stage_idx = int(args.get("st", "0"))
 			start_board()
+			if args.has("pos"):   # 확인용: 그 칸에 말을 세워 본다
+				await get_tree().create_timer(0.3).timeout
+				board.pos = int(args["pos"]); board.token.position = board._node_px(board.pos)
+				board._set_ship(board._at_sea(board.pos), false)
+				board.token_pic.flip_h = board.on_ship and board._node_px(board.pos + 1).x < board._node_px(board.pos).x
+				board._focus(board.token.position, false, 0.0)
 		"flow":
 			# 자동으로 버튼·대사를 넘기며 흐름이 끊기지 않는지 확인
 			chapter = int(args.get("ch", "1"))
