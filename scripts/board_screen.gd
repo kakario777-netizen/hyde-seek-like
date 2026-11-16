@@ -217,16 +217,18 @@ func _make_token() -> Control:
 		token_pic.flip_h = _node_px(pos + 1).x < _node_px(pos).x
 	return root
 
-## 바닷길(광주 항구와 화란 사이)에서는 사람 대신 배가 움직인다
+## 바닷길에서는 사람 대신 배가 움직인다 — 연경 바로 옆 산둥 해안을 떠난 뒤부터 화란에 닿기 전까지
+## (지도에서 광주 항구 앞뒤 길도 바다 위로 그려져 있어서, 항구가 아니라 해안을 기준으로 삼는다)
 func _at_sea(i: int) -> bool:
-	var port := -1; var holland := -1
+	var yj := -1; var holland := -1
 	for k in nodes.size():
 		var nm := str(nodes[k].get("name", ""))
-		if nm == "광주 항구": port = k
+		if nm == "연경(청)": yj = k
 		elif nm == "화란": holland = k
-	if port < 0 or holland < 0:
+	if yj < 0 or holland < 0:
 		return false
-	return i > min(port, holland) and i < max(port, holland)
+	var shore := yj + (1 if holland > yj else -1)
+	return i > min(shore, holland) and i < max(shore, holland)
 
 func _set_ship(ship: bool, pop: bool) -> void:
 	if ship == on_ship and pop:
