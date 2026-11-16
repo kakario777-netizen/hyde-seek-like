@@ -1033,6 +1033,10 @@ func _ret(name: String) -> String:
 		return "seohwi_return"
 	if chapter >= 9 and name == "friend":
 		return "darae_adult"   # 돌아온 뒤의 다래는 어른 모습
+	if chapter >= 9 and name in ["hero", "hero_sad"]:
+		return "hero_adult"   # 돌아온 뒤의 주인공은 어른 모습 (길막 대사 등에서 어린 그림이 섞이지 않게)
+	if chapter >= 9 and name in ["hero_angry", "hero_surprised"]:
+		return "hero_adult_tense"
 	return name
 
 func chibi_only(name: String) -> Texture2D:
