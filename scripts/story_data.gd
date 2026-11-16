@@ -989,7 +989,7 @@ const C9_PIRATE_POST := [
 
 ## 폭풍 뒤 고백 → 돌아오는 길 회상 → 압록강 → 허 의원 묘 → 숭례문(CH9_INTRO 뒷부분)
 const C9_SEA_NIGHT := [
-	{"bg": "deck_night", "who": "", "text": "해적이 물러간 밤. 갑판 위로 별이 쏟아졌다."},
+	{"bg": "deck_night", "who": "", "text": "화란을 떠나 한 달째 되는 밤. 잔잔한 바다 위, 갑판으로 별이 쏟아졌다."},
 	{"music": "heart_flutter", "who": "서휘", "pose": "seohwi_dutch", "text": "…{name}. 이것 기억하나?"},
 	{"who": "", "text": "서휘가 품에서 꺼낸 것은 낡은 무명천 조각이었다.\n다리 밑 소굴에서, {name}가 찢어진 서휘의 손등을 싸매 주었던 바로 그 천."},
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "화란에서 몇 해를 사는 동안, 한 번도 버리지 못했다.\n아이들 상처를 싸맬 때마다 네 손이 떠올라서."},

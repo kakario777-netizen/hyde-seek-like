@@ -41,7 +41,7 @@
   {
    "x": 0.0586,
    "y": 0.3012,
-   "type": "walpae"
+   "type": "item"
   },
   {
    "x": 0.0646,
@@ -107,7 +107,7 @@
   {
    "x": 0.1304,
    "y": 0.8231,
-   "type": "walpae"
+   "type": "buff"
   },
   {
    "x": 0.1514,
@@ -136,7 +136,7 @@
    "type": "empty"
   },
   {
-   "type": "walpae",
+   "type": "rest",
    "x": 0.3218,
    "y": 0.889
   },
@@ -146,7 +146,7 @@
    "type": "empty"
   },
   {
-   "type": "walpae",
+   "type": "item",
    "x": 0.3715,
    "y": 0.8436
   },
@@ -184,19 +184,8 @@
    "x": 0.438,
    "y": 0.622,
    "name": "먼바다",
-   "type": "voyage",
-   "pre_text": "화란을 떠나 한 달째.\n수평선 너머로 검은 깃발을 단 배가 따라붙었다…",
-   "stage": {
-    "map": "h_deck",
-    "name": "귀향의 바닷길",
-    "bg": "deck",
-    "after": "C9_SEA_NIGHT",
-    "ally_pic": "seohwi_dutch",
-    "foes": {
-     "walpae": "haejeok",
-     "pojol": "haejeok"
-    }
-   }
+   "type": "story",
+   "sid": "C9_SEA_NIGHT"
   },
   {
    "x": 0.4575,
@@ -270,23 +259,8 @@
    "x": 0.742,
    "y": 0.5695,
    "name": "광주 항구",
-   "type": "voyage",
-   "pre_text": "다시 찾은 광주 항구.\n물과 약재를 싣고, 부두 끝 상선까지 돌아가야 한다.",
-   "stage": {
-    "map": "v_port",
-    "name": "광주 항구",
-    "bg": "port",
-    "foes": {
-     "walpae": "haejeok",
-     "pojol": "haejeok"
-    },
-    "patients": 2,
-    "patient_pic": "redhair_sailor",
-    "patient_who": "열병 난 선원",
-    "patient_text": "으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…",
-    "ally_pic": "seohwi_dutch",
-    "after": "C9_PORT_RET"
-   }
+   "type": "story",
+   "sid": "C9_PORT_RET"
   },
   {
    "type": "debuff",
@@ -306,7 +280,7 @@
   {
    "x": 0.7887,
    "y": 0.4348,
-   "type": "walpae"
+   "type": "buff"
   },
   {
    "type": "buff",
@@ -327,37 +301,15 @@
    "x": 0.745,
    "y": 0.305,
    "name": "연경(청)",
-   "type": "voyage",
-   "pre_text": "배에서 내려 다시 연경.\n약재 시장을 지나 북쪽 성문까지 가야 한다.",
-   "stage": {
-    "map": "v_yanjing",
-    "name": "연경 약재 시장",
-    "bg": "yanjing",
-    "after": "C9_YANJING_RET",
-    "foes": {
-     "walpae": "merchant_gang",
-     "pojol": "merchant_gang"
-    },
-    "ally_pic": "seohwi_dutch"
-   }
+   "type": "story",
+   "sid": "C9_YANJING_RET"
   },
   {
    "x": 0.7783,
    "y": 0.3299,
    "name": "압록강",
-   "type": "voyage",
-   "pre_text": "마침내 압록강.\n강 건너가 조선 땅이다. 나루까지만 가면 된다.",
-   "stage": {
-    "map": "v_ferry",
-    "name": "압록강 나루",
-    "bg": "ferry",
-    "after": "C9_FERRY_RET",
-    "foes": {
-     "walpae": "qing_soldier",
-     "pojol": "qing_soldier"
-    },
-    "ally_pic": "seohwi_dutch"
-   }
+   "type": "story",
+   "sid": "C9_FERRY_RET"
   },
   {
    "x": 0.807,
