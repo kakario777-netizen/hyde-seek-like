@@ -88,6 +88,9 @@ const CHAPTERS := {
 				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
 					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
 					{"who": "다래", "pic": "darae_adult", "text": "나 궁에 가는 길! 그 보따리… 누구 주려고?\n둘 다? 흐응~ 욕심쟁이. 비스킷 하나만 나 줘!", "coin": 2}]},
+			{"map": "s9_d", "goal": "다래와 함께\n산마루 양지바른 비탈까지 가라.", "name": "산마루 도라지밭 가는 길", "ally": "darae", "ally_chibi": "darae_adult", "after": "C9_DORAJI_RET", "after_story": true, "foes": {"walpae": "walpae", "pojol": "walpae"},
+				"talks": [{"who": "약초 캐는 할머니", "text": "아이고, 다래 아가씨가 삼 년 내내 물 주던 그 밭에 가는구먼.\n어여 가 봐요. 올해 꽃이 아주 곱게 폈어. 이것도 가져가고.", "potion": 1},
+					{"who": "나무꾼", "text": "허허, 그 비탈 도라지밭 말이오? 누가 손대면 저 아가씨가\n불같이 화를 내서 나도 근처엔 얼씬 안 했소.", "coin": 2}]},
 			{"map": "s10_isle", "goal": "다래와 함께 바닷길을 건너\n남쪽 유배 섬까지 가라.", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_palace", "goal": "서휘와 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
@@ -118,7 +121,8 @@ static func lines(key: String) -> Array:
 		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 10) + [{"who": "", "text": "이튿날 아침. {name|은} 홀로 입궐 길에 나섰다.\n【목표】\n운종가를 지나 경복궁 광화문까지 가라."}]
 		"C9_PALACE_RET": return C9_KING + C9_DARAE + C9_CALL
 		"C9_BRIDGE": return C9_BRIDGE
-		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
+		"C9_PODO_RET": return C9_PODO.slice(0, 11) + C9_DORAJI_GO
+		"C9_DORAJI_RET": return C9_DORAJI + C9_PODO.slice(11) + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F4
@@ -1128,6 +1132,25 @@ const C9_BRIDGE := [
 ]
 
 ## 포도청 가는 길 맵을 지난 뒤: 서휘의 첫 수련
+const C9_DORAJI_GO := [
+	{"bg": "jangteo", "who": "", "text": "포도청 대문을 나서자, 담벼락 아래 다래가 바구니를 끼고 서 있었다."},
+	{"who": "다래", "pose": "darae_adult", "text": "내일 아침이라며! 새벽에 포도청 간다는 말은 없었거든?\n…뭐, 그래도 안 도망갔으니 봐준다. 가자, 산마루로!"},
+	{"who": "", "text": "【목표】\n다래와 함께 산마루 양지바른 비탈까지 가라."},
+]
+
+const C9_DORAJI := [
+	{"bg": "mountain", "who": "", "text": "산마루 양지바른 비탈. 삼 년 전 둘이 흙을 일구던 자리에,\n보랏빛 도라지꽃이 바람에 흔들리고 있었다."},
+	{"who": "다래", "pose": "darae_adult", "text": "봐! 나 진짜 물은 흙 마를 때만 줬다?\n네가 그러라고 해서."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…삼 년 동안, 한 번도 안 빼먹고?"},
+	{"who": "다래", "pose": "darae_adult", "text": "당연하지. 이게 다 자랄 때쯤엔 너도 돌아와 있을 거라고 했잖아.\n…이게 안 자라면 너도 안 올 것 같아서, 괜히 무섭더라."},
+	{"who": "", "text": "둘은 손으로 흙을 헤쳤다.\n굵고 하얀 뿌리가 흙냄새와 함께 딸려 나왔다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "이만하면 약이 돼. 껍질 벗겨 볕에 말리고,\n감초 조금 넣어서 달이면—"},
+	{"who": "다래", "pose": "darae_adult", "text": "—기침과 가래에 좋아. 쓴맛도 덜하고.\n…나도 다 외웠거든?"},
+	{"who": "{name}", "pose": "hero_adult", "text": "다래야. 이 도라지, 약방 다시 열면\n약장 첫 칸에 넣자."},
+	{"who": "다래", "pose": "darae_adult", "text": "좋아! 그럼 그 칸 이름은\n'삼 년 기다린 칸'이다?"},
+	{"who": "", "text": "(다래와 캔 도라지로 약을 달였다: 약병 +2)", "potion": 2},
+]
+
 const C9_PODO := [
 	{"bg": "podocheong", "who": "", "text": "포도청 대문을 들어서자, 마당에서 목검 부딪치는 소리가 울렸다.\n포졸 옷을 입은 서휘와 윤도결이 새벽 안개 속에서 맞서 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "봐주지 말라고 했지. 첫날이니 한 가지만 가르친다.\n포졸은 이기는 자가 아니다. 쓰러지지 않는 자다."},
@@ -1171,7 +1194,7 @@ const C9_SPAR_POST := [
 const C9_SHOP := [
 	{"bg": "yakbang_calm", "who": "", "text": "낮에는 내의원, 해가 지면 북촌 어귀의 옛 약방.\n오래 비어 있던 허 의원의 약방에 다시 불이 켜졌다."},
 	{"who": "", "text": "{name|은} 약장을 닦고, 당귀와 감초와 숙지황을 칸칸이 채웠다.\n열다섯 살 그날, 심부름으로 구해 왔던 바로 그 약재들이었다."},
-	{"who": "다래", "pose": "darae_adult", "text": "궁 약재 남은 거 챙겨 왔어!\n이 약장 칸은 내가 채운다?"},
+	{"who": "다래", "pose": "darae_adult", "text": "말려 둔 도라지 가져왔어!\n'삼 년 기다린 칸'은 내가 채운다?"},
 	{"who": "", "text": "서휘가 화란에서 가져온 가죽 왕진 가방을 약장 옆에 걸었다.\n조선의 약장과 화란의 가방이 나란히 놓였다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "가난한 이에게는 약값을 받지 않습니다.\n…아버지가 늘 하시던 말씀이에요. 이 약방도 그렇게 할 거예요."},
 	{"who": "", "text": "첫 손님이 문을 두드렸다. 얼굴을 보자 {name|은} 숨을 삼켰다.\n청심보명단에 무너졌다가, 환심단으로 겨우 돌아왔던 그 사내였다."},
