@@ -76,6 +76,10 @@ const CHAPTERS := {
 				"talks": [{"who": "나무꾼", "text": "허 의원님 묘 말이오? 이 길로 쭉 올라가면 매화나무 아래요.\n누군가 철마다 와서 벌초를 해 두더이다. 갈 때마다 깨끗하지.", "coin": 3},
 					{"who": "약초 캐는 할머니", "text": "허 의원님이 키운 그 아이라고? 아이고, 이리 곱게 컸구먼.\n그 양반 덕에 우리 영감이 살았지. 이 도라지 가져가요.", "potion": 1},
 					{"who": "서휘", "pic": "seohwi", "text": "…이 산길, 허 의원 어른도 약초 캐러 자주 오르셨겠군.\n발밑에 감초가 지천이다.", "potion": 1}]},
+			{"map": "s9_k", "goal": "운종가를 지나\n경복궁 광화문까지 가라.", "name": "경복궁 가는 길", "ally": "", "after": "C9_PALACE_RET", "after_story": true, "foes": {"walpae": "walpae", "pojol": "walpae"},
+				"talks": [{"who": "물장수", "text": "아이고, 허 의원님 댁 아가씨 아니오? 바다 건너 갔다더니 정말 돌아왔구먼!\n이 물 한 바가지 들고 가시오. 오늘은 공짜요.", "potion": 1},
+					{"who": "엿장수", "text": "어이쿠, 그때 그 약초꾼… 아니, 아가씨였어?\n허허, 어쩐지 엿을 그리 맛있게 먹더라니. 이거 하나 들고 가오.", "coin": 2},
+					{"who": "약방 손님이던 아낙", "text": "의원님! 우리 막내 기침 고쳐 주신 거 기억하세요?\n이제 저만큼 컸어요. 다시 약방 여시면 제일 먼저 갈게요!", "coin": 2}]},
 			{"map": "s9_b", "goal": "서휘와 함께 밤길을 지나\n청계천 수표교까지 가라.", "name": "청계천 수표교 가는 밤길", "after": "C9_BRIDGE", "after_story": true, "foes": {"walpae": "walpae", "pojol": "walpae"},
 				"talks": [{"who": "순라꾼", "text": "통금 지난 시각인데… 아, 포도대장 나리 손님이시오?\n지나가시오. 나리가 오늘따라 다리 위를 몇 번이나 서성이시던데.", "coin": 2},
 					{"who": "주막 주모", "text": "어머, 이 밤에 둘이서 어딜 가? 국밥 한 그릇씩 하고 가!\n…바쁘다고? 그럼 이 주먹밥이라도 들고 가.", "potion": 1},
@@ -111,7 +115,8 @@ static func lines(key: String) -> Array:
 			var n: int = GameData.PROLOGUE_B.size()
 			return [GameData.PROLOGUE_B[n - 2]] + GameData.STORY1 + GameData.STORY2 + [GameData.PROLOGUE_B[n - 1]]
 		"C9_RETURN": return C9_ARRIVE
-		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 10) + C9_KING + C9_DARAE + C9_CALL
+		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 10) + [{"who": "", "text": "이튿날 아침. {name|은} 홀로 입궐 길에 나섰다.\n【목표】\n운종가를 지나 경복궁 광화문까지 가라."}]
+		"C9_PALACE_RET": return C9_KING + C9_DARAE + C9_CALL
 		"C9_BRIDGE": return C9_BRIDGE
 		"C9_PODO_RET": return C9_PODO + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
@@ -1064,27 +1069,22 @@ const C9_GRAVE := [
 
 ## 돌아온 뒤: 임금 알현 → 다래의 장난 → 수표교에서 윤도결의 부탁 → 포도청 수련 맵
 const C9_KING := [
-	{"bg": "palace", "who": "", "text": "이튿날, 경복궁 강녕전.\n{name|은} 서휘와 나란히 임금 앞에 엎드렸다."},
+	{"bg": "palace", "who": "", "text": "경복궁 강녕전.\n{name|은} 홀로 임금 앞에 엎드렸다."},
 	{"who": "임금", "pose": "king", "text": "허허, {name}! 먼 길 무사히 잘 돌아왔구나.\n그동안 참으로 수고 많았다."},
 	{"who": "임금", "pose": "king", "text": "바다 건너 화란이라니… 그곳에서 무슨 일이 있었는지 궁금하구나.\n어디 하나도 빼놓지 말고 들려주거라."},
 	{"who": "{name}", "pose": "hero_adult", "text": "예, 전하. 역병이 도는 화란의 마을에서 아픈 아이들을 돌보았사옵니다.\n끓인 물과 깨끗한 손으로 병을 막는 서양의 법도 배워 왔사옵니다."},
-	{"who": "임금", "pose": "king", "text": "…그런데 그 곁의 금발 청년. 그대가 청안파의 그 서휘로구나."},
-	{"who": "{name}", "pose": "hero_adult", "text": "예, 전하. 화란의 역병 마을에서 밤낮으로 아이들을 살린 사람이옵니다.\n이제는… 소녀와 평생을 함께할 사람이옵니다."},
-	{"who": "서휘", "pose": "seohwi", "text": "한때 그릇된 길을 걸었던 몸이옵니다, 전하.\n남은 생은 이 나라 백성을 지키는 데 쓰겠사옵니다."},
-	{"who": "임금", "pose": "king", "text": "그 말, 잊지 않겠노라. 두 사람 모두 이 나라의 보배로다.\n이제 편히 쉬며 한양의 봄을 누리거라."},
+	{"who": "임금", "pose": "king", "text": "허허, 듣기만 해도 가슴이 벅차구나. 그대는 이 나라의 보배로다.\n이제 편히 쉬며 한양의 봄을 누리거라."},
 	{"who": "{name}", "pose": "hero_adult", "text": "전하의 깊은 배려에 감사드리옵니다.\n하오나 쉬기보다는, 이제부터 다시 궁에서 다래와 함께 내의원에 복귀하여\n전하와 백성을 살피겠사옵니다."},
 	{"who": "임금", "pose": "king", "text": "허허, 역시 그대답구나. 내의원이 다시 든든해지겠어.\n좋다, 그리하거라."},
 ]
 
 const C9_DARAE := [
-	{"bg": "palace", "who": "", "text": "강녕전을 나서자, 의녀 차림의 다래가 달려와 {name}의 두 볼을 잡아당겼다."},
-	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "야, 이 바보야! 아까 문 앞에선 반가워서 말도 제대로 못 했는데…\n너 없는 동안 이 다래님이 궁 안 약을 혼자 다 달였거든?\n고뿔에 체기에 대비마마 두통까지! 손목이 남아나질 않았어!"},
+	{"bg": "palace", "who": "", "text": "광화문을 나서자, 문 앞에서 기다리던 의녀 차림의 다래가 달려와 {name}의 두 볼을 잡아당겼다."},
+	{"music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "야, 이 바보야! 어제 숭례문에선 반가워서 말도 제대로 못 했는데…\n너 없는 동안 이 다래님이 궁 안 약을 혼자 다 달였거든?\n고뿔에 체기에 대비마마 두통까지! 손목이 남아나질 않았어!"},
 	{"who": "{name}", "pose": "hero_adult", "text": "아야야… 알았어, 알았어! 고생 많았어, 다래야."},
 	{"who": "다래", "pose": "darae_adult", "text": "…사실은 많이 힘들었어. 밤에 혼자 약 달이다가,\n네가 있었으면 하고 몇 번이나 생각했는지 몰라."},
 	{"who": "다래", "pose": "darae_adult", "text": "근데 이제 네가 와 줬으니까,\n둘이서 훨씬 더 많은 사람들을 낫게 해 줄 수 있겠다!"},
 	{"who": "{name}", "pose": "hero_adult", "text": "응. 이번엔 혼자 두지 않을게. 같이 하자, 다래야."},
-	{"who": "다래", "pose": "darae_adult", "text": "그리고 서휘. 우리 {name|이} 바다 끝까지 찾아가게 만든 사람.\n…흥, 데리고 돌아온 건 칭찬해 줄게. 근데 이 애 울리면 고춧가루 뿌린다? 알지?"},
-	{"who": "서휘", "pose": "seohwi", "text": "…명심하지.\n울릴 일은 없을 거다. 다시는 혼자 바다를 건너게 하지도 않고."},
 	{"who": "{name}", "pose": "hero_adult", "text": "다래야, 정말 고마워. 네가 궁을 지켜 줘서 마음 놓고 다녀올 수 있었어."},
 	{"who": "다래", "pose": "darae_adult", "text": "…치. 그런 말 하면 울잖아, 바보야.\n…잘 왔어. 정말, 잘 돌아왔어."},
 	{"who": "다래", "pose": "darae_adult", "text": "아, 그리고 도라지! 내일 아침에 꼭 캐러 가는 거다?\n삼 년이나 기다렸어. 이번엔 진짜 약속이야!"},
@@ -1093,9 +1093,9 @@ const C9_DARAE := [
 
 ## 궁에서 나온 뒤: 윤도결의 부름
 const C9_CALL := [
-	{"bg": "palace", "who": "", "text": "해 질 녘, 궁을 나서는 둘에게 포졸 하나가 달려왔다."},
+	{"bg": "jangteo", "who": "", "text": "해 질 녘, 운종가에서 기다리던 서휘와 만나 돌아가는 길.\n포졸 하나가 숨을 몰아쉬며 달려왔다."},
 	{"who": "포졸", "pose": "pojol", "text": "어의 나리, 그리고 서휘 공이시지요?\n포도대장 나리께서 두 분을 청하십니다. 오늘 밤 청계천 수표교로 오시랍니다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "나리가…? 아까 숭례문에서 뵈었는데, 무슨 일이지?"},
+	{"who": "{name}", "pose": "hero_adult", "text": "나리가…? 어제 숭례문에서 뵈었는데, 무슨 일이지?"},
 	{"who": "서휘", "pose": "seohwi", "text": "…한밤에, 그것도 다리 위로라. 그 나리다운 부름이군.\n가 보자. 나도 그 사람한테 할 말이 있다."},
 	{"who": "", "text": "【목표】\n서휘와 함께 밤길을 지나\n청계천 수표교까지 가라."},
 ]
