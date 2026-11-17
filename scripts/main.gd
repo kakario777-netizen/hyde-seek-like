@@ -286,6 +286,9 @@ func _debug_capture() -> void:
 		"bag":
 			deck.append({"id": "jumeok", "lv": 2})
 			start_board()
+			await get_tree().create_timer(0.9).timeout
+			for l in get_tree().root.find_children("*", "CanvasLayer", true, false):
+				l.queue_free()
 			show_bag()
 		"shop":
 			coins = 9
@@ -1480,7 +1483,7 @@ func coin_plaque() -> Array:
 	upd.call()
 	return [p, upd]
 
-# ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
+# ── 보따리: 같은 상소 두 장을 엽전 내고 합치기 ──────────────
 const UPGRADE_COST := [0, 5, 10, 15, 20]   # ★1→★2 5냥 … ★4→★5 20냥
 
 ## ── 약탕관: 약초 4개 + 엽전으로 탕약 달이기 ──────────────
@@ -1581,7 +1584,7 @@ func _steam(at: Control) -> void:
 		tw.chain().tween_callback(l.queue_free)
 
 func show_bag(cb := Callable()) -> void:
-	var o := _overlay("상소 단련")
+	var o := _overlay("상소 합치기")
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var cp := coin_plaque()
@@ -1599,9 +1602,6 @@ func show_bag(cb := Callable()) -> void:
 	grid.add_theme_constant_override("h_separation", 8)
 	grid.add_theme_constant_override("v_separation", 10)
 	scroll.add_child(grid)
-	var up := make_button("", 28)
-	up.custom_minimum_size = Vector2(0, 86)
-	vb.add_child(up)
 	var close := make_button("닫기", 30)
 	close.custom_minimum_size = Vector2(0, 86)
 	vb.add_child(close)
@@ -1614,21 +1614,10 @@ func show_bag(cb := Callable()) -> void:
 		for ch in grid.get_children():
 			ch.queue_free()
 		cp[1].call()
-		info.text = "상소 %d장 · 하나를 고르면 엽전으로 단련할 수 있고,\n같은 상소(같은 ★)를 하나 더 누르면 엽전(★2 5냥·★3 10냥·★4 15냥)에 합쳐집니다" % deck.size()
+		info.text = "상소 %d장 · 같은 상소(같은 ★) 두 장을 누르면\n엽전을 내고 한 장으로 합쳐집니다\n★2 5냥 · ★3 10냥 · ★4 15냥 · ★5 20냥" % deck.size()
 		if state["msg"] != "":
 			info.text = state["msg"]
 		var sel: int = state["sel"]
-		if sel >= 0 and sel < deck.size():
-			var lv: int = int(deck[sel]["lv"])
-			if lv >= GameData.MAX_LV:
-				up.text = "이미 가장 강한 상소 (★4)"
-				up.disabled = true
-			else:
-				up.text = "단련하기  ★%d → ★%d  (엽전 %d냥)" % [lv, lv + 1, UPGRADE_COST[lv]]
-				up.disabled = false
-		else:
-			up.text = "상소를 골라 단련하기"
-			up.disabled = true
 		for i in deck.size():
 			var b := card_button(deck[i], 132, 220)
 			# 스크롤 안의 상소: 끌면 스크롤, 떼면 선택
@@ -1641,26 +1630,6 @@ func show_bag(cb := Callable()) -> void:
 			b.pressed.connect(func():
 				_bag_tap(idx, state)
 				self_ref.call(self_ref))
-	up.pressed.connect(func():
-		var sel: int = state["sel"]
-		if sel < 0 or sel >= deck.size():
-			return
-		var lv: int = int(deck[sel]["lv"])
-		if lv >= GameData.MAX_LV:
-			return
-		if coins < UPGRADE_COST[lv]:
-			sfx("click", -4.0)
-			state["msg"] = "엽전이 모자랍니다! (단련 %d냥 · 지금 %d냥)" % [UPGRADE_COST[lv], coins]
-			rebuild.call(rebuild)
-			return
-		coins -= UPGRADE_COST[lv]
-		sfx("upgrade")
-		var id: String = deck[sel]["id"]
-		deck[sel] = {"id": id, "lv": lv + 1}
-		_sort_deck()
-		state["sel"] = -1
-		state["msg"] = "%s 단련 완료! %s" % [GameData.CARDS[id]["name"], "★".repeat(lv + 1)]
-		rebuild.call(rebuild))
 	_sort_deck()
 	rebuild.call(rebuild)
 
@@ -1680,21 +1649,12 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 		return
 	if int(a["lv"]) >= GameData.MAX_LV:
 		state["sel"] = -1
-		state["msg"] = "이미 가장 강한 상소입니다 (★4)"
+		state["msg"] = "이미 가장 강한 상소입니다 (★5)"
 		return
 	if deck.size() <= GameData.MIN_DECK:
-		# 상소가 너무 적으면 합치지 않고 고른 한 장만 엽전으로 단련
-		var c1: int = UPGRADE_COST[int(a["lv"])]
-		if coins < c1:
-			state["sel"] = -1
-			state["msg"] = "엽전이 모자랍니다! (단련 %d냥 · 지금 %d냥)" % [c1, coins]
-			return
-		coins -= c1
-		deck[i] = {"id": a["id"], "lv": int(a["lv"]) + 1}
-		sfx("upgrade")
-		_sort_deck()
+		# 상소가 너무 적으면 더 합치지 않는다 (상소 없이 단계만 올리는 일은 없음)
 		state["sel"] = -1
-		state["msg"] = "%s %s 단련! (엽전 -%d냥)\n상소가 %d장뿐이라 합치지 않고 한 장만 올렸어요" % [GameData.CARDS[a["id"]]["name"], "★".repeat(int(a["lv"]) + 1), c1, deck.size()]
+		state["msg"] = "상소가 %d장뿐이라 더 합칠 수 없어요.\n싸움에서 상소를 더 얻은 뒤 합쳐 보세요." % deck.size()
 		return
 	var cost: int = UPGRADE_COST[int(a["lv"])]
 	if coins < cost:
