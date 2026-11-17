@@ -88,7 +88,7 @@ const CHAPTERS := {
 				"talks": [{"who": "물장수", "text": "새벽부터 어딜 그리 바삐 가오? 포도청?\n어제 금발 사내 하나가 포도청에 들어갔다고 장안이 시끌벅적하던데!", "coin": 3},
 					{"who": "엿장수", "text": "아가씨, 그 보따리 냄새 좋네!\n엿 하나 덤으로 넣어 가요. 고된 날엔 단 게 최고지.", "potion": 1},
 					{"who": "다래", "pic": "darae_adult", "text": "나 궁에 가는 길! 그 보따리… 누구 주려고?\n둘 다? 흐응~ 욕심쟁이. 비스킷 하나만 나 줘!", "coin": 2}]},
-			{"map": "s9_d", "goal": "다래와 함께\n산마루 양지바른 비탈까지 가라.", "name": "산마루 도라지밭 가는 길", "ally": "darae", "ally_chibi": "darae_adult", "after": "C9_DORAJI_RET", "after_story": true, "foes": {"walpae": "walpae", "pojol": "walpae"},
+			{"map": "s9_d", "goal": "다래와 함께\n산마루 양지바른 비탈까지 가라.", "name": "산마루 도라지밭 가는 길", "ally": "darae", "ally_chibi": "darae_travel", "after": "C9_DORAJI_RET", "after_story": true, "foes": {"walpae": "walpae", "pojol": "walpae"},
 				"talks": [{"who": "약초 캐는 할머니", "text": "아이고, 다래 아가씨가 삼 년 내내 물 주던 그 밭에 가는구먼.\n어여 가 봐요. 올해 꽃이 아주 곱게 폈어. 이것도 가져가고.", "potion": 1},
 					{"who": "나무꾼", "text": "허허, 그 비탈 도라지밭 말이오? 누가 손대면 저 아가씨가\n불같이 화를 내서 나도 근처엔 얼씬 안 했소.", "coin": 2}]},
 			{"map": "s10_isle", "goal": "다래와 함께 바닷길을 건너\n남쪽 유배 섬까지 가라.", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
