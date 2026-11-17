@@ -916,7 +916,9 @@ func token_name() -> String:
 	return "token_disguise" if disguised() else "token_hero"
 
 func face_name() -> String:
-	return "face_token" if disguised() else "face_hero"
+	if disguised():
+		return "face_token"
+	return "face_adult" if chapter >= 9 else "face_hero"   # 돌아온 뒤에는 어른 얼굴
 
 func is_placeholder(pic: String) -> bool:
 	return pic in StoryData.PLACEHOLDERS
