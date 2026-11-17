@@ -1104,8 +1104,8 @@ func fig_scale(name: String) -> float:
 	if name == "cheong_merchant": return 0.9   # 가짜 인삼 장수: 팔을 벌린 넓은 자세라 줄임
 	if name == "yanjing_elder": return 0.82   # 연경 노인: 등이 굽은 할아버지
 	if name == "masked_henchman": return 0.78   # 복면 하수인: 넓게 선 자세라 줄임
-	if name == "pojol_battle": return 0.8   # 창 들이미는 포졸: 낮게 웅크린 자세라 줄임
-	if name == "pojol": return 1.12   # 창끝까지 그림이 길어 몸이 작게 보여서 키움
+	if name == "pojol_battle": return 0.76   # 창 들이미는 포졸: 낮게 웅크린 자세라 줄임
+	if name == "pojol": return 1.0
 	if name == "seohwi_dutch_sick": return 0.72   # 의자에 앉은 모습
 	if name == "dutch_fisherman": return 0.84
 	if name == "dutch_woman": return 0.8
@@ -1120,11 +1120,15 @@ func fig_scale(name: String) -> float:
 	if name == "addict" or name == "addict_well":
 		return 0.85   # 중독된 사내: 꾸부정하게 서 있어 반듯한 어른보다 작게
 	if name == "gatekeeper":
-		return 0.9    # 성 문지기: 다른 어른 사내와 비슷한 크기로
+		return 0.86   # 성 문지기: 다른 어른 사내와 비슷한 크기로
 	if name == "haejeok_young":
 		return 0.78   # 해적 졸개: 전투 화면과 비슷한 크기로
 	if name.begins_with("baegun_exile"):
 		return 0.95
+	if name in ["seohwi", "seohwi_battle", "seohwi_return"]:
+		return 0.94   # 모자 없는 서휘: 윤도결(갓 포함)보다 조금 작게
+	if name == "walpae":
+		return 0.92
 	return 1.0
 
 ## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
