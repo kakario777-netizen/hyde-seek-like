@@ -1716,7 +1716,7 @@ const C10_JEONG1_PRE := [
 	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "청 상인에게서 산 이 책장에 청나라 용뇌를 버무렸지.\n허가 놈의 흑심단보다 훨씬 진한 약이다!"},
 	{"who": "", "text": "정 의관이 검은 환약을 한 움큼 삼켰다.\n관복이 먹물처럼 검게 물들고, 두 눈이 붉게 번뜩였다."},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 냄새가 나는구나. 허가 놈이 거둔 계집아이.\n허가 놈이 남긴 밤을, 내가 이어 주마!"},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "(그 웃음… 그날 밤 약방의 검은 사내와 똑같아.)\n나리, 등을 맡길게요!"},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "(그 웃음… 그날 밤 약방의 검은 사내와 똑같아.)\n…이번엔 도망치지 않아요. 여기서 끝내요!"},
 ]
 
 const C10_JEONG1_POST := [
