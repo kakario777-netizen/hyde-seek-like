@@ -1131,6 +1131,8 @@ func fig_scale(name: String) -> float:
 		return 0.94   # 모자 없는 서휘: 윤도결(갓 포함)보다 조금 작게
 	if name == "walpae":
 		return 0.92
+	if name == "baegun":
+		return 0.76   # 상냥한 백운: 바위에 앉은 모습
 	return 1.0
 
 ## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
