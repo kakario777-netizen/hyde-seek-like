@@ -1651,11 +1651,6 @@ func _bag_tap(i: int, state: Dictionary) -> void:
 		state["sel"] = -1
 		state["msg"] = "이미 가장 강한 상소입니다 (★5)"
 		return
-	if deck.size() <= GameData.MIN_DECK:
-		# 상소가 너무 적으면 더 합치지 않는다 (상소 없이 단계만 올리는 일은 없음)
-		state["sel"] = -1
-		state["msg"] = "상소가 %d장뿐이라 더 합칠 수 없어요.\n싸움에서 상소를 더 얻은 뒤 합쳐 보세요." % deck.size()
-		return
 	var cost: int = UPGRADE_COST[int(a["lv"])]
 	if coins < cost:
 		state["sel"] = -1
