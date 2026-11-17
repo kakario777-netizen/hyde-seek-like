@@ -485,6 +485,8 @@ const FINAL_COMP := {
 
 func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	var comp := companion()
+	if enemy_id == "shadow_s":
+		comp = ""   # 화엄골 대숲의 한밤: 주인공 혼자 검은 사내와 맞선다 (동행 대사 없음)
 	if comp != "" and not opts.get("comp_done", false) and not opts.has("me_name"):
 		var c: Dictionary = StoryData.COMPANION.get(comp, {})
 		opts = opts.duplicate(); opts["comp_done"] = true
