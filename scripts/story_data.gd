@@ -58,7 +58,7 @@ const CHAPTERS := {
 			{"map": "s7_2", "goal": "풍차 언덕 약초밭으로 가며\n앓는 마을 사람들을 돌봐라.", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3},
 			{"map": "s7_3", "goal": "서휘의 쪽지를 따라\n겨울 항구 창고까지 가라.", "name": "겨울 항구 가는 길", "ally": "", "foes": {"walpae": "haejeok", "pojol": "haejeok"}}],
 		"goal_text": "겨울 항구 창고 앞.\n서휘가 커다란 보따리를 안고 기다리고 있었다.", "goal_title": "겨울 항구", "goal_pic": "seohwi_dutch", "goal_bg": "holland_port"},
-	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 집터", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
+	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 새집", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "s9_h", "name": "마지막 왕진 길", "after": "C9_LEAVE2", "ally_pic": "seohwi_dutch", "foes": {"walpae": "haejeok", "pojol": "haejeok"},
 				"talks": [{"who": "마을 아이", "pic": "dutch_child", "text": "의원님! 저 이제 끓인 물만 마셔요.\n약속 지켰죠? 헤헤.", "potion": 1},
 					{"who": "어부", "pic": "dutch_fisherman", "text": "이 팔뚝 좀 보시오, 이젠 그물 두 개도 끈다오!\n…떠난다는 소문이 정말이었구먼.", "coin": 2},
@@ -1235,7 +1235,7 @@ const CH9_INTRO := [
 	{"bg": "wedding", "who": "", "text": "그해 가을, 허 의원의 옛 약방 마당에서 혼례가 열렸다.\n다래는 하루 종일 울다 웃다 했고, 윤도결은 맨 앞자리에서 끝까지 박수를 쳤다."},
 	{"bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 서휘가 {name}의 손을 잡았다."},
 	{"who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을, 다시 걸어 보자.\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
-	{"who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
+	{"who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리까지 가라."},
 ]
 
 const C9_MEM := [
@@ -1265,12 +1265,12 @@ const C9_MEM := [
 ]
 
 const CH9_END := [
-	{"ifnot": "wed_dogyeol", "bg": "mountain", "who": "", "text": "둘만의 보금자리가 될 그 자리에서, 서휘와 {name|은} 손수 주춧돌을 놓았다."},
-	{"if": "wed_dogyeol", "bg": "mountain", "who": "", "text": "둘만의 보금자리가 될 그 자리에서, 윤도결과 {name|은} 손수 주춧돌을 놓았다."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "…떠돌던 놈이 주춧돌을 놓는 날이 오는군.
-여기 마당엔 약초밭을 내자. 아이들이 뛰놀 자리도."},
+	{"ifnot": "wed_dogyeol", "bg": "new_home", "who": "", "text": "남산 아래 볕 잘 드는 언덕.\n혼례 전 여름 내내 서휘가 손수 고쳐 둔 작은 한옥이 둘을 기다리고 있었다."},
+	{"if": "wed_dogyeol", "bg": "new_home", "who": "", "text": "남산 아래 볕 잘 드는 언덕.\n혼례 전 여름 내내 윤도결이 손수 고쳐 둔 작은 한옥이 둘을 기다리고 있었다."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "…떠돌던 놈한테 돌아올 집이 생겼군.
+마당엔 약초밭을 내자. 아이들이 뛰놀 자리도."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "포도청에서 반 각이면 닿는 자리다.
-…순찰 핑계로 하루에 몇 번이고 들르겠다."},
+…비번 날엔 내가 마당에 약초밭을 일구지."},
 	{"who": "{name}", "pose": "hero_adult", "text": "대문 위엔 현판을 걸 거예요.
 누구 이름을 걸지는… 벌써 정해 뒀어요."},
 	{"bg": "podocheong", "who": "", "text": "그리고 몇 해가 흘렀다.\n서휘는 공을 쌓아 도성 서쪽을 맡는 우포도대장이 되었다.\n윤도결은 좌포도대장으로, 둘은 나란히 도성의 밤을 지켰다."},
@@ -1799,10 +1799,10 @@ const C10_WED := [
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…명심하마."},
 	{"ifnot": "wed_dogyeol", "bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 서휘가 {name}의 손을 잡았다."},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "우리가 처음 만난 길을, 다시 걸어 보자.\n그때는 서로 주먹을 겨눴지만, 이번엔 나란히."},
-	{"ifnot": "wed_dogyeol", "who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
+	{"ifnot": "wed_dogyeol", "who": "", "text": "【목표】\n서휘와 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리까지 가라."},
 	{"if": "wed_dogyeol", "bg": "jangteo", "who": "", "text": "혼례 이튿날 아침. 윤도결이 {name}의 손을 잡았다."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "우리가 처음 만난 길을 다시 걸어 보지 않겠느냐.\n그때는 내가 너를 쫓았지만, 이번엔 나란히."},
-	{"if": "wed_dogyeol", "who": "", "text": "【목표】\n윤도결과 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리 터까지 가라."},
+	{"if": "wed_dogyeol", "who": "", "text": "【목표】\n윤도결과 함께 추억이 깃든 한양 길을 걸어\n남산 아래 새 보금자리까지 가라."},
 ]
 
 const C10_CURE := [
