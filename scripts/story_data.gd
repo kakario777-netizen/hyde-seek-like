@@ -751,7 +751,7 @@ const EPILOGUE := [
 	{"ifnot": "wed_dogyeol", "music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"if": "wed_dogyeol", "music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "꼬마 대장, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이다. 무슨 일 있으면 불러라."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "…저 녀석 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n순찰 돌다 종종 들르마. 무슨 일 있으면 불러라."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_chief", "text": "…저 녀석 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n순찰 돌다 종종 들르마. 무슨 일 있으면 불러라."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "해 질 녘, 마당에서 뛰놀던 딸아이가 대문 위 현판을 가리켰다."},
 	{"ifnot": "wed_dogyeol", "who": "딸", "pose": "children", "text": "어머니, 저기 '허씨 약방'의 허씨는 누구예요?\n우리 집은 허씨가 아니잖아요."},
 	{"ifnot": "wed_dogyeol", "who": "아들", "pose": "children", "text": "맞아! 아버지는 서씨고, 어머니는… 음, 어머니는 뭐더라?"},
@@ -1275,13 +1275,13 @@ const CH9_END := [
 누구 이름을 걸지는… 벌써 정해 뒀어요."},
 	{"bg": "podocheong", "who": "", "text": "그리고 몇 해가 흘렀다.\n서휘는 공을 쌓아 도성 서쪽을 맡는 우포도대장이 되었다.\n윤도결은 좌포도대장으로, 둘은 나란히 도성의 밤을 지켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘은 내 쪽에서 도적을 더 잡았다. 열둘이다."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 마포 밀수패 우두머리 하나."},
+	{"who": "서휘", "pose": "seohwi_chief", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 마포 밀수패 우두머리 하나."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그건 내가 몰아 준 거다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "두 대장 나리, 또 싸우세요?\n약방에서 도시락 싸 왔으니까, 싸우지 말고 드세요."},
 	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 역시 내 아내 주먹밥이 제일이군."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "내 아내 도시락이다. 천천히 먹어라, 대장 나리."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "아내 도시락이라고 아주 정신이 팔렸군.\n천천히 먹어, 대장 나리. 체한다."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_chief", "text": "내 아내 도시락이다. 천천히 먹어라, 대장 나리."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_chief", "text": "아내 도시락이라고 아주 정신이 팔렸군.\n천천히 먹어, 대장 나리. 체한다."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…부러우면 너도 장가를 가라.\n넌 반만 먹어라."}
 ]
 
