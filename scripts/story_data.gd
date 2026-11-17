@@ -93,8 +93,8 @@ const CHAPTERS := {
 					{"who": "나무꾼", "text": "허허, 그 비탈 도라지밭 말이오? 누가 손대면 저 아가씨가\n불같이 화를 내서 나도 근처엔 얼씬 안 했소.", "coin": 2}]},
 			{"map": "s10_isle", "goal": "다래와 함께 바닷길을 건너\n남쪽 유배 섬까지 가라.", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
-			{"map": "s10_palace", "goal": "서휘와 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "ally_pic": "seohwi_podo", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
-				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "seohwi"},
+			{"map": "s10_palace", "goal": "윤도결과 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
+				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "dogyeol"},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
 				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
 			{"map": "s9_1", "goal": "운종가에서 청계천까지\n추억이 깃든 길을 걸어라.", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],
@@ -1699,14 +1699,15 @@ const C10_FALL := [
 	{"who": "다래", "pose": "darae_prison", "text": "{name}아… 나 정말 아니야.\n할아버지 일 때문에 다들 날 그렇게 볼 거라는 거, 알고 있었어. 그래도…"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "알아. 나도 똑같이 쫓겨 봤잖아.\n그때 네가 고춧가루 한 줌으로 날 구해 줬지. 이번엔 내 차례야."},
 	{"who": "다래", "pose": "darae_prison", "text": "…바보. 빨리 와. 여기 밥 진짜 맛없단 말이야."},
-	{"bg": "podocheong", "who": "서휘", "pose": "seohwi_podo", "text": "포도청 부장 서휘, 지금부터 수사에 나선다.\n대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "밤에 몰래 들어가 뒤져라. 낮엔 누가 지켜볼지 모른다.\n…정 의관, 그자가 오늘 유난히 서둘렀다."},
-	{"who": "", "text": "【목표】\n서휘와 함께 밤의 궁궐에 숨어들어\n내의원 약재 창고에서 흑심단의 단서를 찾아라."},
+	{"bg": "podocheong", "who": "서휘", "pose": "seohwi_podo", "text": "나는 의금부 옥사 앞을 지키겠다.\n누가 다래 입을 막으려 들지 모르니까."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고다.\n밤에 몰래 들어가 뒤진다. …정 의관, 그자가 오늘 유난히 서둘렀다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 같이 가자.\n약재를 알아보는 건 너다."},
+	{"who": "", "text": "【목표】\n윤도결과 함께 밤의 궁궐에 숨어들어\n내의원 약재 창고에서 흑심단의 단서를 찾아라."},
 ]
 
 const C10_JEONG1_PRE := [
 	{"bg": "naeuiwon", "music": "dread_shadow", "who": "", "text": "내의원 약재 창고. 등잔 하나만 깜박이는 어둠 속, 수백 칸 약장이 벽을 메우고 있었다."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "…여기. 정 의관 이름이 붙은 서랍만 자물쇠가 새것이군."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…여기. 정 의관 이름이 붙은 서랍만 자물쇠가 새것이군."},
 	{"who": "", "text": "서랍 안에는 검은 환약이 든 작은 병, 그리고 낯익은 필체의 찢어진 책장들.\n그 순간, 등 뒤에서 문이 닫혔다."},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…역시 오셨군, 어의 나리. 냄새 하나는 잘 맡는구려.\n그 서랍에서 손 떼라."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "의원님 책장… 흑심단 만드는 법이에요. 왜 이게 정 의관님한테 있어요?\n왜 그랬어요. 대비마마께, 그리고 다래에게."},
@@ -1715,7 +1716,7 @@ const C10_JEONG1_PRE := [
 	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "청 상인에게서 산 이 책장에 청나라 용뇌를 버무렸지.\n허가 놈의 흑심단보다 훨씬 진한 약이다!"},
 	{"who": "", "text": "정 의관이 검은 환약을 한 움큼 삼켰다.\n관복이 먹물처럼 검게 물들고, 두 눈이 붉게 번뜩였다."},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 냄새가 나는구나. 허가 놈이 거둔 계집아이.\n허가 놈이 남긴 밤을, 내가 이어 주마!"},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "(그 웃음… 그날 밤 약방의 검은 사내와 똑같아.)\n서휘, 등을 맡길게요!"},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "(그 웃음… 그날 밤 약방의 검은 사내와 똑같아.)\n나리, 등을 맡길게요!"},
 ]
 
 const C10_JEONG1_POST := [
@@ -1723,20 +1724,18 @@ const C10_JEONG1_POST := [
 	{"who": "", "text": "정 의관이 무릎을 꿇은 틈에, {name|은} 품속의 환심단을 그의 입에 밀어 넣었다.\n검은 연기가 잠깐 옅어지는 듯하더니… 다시 짙게 피어올랐다."},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐… 허가 놈의 약이냐?\n청나라 용뇌에 버무린 내 흑심단엔 물 한 모금이다!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "(안 들어…! 의원님이 경고하신 그대로야.)"},
-	{"who": "", "text": "정 의관은 검은 연기를 휘감은 채 창살을 부수고 어둠 속으로 사라졌다.\n서휘가 뒤쫓았지만, 담장 너머로 그림자조차 남지 않았다."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "…놓쳤다. 저건 사람의 걸음이 아니군."},
+	{"who": "", "text": "정 의관은 검은 연기를 휘감은 채 창살을 부수고 어둠 속으로 사라졌다.\n윤도결이 뒤쫓았지만, 담장 너머로 그림자조차 남지 않았다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…놓쳤다. 저건 사람의 걸음이 아니군."},
 ]
 
 const C10_CLUE := [
 	{"bg": "naeuiwon", "music": "dread_shadow", "who": "", "text": "정 의관이 버리고 간 서랍에는 장부 한 권이 남아 있었다."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "'마포 나루, 청 상인 창고에서 책장 값 은 백 냥'.\n대대장이 몰래 빼돌린 책장을 청 상인이 쥐고 있다가, 이자에게 판 거다."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "그리고 마지막 줄… '보름날 밤, 남은 흑심단과 용뇌를 마포에서 받는다.'\n오늘이 보름이다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "'마포 나루, 청 상인 창고에서 책장 값 은 백 냥'.\n대대장이 몰래 빼돌린 책장을 청 상인이 쥐고 있다가, 이자에게 판 거다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 마지막 줄… '보름날 밤, 남은 흑심단과 용뇌를 마포에서 받는다.'\n오늘이 보름이다."},
 	{"who": "", "text": "{name|은} 품에서 백운의 서책을 꺼내 다시 펼쳤다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "'환심단에 용뇌를 더하라… 청 상선으로만 들어온다.'\n마포 창고야. 거기 가면 용뇌도, 정 의관도 있어!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "의원님이 만드신 검은 것은… 이번엔 제 손으로 끝낼 거예요."},
-	{"who": "서휘", "pose": "seohwi_podo", "text": "…나는 여기 남은 장부와 흑심단 병을 챙겨 포도청으로 가져가겠다.\n증거가 사라지면 다래의 누명도 못 벗긴다."},
-	{"who": "", "text": "그때, 창고 문밖으로 등불 하나가 다가왔다.\n궁궐의 소란을 듣고 달려온 포도대장 윤도결이었다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "…마포라고 했나. 정 의관은 포도청이 잡는다.\n서휘는 증거를 맡아라. 마포에는 내가 간다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "장부와 흑심단 병은 포졸을 시켜 서휘에게 보낸다.\n증거가 사라지면 다래의 누명도 못 벗긴다. …마포에는 내가 간다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "저도 가요, 나리. 해독약을 만들 수 있는 건 저뿐이에요."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…알았다. 대신 내 뒤에서 떨어지지 마라."},
 	{"who": "", "text": "【목표】\n윤도결과 함께 마포 나루의 청 상인 창고로 가서\n용뇌를 찾고, 정 의관을 막아라."},
@@ -1746,7 +1745,7 @@ const C10_JEONG_PRE := [
 	{"bg": "mapo_warehouse", "music": "dread_shadow", "who": "", "text": "청나라 글씨가 적힌 궤짝이 쌓인 창고 안쪽.\n{name|은} 궤짝 사이에서 '龍腦'라고 적힌 작은 상자를 찾아냈다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "흑심단을 버무린 곳에, 그걸 푸는 약재도 있었어…!"},
 	{"who": "", "text": "{name|은} 그 자리에서 환심단에 용뇌를 더해 갈았다.\n허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다."},
-	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 또 왔느냐, 어의 나리. 이번엔 포도대장까지 데려왔구나.\n남은 흑심단은 전부 내 배 속에 넣었다. 이번엔 끝장을 내주마!"},
+	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 또 왔느냐, 어의 나리. 오늘도 포도대장을 달고 왔구나.\n남은 흑심단은 전부 내 배 속에 넣었다. 이번엔 끝장을 내주마!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "이번엔 달라요. 의원님의 약과, 백운 선생님의 해독법이 다 여기 있어요.\n나리, 마지막이에요!"},
 ]
 
