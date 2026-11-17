@@ -121,7 +121,7 @@ static func lines(key: String) -> Array:
 		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 10) + [{"who": "", "text": "이튿날 아침. {name|은} 홀로 입궐 길에 나섰다.\n【목표】\n운종가를 지나 경복궁 광화문까지 가라."}]
 		"C9_PALACE_RET": return C9_KING + C9_DARAE + C9_CALL
 		"C9_BRIDGE": return C9_BRIDGE
-		"C9_PODO_RET": return C9_PODO.slice(0, 11) + C9_DORAJI_GO
+		"C9_PODO_RET": return C9_PODO.slice(0, 11) + C9_DG_GATE + C9_DORAJI_GO
 		"C9_DORAJI_RET": return C9_DORAJI + C9_PODO.slice(11) + C9_SHOP + C10_LETTER
 		"C9_SHOP_WED": return C9_SHOP + C10_WED
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
@@ -1099,7 +1099,7 @@ const C9_DARAE := [
 const C9_CALL := [
 	{"bg": "jangteo", "who": "", "text": "해 질 녘, 운종가에서 기다리던 서휘와 만나 돌아가는 길.\n포졸 하나가 숨을 몰아쉬며 달려왔다."},
 	{"who": "포졸", "pose": "pojol", "text": "어의 나리, 그리고 서휘 공이시지요?\n포도대장 나리께서 두 분을 청하십니다. 오늘 밤 청계천 수표교로 오시랍니다."},
-	{"who": "{name}", "pose": "hero_adult", "text": "나리가…? 어제 숭례문에서 뵈었는데, 무슨 일이지?"},
+	{"who": "{name}", "pose": "hero_adult", "text": "나리가…? 돌아온 걸 벌써 아셨나 봐요. 무슨 일이지?"},
 	{"who": "서휘", "pose": "seohwi", "text": "…한밤에, 그것도 다리 위로라. 그 나리다운 부름이군.\n가 보자. 나도 그 사람한테 할 말이 있다."},
 	{"who": "", "text": "【목표】\n서휘와 함께 밤길을 지나\n청계천 수표교까지 가라."},
 ]
@@ -1132,6 +1132,18 @@ const C9_BRIDGE := [
 ]
 
 ## 포도청 가는 길 맵을 지난 뒤: 서휘의 첫 수련
+const C9_DG_GATE := [
+	{"bg": "jangteo", "who": "", "text": "서휘가 우물가로 멍든 팔을 씻으러 간 사이,\n윤도결이 대문까지 {name|을} 배웅했다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…어제는 제대로 인사도 못 했군.\n다시 보니, 정말 돌아왔구나."},
+	{"who": "{name}", "pose": "hero_adult", "text": "네, 나리. 너무 늦었죠.\n기다리신다고 하셨는데."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "늦지 않았다. 매일 아침 순찰 길을 일부러 숭례문 쪽으로 돌았을 뿐이다.\n…버릇이 돼서, 쉽게 고쳐지지 않더군."},
+	{"who": "{name}", "pose": "hero_adult", "text": "나리… 그때 전하 앞에서 무릎까지 꿇고 제 길을 열어 주셨잖아요.\n그 덕에 화란에서 아이들을 살릴 수 있었어요. 정말 고맙습니다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "길을 연 건 너다.\n나는 문을 조금 밀어 줬을 뿐이지."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "하나만 더. 허 의원 약방 말이다. 누가 헐고 들어서려는 걸,\n포도청 일로 묶어서 비워 두게 했다. 먼지는 쌓였어도 약장은 그대로다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "…그래서 약방이 그대로였군요.\n나리, 저…"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "울지 마라. 아침 얻어먹은 값이다.\n…가 봐라. 대문 밖에서 누가 눈을 부라리고 기다리는 것 같으니."},
+]
+
 const C9_DORAJI_GO := [
 	{"bg": "jangteo", "who": "", "text": "포도청 대문을 나서자, 담벼락 아래 다래가 바구니를 끼고 서 있었다."},
 	{"who": "다래", "pose": "darae_adult", "text": "내일 아침이라며! 새벽에 포도청 간다는 말은 없었거든?\n…뭐, 그래도 안 도망갔으니 봐준다. 가자, 산마루로!"},
@@ -1241,7 +1253,7 @@ const C9_MEM := [
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…그건 묻지 마라. 대장 체면이 있다."},
 	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "처음엔 정말 무서웠어요.\n빈 돈궤만 보고 저를 끝까지 쫓아오셨잖아요."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan", "text": "…그 일은 평생 갚을 생각이다."},
-	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "벌써 다 갚으셨어요.\n화란에서 돌아오던 날, 숭례문에서 기다려 주셨잖아요."},
+	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "벌써 다 갚으셨어요.\n떠날 땐 전하 앞에서 길을 열어 주시고, 돌아올 때까지 기다려 주셨잖아요."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…기다리겠다고 했으니까.\n나는 한 번 한 약속은 지킨다."},
 	{"if": "wed_dogyeol", "who": "", "text": "글방 창문으로 아이 하나가 고개를 쏙 내밀었다."},
 	{"if": "wed_dogyeol", "who": "글방 아이", "text": "좌포도대장 나리다! 의원님 손 잡고 있다!"},
