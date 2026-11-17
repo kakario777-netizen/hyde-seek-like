@@ -751,7 +751,7 @@ const EPILOGUE := [
 	{"ifnot": "wed_dogyeol", "music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"if": "wed_dogyeol", "music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "꼬마 대장, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이다. 무슨 일 있으면 불러라."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_chief", "text": "…저 녀석 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n순찰 돌다 종종 들르마. 무슨 일 있으면 불러라."},
+	{"if": "wed_dogyeol", "who": "서휘", "text": "…저 녀석 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n순찰 돌다 종종 들르마. 무슨 일 있으면 불러라."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "해 질 녘, 마당에서 뛰놀던 딸아이가 대문 위 현판을 가리켰다."},
 	{"ifnot": "wed_dogyeol", "who": "딸", "pose": "children", "text": "어머니, 저기 '허씨 약방'의 허씨는 누구예요?\n우리 집은 허씨가 아니잖아요."},
 	{"ifnot": "wed_dogyeol", "who": "아들", "pose": "children", "text": "맞아! 아버지는 서씨고, 어머니는… 음, 어머니는 뭐더라?"},
