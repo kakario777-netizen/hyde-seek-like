@@ -741,9 +741,9 @@ const CH7_END := [
 const EPILOGUE := [
 	{"bg": "yakbang_calm", "who": "", "text": "그 뒤로도 봄은 몇 번이나 다시 찾아왔다."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "남산 아래 약방 마당에 심은 살구나무가 지붕만큼 자라는 동안,\n약방에는 웃음소리가 하나둘 늘어 갔다."},
-	{"if": "wed_dogyeol", "who": "", "text": "남산 아래 약방 마당에 심은 살구나무가 지붕만큼 자라는 동안,\n약방에는 아이 웃음소리가 끊이지 않았다."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "금빛 머리칼의 아들이 태어나고, 이태 뒤엔 어미를 닮은 딸이 태어났다.\n서휘는 아이들을 안을 때마다 서툴게, 그러나 오래 웃었다."},
 	{"if": "wed_dogyeol", "who": "", "text": "아비를 꼭 닮은 짙은 눈썹의 아들이 태어났다.\n윤도결은 순찰을 마치면 갓도 벗기 전에 아이부터 안아 올렸다."},
+	{"if": "wed_dogyeol", "who": "", "text": "남산 아래 약방 마당에 심은 살구나무가 지붕만큼 자라는 동안,\n약방에는 그 아이의 웃음소리가 끊이지 않았다."},
 	{"ifnot": "wed_dogyeol", "bg": "family", "who": "", "text": "남산 아래, 작은 한옥 한 채.\n대문 위에는 '허씨 약방'이라는 현판이 걸렸다."},
 	{"if": "wed_dogyeol", "bg": "family_dogyeol", "who": "", "text": "남산 아래, 작은 한옥 한 채.\n대문 위에는 '허씨 약방'이라는 현판이 걸렸다."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "마당엔 금빛 머리칼과 검은 머리칼의 아이들이 뛰어놀고,\n약방 안에선 오늘도 가난한 이에게 약값을 받지 않는다."},
@@ -751,7 +751,7 @@ const EPILOGUE := [
 	{"ifnot": "wed_dogyeol", "music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "얘들아, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"if": "wed_dogyeol", "music": "darae_cheer", "who": "다래", "pose": "darae_adult", "text": "꼬마 대장, 이모 왔다! 오늘은 도라지 캐러 가자!"},
 	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan", "text": "…아이들 눈이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이다. 무슨 일 있으면 불러라."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "…저 녀석 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n이 집 앞이 내 순찰 길이다. 무슨 일 있으면 불러라."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "…저 녀석 눈썹이 꼭 제 아비를 닮았군. 웃는 얼굴은 어미를 닮았고.\n순찰 돌다 종종 들르마. 무슨 일 있으면 불러라."},
 	{"ifnot": "wed_dogyeol", "who": "", "text": "해 질 녘, 마당에서 뛰놀던 딸아이가 대문 위 현판을 가리켰다."},
 	{"ifnot": "wed_dogyeol", "who": "딸", "pose": "children", "text": "어머니, 저기 '허씨 약방'의 허씨는 누구예요?\n우리 집은 허씨가 아니잖아요."},
 	{"ifnot": "wed_dogyeol", "who": "아들", "pose": "children", "text": "맞아! 아버지는 서씨고, 어머니는… 음, 어머니는 뭐더라?"},
@@ -763,9 +763,10 @@ const EPILOGUE := [
 	{"if": "wed_dogyeol", "who": "아들", "pose": "children", "text": "그럼 어머니도 그분을 좋아했어요?"},
 	{"who": "{name}", "pose": "hero_adult", "text": "…그럼. 세상 누구보다 존경했고,\n지금도 매일 그분이 그리워. 그래서 이 약방에 그분 이름을 걸어 둔 거란다."},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "너희 어머니가 의원이 된 것도, 아버지가 어머니를 만난 것도…\n다 그 어른 덕분이란다. 그러니 우리 집 할아버지나 마찬가지지."},
-	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "너희 어머니가 의원이 된 것도, 아버지가 어머니를 만난 것도…\n다 그 어른 덕분이란다. 아버지는 그 약방 앞에서 어머니를 처음 쫓았거든."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "네 어머니가 의원이 된 것도, 아버지가 어머니를 만난 것도…\n다 그 어른 덕분이란다. 아버지는 그 약방 앞에서 어머니를 처음 쫓았거든."},
 	{"who": "아들", "pose": "children", "text": "그럼 허 할아버지한테 인사해야겠다!\n허 할아버지, 안녕하세요! 우리 잘 지내요!"},
-	{"who": "", "text": "아이들의 맑은 목소리가 남산 위 노을 속으로 퍼져 나갔다."},
+	{"ifnot": "wed_dogyeol", "who": "", "text": "아이들의 맑은 목소리가 남산 위 노을 속으로 퍼져 나갔다."},
+	{"if": "wed_dogyeol", "who": "", "text": "아이의 맑은 목소리가 남산 위 노을 속으로 퍼져 나갔다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "의원님. 저, 잘 지내고 있어요.\n의원님이 주신 마음, 이렇게 계속 이어 가고 있어요."},
 	{"who": "", "text": "― 한양 숨바꼭질 · 완(完) ―\n\n끝까지 함께해 주셔서 고맙습니다."},
 ]
@@ -1257,7 +1258,7 @@ const C9_MEM := [
 	{"if": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "벌써 다 갚으셨어요.\n떠날 땐 전하 앞에서 길을 열어 주시고, 돌아올 때까지 기다려 주셨잖아요."},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…기다리겠다고 했으니까.\n나는 한 번 한 약속은 지킨다."},
 	{"if": "wed_dogyeol", "who": "", "text": "글방 창문으로 아이 하나가 고개를 쏙 내밀었다."},
-	{"if": "wed_dogyeol", "who": "글방 아이", "text": "좌포도대장 나리다! 의원님 손 잡고 있다!"},
+	{"if": "wed_dogyeol", "who": "글방 아이", "text": "포도대장 나리다! 의원님 손 잡고 있다!"},
 	{"if": "wed_dogyeol", "who": "윤도결", "pic": "jongsagwan_blush", "text": "…글 읽어라. 대장 지나간다."},
 	{"who": "", "text": "다리 밑에서 글 읽는 아이들의 소리가 냇물처럼 흘렀다."},
 	{"who": "", "text": "둘은 아이들 글 읽는 소리를 뒤로하고, 나란히 남산 쪽으로 걸었다."},
@@ -1277,10 +1278,11 @@ const CH9_END := [
 	{"who": "서휘", "pose": "seohwi_podo", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 마포 밀수패 우두머리 하나."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그건 내가 몰아 준 거다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "두 대장 나리, 또 싸우세요?\n약방에서 도시락 싸 왔으니까, 싸우지 말고 드세요."},
-	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
+	{"ifnot": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 역시 내 아내 주먹밥이 제일이군."},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "내 아내 도시락이다. 천천히 먹어라, 대장 나리."},
 	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "아내 도시락이라고 아주 정신이 팔렸군.\n천천히 먹어, 대장 나리. 체한다."},
-	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…그래, 내 아내가 싼 거다.\n넌 반만 먹어라."}
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…부러우면 너도 장가를 가라.\n넌 반만 먹어라."}
 ]
 
 const C3_HEUK := [
