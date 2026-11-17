@@ -489,7 +489,8 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 		var pre: Array = FINAL_COMP.get(enemy_id, [])
 		if pre.is_empty() and c.has("pre"):
 			pre = [{"who": me, "pic": hero_pose(), "text": comp_line("pre_me")}, {"who": c["name"], "pic": comp_pic(), "text": comp_line("pre")}]
-		var post_line: String = comp_line("post") if not FINAL_COMP.has(enemy_id) else ""
+		# 정 의관 결전 뒤에는 이어지는 이야기가 있으니 동행의 한마디를 띄우지 않는다
+		var post_line: String = comp_line("post") if not (FINAL_COMP.has(enemy_id) or enemy_id in ["jeong_shadow1", "jeong_shadow"]) else ""
 		var win := on_win
 		if post_line != "":
 			win = func(): dialog_chain([{"who": c["name"], "pic": comp_pic(), "text": post_line}], on_win)
