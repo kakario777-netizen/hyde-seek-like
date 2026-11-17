@@ -1120,7 +1120,7 @@ func fig_scale(name: String) -> float:
 	if name == "addict" or name == "addict_well":
 		return 0.85   # 중독된 사내: 꾸부정하게 서 있어 반듯한 어른보다 작게
 	if name == "gatekeeper":
-		return 0.86   # 성 문지기: 다른 어른 사내와 비슷한 크기로
+		return 0.95   # 성 문지기(흑룡파 왈패): 덩치 큰 사내
 	if name == "haejeok_young":
 		return 0.78   # 해적 졸개: 전투 화면과 비슷한 크기로
 	if name.begins_with("baegun_exile"):
@@ -1129,8 +1129,6 @@ func fig_scale(name: String) -> float:
 		return 0.94   # 모자 없는 서휘: 윤도결(갓 포함)보다 조금 작게
 	if name == "walpae":
 		return 0.92
-	if name == "heukdu":
-		return 1.08   # 흑룡파 두목: 덩치 큰 우두머리
 	return 1.0
 
 ## 궁에 있는 동안(제5장)은 주인공이 궁 옷차림 그림으로 (그림이 있을 때만)
