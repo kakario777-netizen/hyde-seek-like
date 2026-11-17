@@ -173,7 +173,7 @@ const REST := {"title": "주막", "pic": "jumo", "text": "주막에서 하룻밤
 
 # ── 전투 카드 ─────────────────────────────────────────
 # cost: 기력 / dmg: 피해 / block: 막기 / slow: 적 기세 감소(칸, 99 = 초기화) / coin: 엽전
-# 같은 카드 두 장을 합치면 단계(★)가 오르고, 피해·막기가 50%씩 커진다 (최대 ★3)
+# 같은 카드 두 장을 합치면 단계(★)가 오르고, 피해·막기가 50%씩 커진다 (최대 ★5)
 const CARDS := {
 	"jumeok": {"name": "주먹치기", "icon": "card_jumeok", "cost": 1, "dmg": 4},
 	"baldda": {"name": "발따귀", "icon": "card_baldda", "cost": 2, "dmg": 9},
@@ -184,7 +184,7 @@ const CARDS := {
 }
 const START_DECK := ["jumeok", "jumeok", "jumeok", "baldda", "baldda", "pum", "pum", "gyeot", "gochu"]
 const REWARD_POOL := ["jumeok", "jumeok", "baldda", "pum", "pum", "gyeot", "gochu", "nalchi"]
-const MAX_LV := 4
+const MAX_LV := 5
 const MIN_DECK := 6
 
 static func stats(id: String, lv: int) -> Dictionary:

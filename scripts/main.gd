@@ -231,12 +231,12 @@ func _debug_capture() -> void:
 			show_title()
 		"cards":
 			var bg := ColorRect.new(); bg.color = Color("3a2c22"); bg.set_anchors_preset(Control.PRESET_FULL_RECT); add_child(bg)
-			var hb := HBoxContainer.new(); hb.position = Vector2(20, 200); hb.add_theme_constant_override("separation", 14); add_child(hb)
-			for lv in [1, 2, 3, 4]:
-				hb.add_child(card_button({"id": "jumeok", "lv": lv}))
-			var hb2 := HBoxContainer.new(); hb2.position = Vector2(20, 520); hb2.add_theme_constant_override("separation", 14); add_child(hb2)
-			for lv in [1, 2, 3, 4]:
-				hb2.add_child(card_button({"id": "pum", "lv": lv}))
+			var hb := HBoxContainer.new(); hb.position = Vector2(12, 120); hb.add_theme_constant_override("separation", 10); add_child(hb)
+			for lv in [1, 2, 3]:
+				hb.add_child(card_button({"id": "baldda", "lv": lv}))
+			var hb2 := HBoxContainer.new(); hb2.position = Vector2(12, 420); hb2.add_theme_constant_override("separation", 10); add_child(hb2)
+			for lv in [4, 5]:
+				hb2.add_child(card_button({"id": "baldda", "lv": lv}))
 		"chstory":
 			chapter = int(args.get("ch", "2"))
 			stage_idx = int(args.get("st", str(stage_idx)))
@@ -1297,7 +1297,8 @@ func _center(c: Control) -> CenterContainer:
 
 func card_button(entry: Dictionary, w := 162, h := 270) -> Button:
 	var c: Dictionary = GameData.stats(entry["id"], entry["lv"])
-	var paper := "sangso" if entry["lv"] == 1 else ("sangso_gold" if entry["lv"] == 2 else ("sangso_red" if entry["lv"] == 3 else "sangso_sky"))
+	# 단계가 오를수록 종이가 연한 미색에서 짙은 황토색으로 (1~5단계)
+	var paper: String = ["sangso", "sangso_gold", "sangso_red", "sangso_sky", "sangso_5"][clampi(int(entry["lv"]), 1, 5) - 1]
 	var b := _sangso_button(paper, w, h)
 	b.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS  # 손가락이 조금 움직여도 눌리게
 	var vb := _card_box(b)
@@ -1480,7 +1481,7 @@ func coin_plaque() -> Array:
 	return [p, upd]
 
 # ── 보따리: 같은 상소 합치기 / 엽전으로 단련 ──────────────
-const UPGRADE_COST := [0, 5, 10, 15]   # ★1→★2 5냥, ★2→★3 10냥, ★3→★4 15냥
+const UPGRADE_COST := [0, 5, 10, 15, 20]   # ★1→★2 5냥 … ★4→★5 20냥
 
 ## ── 약탕관: 약초 4개 + 엽전으로 탕약 달이기 ──────────────
 const BREW_HERBS := 4
