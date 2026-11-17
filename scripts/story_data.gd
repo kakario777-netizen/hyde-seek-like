@@ -1277,9 +1277,9 @@ const CH9_END := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그건 내가 몰아 준 거다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "두 대장 나리, 또 싸우세요?\n약방에서 도시락 싸 왔으니까, 싸우지 말고 드세요."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "…흠. 이 집 주먹밥은 여전히 맛있군."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락이다. 천천히 먹어라."},
-	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "남의 아내 도시락에 정신이 팔렸군. 천천히 먹어, 대장 나리."},
-	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…내 아내 도시락이다. 넌 반만 먹어라."}
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "내 아내 도시락이다. 천천히 먹어라, 대장 나리."},
+	{"if": "wed_dogyeol", "who": "서휘", "pose": "seohwi_podo", "text": "아내 도시락이라고 아주 정신이 팔렸군.\n천천히 먹어, 대장 나리. 체한다."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "…그래, 내 아내가 싼 거다.\n넌 반만 먹어라."}
 ]
 
 const C3_HEUK := [
