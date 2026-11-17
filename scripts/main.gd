@@ -1715,6 +1715,8 @@ const POTION_PRICE := 10
 
 ## 보따리장수가 파는 물건
 const SHOP_GOODS := [
+	{"id": "potion_small", "name": "묽은 탕약", "price": 8, "icon": "potion", "desc": "약병 1개\n체력 +20"},
+	{"id": "potion_big", "name": "진한 탕약", "price": 14, "icon": "potion", "desc": "약병 1개\n체력 +40"},
 	{"id": "shoes", "name": "새 짚신", "price": 16, "icon": "step", "desc": "다음 맵 남은 시각 +3"},
 	{"id": "smoke", "name": "연막 주머니", "price": 18, "icon": "gochu", "desc": "길막이 하나를\n싸우지 않고 지나감"},
 	{"id": "hat", "name": "삿갓 그늘", "price": 15, "icon": "debuff", "desc": "감시꾼에게\n한 번 들켜도 무사"},
@@ -1811,7 +1813,13 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 			return
 		coins -= int(g["price"])
 		sfx("coin")
-		if g["id"] == "ginseng":
+		if g["id"] == "potion_small":
+			potions_small += 1
+			msg.text = "묽은 탕약을 샀습니다! (묽은 %d · 진한 %d)" % [potions_small, potions]
+		elif g["id"] == "potion_big":
+			potions += 1
+			msg.text = "진한 탕약을 샀습니다! (묽은 %d · 진한 %d)" % [potions_small, potions]
+		elif g["id"] == "ginseng":
 			flags["ginseng_ch"] = chapter
 			max_hp += 5; hp += 5
 			msg.text = "인삼 뿌리를 달여 먹었다! 최대 체력 +5 (지금 %d)" % max_hp
