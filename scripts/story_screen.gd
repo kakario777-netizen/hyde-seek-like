@@ -23,6 +23,7 @@ var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
 const BOX_H := 520
+const SCENE_BOX_H := 360
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -126,6 +127,8 @@ func _set_bg(name: String) -> void:
 	cur_bg = name
 	if name in SCENE_ILLUST:
 		_show_pose("")
+	# 혼례·가족 같은 한 장면 그림 위에서는 인물 전신 없이, 대화창을 낮게 깔아 그림을 가리지 않는다
+	box.offset_top = -SCENE_BOX_H if name in SCENE_ILLUST else -BOX_H
 	main.bgm(BG_MUSIC.get(name, "story"))
 	var t: Texture2D = main.backdrop(name)
 	if t:
@@ -197,6 +200,8 @@ func _next() -> void:
 		_show_pose("")
 	main.line_music(line)
 	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 5)
+	if cur_bg in SCENE_ILLUST:   # 한 장면 그림 위: 글줄 수만큼만 대화창을 올린다
+		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0)
 	var goal: bool = line["text"].begins_with("【목표】")
 	if goal:
 		main.last_goal = line["text"].trim_prefix("【목표】").strip_edges()
