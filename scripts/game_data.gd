@@ -229,8 +229,8 @@ const ENEMIES := {
 	"mob": {"name": "청심보명단 중독자", "sprite": "addict", "hp": 28, "coin": 3, "charge": 2,
 		"moves": [{"t": "atk", "v": 6, "n": "할퀴기"}, {"t": "atk", "v": 7, "n": "달려들기"}],
 		"heavy": {"t": "atk", "v": 12, "n": "광란"}},
-	# 2장 끝 첫 대결: 이길 수 없는 싸움 — 서휘의 첫 공격 한 번에 쓰러진다 (지고 이야기가 이어짐)
-	"seohwi": {"name": "청안 서휘", "sprite": "seohwi_battle", "hp": 200, "coin": 0, "charge": 3, "boss": true,
+	# 2장 끝 첫 대결: 이길 수 없는 싸움 — 공격은 주인공 최대 체력만큼(battle_screen), 지고 이야기가 이어짐
+	"seohwi": {"name": "청안 서휘", "sprite": "seohwi_battle", "hp": 150, "coin": 0, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 90, "n": "청안 연격"}],
 		"heavy": {"t": "atk", "v": 90, "n": "청안 연격"}},
 	"seohwi3": {"name": "청안 서휘", "sprite": "seohwi_battle", "hp": 64, "coin": 8, "charge": 3, "boss": true,
