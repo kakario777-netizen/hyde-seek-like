@@ -309,12 +309,13 @@ func _make_tile_ent(i: int) -> void:
 			var spr: TextureRect = _sprite(GameData.ENEMIES[eid]["sprite"], 170)
 			root.add_child(spr)
 			# 적 표시는 그림 머리 바로 위에 (쥐처럼 작은 적은 그만큼 낮게)
-			var by: float = minf(-210.0, spr.position.y - 58.0) if spr.size.y >= MAP_H * 0.95 else spr.position.y - 58.0
+			var by: float = spr.position.y - 40.0   # 머리끝에 살짝 걸치게
 			# 꼭 싸워야 하는 적: 일반 적은 몽둥이, 중간보스는 창끝 표시
 			root.add_child(_badge("pojol" if GameData.ENEMIES[eid].get("boss", false) else "walpae", Vector2(-22, by), Color("f3d0c8")))
 		"boss":
-			root.add_child(_sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210))
-			root.add_child(_badge("pojol", Vector2(-22, -250), Color("ffb0a0")))   # 보스: 창끝 표시
+			var bspr: TextureRect = _sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210)
+			root.add_child(bspr)
+			root.add_child(_badge("pojol", Vector2(-22, bspr.position.y - 40.0), Color("ffb0a0")))   # 보스: 창끝 표시, 머리 바로 위
 		"talk":
 			var tk: Dictionary = _talk_at(i)
 			var pic: String = tk.get("pic", WHO_PIC.get(tk.get("who", ""), ""))
