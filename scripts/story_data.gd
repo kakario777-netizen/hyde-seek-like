@@ -28,7 +28,7 @@ const CHAPTERS := {
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
-			{"map": "s4_1", "goal": "비 오는 청계천을 지나\n병의 원인을 찾아라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM", "ally": "seohwi"},
+			{"map": "s4_1", "goal": "쏟아지는 비를 뚫고 청계천을 지나\n소굴로 돌아가라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM", "ally": ""},
 			{"map": "s4_2", "goal": "서휘와 함께 군산 포구를 뒤져\n대대장의 돈이 흘러간 흔적을 찾아라.", "name": "군산 포구 뒤지기", "after": "C4_CLUE", "ally": "seohwi"},
 			{"map": "s4_3", "goal": "서휘와 함께\n지리산 화엄골, 백운의 성 앞까지 가라.", "name": "화엄골 가는 길", "after": "C4_CASTLE", "ally": "seohwi",
 				"after_battle": {"battle": "seohwi3", "pre": "C4_GATE_PRE", "post": "C4_GATE_POST", "lose_ok": true}},
@@ -168,6 +168,9 @@ const C4_PLAGUE := [
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "(…뭐지, 이건. 왜 가슴이 뛰는 거냐.\n저건 사내아이다. 그것도 쫓고 있는 도망자라고!)"},
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "(사내아이를 보고 두근거리다니… 이러면 안 된다, 윤도결.\n정신 차려라. 도망자는 도망자다.)"},
 	{"who": "", "text": "(마을 사람들이 고맙다며 엽전과 약병을 쥐여 주었다.)", "coin": 6, "potion": 1},
+	{"who": "", "text": "마을을 나서는데, 먹구름이 몰려오며 빗방울이 듣기 시작했다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…큰비가 오겠군. 다리 밑 아이들이 걱정된다.\n물이 불기 전에 짐부터 옮겨 놔야겠다."},
+	{"who": "서휘", "pose": "seohwi", "text": "먼저 가 있어라. 일 끝나면 소굴에서 보자."},
 ]
 
 const CH2_GOAL := [
@@ -316,7 +319,7 @@ const CH4_INTRO := [
 ]
 
 const C4_STREAM := [
-	{"bg": "stream", "who": "", "pose": "hero_disguise", "text": "한양을 떠나기 전날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
+	{"bg": "stream", "who": "", "pose": "hero_disguise", "text": "그날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
 	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "안 돼!"},
 	{"who": "", "pose": "hero_disguise_surprised", "text": "{alias}는 망설임 없이 물에 뛰어들었다.\n아이를 둑으로 밀어 올린 순간, 거센 물살이 {alias}를 삼켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{alias}!!"},
@@ -341,6 +344,9 @@ const C4_STREAM := [
 	{"who": "", "pose": "jongsagwan_blush", "text": "그날 이후, 윤도결은 {name}를 볼 때마다 남몰래 가슴께를 누르곤 했다."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "(…진정해라, 윤도결. 심장이 왜 이리 시끄러운 거냐.)"},
 	{"who": "", "text": "(윤도결이 몰래 뒤를 봐주기로 했다. 다음 전투 시작 시 막기 10)", "guard": 10},
+	{"bg": "den", "who": "", "text": "흠뻑 젖은 채 소굴로 돌아오자,\n아이들을 다 피신시킨 서휘가 기다리고 있었다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…물에 빠진 생쥐 꼴이군. 무슨 일 있었나?"},
+	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "아, 아무것도 아니에요!\n비, 비가 너무 와서…"},
 ]
 
 const C4_CLUE := [
