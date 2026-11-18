@@ -168,6 +168,12 @@ func _debug_capture() -> void:
 					if board.tiles[i]["next"].size() > 1:
 						board.pos = i; board.token.position = board.tile_center(i); break
 			board._deal()
+			if args.has("boss"):   # 확인용: 보스 칸을 화면에 비춰 본다
+				for i in board.tiles.size():
+					if board.tiles[i]["type"] == "boss":
+						board._focus(board.tile_center(i), false); break
+			if args.has("boss"):
+				args["still"] = "1"
 			if args.has("brewhint"):
 				herbs = 6
 				board._brew_hint()
