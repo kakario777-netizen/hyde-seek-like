@@ -790,7 +790,7 @@ const CH1_AFTER_SHADOW := [
 
 const C2_DG_FIGHT := [
 	{"bg": "alley", "who": "", "text": "한양 도성 안, 약방으로 가는 어두운 골목.\n등불 아래 붉은 술 전립 사이로, 검은 철릭이 길을 막았다."},
-	{"who": "윤도결", "pic": "jongsagwan", "text": "거기 서라, 약초꾼. 결국 한양 골목까지 따라왔다.\n…가만, 사내아이치곤 손이 참 곱구나. 패랭이를 벗어 봐라."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "거기 서라, 약초꾼. 야경 시각에 도성 골목을 홀로 다니다니, 수상하구나.\n…가만, 사내아이치곤 손이 참 곱구나. 패랭이를 벗어 봐라."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "(벗으면 끝이야…) 싫어요! 길 비켜 주세요!"},
 	{"who": "윤도결", "pic": "jongsagwan_battle", "text": "그렇다면 힘으로 확인하겠다."},
 ]
