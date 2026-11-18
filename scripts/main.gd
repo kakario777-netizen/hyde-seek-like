@@ -1094,9 +1094,7 @@ func fig_scale(name: String) -> float:
 	if name.begins_with("hero"):
 		return 0.82   # 여자 옷·머리 푼 모습은 패랭이가 없으니 남장 주인공 몸 크기에 맞춤
 	if name == "darae_prison":
-		return 0.55   # 무릎 꿇은 모습
-	if name.begins_with("darae_adult") or name == "darae_casual":
-		return 0.78   # 어른 다래: 그림이 얼굴이 커서 다른 인물과 얼굴 크기를 맞춤
+		return 0.62   # 무릎 꿇은 모습
 	if name == "daebi_ill":
 		return 0.6    # 보료에 기대 앉은 모습
 	if name == "daebi_smile":
