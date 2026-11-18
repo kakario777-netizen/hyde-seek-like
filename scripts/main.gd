@@ -898,6 +898,9 @@ func ask_name(cb: Callable) -> void:
 	ok.custom_minimum_size = Vector2(0, 100)
 	vb.add_child(ok)
 	ok.pressed.connect(func():
+		# 폰 자판에서 마지막 글자가 아직 조합 중이어도 입력을 확정시킨 뒤 읽는다
+		edit.release_focus(); edit2.release_focus()
+		DisplayServer.virtual_keyboard_hide()
 		var n := edit.text.strip_edges()
 		hero_name = n if n != "" else "연이"
 		var a2 := edit2.text.strip_edges()

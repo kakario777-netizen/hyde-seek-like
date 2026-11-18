@@ -586,7 +586,7 @@ func _enemy_turn() -> void:
 				on_win.call()
 			return
 		if enemy.get("boss", false): main.stat_add("boss_losses")
-		main.game_over(main.fmt("{name|은} 그만 쓰러지고 말았다…"))
+		main.game_over(main.fmt("{alias|은} 그만 쓰러지고 말았다…" if main.disguised() else "{name|은} 그만 쓰러지고 말았다…"))
 		return
 	_begin_my_turn()
 
