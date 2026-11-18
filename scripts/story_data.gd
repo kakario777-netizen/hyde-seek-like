@@ -43,6 +43,7 @@ const CHAPTERS := {
 			{"map": "s5_g", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "경복궁 가는 길", "after": "CH5_PALACE", "ally": "dogyeol"},
 			{"map": "s5_1", "goal": "내의원을 돌며\n아픈 환자들을 돌봐라.", "foes": {"walpae": "mob", "pojol": "walpae"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
 			{"map": "s5_2", "goal": "종로 약재상을 돌며\n필요한 약재를 구해 와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
+			{"map": "s5_n", "goal": "서휘와 함께\n남산 절벽 바위틈까지 가라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "남산 절벽 하수오 찾기", "after": "C5_HASUO", "ally": "seohwi"},
 			{"map": "s5_3", "goal": "궁궐 담장 아래를 지나\n남은 약재를 모아라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "궁궐 담장 아래", "after": "C5_DOGYEOL"},
 			{"map": "s5_4", "goal": "윤도결과 함께 허 의원의 약방,\n그 검은 사내가 기다리는 곳으로 가라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원 약방으로", "ally": "dogyeol"}],
 		"goal_pre": "CH5_GOAL", "goal_battle": "shadow", "goal_ally": "dogyeol"},
@@ -459,11 +460,20 @@ const C5_SEOHWI := [
 	{"who": "{name}", "pic": "hero", "text": "정말? 잘됐다, 서휘.\n아이들도 이제 배곯을 일은 없겠네."},
 	{"who": "서휘", "pic": "seohwi", "text": "덕분이지. …그런데 얼굴이 왜 그래. 뭘 찾는 눈치다."},
 	{"who": "{name}", "pic": "hero", "text": "응… 혹시 백년 묵은 하수오 본 적 있어?\n환심단에 꼭 들어가야 하는데, 종로 약재상을 다 돌아도 없어."},
-	{"who": "서휘", "pic": "seohwi", "text": "하수오라… 그런 건 진작 말하지 그랬나.\n마침 내 아이들이 남산 바위틈에서 캐 온 게 하나 있다."},
-	{"who": "서휘", "pic": "seohwi", "text": "장에 내다 팔려고 아껴 둔 거였는데…\n네가 쓰는 게 낫겠지. 받아라."},
-	{"who": "{name}", "pic": "hero", "text": "서휘… 고마워."},
+	{"who": "서휘", "pic": "seohwi", "text": "백년 묵은 하수오라… 장담은 못 하겠다만.\n얼마 전 아이들과 남산 절벽 아래를 지나다, 바위틈에 이상한 덩굴을 봤다."},
+	{"who": "서휘", "pic": "seohwi", "text": "뿌리가 사람 주먹만 하게 흙 밖으로 드러나 있었지.\n…혹시 그게 하수오 아닐까?"},
+	{"who": "{name}", "pic": "hero", "text": "주먹만 한 뿌리…? 맞을지도 몰라!\n서휘, 거기까지 같이 가 줄 수 있어?"},
+	{"who": "서휘", "pic": "seohwi", "text": "짐꾼 일은 하루 쉬면 그만이다. 따라와라."},
+]
+
+const C5_HASUO := [
+	{"bg": "mountain", "who": "", "text": "남산 절벽 아래. 바위틈 사이로 굵은 덩굴이 늘어져 있었다."},
+	{"who": "{name}", "pic": "hero", "text": "이 잎 모양… 하수오야!\n뿌리 굵기를 보니 백 년은 족히 묵었겠어."},
+	{"who": "서휘", "pic": "seohwi", "text": "…내 눈이 아주 틀리진 않았군.\n손 다치지 않게 조심해라."},
+	{"who": "", "text": "{name|은} 흙을 살살 걷어 내고 하수오 뿌리를 통째로 캐냈다."},
+	{"who": "{name}", "pic": "hero", "text": "서휘, 고마워.\n서휘 아니었으면 못 찾았을 거야."},
 	{"who": "서휘", "pic": "seohwi", "text": "…고맙다는 말은 됐다.\n(그 말 한마디에 이렇게 흔들리다니. 나도 한심하군.)"},
-	{"who": "", "text": "(서휘의 하수오: 최대 체력 +10, 체력 +10)", "maxhp": 10, "heal": 10},
+	{"who": "", "text": "(백년 묵은 하수오: 최대 체력 +10, 체력 +10)", "maxhp": 10, "heal": 10},
 ]
 
 const C5_DOGYEOL := [
@@ -1598,7 +1608,7 @@ const ALL := {
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
-	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI,
+	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
