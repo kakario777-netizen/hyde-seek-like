@@ -1130,6 +1130,8 @@ func fig_scale(name: String) -> float:
 		return 0.95   # 성 문지기(흑룡파 왈패): 덩치 큰 사내
 	if name == "haejeok_young":
 		return 0.78   # 해적 졸개: 전투 화면과 비슷한 크기로
+	if name == "baegun_exile_cry":
+		return 0.8    # 허리 숙여 책 내미는 모습: 얼굴을 바구니 든 모습과 맞춤
 	if name.begins_with("baegun_exile"):
 		return 0.95
 	if name in ["seohwi", "seohwi_battle", "seohwi_return"]:
