@@ -1,8 +1,8 @@
 {
  "id": "s5_n",
  "name": "남산 절벽 하수오 찾기",
- "tile": "grass",
- "bg": "mountain",
+ "tile": "dirt",
+ "bg": "namsan_cliff",
  "turns": 20,
  "tiles": [
   {
