@@ -311,10 +311,10 @@ func _make_tile_ent(i: int) -> void:
 			# 적 표시는 그림 머리 바로 위에 (쥐처럼 작은 적은 그만큼 낮게)
 			var by: float = minf(-210.0, spr.position.y - 58.0) if spr.size.y >= MAP_H * 0.95 else spr.position.y - 58.0
 			# 꼭 싸워야 하는 적: 일반 적은 몽둥이, 중간보스는 창끝 표시
-			root.add_child(_badge("spear" if GameData.ENEMIES[eid].get("boss", false) else "club", Vector2(-22, by), Color("f3d0c8")))
+			root.add_child(_badge("pojol" if GameData.ENEMIES[eid].get("boss", false) else "walpae", Vector2(-22, by), Color("f3d0c8")))
 		"boss":
 			root.add_child(_sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210))
-			root.add_child(_badge("spear", Vector2(-22, -250), Color("ffb0a0")))   # 보스: 창끝 표시
+			root.add_child(_badge("pojol", Vector2(-22, -250), Color("ffb0a0")))   # 보스: 창끝 표시
 		"talk":
 			var tk: Dictionary = _talk_at(i)
 			var pic: String = tk.get("pic", WHO_PIC.get(tk.get("who", ""), ""))
