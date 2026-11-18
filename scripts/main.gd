@@ -917,7 +917,7 @@ const DISGUISED := [2, 3, 4, 7, 8]
 ## 지금 남장 중인가 (마지막 장도 화란에 있는 동안 — 마지막 왕진 길·떠나는 항구 — 은 아직 남장)
 func disguised() -> bool:
 	# 5장도 궁궐에 들어가기 전(한양으로 돌아가는 길·경복궁 가는 길)까지는 남장
-	return chapter in DISGUISED or (chapter == 9 and stage_idx <= 1) or (chapter == 5 and stage_idx <= 1 and not flags.has("court"))
+	return chapter in DISGUISED or (chapter == 9 and stage_idx <= 1) or (chapter == 5 and stage_idx == 0)
 
 func hero_pose() -> String:
 	if disguised():
