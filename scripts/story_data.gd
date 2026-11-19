@@ -71,7 +71,7 @@ const CHAPTERS := {
 			{"map": "s7_2", "goal": "마을 골목을 돌며\n앓는 마을 사람들을 돌봐라.", "name": "마을 골목 왕진", "after": "C7_SICK", "patients": 3},
 			{"map": "s7_m", "goal": "서휘와 함께 언덕을 올라\n멈춘 풍차의 풍차지기를 찾아가라.", "name": "풍차 언덕 가는 길", "after": "C7_SICK_B"},
 			{"map": "s7_3", "goal": "서휘의 쪽지를 따라\n겨울 항구 창고까지 가라.", "name": "겨울 항구 가는 길", "ally": "", "foes": {"walpae": "haejeok", "pojol": "haejeok"}}],
-		"goal_text": "겨울 항구 창고 앞.\n서휘가 커다란 보따리를 안고 기다리고 있었다.", "goal_title": "겨울 항구", "goal_pic": "seohwi_dutch", "goal_bg": "holland_port"},
+		"goal_text": "겨울 항구 창고 앞.\n서휘가 커다란 보따리를 안고 기다리고 있었다.", "goal_title": "겨울 항구", "goal_pic": "seohwi_dutch", "goal_bg": "holland_coast"},
 	9: {"title": "마지막 장  돌아오는 봄", "goal": "남산 아래 새집", "intro": "C9_LEAVE", "end": "CH9_END", "epilogue": "EPILOGUE", "stage_ally": "seohwi",
 		"stages": [{"map": "s9_h", "name": "마지막 왕진 길", "after": "C9_LEAVE2", "ally_pic": "seohwi_dutch", "foes": {"walpae": "haejeok", "pojol": "haejeok"},
 				"talks": [{"who": "마을 아이", "pic": "dutch_child", "text": "의원님! 저 이제 끓인 물만 마셔요.\n약속 지켰죠? 헤헤.", "potion": 1},
@@ -870,7 +870,7 @@ const C7_NIGHT_B := [
 ]
 
 const CH7_END := [
-	{"bg": "holland", "who": "", "text": "겨울 항구 창고 앞. 서휘가 무거운 보따리를 풀었다."},
+	{"bg": "holland_coast", "who": "", "text": "겨울 항구 창고 앞. 서휘가 무거운 보따리를 풀었다."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "바닷가 큰 도시 의학교에서 구해 왔다. 해부서와 약학서다.\n네 스승이 보고 싶어 했다던 그 책이지."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "…이 귀한 걸 어떻게…"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "의원님 대신 배우러 왔다며. 빈손으로 돌려보낼 수는 없지."},
