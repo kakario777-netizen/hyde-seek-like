@@ -711,8 +711,8 @@ const C7_PIRATE_POST := [
 const C6_STORM := [
 	{"who": "", "bg": "deck_night", "text": "희망의 곶을 도는 밤, 큰 폭풍이 배를 덮쳤다."},
 	{"who": "", "text": "{alias}는 밤새 다친 선원들의 상처를 꿰매고 열을 내렸다.\n새벽, 선장이 모자를 벗어 고개를 숙였다."},
-	{"who": "선장", "pic": "dutch_captain", "text": "조선의 젊은 의원이여, 그대 덕에 아무도 죽지 않았소.\n화란까지, 이 배가 모셔다 드리리다."},
-	{"who": "", "bg": "deck_night", "text": "폭풍이 지나간 밤.\n곶을 돌아 나온 검은 바다 위로 별이 쏟아졌다."},
+	{"who": "선장", "pic": "dutch_captain", "text": "조선의 젊은 의원이여, 그대 덕에 아무도 죽지 않았소.\n…자네를 선의로 들인 건, 내 평생 가장 잘한 일이오."},
+	{"who": "", "bg": "deck_night", "text": "그날 밤.\n곶을 돌아 나온 검은 바다 위로 별이 쏟아졌다."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(의원님… 의원님이 그토록 보고 싶어 하던 넓은 세상이에요.)"},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(다래는 지금쯤 산마루 약초밭에 물을 주고 있겠지.\n도결 나리는 오늘 밤도 순찰을 돌고 계시겠고.)"},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(…그리고 서휘. 정말 이 바다 끝에 있을까.)"},
