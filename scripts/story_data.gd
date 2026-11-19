@@ -712,7 +712,6 @@ const C6_STORM := [
 	{"who": "", "bg": "deck_night", "text": "희망의 곶을 도는 밤, 큰 폭풍이 배를 덮쳤다."},
 	{"who": "", "text": "{alias}는 밤새 다친 선원들의 상처를 꿰매고 열을 내렸다.\n새벽, 선장이 모자를 벗어 고개를 숙였다."},
 	{"who": "선장", "pic": "dutch_captain", "text": "조선의 젊은 의원이여, 그대 덕에 아무도 죽지 않았소.\n화란까지, 이 배가 모셔다 드리리다."},
-	{"who": "", "text": "(선원들의 감사: 최대 체력 +5, 약병 +1)", "maxhp": 5, "potion": 1},
 	{"who": "", "bg": "deck_night", "text": "폭풍이 지나간 밤.\n곶을 돌아 나온 검은 바다 위로 별이 쏟아졌다."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(의원님… 의원님이 그토록 보고 싶어 하던 넓은 세상이에요.)"},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(다래는 지금쯤 산마루 약초밭에 물을 주고 있겠지.\n도결 나리는 오늘 밤도 순찰을 돌고 계시겠고.)"},
@@ -720,6 +719,7 @@ const C6_STORM := [
 	{"who": "", "text": "고향 생각에 눈가가 뜨거워질 무렵,\n갑판 저편에서 서툰 조선말이 들려왔다."},
 	{"who": "얀", "pic": "redhair_sailor", "text": "의—원—님! 밤바람 차요!\n따뜻한 차 끓여 놨어요!"},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "…응. 고마워요, 얀. 금방 갈게요."},
+	{"who": "", "text": "(선원들의 감사: 최대 체력 +5, 약병 +1)", "maxhp": 5, "potion": 1},
 ]
 
 const CH6_END := [
