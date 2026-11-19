@@ -656,7 +656,7 @@ const C7_YANJING_POST := [
 ]
 
 const C7_SEA_PRE := [
-	{"who": "", "bg": "deck", "music": "dread_shadow", "text": "광주를 떠난 지 스무 날, 천축 앞바다.\n해 질 녘 수평선 끝에서 검은 돛 하나가 다가오고 있었다."},
+	{"who": "", "bg": "deck", "music": "dread_shadow", "text": "광주를 떠난 지 스무 날, 천축 앞바다.\n한낮의 수평선 끝에서 검은 돛 하나가 다가오고 있었다."},
 	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 저 배… 깃발도 안 달고\n아까부터 우리 뒤를 바짝 따라와요."},
 	{"who": "선장", "pic": "dutch_captain", "text": "해적선이다! 이 바다엔 약재와 은을 실은 상선만 노리는 놈들이 있지.\n모두 갑판으로!"},
 	{"who": "", "text": "쇠갈고리가 뱃전에 철컥 걸리더니,\n칼을 문 사내들이 하나둘 갑판 위로 기어올랐다."},
