@@ -274,17 +274,11 @@ const MAP_H := 150.0
 const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.06, "dutch_baker": 0.88, "dutch_sick_man": 0.8, "dutch_sick_woman": 0.78, "addict": 0.88, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.78, "seohwi_calm": 0.96, "seohwi_return": 0.96, "seohwi_podo": 1.0, "seohwi_chief": 1.0, "shadow": 1.04, "dogyeol": 1.0, "heo": 1.04, "yeotjangsu": 0.98}
 
-## 지도 위 전신 그림 키 (화란 마을 사람들: 어른 남자 1.0 기준)
-const FULL_SCALE := {"dutch_sick_man": 0.95, "dutch_fisherman": 1.0, "dutch_baker": 1.0, "dutch_baker_cold": 1.0, "dutch_miller": 0.97, "dutch_miller_cold": 0.97,
-	"dutch_woman": 0.93, "dutch_sick_woman": 0.93, "dutch_child": 0.68, "dutch_child_sick": 0.5}
-
 func _sprite(pic: String, h: float) -> TextureRect:
 	h = MAP_H
 	var ck: String = main.CHIBI_OF.get(pic, pic)
 	if main.chibi_only(pic) != null:
 		h = MAP_H * CHIBI_SCALE.get(ck, 1.0)
-	elif FULL_SCALE.has(pic):
-		h = MAP_H * FULL_SCALE[pic]
 	var t: Texture2D = main.chibi(pic)
 	if t == null:
 		t = main.illust(pic)
