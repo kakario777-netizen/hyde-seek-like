@@ -81,7 +81,7 @@ const CHAPTERS := {
 					{"who": "빵집 주인", "pic": "dutch_baker", "text": "우리 꼬마는 요즘 감기 한 번 안 걸리오.\n…배웅은 항구에서 제대로 하리다!", "potion": 1}]},
 			{"map": "h_port", "goal": "배웅 나온 마을 사람들 사이를 지나\n항구에 정박한 상선까지 가라.", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"board": "board7", "world": true, "days": 36, "name": "귀향의 만리길", "goal": "한양", "after": "C9_RETURN", "after_story": true, "ally_pic": "seohwi_dutch", "foes": {"walpae": "haejeok", "pojol": "haejeok"},
-				"goal_text": "강 건너 산마루 너머로 낯익은 산세가 보인다.\n마침내 조선 땅에 돌아왔다!", "goal_title": "조선 땅", "goal_pic": "", "goal_bg": "mountain",
+				"goal_text": "강 건너 산마루 너머로 낯익은 산세가 보인다.\n마침내 조선 땅에 돌아왔다!", "goal_title": "조선 땅", "goal_pic": "", "goal_bg": "spring_path",
 				"talks": [{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 광주 항구까지는 이 배가 꼭 모셔다드릴게요!\n…멀미약은 이번에도 의원님 거 주세요.", "potion": 1},
 					{"who": "선장", "pic": "dutch_captain", "text": "갈 때 받은 선의 품삯일세. 올 때 몫까지 미리 주지.\n조선에 닿거든 좋은 약방 차리게나.", "coin": 4},
 					{"who": "서휘", "pic": "seohwi_dutch", "text": "…돌아가는 바닷길은 갈 때보다 짧게 느껴지는군.\n네가 옆에 있어서 그런가.", "potion": 1},
@@ -1208,7 +1208,7 @@ const C9_PORT_RET := [
 ]
 
 const C9_ARRIVE := [
-	{"bg": "mountain", "who": "", "text": "압록강을 건너 한 달 남짓. 마침내 도성 밖 산자락에 닿았다.\n저 산마루 너머가 한양이었다."},
+	{"bg": "spring_path", "who": "", "text": "압록강을 건너 한 달 남짓. 마침내 도성 밖 산자락에 닿았다.\n저 산마루 너머가 한양이었다."},
 	{"who": "", "text": "조선 땅에 들어서며, 서휘도 화란 옷을 벗고 쪽빛 도포를 걸쳤다.\n화란에서 쓰던 가죽 왕진 가방만은 그대로 어깨에 멨다."},
 	{"who": "{name}", "pose": "hero_adult", "text": "서휘. 한양에 들어가기 전에… 먼저 들를 데가 있어요.\n허 의원님께 인사부터 드리고 싶어서."},
 	{"who": "서휘", "pose": "seohwi", "text": "…그래. 나도 꼭 뵙고 싶었다. 앞장서라."},

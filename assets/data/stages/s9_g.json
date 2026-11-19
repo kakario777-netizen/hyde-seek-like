@@ -2,7 +2,7 @@
  "id": "s9_g",
  "name": "허 의원 묘 가는 산길",
  "tile": "grass",
- "bg": "mountain",
+ "bg": "spring_path",
  "turns": 20,
  "tiles": [
   {
