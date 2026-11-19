@@ -1048,6 +1048,8 @@ const CHIBI_OF := {"hero_adult": "hero_adult", "hero_angry": "hero", "hero_sad":
 ## 진짜 데포르메 그림만 (없으면 null)
 ## 마지막 장: 한양으로 돌아온 서휘는 새 차림으로
 func _ret(name: String) -> String:
+	if chapter == 8 and name in ["seohwi", "seohwi_battle"]:
+		return "seohwi_dutch"   # 화란의 서휘는 화란 옷차림
 	if chapter >= 9 and name in ["seohwi", "seohwi_battle"]:
 		return "seohwi_return"
 	if chapter >= 9 and name == "friend":
