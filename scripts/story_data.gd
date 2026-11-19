@@ -720,7 +720,6 @@ const C6_STORM := [
 	{"who": "", "text": "고향 생각에 눈가가 뜨거워질 무렵,\n갑판 저편에서 서툰 조선말이 들려왔다."},
 	{"who": "얀", "pic": "redhair_sailor", "text": "의—원—님! 밤바람 차요!\n따뜻한 차 끓여 놨어요!"},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "…응. 고마워요, 얀. 금방 갈게요."},
-	{"who": "", "text": "(마음을 다잡았다: 체력 +10)", "heal": 10},
 ]
 
 const CH6_END := [
