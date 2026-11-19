@@ -593,15 +593,20 @@ const C7_FERRY := [
 const C7_YANJING_PRE := [
 	{"who": "", "bg": "yanjing", "text": "청나라의 도읍 연경.\n약재 시장 거리는 처음 보는 약재로 가득했다."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "녹용, 서양에서 온 쓴 나무껍질, 남방 열매까지…\n조선에선 이름도 못 들어 본 약재들이야."},
-	{"who": "약재 상인", "pic": "cheong_merchant", "text": "어이, 조선 손님! 백 년 묵은 고려 인삼이오.\n특별히 반값에 드리지!"},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…잠깐. 이건 도라지 뿌리에 인삼 껍질을 붙인 가짜잖아요.\n방금 저 할아버지한테도 이걸 비싸게 파셨죠?"},
+	{"who": "", "text": "그때, 옆 가게 앞에서 등 굽은 노인이 떨리는 손으로 돈주머니를 풀고 있었다."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "영감님, 이게 바로 백 년 묵은 고려 인삼이오!\n손주 병엔 이만한 게 없지. 자, 가진 돈 전부만 내시오."},
+	{"who": "노인", "pic": "yanjing_elder", "text": "전부라… 이게 우리 손주 약값 전부인데…\n그래도 이걸로 나을 수만 있다면야…"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "할아버지, 잠깐만요! 그 돈 내지 마세요!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…역시. 이건 도라지 뿌리에 인삼 껍질을 붙인 가짜예요.\n잔뿌리 끝을 보세요. 아교로 붙인 자국이 있잖아요."},
+	{"who": "노인", "pic": "yanjing_elder", "text": "뭐, 뭐라고…? 가짜라니…!"},
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "이, 이놈이 남의 장사를 망치려고!\n이 조선 놈, 내가 직접 혼쭐을 내 주마!"},
 ]
 
 const C7_YANJING_POST := [
-	{"who": "약재 상인", "pic": "cheong_merchant", "text": "아이고, 내가 졌소, 졌어!\n가짜 판 돈은 다 돌려드리리다…"},
-	{"who": "노인", "pic": "yanjing_elder", "text": "고맙소, 젊은 의원. 내 손주 약값이었다오."},
-	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…대신 길 하나 알려 드리지.\n남쪽 광주 항구에 가면, 서쪽 끝 나라 화란으로 가는 서양 배가 있다오."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "아이고, 내가 졌소, 졌어!\n다시는 가짜 인삼 안 팔겠소…"},
+	{"who": "노인", "pic": "yanjing_elder", "text": "고맙소, 젊은 의원.\n하마터면 손주 약값을 몽땅 가짜 뿌리에 날릴 뻔했구려."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "손주가 어디가 아픈지 말씀해 주세요.\n그 돈이면 진짜 약을 충분히 지으실 수 있어요."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…저, 조선 의원 양반. 사죄하는 뜻으로 길 하나 알려 드리지.\n남쪽 광주 항구에 가면, 서쪽 끝 나라 화란으로 가는 서양 배가 있다오."},
 	{"who": "", "text": "(노인의 사례: 엽전 +6냥)", "coin": 6},
 ]
 
@@ -1088,7 +1093,7 @@ const C9_ISLAND_RET := [
 const C9_YANJING_RET := [
 	{"bg": "yanjing", "who": "", "text": "다시 찾은 연경 약재 시장.\n시장 어귀에서 낯익은 노인이 손을 번쩍 들었다."},
 	{"who": "노인", "pic": "yanjing_elder", "text": "아이고, 그때 가짜 인삼에서 날 구해 준 조선 의원 아니오!\n…허허, 고운 아가씨였구먼. 어쩐지 손끝이 곱더라니."},
-	{"who": "노인", "pic": "yanjing_elder", "text": "그때 되찾은 돈으로 손주 약을 지어 먹였지.\n저 녀석 보시오. 이제 약재 짐을 저렇게 번쩍번쩍 나른다오."},
+	{"who": "노인", "pic": "yanjing_elder", "text": "그때 지킨 돈으로 손주 약을 지어 먹였지.\n저 녀석 보시오. 이제 약재 짐을 저렇게 번쩍번쩍 나른다오."},
 	{"who": "", "text": "노인의 손주가 약재 자루를 메고 씩씩하게 시장 골목을 뛰어다니고 있었다."},
 	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "(갈 때 뿌린 작은 인연들이…\n돌아오는 길엔 꽃이 되어 있었네.)"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…혼자서 청나라 장사꾼이랑 맞붙었다고?\n내가 없는 동안 무슨 무모한 짓을 한 거냐."},
