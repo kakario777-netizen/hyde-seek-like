@@ -82,7 +82,7 @@
    "y": 0.5695,
    "name": "광주 항구",
    "type": "voyage",
-   "pre_text": "남쪽 바다의 큰 항구, 광주.\n화란 상선이 닻을 내린 부두 끝까지 가야 한다.",
+   "pre_text": "열병 난 선원들을 돌보며\n부두 끝 화란 상선까지 가야 한다.",
    "stage": {
     "map": "v_port",
     "name": "광주 항구",
@@ -96,7 +96,8 @@
     "patient_pic": "redhair_sailor",
     "patient_who": "열병 난 선원",
     "patient_text": "으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…"
-   }
+   },
+   "pre": "C7_PORT_PRE"
   },
   {
    "x": 0.7109,

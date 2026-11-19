@@ -497,11 +497,16 @@ func _resolve() -> void:
 			var vn: Dictionary = nodes[pos]
 			var vidx := pos
 			main.sfx("gong", -6.0)
-			main.popup(vn.get("pre_text", "새로운 땅에 닿았다."), "들어간다", func():
-				main.start_voyage(vn["stage"], func():
-					cleared[vidx] = true
-					_dim_marker(vidx)
-					_end_turn()), vn.get("name", ""), "", vn["stage"].get("bg", ""))
+			var go := func():
+				main.popup(vn.get("pre_text", "새로운 땅에 닿았다."), "들어간다", func():
+					main.start_voyage(vn["stage"], func():
+						cleared[vidx] = true
+						_dim_marker(vidx)
+						_end_turn()), vn.get("name", ""), "", vn["stage"].get("bg", ""))
+			if vn.has("pre"):   # 맵에 들어가기 전 이야기 (예: 광주 항구 선장의 부탁)
+				main.dialog_chain(StoryData.lines(vn["pre"]), go)
+			else:
+				go.call()
 		"boss":
 			var nd: Dictionary = nodes[pos]
 			var idx := pos

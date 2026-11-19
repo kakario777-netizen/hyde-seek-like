@@ -613,11 +613,14 @@ const C7_YANJING_POST := [
 	{"who": "", "text": "(노인의 사례: 엽전 +6냥)", "coin": 6},
 ]
 
-const C7_PORT := [
+const C7_PORT_PRE := [
 	{"who": "", "bg": "port", "text": "광주 항구.\n돛대 셋 달린 화란 상선이 노을 속에 닻을 내리고 있었다."},
 	{"who": "선장", "pic": "dutch_captain", "text": "연경 약재 상인의 편지라… 그 친구가 이렇게까지 부탁하다니 별일이군.\n하지만 우리 배엔 빈자리가 없네. …다만, 배 의사가 지난 항구에서 내려 버렸지."},
-	{"who": "선장", "pic": "dutch_captain", "text": "마침 선원 하나가 사흘째 열병으로 앓고 있네.\n그 녀석을 고쳐 내면 선의(船醫)로 태워 주지."},
-	{"who": "", "text": "{alias|은} 선실로 내려가 맥을 짚고 시호와 황금을 달여 먹였다.\n이튿날 새벽, 선원의 열이 거짓말처럼 내렸다."},
+	{"who": "선장", "pic": "dutch_captain", "text": "하필 선원들이 열병으로 줄줄이 쓰러졌네.\n부두 곳곳에 누워 있는 녀석들을 다 고쳐 내면, 선의(船醫)로 태워 주지."},
+]
+
+const C7_PORT := [
+	{"who": "", "bg": "port", "text": "{alias|은} 마지막 선원의 열까지 내리고 갑판으로 올라왔다.\n이튿날 새벽, 앓던 선원들이 하나둘 자리에서 일어났다."},
 	{"who": "붉은 머리 선원", "pic": "redhair_sailor", "text": "살았다! 고마워요, 동양 의원님!\n난 얀이에요. 이 배에서 제일 빠른 돛잡이죠!"},
 	{"who": "선장", "pic": "dutch_captain", "text": "좋아, 약속은 약속이지.\n오늘부터 자네가 이 배의 선의일세."},
 	{"who": "얀", "pic": "redhair_sailor", "text": "그런데 의원님, 조선 사람이라 그러셨죠?\n몇 해 전에도 우리 배에 조선말 하는 사내가 탔었어요."},
@@ -1659,7 +1662,7 @@ const ALL := {
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
-	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
+	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 
