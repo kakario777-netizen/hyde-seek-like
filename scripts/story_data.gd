@@ -655,6 +655,15 @@ const C7_YANJING_POST := [
 	{"who": "", "text": "(노인의 사례: 엽전 +6냥)", "coin": 6},
 ]
 
+const C7_SEA_PRE := [
+	{"who": "", "bg": "deck", "music": "dread_shadow", "text": "광주를 떠난 지 스무 날, 천축 앞바다.\n해 질 녘 수평선 끝에서 검은 돛 하나가 다가오고 있었다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 저 배… 깃발도 안 달고\n아까부터 우리 뒤를 바짝 따라와요."},
+	{"who": "선장", "pic": "dutch_captain", "text": "해적선이다! 이 바다엔 약재와 은을 실은 상선만 노리는 놈들이 있지.\n모두 갑판으로!"},
+	{"who": "", "text": "쇠갈고리가 뱃전에 철컥 걸리더니,\n칼을 문 사내들이 하나둘 갑판 위로 기어올랐다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "선실엔 아직 기운을 못 차린 선원들이 있어요.\n여기서 막아야 해요!"},
+	{"who": "선장", "pic": "dutch_captain", "text": "선의 양반, 다친 놈들은 자네가 맡게.\n해적 놈들은 같이 몰아내자고!"},
+]
+
 const C7_PORT_PRE := [
 	{"who": "", "bg": "port", "text": "광주 항구.\n돛대 셋 달린 화란 상선이 노을 속에 닻을 내리고 있었다."},
 	{"who": "선장", "pic": "dutch_captain", "text": "연경 약재 상인의 편지라… 그 친구가 이렇게까지 부탁하다니 별일이군.\n하지만 우리 배엔 빈자리가 없네. …다만, 배 의사가 지난 항구에서 내려 버렸지."},
@@ -687,10 +696,9 @@ const C7_ISLAND := [
 ]
 
 const C7_PIRATE_PRE := [
-	{"who": "", "bg": "deck", "text": "천축 앞바다를 지나던 밤.\n검은 돛을 단 배 한 척이 소리 없이 다가왔다."},
-	{"who": "얀", "pic": "redhair_sailor_sad", "text": "해적이다! 의원님, 선실로 숨어요!"},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "숨으면 다친 사람은 누가 고쳐요.\n…저도 싸울게요!"},
+	{"who": "", "bg": "deck", "text": "뱃머리에 다다르자,\n붉은 두건을 쓴 거구의 사내가 앞을 가로막았다."},
 	{"who": "해적 두목", "pic": "pirate_captain", "text": "흐흐흐, 비단에 은화를 가득 실은 화란 배로구나.\n몽땅 내놓아라!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 배엔 아픈 사람들이 타고 있어요.\n한 발짝도 못 지나가요!"},
 ]
 
 const C7_PIRATE_POST := [
@@ -1704,7 +1712,7 @@ const ALL := {
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_NEWDEN": C3_NEWDEN, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
-	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
+	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_SEA_PRE": C7_SEA_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 

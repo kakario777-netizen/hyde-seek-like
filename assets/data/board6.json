@@ -172,7 +172,7 @@
    "y": 0.622,
    "name": "천축 앞바다",
    "type": "voyage",
-   "pre_text": "천축 앞바다.\n갑판 위로 수상한 그림자들이 하나둘 기어오른다…",
+   "pre_text": "갑판 위 해적들을 몰아내며\n뱃머리까지 가야 한다.",
    "stage": {
     "map": "v_sea",
     "name": "천축 앞바다",
@@ -182,7 +182,8 @@
      "walpae": "haejeok",
      "pojol": "haejeok"
     }
-   }
+   },
+   "pre": "C7_SEA_PRE"
   },
   {
    "x": 0.4333,
