@@ -1312,13 +1312,35 @@ const WHO_PIC := {"약재 상인": "yakjae", "엿장수": "yeotjangsu", "주막 
 	"포졸": "pojol", "백성": "addict", "다래": "friend", "순라꾼": "sunra", "청나라 약재상": "yakjae", "항구 주모": "jumo"}
 
 ## 이 칸에서 만날 사람 (칸마다 정해져 있어 맵에 미리 보인다)
+## 한 맵에 같은 인물은 한 번만 (약재 장수 가게가 있으면 약재 장수 대화는 빼고)
+var _talk_cache := {}
+func _talk_who(tk: Dictionary) -> String:
+	var w: String = tk.get("who", "")
+	return tk.get("pic", WHO_PIC.get(w, w))
+
 func _talk_at(i: int) -> Dictionary:
+	if _talk_cache.has(i):
+		return _talk_cache[i]
 	var pool: Array = stage_cfg["talks"] if stage_cfg.has("talks") else (PODO_TALKS if stage_cfg.has("me_name") else StoryData.talks(main.chapter))
+	var used := {}
+	for t in tiles:
+		if t["type"] == "shop":
+			used["yakjae"] = true
 	var k := 0
-	for j in i:
-		if tiles[j]["type"] == "talk":
-			k += 1
-	return pool[(main.stage_idx * 3 + k) % pool.size()]
+	for j in tiles.size():
+		if tiles[j]["type"] != "talk":
+			continue
+		var base: int = main.stage_idx * 3 + k
+		var pick: Dictionary = pool[base % pool.size()]
+		for n in pool.size():
+			var c: Dictionary = pool[(base + n) % pool.size()]
+			if not used.has(_talk_who(c)):
+				pick = c
+				break
+		used[_talk_who(pick)] = true
+		_talk_cache[j] = pick
+		k += 1
+	return _talk_cache.get(i, pool[0])
 
 func _resolve() -> void:
 	var t: String = tiles[pos]["type"]
