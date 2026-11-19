@@ -1060,13 +1060,22 @@ func _ret(name: String) -> String:
 		return "hero_adult_tense"
 	return name
 
+## 화란 마을 사람들은 지도에서도 전신 그림 그대로 (데포 대신)
+const FULL_ON_MAP := ["dutch_baker", "dutch_baker_cold", "dutch_sick_man", "dutch_sick_woman", "dutch_child", "dutch_child_sick",
+	"dutch_fisherman", "dutch_woman", "dutch_miller", "dutch_miller_cold"]
+
 func chibi_only(name: String) -> Texture2D:
 	name = _ret(name)
+	if name in FULL_ON_MAP:
+		return null
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
 	return load(p) if ResourceLoader.exists(p) else null
 
 func chibi(name: String) -> Texture2D:
 	name = _ret(name)
+	if name in FULL_ON_MAP:
+		var f := "res://assets/mapfig/%s.png" % name
+		return load(f) if ResourceLoader.exists(f) else null
 	var p := "res://assets/chibi/%s.png" % CHIBI_OF.get(name, name)
 	if ResourceLoader.exists(p):
 		return load(p)
