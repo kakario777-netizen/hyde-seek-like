@@ -45,8 +45,14 @@ const CHAPTERS := {
 			{"map": "s5_2", "goal": "종로 약재상을 돌며\n필요한 약재를 구해 와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
 			{"map": "s5_n", "goal": "서휘와 함께\n남산 절벽 바위틈까지 가라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "남산 절벽 하수오 찾기", "after": "C5_HASUO", "ally": "seohwi"},
 			{"map": "s5_3", "goal": "궁궐 담장 아래를 지나\n남은 약재를 모아라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "궁궐 담장 아래", "after": "C5_DOGYEOL"},
-			{"map": "s5_4", "goal": "윤도결과 함께 허 의원의 약방,\n그 검은 사내가 기다리는 곳으로 가라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원 약방으로", "ally": "dogyeol"}],
-		"goal_pre": "CH5_GOAL", "goal_battle": "shadow", "goal_ally": "dogyeol"},
+			{"map": "s5_4", "goal": "윤도결과 함께 허 의원의 약방,\n그 검은 사내가 기다리는 곳으로 가라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원 약방으로", "ally": "dogyeol",
+				"after_battle": {"battle": "shadow", "pre": "CH5_GOAL", "post": "CH5_REUNION"}},
+			{"map": "s5_t", "goal": "허 의원과 함께 북촌 골목을 돌며\n마지막 왕진을 다녀와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원과 마지막 왕진", "ally": "heo", "after": "C5_LESSON_END",
+				"talks": [{"who": "허 의원", "pic": "heo", "text": "{name|아}, 저 할멈 손톱을 봐라. 하얗게 질렸지?\n맥보다 손이 먼저 말해 줄 때가 있다.", "potion": 1},
+					{"who": "물장수", "pic": "muljangsu", "text": "허 의원님! 일어나셨구먼요!\n아이고, 이렇게 다시 뵈니… 우리 막내 기침 좀 봐 주시오.", "potion": 1},
+					{"who": "허 의원", "pic": "heo", "text": "약은 병에 쓰는 게 아니라 사람에게 쓰는 거다.\n같은 기침이라도, 저 사람이 오늘 무얼 먹었는지부터 물어라."},
+					{"who": "주막 주모", "pic": "jumo", "text": "의원님, 약값은 다음 장에 꼭…\n아이고, 또 안 받으신다고요? 이 은혜를 어찌…", "potion": 1}]}],
+		"goal_text": "노을 진 골목 끝에 약방 대문이 보인다.\n허 의원의 걸음이 조금씩 느려졌다.", "goal_title": "허 의원 약방", "goal_pic": "", "goal_bg": "yakbang"},
 	6: {"title": "제6장  작별", "goal": "산마루 약초밭", "intro": "CH6F_INTRO", "end": "CH6F_END", "stage_ally": "darae",
 		"stages": [{"map": "s6_2", "goal": "다래와 함께 북한산에 올라 약초를 가르치며\n산마루 약초밭까지 가라.", "name": "산마루 약초밭으로"}],
 		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "mountain"},
@@ -509,13 +515,32 @@ const CH5_GOAL := [
 	{"who": "윤도결", "pic": "jongsagwan_battle", "text": "포도대장 윤도결, 여기 있다!\n포졸들은 약방을 에워싸라! 한 놈도 빠져나가지 못하게!", "end": true},
 ]
 
-const CH5_END := [
+const CH5_REUNION := [
 	{"bg": "yakbang", "who": "", "text": "검은 사내가 무릎을 꿇은 순간, {name|은} 환심단을 그의 입에 밀어 넣었다."},
 	{"who": "검은 사내", "pose": "shadow", "text": "크으윽…! 안 돼… 밤이… 밤이 끝난다…"},
 	{"who": "", "text": "검은 연기가 사내의 몸에서 빠져나와 새벽빛 속으로 흩어졌다.\n그리고 그 자리에, 지친 얼굴의 노인이 쓰러져 있었다."},
 	{"who": "허 의원", "pose": "heo", "text": "…{name|아}? 네가… 어찌 여기에…\n아아, 내가 무슨 짓을… 꿈이 아니었구나…"},
-	{"who": "{name}", "pose": "hero_girl_sad", "text": "의원님…! 괜찮아요. 이제 다 끝났어요.\n의원님 마음은 이제 의원님 거예요."},
-	{"bg": "byeolchae", "music": "sad_farewell", "who": "", "text": "그러나 허 의원의 몸은 이미 너무 오래 흑심단에 상해 있었다.\n그는 자리에서 일어나지 못했다."},
+	{"who": "{name}", "pose": "hero", "text": "의원님…! 괜찮아요. 이제 다 끝났어요.\n의원님 마음은 이제 의원님 거예요."},
+	{"bg": "yakbang_day", "music": "yakbang_day", "who": "", "text": "사흘 뒤 아침. 허 의원이 지팡이를 짚고 자리에서 일어났다."},
+	{"who": "허 의원", "pose": "heo", "text": "{name|아}, 마루에 좀 앉자.\n약초 다듬는 법을 잊어버렸을까 걱정이구나."},
+	{"who": "", "text": "둘은 약방 마루에 나란히 앉아, 예전처럼 감초와 당귀를 다듬었다.\n햇살이 따뜻했다."},
+	{"who": "{name}", "pose": "hero", "text": "의원님 손은 여전하시네요.\n저보다 빠르세요."},
+	{"who": "허 의원", "pose": "heo", "text": "허허, 네 손이 더 야무지다.\n…그래도 아직 못 가르친 게 하나 남았지."},
+	{"who": "허 의원", "pose": "heo", "text": "오늘은 나와 왕진을 다녀오자. 북촌 골목 끝, 내가 늘 돌보던 사람들이 있다.\n의원이 사람을 어떻게 보는지, 보여 주마."},
+	{"who": "{name}", "pose": "hero", "text": "…네! 얼른 왕진 보따리 챙길게요!"},
+	{"who": "", "text": "【목표】\n허 의원과 함께 북촌 골목을 돌며\n마지막 왕진을 다녀와라."},
+]
+
+const C5_LESSON_END := [
+	{"bg": "alley", "who": "", "text": "해 질 녘, 왕진을 마치고 돌아오는 골목길."},
+	{"who": "허 의원", "pose": "heo", "text": "오늘 본 것을 잊지 마라.\n병을 보기 전에 사람을 보거라. 약값보다 먼저, 그 사람의 하루를 물어보고."},
+	{"who": "허 의원", "pose": "heo", "text": "…이제 내가 가르칠 건 다 가르쳤다.\n너는 이미 나보다 나은 의원이다."},
+	{"who": "{name}", "pose": "hero", "text": "아니에요. 저는 아직 의원님한테 배울 게 산더미예요.\n내일도, 모레도요."},
+	{"who": "허 의원", "pose": "heo", "text": "허허… 그래, 그래야지."},
+]
+
+const CH5_END := [
+	{"bg": "byeolchae", "music": "sad_farewell", "who": "", "text": "그날 밤, 허 의원은 약방 문턱에서 쓰러졌다.\n흑심단에 너무 오래 상한 몸은 끝내 다시 일어나지 못했다."},
 	{"who": "허 의원", "pose": "heo", "text": "울지 마라, {name|아}.\n마음속 검은 것을 떼어 내려다 오히려 그것에 먹혔구나. 검은 것도 내 마음이었는데…"},
 	{"who": "허 의원", "pose": "heo", "text": "길가에 쓰러져 있던 일곱 살 아이가… 이렇게 훌륭한 의원이 되었구나.\n네가 나를 되찾아 주었다. 그거면… 됐다."},
 	{"who": "{name}", "pose": "hero_girl_sad", "text": "의원님… 그날 밤, 소리 지르고 뛰쳐나가서 죄송해요.\n그게 마지막 말이 될까 봐… 쫓기는 내내 그게 제일 무서웠어요."},
@@ -1624,7 +1649,7 @@ const ALL := {
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
-	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
+	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
@@ -1643,6 +1668,13 @@ const ENEMY_MAP := {
 ## 전투를 거드는 동료
 ## 함께 다니는 동료의 한마디 (전투에는 끼어들지 않고 대화로만 함께한다)
 const COMPANION := {
+	"heo": {"name": "허 의원", "pic": "heo",
+		"start": ["천천히 가자. 골목마다 아는 얼굴이 있으니.", "왕진 보따리는 챙겼느냐? 그럼 가자."],
+		"pre_me": ["의원님은 뒤로 물러나 계세요. 제가 막을게요!", "의원님, 제 뒤에 계세요!"],
+		"pre": ["…허허, 이젠 네가 나를 지키는구나. 조심해라.", "다치지 마라. 약은 내가 챙겨 두마."],
+		"post": ["다친 데는 없느냐. …손 이리 다오, 내가 봐 주마.", "허허, 언제 이리 컸누."],
+		"herb": ["그 풀은 잎 뒷면을 보거라. 솜털이 있으면 제대로 된 거다.", "좋은 약초구나. 뿌리째 말고 반만 캐라. 내년에도 나게."],
+		"trap": ["발밑 조심해라, 얘야.", "서두르지 마라. 길은 도망가지 않는다."]},
 	"seohwi": {"name": "서휘", "pic": "seohwi",
 		"start": ["길 잃지 말고 따라와라.", "이 길은 처음이군. …내 옆에서 떨어지지 마라.", "천천히 가도 된다. 대신 두리번거리진 말고."],
 		"pre_me": ["이 녀석은 내가 처리할게. 서휘, 뒤에서 다른 패거리가 오는지 봐 줘.", "앞은 내가 맡을게요. 서휘는 뒤를 부탁해요!", "내가 상대할게. 혹시 숨어 있는 놈 있으면 알려 줘요."],
