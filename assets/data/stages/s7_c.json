@@ -1,8 +1,8 @@
 {
  "id": "s7_c",
  "name": "화란 해안길",
- "tile": "stone",
- "bg": "holland_port",
+ "tile": "dirt",
+ "bg": "holland_coast",
  "turns": 16,
  "tiles": [
   {
