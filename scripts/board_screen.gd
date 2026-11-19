@@ -460,6 +460,8 @@ func _resolve() -> void:
 		"talk":
 			_clear(pos)
 			var pool: Array = cfg.get("talks", StoryData.talks(main.chapter))
+			if _at_sea(pos):   # 바다 위에선 마을 사람 대신 배 안 사람들 (그림 없이)
+				pool = StoryData.SEA_TALKS + (StoryData.SEA_TALKS_HOME if main.chapter >= 9 else [])
 			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
 			var extra := ""
@@ -468,7 +470,7 @@ func _resolve() -> void:
 				main.coins += talk["coin"]; extra += "\n\n(엽전 +%d냥)" % talk["coin"]
 			if talk.has("potion"):
 				main.potions += talk["potion"]; extra += "\n\n(약병 +%d)" % talk["potion"]
-			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"], talk.get("pic", ""))
+			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"], "" if _at_sea(pos) else talk.get("pic", ""))
 		"item":
 			_clear(pos)
 			main.potions += 1
@@ -479,16 +481,16 @@ func _resolve() -> void:
 				main.popup("길섶에서 약초 주머니를 주웠다!\n주운 약초로 약병 하나를 달였다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "")
 		"buff":
 			_clear(pos)
-			_apply_event(main.pick_event(GameData.BUFFS))
+			_apply_event(_sea_ev(main.pick_event(GameData.BUFFS)))
 		"debuff":
 			_clear(pos)
-			_apply_event(main.pick_event(GameData.DEBUFFS))
+			_apply_event(_sea_ev(main.pick_event(GameData.DEBUFFS)))
 		"trap":
 			_clear(pos)
-			_apply_event(main.pick_event(GameData.TRAPS))
+			_apply_event(_sea_ev(main.pick_event(GameData.TRAPS)))
 		"rest":
 			_clear(pos)
-			_apply_event(main.rest_event())
+			_apply_event(main.rest_event("deck" if _at_sea(pos) else ""))
 		"story":
 			_clear(pos)
 			var lines: Array = StoryData.lines(nodes[pos].get("sid", nodes[pos]["type"]))
@@ -526,6 +528,10 @@ func _resolve() -> void:
 			main.sfx("alarm")
 			main.popup(line, "맞서 싸운다", func(): _fight(eid, idx), "전투", e["sprite"])
 		"shop":
+			if _at_sea(pos):
+				main.popup("선상 장터.\n선원들이 항구마다 사 모은 약재와 물건을 내놓았다.", "둘러본다", func():
+					main.open_shop(_end_turn), "선상 장터", "", "deck")
+				return
 			var sname: String = place_name() if nodes[pos].has("name") else "장터"
 			main.popup("%s.\n약재와 물건을 사고팔 수 있는 장이 섰다." % sname, "둘러본다", func():
 				main.open_shop(_end_turn), "장터", "", "jangteo")
@@ -592,6 +598,14 @@ func _apply_event(ev: Dictionary) -> void:
 		main.popup(ev["text"], "맞서 싸운다", func(): _fight(ev["battle"], idx), ev["title"], "walpae")
 	else:
 		main.popup(ev["text"], "계속 간다", _end_turn, ev["title"], ev.get("pic", ""))
+
+## 바다 위 이벤트는 사람 그림 없이 설명만
+func _sea_ev(ev: Dictionary) -> Dictionary:
+	if not _at_sea(pos):
+		return ev
+	var e := ev.duplicate()
+	e.erase("pic")
+	return e
 
 func _clear(i: int) -> void:
 	cleared[i] = true
