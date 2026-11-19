@@ -1,0 +1,246 @@
+{
+ "id": "s7_c",
+ "name": "화란 해안길",
+ "tile": "stone",
+ "bg": "holland_port",
+ "turns": 16,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "item"
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -5,
+   "type": "buff"
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -8,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -8,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "buff"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -11,
+   "type": "buff"
+  },
+  {
+   "x": -13,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "walpae"
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -15,
+   "type": "debuff"
+  },
+  {
+   "x": -14,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "type": "spike"
+  },
+  {
+   "x": -17,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -17,
+   "type": "rest"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -19,
+   "y": -18,
+   "type": "shop"
+  },
+  {
+   "x": -20,
+   "y": -18,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -21,
+   "y": -18,
+   "type": "debuff"
+  },
+  {
+   "x": -21,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -20,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -3,
+   "y": -6,
+   "at": 9,
+   "zone": [
+    9,
+    10
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "at": 22,
+   "zone": [
+    22
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}

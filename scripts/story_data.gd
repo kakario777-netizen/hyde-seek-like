@@ -64,7 +64,8 @@ const CHAPTERS := {
 	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 36, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
 	8: {"title": "제8장  화란의 봄", "goal": "풍차 언덕", "intro": "CH7_INTRO", "end": "CH7_END", "stage_ally": "seohwi",
-		"stages": [{"map": "s7_1", "goal": "역병 도는 마을을 돌며\n앓는 사람들을 치료하라.", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
+		"stages": [{"map": "s7_c", "goal": "해안길을 따라 북쪽으로 걸어\n바닷가 작은 마을을 찾아가라.", "name": "화란 해안길", "after": "C7_MEET", "ally": "", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s7_1", "goal": "역병 도는 마을을 돌며\n앓는 사람들을 치료하라.", "name": "역병 도는 마을", "after": "C7_MID", "patients": 3},
 			{"map": "s7_r", "goal": "학교에서 다락방까지 이어진 골목을 지나며\n역병을 옮기는 쥐 떼를 소탕하라.", "name": "쥐 떼 소탕, 다락방 가는 길", "after": "C7_NIGHT", "ally": ""},
 			{"map": "s7_s", "name": "학교 가는 밤길", "after": "C7_NIGHT_B", "ally": "", "patients": 2},
 			{"map": "s7_2", "goal": "풍차 언덕 약초밭으로 가며\n앓는 마을 사람들을 돌봐라.", "name": "풍차 언덕 약초밭", "after": "C7_SICK", "patients": 3},
@@ -736,7 +737,16 @@ const CH6_END := [
 	{"who": "선장", "pic": "dutch_captain", "text": "조선의 의원, 자네 덕에 이번 뱃길에선 한 명도 잃지 않았네.\n그 바닷가 마을은 해안길을 따라 북쪽으로 사흘이오."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "선장님, 그동안 정말 감사했습니다.\n모두 건강하세요."},
 	{"who": "", "text": "{alias|은} 선원들의 배웅을 받으며 해안길로 걸음을 옮겼다."},
-	{"bg": "holland", "who": "", "text": "며칠 뒤, 화란 바닷가의 작은 마을.\n풍차는 멈춰 있었고, 집집마다 문에 흰 십자가가 그려져 있었다."},
+]
+
+# ── 제7장 「화란의 봄」 ─────────────────────────────────
+const CH7_INTRO := [
+	{"bg": "holland_port", "who": "", "text": "― 제8장 「화란의 봄」 ―"},
+	{"who": "", "text": "【목표】\n해안길을 따라 북쪽으로 걸어\n바닷가 작은 마을을 찾아가라."},
+]
+
+const C7_MEET := [
+	{"bg": "holland", "who": "", "text": "사흘을 걸어 닿은, 화란 바닷가의 작은 마을.\n풍차는 멈춰 있었고, 집집마다 문에 흰 십자가가 그려져 있었다."},
 	{"who": "", "text": "역병이었다. 아이들부터 쓰러지고 있었다."},
 	{"who": "???", "pic": "seohwi_dutch", "text": "…거기 서 있는 동양 청년, 혹시 길을 잃었소?\n이 마을엔 지금 들어오면 안 되오."},
 	{"who": "", "text": "낯선 나라의 옷, 그러나 낯익은 금빛 머리칼과 동그란 애체."},
@@ -749,12 +759,7 @@ const CH6_END := [
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "…저도요. 배 위에서 푸른 눈 사내 얘기를 들은 날부터,\n하루도 빠짐없이 이 바다 끝을 생각했어요."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "…반갑다는 말로는 모자라는군.\n하지만 미안하다. 지금은 너를 붙잡고 기뻐만 할 수가 없어."},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "나는 이 마을 학교에서 아이들을 가르치고 있다.\n그런데 내 아이들이 하나둘 죽어 가. 이 나라 의원들은 피를 뽑는 것밖에 모르고."},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "부탁이다, 의원. 다시 한번… 내게 힘을 빌려 다오.", "end": true},
-]
-
-# ── 제7장 「화란의 봄」 ─────────────────────────────────
-const CH7_INTRO := [
-	{"bg": "holland", "who": "", "text": "― 제8장 「화란의 봄」 ―"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "부탁이다, 의원. 다시 한번… 내게 힘을 빌려 다오."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "당연하죠. 의원님 대신 화란 의술을 배우러 온 길이지만…\n눈앞에 아픈 사람이 먼저예요."},
 	{"who": "서휘", "pose": "seohwi_dutch", "text": "…고맙다."},
 	{"who": "", "text": "바닷가의 작은 화란 마을.\n튤립 밭은 시들어 있었고, 언덕 위 풍차도 멈춰 서 있었다."},
@@ -1719,7 +1724,7 @@ const ALL := {
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_SEA_PRE": C7_SEA_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
-	"CH7_INTRO": CH7_INTRO, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
+	"CH7_INTRO": CH7_INTRO, "C7_MEET": C7_MEET, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 
 ## 장마다 보드의 적 이름을 바꿔 끼움
