@@ -605,6 +605,7 @@ const C7_YANJING_PRE := [
 const C7_YANJING_POST := [
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "아이고, 내가 졌소, 졌어!\n다시는 가짜 인삼 안 팔겠소…"},
 	{"who": "노인", "pic": "yanjing_elder", "text": "고맙소, 젊은 의원.\n하마터면 손주 약값을 몽땅 가짜 뿌리에 날릴 뻔했구려."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "손주가 어디가 아픈데요?\n제가 한번 봐 드릴게요."},
 	{"who": "노인", "pic": "yanjing_elder", "text": "우리 손주가 밤마다 기침이 멎질 않아서…"},
 	{"who": "", "text": "{alias|은} 손주에게 맞는 약재와 달이는 법을 일러 주고,\n바다 건너 화란으로 가는 길이라며 작별 인사를 건넸다."},
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…화, 화란? 서양 배라면 남쪽 광주 항구에 드나든다오.\n가짜 판 죄를 갚는 셈 치고 알려 드리리다."},
