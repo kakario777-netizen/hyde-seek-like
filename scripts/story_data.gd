@@ -593,7 +593,7 @@ const C7_FERRY := [
 const C7_YANJING_PRE := [
 	{"who": "", "bg": "yanjing", "text": "청나라의 도읍 연경.\n약재 시장 거리는 처음 보는 약재로 가득했다."},
 	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "녹용, 서양에서 온 쓴 나무껍질, 남방 열매까지…\n조선에선 이름도 못 들어 본 약재들이야."},
-	{"who": "", "text": "그때, 옆 가게 앞에서 등 굽은 노인이 떨리는 손으로 돈주머니를 풀고 있었다."},
+	{"who": "", "text": "그때, 옆 가게 앞에서 한 노인이 상인과 흥정하며 돈주머니를 꺼내고 있었다."},
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "영감님, 이게 바로 백 년 묵은 고려 인삼이오!\n손주 병엔 이만한 게 없지. 자, 가진 돈 전부만 내시오."},
 	{"who": "노인", "pic": "yanjing_elder", "text": "전부라… 이게 우리 손주 약값 전부인데…\n그래도 이걸로 나을 수만 있다면야…"},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "할아버지, 잠깐만요! 그 돈 내지 마세요!"},
