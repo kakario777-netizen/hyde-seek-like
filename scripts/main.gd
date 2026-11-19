@@ -1162,7 +1162,9 @@ func in_court() -> bool:
 
 func illust(name: String) -> Texture2D:
 	name = _ret(name)
-	if in_court() and (name == "hero" or name.begins_with("hero_")) and not name.begins_with("hero_disguise") and not name.begins_with("hero_adult"):
+	if name.begins_with("hero_girl"):   # 5장이라도 의녀복 대신 소녀 평상복 그림 그대로 (예: 허 의원 임종·빈소)
+		name = "hero" + name.substr(9)
+	elif in_court() and (name == "hero" or name.begins_with("hero_")) and not name.begins_with("hero_disguise") and not name.begins_with("hero_adult"):
 		var cn := "hero_court" + name.substr(4)
 		if ResourceLoader.exists("res://assets/chars/%s.png" % cn):
 			name = cn
