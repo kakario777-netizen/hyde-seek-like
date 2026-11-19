@@ -922,11 +922,15 @@ func disguised() -> bool:
 func hero_pose() -> String:
 	if disguised():
 		return "hero_disguise"
-	if chapter >= 9:
+	if grown():
 		return "hero_adult"
 	if chapter in DISGUISED:
 		return "hero_disguise"
 	return "hero"   # 5장은 illust()가 의녀 옷 그림으로 바꿔 준다
+
+## 한양 땅에 다시 발을 디딘 뒤(마지막 장 도착 장면부터) 어른 모습
+func grown() -> bool:
+	return chapter >= 10 or (chapter == 9 and (stage_idx >= 3 or flags.has("grown")))
 
 func token_name() -> String:
 	return "token_disguise" if disguised() else "token_hero"
@@ -934,7 +938,7 @@ func token_name() -> String:
 func face_name() -> String:
 	if disguised():
 		return "face_token"
-	return "face_adult" if chapter >= 9 else "face_hero"   # 돌아온 뒤에는 어른 얼굴
+	return "face_adult" if grown() else "face_hero"   # 한양에 돌아온 뒤에는 어른 얼굴
 
 func is_placeholder(pic: String) -> bool:
 	return pic in StoryData.PLACEHOLDERS
@@ -1054,10 +1058,12 @@ func _ret(name: String) -> String:
 		return "seohwi_return"
 	if chapter >= 9 and name == "friend":
 		return "darae_adult"   # 돌아온 뒤의 다래는 어른 모습
-	if chapter >= 9 and name in ["hero", "hero_sad"]:
+	if grown() and name in ["hero", "hero_sad"]:
 		return "hero_adult"   # 돌아온 뒤의 주인공은 어른 모습 (길막 대사 등에서 어린 그림이 섞이지 않게)
-	if chapter >= 9 and name in ["hero_angry", "hero_surprised"]:
+	if grown() and name in ["hero_angry", "hero_surprised"]:
 		return "hero_adult_tense"
+	if chapter >= 9 and not grown() and name.begins_with("hero_adult"):   # 돌아오는 뱃길까지는 아직 소녀 모습
+		return "hero_surprised" if name == "hero_adult_tense" else "hero"
 	return name
 
 func chibi_only(name: String) -> Texture2D:

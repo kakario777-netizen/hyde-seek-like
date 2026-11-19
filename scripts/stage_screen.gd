@@ -392,7 +392,7 @@ func _make_token() -> Control:
 	sh.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(sh)
 	var tk: Texture2D = main.illust(main.token_name())
-	var ck: String = "hero_disguise" if main.disguised() else ("hero_adult" if main.chapter >= 9 else "hero")
+	var ck: String = "hero_disguise" if main.disguised() else ("hero_adult" if main.grown() else "hero")
 	if main.in_court() and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
 		ck = "hero_court"
 	if stage_cfg.has("token"):   # 이 맵은 다른 인물로 걷는다 (예: 포도청 수련의 서휘)
