@@ -1,0 +1,332 @@
+{
+ "id": "s3_d",
+ "name": "새 소굴로",
+ "tile": "wood",
+ "bg": "stream",
+ "turns": 21,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "spike"
+  },
+  {
+   "x": -3,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "spike"
+  },
+  {
+   "x": -4,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -2,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "pojol"
+  },
+  {
+   "x": -8,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -4,
+   "type": "buff"
+  },
+  {
+   "x": -10,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -6,
+   "type": "debuff"
+  },
+  {
+   "x": -12,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -7,
+   "type": "debuff"
+  },
+  {
+   "x": -12,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -8,
+   "type": "item"
+  },
+  {
+   "x": -14,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -8,
+   "type": "buff"
+  },
+  {
+   "x": -16,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -9,
+   "type": "buff"
+  },
+  {
+   "x": -16,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -10,
+   "type": "debuff"
+  },
+  {
+   "x": -18,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -10,
+   "type": "buff"
+  },
+  {
+   "x": -20,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -12,
+   "type": "pojol"
+  },
+  {
+   "x": -21,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -12,
+   "type": "boss",
+   "battle": "dogyeol",
+   "pre": "C3_DG_FIGHT",
+   "post": "C3_DG_AFTER"
+  },
+  {
+   "x": -22,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -16,
+   "type": "talk"
+  },
+  {
+   "x": -24,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -17,
+   "type": "shop"
+  },
+  {
+   "x": -24,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -19,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -24,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -21,
+   "type": "buff"
+  },
+  {
+   "x": -26,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -28,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -25,
+   "type": "debuff"
+  },
+  {
+   "x": -28,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -26,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -22,
+   "y": -14,
+   "at": 36,
+   "zone": [
+    35,
+    36,
+    37
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -18,
+   "y": -10,
+   "at": 28,
+   "zone": [
+    28,
+    29
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -10,
+   "y": -6,
+   "at": 16,
+   "zone": [
+    15,
+    16
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}

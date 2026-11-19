@@ -26,6 +26,7 @@ const CHAPTERS := {
 				"talks": [{"who": "물장수", "text": "방금 금발 사내가 지붕으로 넘어갔소.\n저쪽 수표교 쪽이오. 꼬마도 얼른 숨어!"},
 					{"who": "엿장수", "text": "포졸들이 수표교를 에워싸고 있어.\n…저 금발 청년, 우리 골목 아이들 엿값 대 주던 사람인데."},
 					{"who": "백성", "text": "쉿, 이 담 밑으로 지나가.\n포졸들은 큰길만 지키고 있으니까."}]},
+			{"map": "s3_d", "goal": "서휘와 함께 포졸들의 눈을 피해\n광통교 아래 새 소굴로 가라.", "name": "새 소굴로", "after": "C3_NEWDEN", "ally": "seohwi", "foes": {"walpae": "pojol", "pojol": "pojol"}},
 			{"map": "s3_k", "goal": "서휘와 함께 청계천 하류 소금 창고로 숨어들어\n흑룡파 두목을 쓰러뜨리고 아이들을 구하라.", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "goal": "약 보따리를 들고\n종로 뒷골목을 지나 왈패 소굴로 돌아가라.", "name": "종로 뒷골목", "after": "C3_TRUTH"},
 			{"map": "s3_3", "goal": "서휘가 기다리는\n남산 아래 공터로 가라.", "name": "남산 아래 결투"}],
@@ -275,7 +276,13 @@ const C3_CHASE := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "콜록… 패랭이…? 거기 서라!"},
 	{"who": "", "text": "둘은 자욱한 가루를 뚫고 골목 깊숙이 사라졌다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…또 놓쳤군. 청안파 서휘, 저놈만 벌써 열한 번째다.\n…그런데 방금 그 패랭이는…"},
-	{"bg": "den", "music": "lonely_night", "who": "", "text": "동틀 무렵, 다리 밑 소굴."},
+	{"who": "서휘", "pose": "seohwi", "text": "…하아. 저 종사관, 이제 다리 밑 소굴까지 다 알아 버렸군.\n저긴 다시 못 간다."},
+	{"who": "서휘", "pose": "seohwi", "text": "밤톨이 아이들을 광통교 아래로 데려갔을 거다.\n급할 때 쓰려고 봐 둔 곳이지. 날 따라와라."},
+	{"who": "", "text": "【목표】\n서휘와 함께 포졸들의 눈을 피해\n광통교 아래 새 소굴로 가라."},
+]
+
+const C3_NEWDEN := [
+	{"bg": "den", "music": "lonely_night", "who": "", "text": "동틀 무렵, 광통교 아래 새 소굴.\n먼저 와 있던 아이들이 젖은 거적을 깔고 옹기종기 모여 있었다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…바보 같은 짓을. 너까지 잡혔으면 어쩔 뻔했나.\n넌 쫓기는 몸이라고."},
 	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "서휘가 혼자 잡힐까 봐 걱정됐단 말이에요.\n…그리고 안 잡혔잖아요."},
 	{"who": "서휘", "pose": "seohwi", "text": "…하. 열한 번 동안 혼자 도망쳤는데,\n같이 도망친 건 처음이군."},
@@ -1694,7 +1701,7 @@ const ALL := {
 	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_LEAVE2": C9_LEAVE2, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
-	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
+	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_NEWDEN": C3_NEWDEN, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
 	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
