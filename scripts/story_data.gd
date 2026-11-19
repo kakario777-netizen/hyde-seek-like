@@ -876,7 +876,19 @@ const CH7_END := [
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "의원님 대신 배우러 왔다며. 빈손으로 돌려보낼 수는 없지."},
 	{"who": "{alias}", "pic": "hero_disguise", "text": "그런데… 저는 화란 글자를 하나도 못 읽는걸요.\n이걸 어떻게 공부하죠?"},
 	{"who": "서휘", "pic": "seohwi_dutch", "text": "그래서 내가 있는 거다.\n…겨울은 길다."},
-	{"bg": "dutch_child_room", "who": "", "text": "그 겨울 내내, 서휘가 등잔 아래서 한 줄씩 풀어 읽어 주면\n{alias}는 그 말을 조선 글로 받아 적었다.\n허 의원이 그토록 보고 싶어 했던 그림들은 제 손으로 옮겨 그렸다.", "end": true},
+	{"bg": "dutch_child_room", "music": "lonely_night", "who": "", "text": "그날 밤부터, 다락방 작은 탁자 위에 등잔 하나가 늦도록 꺼지지 않았다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "이건 '하르트'. 심장이다.\n여기 이 그림 보이지? 피가 이 네 개의 방을 돌아 온몸으로 나간다고 적혀 있다."},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "네 개의 방…! 의원님이 맥을 짚을 때마다\n'피는 쉬지 않고 돈다' 하셨는데, 이렇게 생긴 거였구나…"},
+	{"who": "", "text": "{alias|은} 서휘가 읽어 주는 말을 조선 글로 받아 적고,\n허 의원이 그토록 보고 싶어 했던 그림들은 제 손으로 옮겨 그렸다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…그런데 이 '감초'는 화란 말로 뭐라고 해야 하지.\n여긴 그런 약재가 없어서 이름도 없다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "그럼 이번엔 제가 가르쳐 줄게요.\n감초, 황기, 당귀… 써 보세요. 획은 이렇게."},
+	{"who": "", "text": "서휘의 커다란 손이 붓을 쥐고 삐뚤빼뚤 획을 그었다.\n{alias|은} 저도 모르게 그 손등 위에 제 손을 겹쳐 붓끝을 바로잡았다."},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "……"},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "아, 미, 미안해요! 그냥 획이 자꾸 틀려서…"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…아니. 한 번만 더 잡아 줘라.\n이번엔 제대로 배울 테니."},
+	{"who": "", "text": "창밖엔 소리 없이 눈이 쌓여 갔다.\n{alias}의 공책은 하루가 다르게 두꺼워졌고, 서휘의 조선 글씨도 조금씩 반듯해졌다."},
+	{"who": "", "text": "어느 깊은 밤. 책장을 넘기던 서휘가 탁자에 엎드려 잠들어 있었다.\n{alias|은} 제 어깨에 걸친 담요를 벗어 가만히 덮어 주었다."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(의원님. 이 겨울을 꼭 기억할게요.\n…이 사람과 함께 등잔불 아래서 배운 것들을.)", "end": true},
 ]
 
 const EPILOGUE := [
