@@ -917,7 +917,7 @@ const DISGUISED := [2, 3, 4, 7, 8]
 ## 지금 남장 중인가 (마지막 장도 화란에 있는 동안 — 마지막 왕진 길·떠나는 항구 — 은 아직 남장)
 func disguised() -> bool:
 	# 5장도 궁궐에 들어가기 전(한양으로 돌아가는 길·경복궁 가는 길)까지는 남장
-	return chapter in DISGUISED or (chapter == 9 and stage_idx <= 1) or (chapter == 5 and stage_idx == 0)
+	return chapter in DISGUISED or (chapter == 9 and not grown()) or (chapter == 5 and stage_idx == 0)
 
 func hero_pose() -> String:
 	if disguised():
@@ -1062,8 +1062,8 @@ func _ret(name: String) -> String:
 		return "hero_adult"   # 돌아온 뒤의 주인공은 어른 모습 (길막 대사 등에서 어린 그림이 섞이지 않게)
 	if grown() and name in ["hero_angry", "hero_surprised"]:
 		return "hero_adult_tense"
-	if chapter >= 9 and not grown() and name.begins_with("hero_adult"):   # 돌아오는 뱃길까지는 아직 소녀 모습
-		return "hero_surprised" if name == "hero_adult_tense" else "hero"
+	if chapter >= 9 and not grown() and name.begins_with("hero_adult"):   # 돌아오는 뱃길까지는 패랭이 벗은 남장 옷 그대로
+		return "hero_disguise_hair_surprised" if name == "hero_adult_tense" else "hero_disguise_hair"
 	return name
 
 func chibi_only(name: String) -> Texture2D:
