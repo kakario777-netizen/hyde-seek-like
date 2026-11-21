@@ -271,7 +271,7 @@ func _build_world() -> void:
 ## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
-const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.06, "dutch_baker": 0.88, "dutch_sick_man": 0.8, "dutch_sick_woman": 0.78, "dutch_fisherman": 0.86, "dutch_woman": 0.82, "dutch_miller": 0.88, "addict": 0.88, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
+const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "hero_adult_court": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "redhair_sailor": 0.95, "pojol": 1.06, "dutch_baker": 0.88, "dutch_sick_man": 0.8, "dutch_sick_woman": 0.78, "dutch_fisherman": 0.86, "dutch_woman": 0.82, "dutch_miller": 0.88, "addict": 0.88, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.78, "seohwi_calm": 0.96, "seohwi_return": 0.96, "seohwi_podo": 1.0, "seohwi_chief": 1.0, "shadow": 1.04, "dogyeol": 1.0, "heo": 1.04, "yeotjangsu": 0.98}
 
 func _sprite(pic: String, h: float) -> TextureRect:
@@ -395,6 +395,8 @@ func _make_token() -> Control:
 	var ck: String = "hero_disguise" if main.disguised() else ("hero_adult" if main.grown() else "hero")
 	if main.in_court() and ResourceLoader.exists("res://assets/chibi/hero_court.png"):
 		ck = "hero_court"
+	if stage_cfg.get("hero_chibi", "") != "":   # 맵마다 주인공 옷차림 (예: 궁궐 잠입은 어른 의녀복)
+		ck = stage_cfg["hero_chibi"]
 	if stage_cfg.has("token"):   # 이 맵은 다른 인물로 걷는다 (예: 포도청 수련의 서휘)
 		ck = stage_cfg["token"]
 	if main.chibi_only(ck) != null:
