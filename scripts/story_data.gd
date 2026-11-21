@@ -107,6 +107,8 @@ const CHAPTERS := {
 					{"who": "나무꾼", "text": "허허, 그 비탈 도라지밭 말이오? 누가 손대면 저 아가씨가\n불같이 화를 내서 나도 근처엔 얼씬 안 했소.", "coin": 2}]},
 			{"map": "s10_isle", "goal": "다래와 함께 바닷길을 건너\n남쪽 유배 섬까지 가라.", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s10_ferry", "goal": "홀로 마포 나루에 들어온\n청 상선을 찾아가라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
+				"foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
 			{"map": "s10_palace", "goal": "윤도결과 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "dogyeol"},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
@@ -141,7 +143,8 @@ static func lines(key: String) -> Array:
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F4
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
-		"C10_ISLE": return C10_EXILE + C10_FALL
+		"C10_ISLE": return C10_EXILE + C10_TO_MAPO
+		"C10_FERRY": return C10_YONGNOE + C10_FALL
 		"C10_CURE_WED": return C10_CURE + C10_CHOICE + C10_WED
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"C1_ROAD": return GameData.STORY1 + GameData.STORY2
@@ -1861,13 +1864,40 @@ const C10_EXILE := [
 	{"who": "백운", "pose": "baegun_exile_cry", "text": "허허… 그래. 그래 다오. 매해 혼나러, 이 늙은이가 살아 있으마."},
 ]
 
+## 유배 섬을 떠나며: 주인공 혼자 마포 나루로
+const C10_TO_MAPO := [
+	{"bg": "island", "who": "", "text": "섬을 떠나는 배 위. {name|은} 백운의 서책을 몇 번이고 다시 읽었다."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "'용뇌는 청 상선으로만 들어온다…'\n청 상선이면 마포 나루야. 한양 가는 길에 내가 들를게."},
+	{"who": "다래", "pose": "darae_adult", "text": "나도 같이 가!"},
+	{"who": "{name}", "pose": "hero_adult", "text": "안 돼. 나루엔 뱃사람 왈패들이 들끓어서 위험해.\n…그리고 우리 둘 다 내의원을 비우면, 대비마마 탕약은 누가 지켜?"},
+	{"who": "다래", "pose": "darae_adult", "text": "…알았어. 먼저 궁에 돌아가 있을게.\n대신 꼭, 꼭 빨리 와야 해!"},
+	{"who": "", "text": "【목표】\n홀로 마포 나루에 들어온\n청 상선을 찾아가라."},
+]
+
+## 마포 나루: 연경 약재 상인에게 용뇌를 얻다
+const C10_YONGNOE := [
+	{"bg": "ferry", "music": "yakbang_day", "who": "", "text": "마포 나루. 붉은 돛을 단 청 상선 앞에서\n낯익은 사내가 짐을 부리고 있었다."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "아니, 이게 누구요! 조선 의원 양반 아니오?\n화란은 잘 다녀왔소?"},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "어르신…! 연경에서 뵙던…\n혹시, 용뇌 있으세요? 사람을 살릴 약에 꼭 필요해요."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "용뇌라… 청에서도 금값인 물건인데.\n…허, 하필 이번 배에 딱 한 상자 실었소."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "값은 됐소. 그때 내 가짜 인삼을 들춰 준 덕에\n지금은 정직하게 장사해서 배까지 부리게 됐으니. …진 빚 갚는 셈 치리다."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "그런데 의원 양반, 요즘 조선 내의원 사람 하나가\n청 상인한테서 낡은 책장(冊張)을 비싼 값에 사 갔다오. 마포 뒤쪽 창고를 빌려 쓴다던데… 조심하시오."},
+	{"who": "", "text": "(용뇌 한 상자를 얻었다)"},
+	{"bg": "jumak_street", "music": "lonely_night", "who": "", "text": "그날 밤, 나루 앞 주막의 작은 방.\n{name|은} 허 의원의 환심단에 백운의 해독법대로 용뇌를 더해 갈았다."},
+	{"who": "", "text": "허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다.\n새 환심단 세 알. {name|은} 그것을 무명천에 싸서 품 깊숙이 넣었다."},
+	{"who": "", "text": "이튿날 새벽, 나루를 떠나려던 참이었다.\n도성에서 내려온 짐꾼들이 수군거렸다."},
+	{"who": "짐꾼", "text": "들었나? 대비마마 환후가 깊으시다는구먼.\n어젯밤부터 탕약도 잘 못 넘기신다던데…"},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "(대비마마가…? 다래 혼자 궁에 있는데…!)\n…서둘러야 해."},
+	{"who": "", "text": "{name|은} 새벽길을 내달려 궁으로 향했다."},
+]
+
 const C10_FALL := [
-	{"bg": "daebi_room", "music": "dread_shadow", "who": "", "text": "섬에서 돌아온 이튿날 새벽. 대비전에 곡소리 같은 비명이 울렸다.\n대비마마가 탕약을 드신 뒤 쓰러지셨다는 것이었다."},
+	{"bg": "daebi_room", "music": "dread_shadow", "who": "", "text": "{name|이} 궁에 닿았을 때, 대비전에 곡소리 같은 비명이 울렸다.\n대비마마가 탕약을 드신 뒤 쓰러지셨다는 것이었다."},
 	{"who": "대비", "pose": "daebi_ill", "text": "…머리가… 머리 속에서 검은 것이 들끓는구나…"},
 	{"who": "", "text": "{name|은} 약사발 바닥에 남은 찌꺼기를 혀끝에 대 보았다.\n달콤한 감초 맛 뒤로… 비린 쇠 냄새. 잊을 수 없는 그 냄새였다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "(흑심단…! 의원님과 함께 사라진 줄 알았는데…)"},
-	{"who": "", "text": "{name|은} 품에 지니고 있던 환심단을 급히 달여 올렸다.\n대비마마의 숨이 고르게 돌아왔지만… 끝내 눈을 뜨지 못하셨다."},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "(반만 들어… 의원님 편지 그대로야. 청 약재가 섞인 흑심단이야.)"},
+	{"who": "", "text": "{name|은} 품에 지니고 있던 새 환심단 한 알을 급히 달여 올렸다.\n대비마마의 숨이 고르게 돌아왔지만… 끝내 눈을 뜨지 못하셨다."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "(반만 들어… 의원님 때보다 훨씬 진한 흑심단이야.\n누군가 한양 안에서, 더 독하게 다시 빚은 거야.)"},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "어의 나리, 송구하오나 이 탕약을 달인 자는 의녀 다래입니다.\n게다가 다래는 바로 어제, 청심보명단을 팔던 역적 백운을 만나고 왔다지요?"},
 	{"who": "다래", "pose": "darae_adult_cry", "text": "아니야! 내가 그런 거 아니야!\n대비마마 약은 내가 밤새 지켜보며 달였어! 누가… 누가 넣은 거야!"},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "역적의 손녀가 역적의 약을 넣었다. 이보다 분명한 일이 어디 있겠습니까.\n의금부는 무엇을 하는가! 당장 끌어내라!"},
@@ -1895,7 +1925,7 @@ const C10_JEONG1_PRE := [
 	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "왜냐고? 나는 서른 해를 내의원에서 약을 달였다! 그런데 어의 자리는\n왈패 소굴에서 굴러먹던 약방 계집아이가 차지했지."},
 	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "게다가 그 동무라는 연줄 하나로,\n지리산 산골 계집까지 대비전 탕약을 달이더군!"},
 	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "역적의 손녀가 죄를 쓰면, 그 동무인 어의도 함께 물러나겠지.\n그러면 내의원은 다시 제자리를 찾는 게다!"},
-	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "청 상인에게서 산 이 책장에 청나라 용뇌를 버무렸지.\n허가 놈의 흑심단보다 훨씬 진한 약이다!"},
+	{"who": "정 의관", "pose": "jeong_uigwan_angry", "text": "청 상인에게서 사들인 이 책장대로, 내 손으로 흑심단을 다시 빚었지.\n허가 놈 것보다 훨씬 진하게!"},
 	{"who": "", "text": "정 의관이 검은 환약을 한 움큼 삼켰다.\n관복이 먹물처럼 검게 물들고, 두 눈이 붉게 번뜩였다."},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 냄새가 나는구나. 허가 놈이 거둔 계집아이.\n허가 놈이 남긴 밤을, 내가 이어 주마!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "(그 웃음… 그날 밤 약방의 검은 사내와 똑같아.)\n…이번엔 도망치지 않아요. 여기서 끝내요!"},
@@ -1905,7 +1935,7 @@ const C10_JEONG1_POST := [
 	{"bg": "naeuiwon", "music": "dread_shadow", "who": "정 의관", "pose": "jeong_shadow", "text": "크윽…!"},
 	{"who": "", "text": "정 의관이 무릎을 꿇은 틈에, 윤도결이 포승줄을 꺼냈다.\n그러나 정 의관의 몸에서 검은 연기가 다시 거세게 피어올랐다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "(대비마마께 드린 환심단도 반밖에 안 들었어…\n지금 가진 약으론 저 검은 것을 떼어 낼 수 없어.)"},
-	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐… 허가 놈의 약으론 어림없다.\n청나라 용뇌에 버무린 내 흑심단은 아무도 못 되돌려!"},
+	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐… 허가 놈의 약으론 어림없다.\n내 손으로 더 진하게 빚은 흑심단은 아무도 못 되돌려!"},
 	{"who": "", "text": "정 의관은 검은 연기를 휘감은 채 창살을 부수고 어둠 속으로 사라졌다.\n윤도결이 뒤쫓았지만, 담장 너머로 그림자조차 남지 않았다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…놓쳤다. 저건 사람의 걸음이 아니군."},
 ]
@@ -1913,27 +1943,25 @@ const C10_JEONG1_POST := [
 const C10_CLUE := [
 	{"bg": "naeuiwon", "music": "dread_shadow", "who": "", "text": "정 의관이 버리고 간 서랍에는 장부 한 권이 남아 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "'마포 나루, 청 상인 창고에서 책장 값 은 백 냥'.\n대대장이 몰래 빼돌린 책장을 청 상인이 쥐고 있다가, 이자에게 판 거다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 마지막 줄… '보름날 밤, 남은 흑심단과 용뇌를 마포에서 받는다.'\n오늘이 보름이다."},
-	{"who": "", "text": "{name|은} 품에서 백운의 서책을 꺼내 다시 펼쳤다."},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "'환심단에 용뇌를 더하라… 청 상선으로만 들어온다.'\n마포 창고야. 거기 가면 용뇌도, 정 의관도 있어!"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 마지막 줄… '보름날 밤, 마포 창고에서 남은 흑심단을 모두 빚는다.'\n오늘이 보름이다."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "마포 뒤쪽 창고…! 청 상인 어르신이 조심하라던 그곳이야.\n정 의관은 거기서 흑심단을 빚고 있어!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "의원님이 만드신 검은 것은… 이번엔 제 손으로 끝낼 거예요."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "장부와 흑심단 병은 포졸을 시켜 서휘에게 보낸다.\n증거가 사라지면 다래의 누명도 못 벗긴다. …마포에는 내가 간다."},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "저도 가요, 나리. 해독약을 만들 수 있는 건 저뿐이에요."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "저도 가요, 나리. 마포 나루에서 빚어 둔 새 환심단이 제 품에 있어요."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…알았다. 대신 내 뒤에서 떨어지지 마라."},
-	{"who": "", "text": "【목표】\n윤도결과 함께 마포 나루의 청 상인 창고로 가서\n용뇌를 찾고, 정 의관을 막아라."},
+	{"who": "", "text": "【목표】\n윤도결과 함께 마포 나루의 청 상인 창고로 가서\n정 의관을 막아라."},
 ]
 
 const C10_JEONG_PRE := [
-	{"bg": "mapo_warehouse", "music": "dread_shadow", "who": "", "text": "청나라 글씨가 적힌 궤짝이 쌓인 창고 안쪽.\n{name|은} 궤짝 사이에서 '龍腦'라고 적힌 작은 상자를 찾아냈다."},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "흑심단을 버무린 곳에, 그걸 푸는 약재도 있었어…!"},
-	{"who": "", "text": "{name|은} 그 자리에서 환심단에 용뇌를 더해 갈았다.\n허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다."},
+	{"bg": "mapo_warehouse", "music": "dread_shadow", "who": "", "text": "청나라 글씨가 적힌 궤짝이 쌓인 창고 안쪽.\n검게 그을린 약솥과 찢어진 책장 조각들이 바닥에 널려 있었다."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "여기서 흑심단을 빚었던 거야…!"},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 또 왔느냐, 어의 나리. 오늘도 포도대장을 달고 왔구나.\n남은 흑심단은 전부 내 배 속에 넣었다. 이번엔 끝장을 내주마!"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "이번엔 달라요. 의원님의 약과, 백운 선생님의 해독법이 다 여기 있어요.\n나리, 마지막이에요!"},
 ]
 
 const C10_JEONG_POST := [
 	{"bg": "mapo_warehouse", "music": "sad_farewell", "who": "정 의관", "pose": "jeong_shadow", "text": "크으윽…! 아직… 아직 끝나지 않았다…!"},
-	{"who": "", "text": "{name|은} 품에서 환약 한 알을 꺼냈다.\n허 의원의 환심단에 백운이 건넨 해독법대로 용뇌를 더해 빚은 약 ― 새 환심단이었다."},
+	{"who": "", "text": "{name|은} 품에서 무명천에 싼 환약 한 알을 꺼냈다.\n마포 나루 주막에서 용뇌를 더해 미리 빚어 둔 새 환심단이었다."},
 	{"who": "", "text": "{name|은} 무릎 꿇은 정 의관의 입에 새 환심단을 밀어 넣었다."},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "크윽…! 이, 이건…! 안 돼… 힘이… 빠져나간다…"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "떼어 낸 검은 것은 사라지지 않아요. 더 큰 미움이 되어 돌아올 뿐.\n그러니까… 돌려놓는 거예요. 원래 있던 자리로."},
