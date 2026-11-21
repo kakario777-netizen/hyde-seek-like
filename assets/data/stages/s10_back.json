@@ -1,0 +1,340 @@
+{
+ "id": "s10_back",
+ "name": "궁으로 돌아가는 길",
+ "tile": "palace",
+ "bg": "gyeongbok_road",
+ "turns": 21,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": -1,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": 0,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": 0,
+   "type": "debuff"
+  },
+  {
+   "x": -3,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -2,
+   "type": "shop"
+  },
+  {
+   "x": -3,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -4,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -4,
+   "type": "buff"
+  },
+  {
+   "x": -6,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "debuff"
+  },
+  {
+   "x": -8,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -7,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -8,
+   "type": "buff"
+  },
+  {
+   "x": -11,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -11,
+   "type": "buff"
+  },
+  {
+   "x": -12,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -13,
+   "type": "spike"
+  },
+  {
+   "x": -14,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -15,
+   "type": "buff"
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -15,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -17,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -19,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -18,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -19,
+   "type": "walpae"
+  },
+  {
+   "x": -19,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -21,
+   "type": "rest"
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "pojol"
+  },
+  {
+   "x": -21,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -24,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -23,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -24,
+   "type": "buff"
+  },
+  {
+   "x": -25,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -25,
+   "type": "debuff"
+  },
+  {
+   "x": -25,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -26,
+   "type": "debuff"
+  },
+  {
+   "x": -27,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -27,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -25,
+   "y": -26,
+   "at": 51,
+   "zone": [
+    51
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -14,
+   "y": -11,
+   "at": 25,
+   "zone": [
+    24,
+    25,
+    26
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -16,
+   "y": -15,
+   "at": 31,
+   "zone": [
+    31,
+    32
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -10,
+   "y": -7,
+   "at": 17,
+   "zone": [
+    16,
+    17,
+    18
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}

@@ -107,8 +107,11 @@ const CHAPTERS := {
 					{"who": "나무꾼", "text": "허허, 그 비탈 도라지밭 말이오? 누가 손대면 저 아가씨가\n불같이 화를 내서 나도 근처엔 얼씬 안 했소.", "coin": 2}]},
 			{"map": "s10_isle", "goal": "다래와 함께 바닷길을 건너\n남쪽 유배 섬까지 가라.", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
+			{"map": "s10_back", "goal": "다래와 함께\n궁으로 돌아가라.", "name": "궁으로 돌아가는 길", "after": "C10_BACKED", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel"},
 			{"map": "s10_ferry", "goal": "홀로 마포 나루에 들어온\n청 상선을 찾아가 용뇌를 구하라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
 				"foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
+			{"map": "s10_podo", "goal": "용뇌와 새 환심단을 품고\n새벽 포도청까지 가라.", "name": "포도청 가는 새벽길", "after": "C10_PODO", "after_story": true, "ally": "",
+				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}},
 			{"map": "s10_palace", "goal": "윤도결과 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true,
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "dogyeol"},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
@@ -143,8 +146,10 @@ static func lines(key: String) -> Array:
 		"C3_HEUK_ORDER": return C3_HEUK + C3_ORDER
 		"C4_F2X": return C4_F2 + C4_F4
 		"C10_SHOP_LETTER": return C9_SHOP + C10_LETTER
-		"C10_ISLE": return C10_EXILE + C10_FALL
+		"C10_ISLE": return C10_EXILE + C10_BACK
+		"C10_BACKED": return C10_FALL
 		"C10_FERRY": return C10_YONGNOE
+		"C10_PODO": return C10_PODO_RET
 		"C10_CURE_WED": return C10_CURE + C10_CHOICE + C10_WED
 		"CHAPTER1_END": return GameData.CHAPTER1_END
 		"C1_ROAD": return GameData.STORY1 + GameData.STORY2
@@ -1875,7 +1880,11 @@ const C10_YONGNOE := [
 	{"who": "", "text": "(용뇌 한 상자를 얻었다)"},
 	{"bg": "jumak_street", "music": "lonely_night", "who": "", "text": "그날 밤, 나루 앞 주막의 작은 방.\n{name|은} 허 의원의 환심단에 백운의 해독법대로 용뇌를 더해 갈았다."},
 	{"who": "", "text": "허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다.\n새 환심단 세 알. {name|은} 그것을 무명천에 싸서 품 깊숙이 넣었다."},
-	{"who": "", "text": "이튿날 새벽, {name|은} 새벽길을 내달려 한양으로 돌아왔다."},
+	{"who": "", "text": "이튿날 새벽, {name|은} 나루를 떠나 한양으로 길을 서둘렀다."},
+	{"who": "", "text": "【목표】\n용뇌와 새 환심단을 품고\n새벽 포도청까지 가라."},
+]
+
+const C10_PODO_RET := [
 	{"bg": "podocheong", "who": "", "text": "포도청. 윤도결이 기다리고 있었다."},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "나리, 용뇌를 구했어요. 새 환심단도 빚어 왔어요.\n그런데 청 상인 어르신이, 내의원 사람이 청나라 약재를 몰래 사 갔다고…"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "어서 대비마마께 이 약을…!"},
@@ -1883,6 +1892,13 @@ const C10_YONGNOE := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…그리고 네 말이 맞다면 더 분명하군. 대비전 탕약이 지나간 곳은 단 하나, 내의원 약재 창고다.\n밤에 몰래 들어가 뒤진다. …정 의관, 그자가 오늘 유난히 서둘렀다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 같이 가자.\n약재를 알아보는 건 너다."},
 	{"who": "", "text": "【목표】\n윤도결과 함께 밤의 궁궐에 숨어들어\n내의원 약재 창고에서 흑심단의 단서를 찾아라."},
+]
+
+## 유배 섬을 떠나며
+const C10_BACK := [
+	{"bg": "island", "who": "", "text": "섬을 떠나는 배 위. 다래는 백운의 서책을 꼭 끌어안고 있었다."},
+	{"who": "다래", "pose": "darae_adult", "text": "…{name|아}, 우리 얼른 궁으로 돌아가자.\n대비마마 탕약, 며칠이나 다른 사람 손에 맡겨 뒀잖아."},
+	{"who": "", "text": "【목표】\n다래와 함께\n궁으로 돌아가라."},
 ]
 
 const C10_FALL := [
