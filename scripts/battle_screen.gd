@@ -340,9 +340,6 @@ func _pick_intent() -> void:
 	else:
 		var moves: Array = enemy["moves"]
 		intent = moves[e_move_idx % moves.size()].duplicate()
-	if enemy_id == "seohwi" and intent["t"] == "atk":
-		intent["v"] = main.max_hp   # 2장 첫 대결: 주인공 체력만큼, 막기를 뚫고 한 번에 쓰러뜨린다
-		intent["sp"] = "pierce"
 
 func _intent_text() -> String:
 	var s := "다음 수: %s · " % intent["n"]
