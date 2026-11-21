@@ -783,7 +783,7 @@ func show_records(cb: Callable) -> void:
 	var top := _top_card()
 	var cu: Dictionary = stats.get("cards", {})
 	var card_txt := "%s (%d회)" % [GameData.CARDS[top]["name"], int(cu[top])] if top != "" else "—"
-	var t := "━━ 한양 숨바꼭질 · 완 ━━\n%s · 「%s」\n\n" % [hero_name, ending_title()]
+	var t := "━━ 한양 숨바꼭질 · 완 ━━\n%s\n\n" % hero_name
 	t += "플레이 시간   %s\n" % fmt_time(play_sec)
 	t += "달인 탕약   %d첩\n" % (int(stats.get("brew_small", 0)) + int(stats.get("brew_big", 0)))
 	t += "  묽은 탕약 %d첩  ·  진한 탕약 %d첩\n" % [int(stats.get("brew_small", 0)), int(stats.get("brew_big", 0))]
@@ -792,9 +792,7 @@ func show_records(cb: Callable) -> void:
 	t += "쓴 엽전   %d냥\n" % int(stats.get("coin_out", 0))
 	t += "가장 많이 올린 상소   %s\n" % card_txt
 	t += "이긴 전투   %d번 · 쓰러진 전투 %d번" % [int(stats.get("wins", 0)), int(stats.get("losses", 0))]
-	var fresh := _record_titles()
-	if not fresh.is_empty():
-		t += "\n\n새로 얻은 칭호:  " + "  ·  ".join(fresh.map(func(x): return "「%s」" % x))
+	_record_titles()   # 칭호 모음은 뺐지만, 어떤 엔딩을 봤는지 기록은 남긴다(처음 화면 그림에 씀)
 	popup(t, "처음 화면으로", cb, "여정의 기록", "", "", true)
 
 ## 장 끝의 싸움(예: 다래와의 다툼) — 이기든 지든 이야기는 이어진다
