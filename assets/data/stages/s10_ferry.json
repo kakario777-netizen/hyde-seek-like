@@ -172,10 +172,7 @@
   {
    "x": -15,
    "y": -17,
-   "type": "boss",
-   "battle": "jeong_shadow",
-   "pre": "C10_JEONG_PRE",
-   "post": "C10_JEONG_POST"
+   "type": "empty"
   },
   {
    "x": -15,

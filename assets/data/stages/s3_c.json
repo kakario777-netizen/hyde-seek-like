@@ -187,10 +187,7 @@
   {
    "x": -16,
    "y": -19,
-   "type": "boss",
-   "battle": "shadow_s",
-   "pre": "C3_SHADOW",
-   "post": "C3_SHADOW_FLEE"
+   "type": "empty"
   },
   {
    "x": -17,

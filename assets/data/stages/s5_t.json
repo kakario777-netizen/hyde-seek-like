@@ -194,10 +194,7 @@
   {
    "x": -18,
    "y": -19,
-   "type": "boss",
-   "battle": "dogyeol",
-   "pre": "C2_DG_FIGHT",
-   "post": "C2_DG_FLEE"
+   "type": "empty"
   },
   {
    "x": -18,
