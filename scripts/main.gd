@@ -502,7 +502,7 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 			pre = [{"who": me, "pic": hero_pose(), "text": comp_line("pre_me")}, {"who": c["name"], "pic": comp_pic(), "text": comp_line("pre")}]
 		# 대장(보스·중간보스)과 싸운 뒤에는 동행의 한마디를 띄우지 않는다 (싸우기 전 대사는 그대로)
 		var is_boss: bool = GameData.ENEMIES.get(enemy_id, {}).get("boss", false)
-		var post_line: String = comp_line("post") if not (is_boss or FINAL_COMP.has(enemy_id) or enemy_id in ["jeong_shadow1", "jeong_shadow", "henchman_chief"]) else ""
+		var post_line: String = comp_line("post") if not (is_boss or FINAL_COMP.has(enemy_id) or enemy_id in ["jeong_shadow1", "jeong_shadow"]) else ""
 		var win := on_win
 		if post_line != "":
 			win = func(): dialog_chain([{"who": c["name"], "pic": comp_pic(), "text": post_line}], on_win)

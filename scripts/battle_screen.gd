@@ -10,7 +10,7 @@ var opts: Dictionary = {}
 var ally: Dictionary = {}
 ## 사람보다 작은 적은 전투 그림도 작게 (발끝은 같은 자리)
 const BATTLE_SCALE := {"rat": 0.6}
-const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "henchman_chief": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "shadow_s": "namsan_night", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "namsan_night"}
+const BATTLE_BG := {"jeong_shadow1": "naeuiwon", "jeong_shadow": "mapo_warehouse", "mapo_thug": "mapo_warehouse", "merchant_gang": "yanjing", "naegeumwi": "palace_night", "masked_henchman": "palace_night", "seohwi3": "castle", "haejeok": "sea", "cheong_merchant": "yanjing", "pirate_boss": "deck", "gatekeeper": "vault", "heukdu": "corridor", "heukdu1": "alley", "heukdu2": "den", "dogyeol": "alley", "shadow_s": "namsan_night", "baegun": "cheonsugak", "darae": "cheonsugak", "shadow": "yakbang", "seohwi": "yakbang", "seohwi2": "namsan_night"}
 
 const BASE_ENERGY := 3
 const HAND_SIZE := 5
