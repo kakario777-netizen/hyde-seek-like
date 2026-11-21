@@ -1131,7 +1131,6 @@ func fig_scale(name: String) -> float:
 	if name == "masked_henchman": return 0.78   # 복면 하수인: 넓게 선 자세라 줄임
 	if name == "pojol_battle": return 0.76   # 창 들이미는 포졸: 낮게 웅크린 자세라 줄임
 	if name == "pojol": return 1.0
-	if name == "jongsagwan_battle": return 0.88   # 칼 뽑은 윤도결: 평소 모습과 키를 맞춤
 	if name == "seohwi_dutch_sick": return 0.72   # 의자에 앉은 모습
 	if name == "dutch_fisherman": return 0.84
 	if name == "dutch_woman": return 0.8
