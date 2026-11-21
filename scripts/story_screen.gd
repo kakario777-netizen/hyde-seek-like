@@ -201,7 +201,14 @@ func _next() -> void:
 	main.line_music(line)
 	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 5)
 	if cur_bg in SCENE_ILLUST:   # 한 장면 그림 위: 글줄 수만큼만 대화창을 올린다
-		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0)
+		box.anchor_top = 1.0; box.anchor_bottom = 1.0
+		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
+	elif who == "" and last_pose == "":   # 인물 없는 해설·설명은 화면 가운데에
+		box.anchor_top = 0.5; box.anchor_bottom = 0.5
+		box.offset_top = -BOX_H / 2.0; box.offset_bottom = BOX_H / 2.0 - 16
+	else:
+		box.anchor_top = 1.0; box.anchor_bottom = 1.0
+		box.offset_top = -BOX_H; box.offset_bottom = -16
 	var goal: bool = line["text"].begins_with("【목표】")
 	if goal:
 		main.last_goal = line["text"].trim_prefix("【목표】").strip_edges()
