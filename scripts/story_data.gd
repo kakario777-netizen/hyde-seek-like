@@ -160,7 +160,7 @@ static func lines(key: String) -> Array:
 
 # ── 제2장 「남장」 ───────────────────────────────────────
 const CH2_INTRO := [
-	{"bg": "byeolchae", "who": "", "text": "― 제2장 「남장」 ―"},
+	{"bg": "yakbang_day", "who": "", "text": "― 제2장 「남장」 ―"},
 	{"who": "", "pose": "hero_disguise", "text": "패랭이 아래로 머리를 감추고, 가슴엔 무명천을 단단히 둘렀다.\n거울 속에는 낯선 사내아이 하나가 서 있었다."},
 	{"who": "다래", "pose": "friend", "text": "와… 할아버지 옷이 딱 맞네. 진짜 누가 봐도 사내아이야.\n목소리만 조금 낮추면 되겠어. 자, 이름을 불러 볼까? {alias}!"},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "…으, 응. 어색하다.\n그래도 이제 한양에 들어갈 수 있어."},
