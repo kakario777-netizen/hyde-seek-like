@@ -59,7 +59,8 @@ const CHAPTERS := {
 					{"who": "주막 주모", "pic": "jumo", "text": "의원님, 약값은 다음 장에 꼭…\n아이고, 또 안 받으신다고요? 이 은혜를 어찌…", "potion": 1}]}],
 		"goal_text": "노을 진 골목 끝에 약방 대문이 보인다.\n허 의원의 걸음이 조금씩 느려졌다.", "goal_title": "허 의원 약방", "goal_pic": "", "goal_bg": "yakbang"},
 	6: {"title": "제6장  작별", "goal": "산마루 약초밭", "intro": "CH6F_INTRO", "end": "CH6F_END", "stage_ally": "darae",
-		"stages": [{"map": "s6_2", "goal": "다래와 함께 북한산에 올라 약초를 가르치며\n산마루 약초밭까지 가라.", "name": "산마루 약초밭으로"}],
+		"stages": [{"map": "s6_r", "goal": "비 내리는 밤길을 걸어라.", "name": "비 내리는 밤길", "after": "C6_RAIN", "after_story": true, "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}},
+			{"map": "s6_2", "goal": "다래와 함께 북한산에 올라 약초를 가르치며\n산마루 약초밭까지 가라.", "name": "산마루 약초밭으로"}],
 		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "mountain"},
 	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 36, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
 		"goal_text": "멀리 바닷가에 풍차가 보인다.\n서쪽 끝 나라, 화란에 닿았다!", "goal_title": "화란", "goal_pic": "", "goal_bg": "holland"},
@@ -610,11 +611,8 @@ const CH5_END := [
 	{"who": "{name}", "pose": "hero_girl_sad", "text": "(아무도 몰라. 그 검은 사내가 의원님 마음 한구석이었다는 걸.\n…모르는 채로 두자. 사람들 기억 속 의원님은, 가난한 이의 의원님으로 남아야 해.)"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…포도청 문서에는 '검은 사내는 달아나 행방불명'이라고만 적겠다.\n그게 그 어른께 드릴 수 있는 내 마지막 예다."},
 	{"who": "다래", "pose": "friend_worried", "text": "{name|아}, 울어도 돼. 오늘은 울어도 돼…"},
-	{"who": "서휘", "pose": "seohwi", "text": "…의원. 나도 떠난다. 아버지의 나라, 바다 건너 화란(和蘭)으로.\n언젠가 세상 어디서든 다시 만나겠지."},
-	{"who": "{name}", "pose": "hero_girl_sad", "text": "서휘…! 벌써 가는 거야?\n…그동안 정말 고마웠어. 쫓기던 나를 몇 번이나 구해 주고, 하수오까지 캐다 주고."},
-	{"who": "{name}", "pose": "hero_girl_sad", "text": "솔직히… 많이 아쉬워. 이제 좀 친해졌다 싶었는데.\n인연이 닿는다면, 꼭 다시 만나자. 바다 건너 어디서든."},
-	{"who": "서휘", "pose": "seohwi", "text": "…그래. 그 약속, 잊지 않겠다.\n(아쉬운 건 나도 마찬가지다. …바보 같은 의원.)"},
-	{"bg": "palace", "music": "lonely_night", "who": "", "text": "{name|은} 슬픔을 삼키고 약을 달였다.\n한 해가 지나기 전, 청심보명단에 상한 사람들이 모두 제 정신을 되찾았다."},
+	{"who": "", "text": "서휘는 빈소 한쪽에서 말없이 향을 올리고,\n한참을 {name}의 곁에 서 있다가 조용히 나갔다."},
+	{"bg": "palace", "music": "lonely_night", "who": "", "text": "그 뒤로 한동안, {name|은} 약방 문을 열지 못했다."},
 	{"who": "", "text": "― 제5장 「어의」 끝 ―"},
 ]
 
@@ -1031,13 +1029,46 @@ const C5_SHADOW_FLEE := [
 ]
 
 const CH6F_INTRO := [
-	{"bg": "yakbang_day", "who": "", "text": "― 제6장 「작별」 ―"},
-	{"bg": "yakbang_day", "who": "", "text": "허 의원의 사십구재가 지난 날. {name|은} 약방 서랍을 하나씩 정리하고 있었다."},
-	{"who": "", "text": "맨 안쪽 서랍에서 기름종이에 싼 책 한 권이 나왔다.\n꼬부랑 서양 글씨 옆에, 허 의원의 붓글씨 번역이 빼곡히 적혀 있었다."},
+	{"bg": "yakbang", "music": "lonely_night", "who": "", "text": "― 제6장 「작별」 ―"},
+	{"who": "", "text": "허 의원의 사십구재가 지나도록, 약방 문은 굳게 닫혀 있었다.\n약을 달이려 화로 앞에 앉으면, 손이 떨려 약탕기를 쥘 수가 없었다."},
+	{"who": "{name}", "pose": "hero_sad", "text": "(의원님을 되돌렸는데… 결국 못 살렸어.\n내가 약을 달인다고, 뭐가 달라져…)"},
+	{"who": "다래", "pose": "friend_worried", "text": "{name|아}, 나야. 문 좀 열어 봐.\n…밥이라도 먹자. 응?"},
+	{"who": "", "text": "{name|은} 대답하지 않았다. 다래의 발소리가 한참을 문 앞에 머물다 멀어졌다."},
+	{"who": "", "text": "해 질 녘, 순찰을 돌던 윤도결이 닫힌 약방 앞에 멈춰 섰다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…포도청 문서는 다 정리됐다.\n허 의원님 일은, 네 탓이 아니다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "약재 몇 가지를 문 앞에 두고 간다.\n…다시 열게 되면, 쓰거라."},
+	{"who": "", "text": "그날 밤, 비가 쏟아졌다.\n{name|은} 우산도 없이 약방을 나서, 정처 없이 빗속을 걸었다."},
+	{"who": "", "text": "어둠 속, 멀찍이 뒤따르는 발소리가 있었다. 서휘였다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…말 걸지 않겠다.\n그냥, 혼자 걷게 두기 싫었을 뿐이다."},
+	{"who": "", "text": "【목표】\n비 내리는 밤길을 걸어라."},
+]
+
+## 비 내리는 밤길 맵을 지난 뒤: 다리 밑의 아이, 그리고 작별
+const C6_RAIN := [
+	{"bg": "stream", "music": "lonely_night", "who": "", "text": "다리 밑. 빗소리 사이로 가느다란 신음이 들렸다.\n열에 들뜬 아이 하나가 젖은 거적 위에 쓰러져 있었다."},
+	{"who": "", "text": "생각보다 몸이 먼저 움직였다. {name|은} 아이의 이마를 짚고, 맥을 쥐었다.\n품에 남은 시호와 감초를 씹어 아이 입에 흘려 넣었다."},
+	{"who": "", "text": "한참 뒤, 아이의 숨이 고르게 잦아들었다.\n아이를 찾아 헤매던 어머니가 달려와 아이를 끌어안고 몇 번이고 머리를 숙였다."},
+	{"who": "{name}", "pose": "hero_sad", "text": "(…'병을 보기 전에 사람을 보거라.'\n의원님, 그 말씀… 아직 여기 있었네요.)"},
+	{"who": "", "text": "언제부턴가 빗방울이 머리 위에서 멎어 있었다. 서휘가 말없이 우산을 기울이고 있었다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…거봐라. 네 손은 아직 의원의 손이다."},
+	{"who": "다래", "pose": "friend_worried", "text": "{name|아}! 찾았다…! 약방이 비어 있어서 얼마나 놀랐는지 알아?!"},
+	{"who": "", "text": "등롱 불빛이 다가왔다. 순찰을 돌던 윤도결이었다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "이 아이와 어미는 포도청이 집까지 데려다주겠다.\n…너는 오늘 할 일을 다 했다."},
+	{"who": "", "text": "{name|은} 그제야 소리 내어 울었다. 허 의원이 떠난 뒤 처음이었다.\n셋은 아무 말 없이, 빗소리가 그칠 때까지 곁을 지켰다."},
+	{"who": "다래", "pose": "friend", "text": "…거봐. 넌 의원이야. 의원님이 그렇게 키우셨잖아."},
+	{"bg": "yakbang_day", "music": "yakbang_day", "who": "", "text": "이튿날 아침. 약방 문이 다시 열렸다.\n윤도결이 두고 간 약재 꾸러미로, {name|은} 오랜만에 약탕기에 불을 붙였다."},
+	{"who": "", "text": "점심 무렵, 짐 보따리를 멘 서휘가 약방에 들렀다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…실은 화란 가는 배를 두 번이나 그냥 보냈다.\n문 닫힌 약방을 두고는, 발이 안 떨어지더군."},
+	{"who": "서휘", "pose": "seohwi", "text": "이제 떠나도 되겠다.\n아버지의 나라, 바다 건너 화란(和蘭)으로."},
+	{"who": "{name}", "pose": "hero_sad", "text": "서휘…! 정말 가는 거야?\n…그동안 정말 고마웠어. 쫓기던 나를 몇 번이나 구해 주고, 하수오까지 캐다 주고."},
+	{"who": "{name}", "pose": "hero_sad", "text": "솔직히… 많이 아쉬워. 이제 좀 친해졌다 싶었는데.\n인연이 닿는다면, 꼭 다시 만나자. 바다 건너 어디서든."},
+	{"who": "서휘", "pose": "seohwi", "text": "…그래. 그 약속, 잊지 않겠다.\n(아쉬운 건 나도 마찬가지다. …바보 같은 의원.)"},
+	{"who": "", "text": "한 해가 지나기 전, 청심보명단에 상한 사람들이 모두 제 정신을 되찾았다.\n약방에는 다시 약 달이는 냄새가 가득했다."},
+	{"who": "", "text": "어느 날, {name|은} 약방 맨 안쪽 서랍에서 기름종이에 싼 책 한 권을 찾아냈다.\n꼬부랑 서양 글씨 옆에, 허 의원의 붓글씨 번역이 빼곡히 적혀 있었다."},
 	{"who": "", "text": "'화란 상인에게 얻은 해부서. 사람 몸속을 이리 자세히 그리다니.\n…언젠가 저 나라에 가서, 이 의술을 직접 배워 보고 싶구나.'"},
 	{"who": "{name}", "pose": "hero", "text": "의원님이 끝내 못 가 본 곳… 화란.\n…의원님 대신, 제가 가서 배워 올게요."},
 	{"who": "{name}", "pose": "hero", "text": "(…서휘도 그 나라에 있을까. 아니, 그건 핑계가 아니야.)"},
-	{"who": "{name}", "pose": "hero", "text": "…이제 조선에 내가 고칠 사람은 다 고쳤어.\n의원님이 보지 못한 넓은 세상을, 의원님 대신 보고 싶어."},
+	{"who": "{name}", "pose": "hero", "text": "…이제 다시 걸을 수 있어요.\n의원님이 보지 못한 넓은 세상을, 의원님 대신 보고 싶어."},
 	{"bg": "palace", "who": "", "text": "경복궁 강녕전. {name|은} 임금 앞에 엎드렸다."},
 	{"who": "임금", "pose": "king", "text": "바다 건너 화란까지 의술을 배우러 가겠다고? 아니 된다.\n그대는 이 나라의 어의다. 궁을 비우는 것을 허락할 수 없노라."},
 	{"who": "{name}", "pose": "hero", "text": "전하…"},
@@ -1053,6 +1084,7 @@ const CH6F_INTRO := [
 	{"who": "다래", "pose": "darae_court", "text": "…해 볼게. 너 없는 동안 궁은 내가 지킬게!"},
 	{"who": "{name}", "pose": "hero", "text": "그럼 첫 수업은 산에서 하자.\n약초는 책보다 산에서 배우는 거라고, 의원님이 그러셨거든."},
 	{"who": "", "text": "【목표】\n다래와 함께 북한산에 올라 약초를 가르치며\n산마루 약초밭까지 가라."},
+
 ]
 
 const C6F_LESSON := [
@@ -1760,7 +1792,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK, "C7_SICK_B": C7_SICK_B,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_LEAVE2": C9_LEAVE2, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6_RAIN": C6_RAIN, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_LEAVE2": C9_LEAVE2, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_NEWDEN": C3_NEWDEN, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
