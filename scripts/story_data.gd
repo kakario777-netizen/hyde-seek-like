@@ -1421,12 +1421,9 @@ const C9_MEM := [
 const CH9_END := [
 	{"ifnot": "wed_dogyeol", "bg": "new_home", "who": "", "text": "남산 아래 볕 잘 드는 언덕.\n혼례 전 여름 내내 서휘가 손수 고쳐 둔 작은 한옥이 둘을 기다리고 있었다."},
 	{"if": "wed_dogyeol", "bg": "new_home", "who": "", "text": "남산 아래 볕 잘 드는 언덕.\n혼례 전 여름 내내 윤도결이 손수 고쳐 둔 작은 한옥이 둘을 기다리고 있었다."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "…떠돌던 놈한테 돌아올 집이 생겼군.
-마당엔 약초밭을 내자. 아이들이 뛰놀 자리도."},
-	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "포도청에서 반 각이면 닿는 자리다.
-…비번 날엔 내가 마당에 약초밭을 일구지."},
-	{"who": "{name}", "pose": "hero_adult", "text": "대문 위엔 현판을 걸 거예요.
-누구 이름을 걸지는… 벌써 정해 뒀어요."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pose": "seohwi", "text": "…떠돌던 놈한테 돌아올 집이 생겼군.\n마당 약초밭도, 아이들 뛰놀 자리도 다 마련해 뒀다."},
+	{"if": "wed_dogyeol", "who": "윤도결", "pose": "jongsagwan_smile", "text": "포도청에서 반 각이면 닿는 자리다.\n…비번 날마다 와서 마당 약초밭도 일궈 뒀다."},
+	{"who": "{name}", "pose": "hero_adult", "text": "대문 위 현판도 벌써 걸어 뒀어요.\n누구 이름인지는… 들어가면서 보면 알 거예요."},
 	{"bg": "podocheong", "who": "", "text": "그리고 몇 해가 흘렀다.\n서휘는 공을 쌓아 도성 서쪽을 맡는 우포도대장이 되었다.\n윤도결은 좌포도대장으로, 둘은 나란히 도성의 밤을 지켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "오늘은 내 쪽에서 도적을 더 잡았다. 열둘이다."},
 	{"who": "서휘", "pose": "seohwi_chief", "text": "숫자는 그쪽이 많지만, 거물은 내가 잡았지. 마포 밀수패 우두머리 하나."},
