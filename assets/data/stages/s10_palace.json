@@ -167,7 +167,7 @@
    "x": -13,
    "y": -18,
    "type": "boss",
-   "battle": "jeong_shadow1",
+   "battle": "henchman_chief",
    "pre": "C10_JEONG1_PRE",
    "post": "C10_JEONG1_POST"
   },
