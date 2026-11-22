@@ -33,6 +33,7 @@ const CHAPTERS := {
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
+			{"map": "s4_h", "goal": "장마가 오기 전에\n아이들 약에 쓸 약초를 모아라.", "name": "아이들 약초 캐기", "after": "C4_RAINY", "ally": "", "errand": ["도라지", "감초", "금은화"]},
 			{"map": "s4_1", "goal": "쏟아지는 비를 뚫고 청계천을 지나\n소굴로 돌아가라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "비 오는 청계천", "after": "C4_STREAM", "ally": ""},
 			{"map": "s4_2", "goal": "서휘와 함께 군산 포구를 뒤져\n대대장의 돈이 흘러간 흔적을 찾아라.", "name": "군산 포구 뒤지기", "after": "C4_CLUE", "ally": "seohwi"},
 			{"map": "s4_3", "goal": "서휘와 함께\n지리산 화엄골, 백운의 성 앞까지 가라.", "name": "화엄골 가는 길", "after": "C4_CASTLE", "ally": "seohwi",
@@ -198,9 +199,14 @@ const C4_PLAGUE := [
 	{"who": "", "text": "{alias|은} 낮에는 다리 밑 아이들의 상처를 돌보고, 밤에는 허 의원의 처방을 몇 번이고 되짚었다.\n서휘는 등잔 아래서 장부를 한 장 한 장 넘겼다."},
 	{"who": "서휘", "pose": "seohwi", "text": "찾았다. 대대장 은자가 군산 포구 객주로 흘러갔다.\n…배가 뜨면 거기부터 간다."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "네. 그때까지 아이들 약은 넉넉히 달여 둘게요."},
-	{"bg": "jangteo", "music": "night", "who": "", "text": "그리고 장마가 시작된 어느 저녁.\n운종가로 약재를 사러 나간 사이, 하늘이 시커멓게 내려앉았다."},
-	{"who": "서휘", "pose": "seohwi", "text": "…큰비가 오겠군. 다리 밑 아이들이 걱정된다.\n물이 불기 전에 짐부터 옮겨 놔야겠다."},
-	{"who": "서휘", "pose": "seohwi", "text": "넌 약재 챙겨서 천천히 와라. 소굴에서 보자."},
+	{"who": "밤톨", "pose": "bamtol", "text": "의원 형님, 막내가 또 기침해요.\n장마 들면 다들 고뿔 걸린다고요…"},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "그럼 장마 오기 전에 약초를 넉넉히 캐 두자.\n도라지랑 감초, 금은화… 남산 기슭이면 다 있을 거야."},
+	{"who": "", "text": "【목표】\n장마가 오기 전에\n아이들 약에 쓸 약초를 모아라."},
+]
+
+const C4_RAINY := [
+	{"bg": "mountain", "music": "night", "who": "", "text": "약초 바구니가 가득 찼을 무렵, 하늘이 시커멓게 내려앉았다.\n장마가 시작된 것이다."},
+	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "(큰비가 오겠어…! 다리 밑 아이들, 물이 불기 전에 옮겨야 할 텐데.\n서휘가 먼저 움직였겠지만… 서둘러 돌아가야 해.)"},
 ]
 
 const CH2_GOAL := [
@@ -1819,7 +1825,7 @@ const ALL := {
 	"C7_SICK": C7_SICK, "C7_SICK_B": C7_SICK_B,
 	"C3_HEUK": C3_HEUK,
 	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6_RAIN": C6_RAIN, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_LEAVE2": C9_LEAVE2, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
-	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
+	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "C4_RAINY": C4_RAINY, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_NEWDEN": C3_NEWDEN, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,

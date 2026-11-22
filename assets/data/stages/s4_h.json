@@ -1,0 +1,298 @@
+{
+ "id": "s4_h",
+ "name": "아이들 약초 캐기",
+ "tile": "grass",
+ "bg": "mountain",
+ "turns": 20,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "walpae"
+  },
+  {
+   "x": -1,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -3,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -6,
+   "type": "spike"
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -7,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -5,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -9,
+   "type": "debuff"
+  },
+  {
+   "x": -5,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -10,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -10,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -11,
+   "type": "buff"
+  },
+  {
+   "x": -8,
+   "y": -12,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -8,
+   "y": -14,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -9,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -14,
+   "type": "shop"
+  },
+  {
+   "x": -11,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -14,
+   "type": "buff"
+  },
+  {
+   "x": -12,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -12,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -16,
+   "type": "buff"
+  },
+  {
+   "x": -14,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -14,
+   "y": -17,
+   "type": "rest"
+  },
+  {
+   "x": -14,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -18,
+   "type": "item"
+  },
+  {
+   "x": -17,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -19,
+   "type": "empty"
+  },
+  {
+   "x": -17,
+   "y": -20,
+   "type": "debuff"
+  },
+  {
+   "x": -17,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -21,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -20,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -22,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -20,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -20,
+   "y": -24,
+   "type": "debuff"
+  },
+  {
+   "x": -20,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -25,
+   "type": "spike"
+  },
+  {
+   "x": -22,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -27,
+   "type": "debuff"
+  },
+  {
+   "x": -22,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -29,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -14,
+   "y": -16,
+   "at": 30,
+   "zone": [
+    30
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -8,
+   "y": -13,
+   "at": 21,
+   "zone": [
+    20,
+    21,
+    22
+   ],
+   "kind": "pojol",
+   "on_path": true
+  }
+ ]
+}
