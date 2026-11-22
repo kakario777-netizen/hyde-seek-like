@@ -148,6 +148,20 @@ func _gui_input(event: InputEvent) -> void:
 func _advance() -> void:
 	if waiting_choice or ended:
 		return
+	if chapter_card != null:
+		if card_lock:
+			return
+		var c := chapter_card
+		chapter_card = null
+		var tw := create_tween()
+		tw.tween_property(c, "modulate:a", 0.0, 0.35)
+		tw.tween_callback(c.queue_free)
+		box.visible = true
+		if lines[idx].get("end", false):
+			_finish()
+		else:
+			_next()
+		return
 	if not typing:
 		main.sfx("page", -6.0)
 	if typing:
@@ -209,6 +223,10 @@ func _next() -> void:
 	else:
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
 		box.offset_top = -BOX_H; box.offset_bottom = -16
+	var raw: String = line["text"]
+	if raw.begins_with("― ") and raw.ends_with(" ―"):   # 장 제목: 한눈에 보이는 큰 제목 판
+		_show_chapter_card(raw.substr(2, raw.length() - 4))
+		return
 	var goal: bool = line["text"].begins_with("【목표】")
 	if goal:
 		main.last_goal = line["text"].trim_prefix("【목표】").strip_edges()
@@ -227,6 +245,72 @@ func _next() -> void:
 	if goal:   # 목표 판은 한 번 누르면 바로 넘어가게
 		typing = false
 		text_lbl.visible_ratio = 1.0
+
+var chapter_card: Control = null
+var card_lock := false
+
+## 장이 바뀔 때: 화면 가운데 큰 제목 판 ("제5장" + 「어의」)
+func _show_chapter_card(t: String) -> void:
+	box.visible = false
+	goal_panel.visible = false
+	_show_pose("")
+	typing = false
+	var head := t
+	var sub := ""
+	var k := t.find("「")
+	if k > 0:
+		head = t.substr(0, k).strip_edges()
+		sub = t.substr(k).strip_edges()
+	var root := Control.new()
+	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(root)
+	var dim := ColorRect.new()
+	dim.color = Color(0.05, 0.03, 0.02, 0.6)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(dim)
+	var pc := PanelContainer.new()
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("2a1a12f0")
+	sb.border_color = Color("d6aa50")
+	sb.set_border_width_all(6)
+	sb.set_corner_radius_all(18)
+	sb.content_margin_left = 60; sb.content_margin_right = 60
+	sb.content_margin_top = 56; sb.content_margin_bottom = 56
+	sb.shadow_color = Color(0, 0, 0, 0.5); sb.shadow_size = 18
+	pc.add_theme_stylebox_override("panel", sb)
+	pc.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pc.custom_minimum_size = Vector2(820, 0)
+	pc.set_anchors_preset(Control.PRESET_CENTER)
+	pc.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	pc.grow_vertical = Control.GROW_DIRECTION_BOTH
+	root.add_child(pc)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 18)
+	pc.add_child(vb)
+	var l1: Label = main.make_label(head, 56, Color("e9c97a"), true)
+	l1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(l1)
+	var line_r := ColorRect.new()
+	line_r.color = Color("d6aa50")
+	line_r.custom_minimum_size = Vector2(0, 3)
+	vb.add_child(line_r)
+	if sub != "":
+		var l2: Label = main.make_label(sub, 88, Color("fff4dc"), true)
+		l2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		vb.add_child(l2)
+	var tap: Label = main.make_label("화면을 누르면 계속합니다" if t.ends_with("끝") else "화면을 누르면 시작합니다", 26, Color("c9b08a"))
+	tap.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	vb.add_child(tap)
+	root.modulate.a = 0.0
+	chapter_card = root
+	card_lock = true
+	main.sfx("gong", -6.0)
+	var tw := create_tween()
+	tw.tween_property(root, "modulate:a", 1.0, 0.6)
+	tw.tween_interval(0.4)
+	tw.tween_callback(func(): card_lock = false)
 
 func _show_pose(pose: String) -> void:
 	if cur_bg in SCENE_ILLUST:
