@@ -191,9 +191,13 @@ const C4_PLAGUE := [
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "(…뭐지, 이건. 왜 가슴이 뛰는 거냐.\n저건 사내아이다. 그것도 쫓고 있는 도망자라고!)"},
 	{"who": "윤도결", "pic": "jongsagwan_blush", "text": "(사내아이를 보고 두근거리다니… 이러면 안 된다, 윤도결.\n정신 차려라. 도망자는 도망자다.)"},
 	{"who": "", "text": "(마을 사람들이 고맙다며 엽전과 약병을 쥐여 주었다.)", "coin": 6, "potion": 1},
-	{"who": "", "text": "마을을 나서는데, 먹구름이 몰려오며 빗방울이 듣기 시작했다."},
+	{"bg": "den", "music": "yakbang_day", "who": "", "text": "소굴로 돌아온 뒤, 보름 남짓한 날들이 조용히 흘렀다."},
+	{"who": "", "text": "{alias|은} 낮에는 다리 밑 아이들의 상처를 돌보고, 밤에는 허 의원의 처방을 몇 번이고 되짚었다.\n서휘는 장부를 뒤지며 대대장의 돈줄을 캐고 있었다."},
+	{"who": "서휘", "pose": "seohwi", "text": "대대장 은자가 남쪽 포구로 흘러간 흔적이 있다.\n…장마가 그치면 같이 내려가 보자."},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "네. 그때까지 아이들 약은 넉넉히 달여 둘게요."},
+	{"bg": "jangteo", "music": "night", "who": "", "text": "그리고 장마가 시작된 어느 저녁.\n운종가로 약재를 사러 나간 사이, 하늘이 시커멓게 내려앉았다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…큰비가 오겠군. 다리 밑 아이들이 걱정된다.\n물이 불기 전에 짐부터 옮겨 놔야겠다."},
-	{"who": "서휘", "pose": "seohwi", "text": "먼저 가 있어라. 일 끝나면 소굴에서 보자."},
+	{"who": "서휘", "pose": "seohwi", "text": "넌 약재 챙겨서 천천히 와라. 소굴에서 보자."},
 ]
 
 const CH2_GOAL := [
@@ -381,7 +385,7 @@ const CH4_INTRO := [
 ]
 
 const C4_STREAM := [
-	{"bg": "stream", "who": "", "pose": "hero_disguise", "text": "그날 밤, 장맛비가 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
+	{"bg": "stream", "who": "", "pose": "hero_disguise", "text": "그날 밤, 장맛비가 억수같이 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
 	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "안 돼!"},
 	{"who": "", "pose": "hero_disguise_surprised", "text": "{alias}는 망설임 없이 물에 뛰어들었다.\n아이를 둑으로 밀어 올린 순간, 거센 물살이 {alias}를 삼켰다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{alias}!!"},
