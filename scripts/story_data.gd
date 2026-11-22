@@ -44,7 +44,7 @@ const CHAPTERS := {
 		"goal_pre": "CH4_GOAL", "goal_battle": "baegun", "goal_ally": "seohwi",
 		"end_battle": "darae", "end_after": "CH4_AFTER_DUEL"},
 	5: {"title": "제5장  어의", "goal": "허 의원 약방", "intro": "CH5_INTRO", "end": "CH5_END",
-		"stages": [{"map": "s5_0", "foes": {"walpae": "walpae", "pojol": "mob"}, "name": "한양으로 돌아가는 길", "after": "CH5_SUMMON", "ally": "darae", "ally_chibi": "friend", "ally2_chibi": "seohwi_calm"},
+		"stages": [{"map": "s5_0", "foes": {"walpae": "walpae", "pojol": "mob"}, "name": "한양으로 돌아가는 길", "after": "CH5_SUMMON", "ally": ""},
 			{"map": "s5_g", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "경복궁 가는 길", "after": "CH5_PALACE", "ally": "dogyeol"},
 			{"map": "s5_1", "goal": "내의원을 돌며\n아픈 환자들을 돌봐라.", "foes": {"walpae": "mob", "pojol": "walpae"}, "name": "내의원 환자 돌보기", "after": "C5_HEAL"},
 			{"map": "s5_2", "goal": "종로 약재상을 돌며\n필요한 약재를 구해 와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "종로에서 약재 구하기", "after": "C5_SEOHWI"},
@@ -465,21 +465,21 @@ const CH4_AFTER_DUEL := [
 const CH5_INTRO := [
 	{"bg": "mungyeong_pass", "who": "", "text": "― 제5장 「어의」 ―"},
 	{"who": "", "text": "백운은 윤도결과 포졸들에게 이끌려 먼저 한양으로 압송되었다.\n성에 붙잡혀 있던 화엄골 사람들도 하나둘 제 집으로 돌아갔다."},
-	{"who": "다래", "pose": "friend", "text": "{name|아}, 우리도 이제 한양으로 가자.\n의원님 해독약 처방, 얼른 써 봐야지!"},
-	{"who": "서휘", "pose": "seohwi", "text": "나도 한양까지는 같이 간다.\n다리 밑 아이들이 기다리고 있을 테니까."},
-	{"who": "{name}", "pose": "hero_disguise", "text": "…응. 셋이서 같이 가자.\n의원님이 기다리고 계셔."},
-	{"who": "", "text": "【목표】\n다래, 서휘와 함께 지리산을 내려가\n한양 도성까지 돌아가라.", "end": true},
+	{"who": "서휘", "pose": "seohwi", "text": "나는 먼저 간다. 다리 밑 아이들이 며칠째 굶고 있을지 몰라.\n…한양에서 보자, 의원."},
+	{"who": "", "text": "서휘는 그 길로 산을 내려갔다. 뒤도 돌아보지 않는 걸음이었다."},
+	{"who": "다래", "pose": "friend_worried", "text": "{name|아}, 나는… 며칠만 더 여기 있을게.\n할아버지 초당도 정리하고, 성에서 풀려난 마을 사람들도 좀 돌봐야 하니까."},
+	{"who": "다래", "pose": "friend", "text": "너는 얼른 한양 가서 의원님 해독약부터 써 봐.\n금방 뒤따라갈게. 약속!"},
+	{"who": "{name}", "pose": "hero_disguise", "text": "…응. 의원님이 기다리고 계셔.\n다래야, 꼭 와야 해."},
+	{"who": "", "text": "【목표】\n홀로 지리산을 내려가\n한양 도성까지 돌아가라.", "end": true},
 ]
 
 const CH5_SUMMON := [
 	{"bg": "jangteo", "who": "", "text": "며칠 뒤, 한양."},
 	{"who": "", "text": "청안파와 그 대대장을 쓰러뜨린 소녀 의원.\n왈패를 때려잡은 약방 아이의 소문은 바람보다 빨리 팔도에 퍼졌다."},
-	{"who": "", "text": "장터 사람들이 셋을 보고 웅성거리는데, 낯익은 얼굴이 다가왔다."},
+	{"who": "", "text": "장터 사람들이 {name|을} 보고 웅성거리는데, 낯익은 얼굴이 다가왔다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 기다리고 있었다.\n너의 누명은 모두 벗겨졌다. 그리고… 전하께서 너를 부르신다."},
 	{"who": "", "text": "그 사건의 공으로 윤도결은 포도청을 이끄는 포도대장이 되었다."},
-	{"who": "다래", "pose": "friend", "text": "전하께서?! {name|아}, 얼른 가 봐!\n나는 먼저 약방에 가서 의원님 살펴보고 있을게."},
-	{"who": "서휘", "pose": "seohwi", "text": "나는 다리 밑으로 간다.\n…아이들 얼굴부터 봐야겠어. 무슨 일 있으면 찾아와라, 의원."},
-	{"who": "", "text": "다래는 약방 쪽으로, 서휘는 청계천 쪽으로 각자 발걸음을 옮겼다."},
+	{"who": "{name}", "pose": "hero", "text": "전하께서… 저를요?"},
 	{"who": "", "text": "【목표】\n윤도결과 함께 경복궁 강녕전까지 가라.", "end": true},
 ]
 
@@ -489,6 +489,7 @@ const CH5_PALACE := [
 	{"flag": "court", "who": "임금", "pose": "king", "text": "내 그대를 내의원의 의녀로 삼고, 특별히 어의의 소임을 맡기겠노라.\n청심보명단에 상한 백성들을 고쳐 다오."},
 	{"who": "{name}", "pose": "hero", "text": "황공하옵니다, 전하.\n…다만 한 가지 청이 있사옵니다. 제 동무 다래도 궁에 함께 들게 해 주시옵소서."},
 	{"who": "임금", "pose": "king", "text": "허허, 어의의 첫 청이 동무 걱정이라. 좋다, 허락하노라.\n그 아이를 궁녀로 들여 그대 곁에 두도록 하라."},
+	{"who": "", "text": "며칠 뒤, 지리산에서 다래가 한양에 올라왔다."},
 	{"music": "darae_cheer", "who": "다래", "pose": "darae_court", "text": "헤헤, 궁녀복 어때? 이제 매일 같이 있을 수 있어!\n약초 캐는 건 여전히 내가 최고니까, 필요하면 언제든 불러!"},
 	{"who": "", "text": "그날부터 {name|은} 궁녀들의 고뿔부터 늙은 내관의 허리병,\n대비마마의 오랜 두통까지 하나하나 고쳐 나갔다."},
 	{"who": "임금", "pose": "king", "text": "궁 안 사람들이 모두 그대 칭찬이로다.\n내의원 약재 창고를 모두 열어 줄 터이니, 마음 상한 백성들을 고칠 약을 만들어 보라."},
