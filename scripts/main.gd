@@ -1389,7 +1389,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	dim.color = Color(0.08, 0.05, 0.03, 0.3 if bt else 0.62)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	layer.add_child(dim)
-	var pt: Texture2D = illust(pic) if pic != "" and not (bg in ["wedding", "family", "wedding_dogyeol", "family_dogyeol"]) else null
+	var pt: Texture2D = illust(pic) if pic != "" and title != "전투" and not (bg in ["wedding", "family", "wedding_dogyeol", "family_dogyeol"]) else null
 	var fig: AspectRatioContainer = null
 	if pt:
 		# 인물은 발끝이 대화창 바로 위에 닿게 (아래 정렬)
@@ -1411,7 +1411,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 		tag_placeholder(r, pic)
 		create_tween().tween_property(fig, "modulate:a", 1.0, 0.4)
 	var center: Container
-	if pt and title != "전투":   # 전신 인물이 나올 때만 대화창을 아래로, 아니면 가운데 (싸우기 직전 창은 늘 가운데)
+	if pt:   # 전신 인물이 나올 때만 대화창을 아래로, 아니면 가운데 (싸우기 직전 창은 그림 없이 가운데)
 		# 그림이 있는 대화창은 화면 맨 아래에
 		var col := VBoxContainer.new()
 		col.alignment = BoxContainer.ALIGNMENT_END
