@@ -217,11 +217,11 @@ func _make_token() -> Control:
 		token_pic.flip_h = _node_px(pos + 1).x < _node_px(pos).x
 	return root
 
-## 바닷길에서는 사람 대신 배가 움직인다 — 연경 바로 옆 산둥 해안을 떠난 뒤부터 화란에 닿기 전까지
+## 바닷길에서는 사람 대신 배가 움직인다 — 등주 포구을 떠난 뒤부터 화란에 닿기 전까지
 ## (지도에서 광주 항구 앞뒤 길도 바다 위로 그려져 있어서, 항구가 아니라 해안을 기준으로 삼는다)
 func _near_yanjing(i: int) -> bool:
 	for k in nodes.size():
-		if str(nodes[k].get("name", "")) == "연경(청)":
+		if str(nodes[k].get("name", "")) == "등주(청)":
 			return abs(k - i) <= 1
 	return false
 
@@ -229,7 +229,7 @@ func _at_sea(i: int) -> bool:
 	var yj := -1; var holland := -1
 	for k in nodes.size():
 		var nm := str(nodes[k].get("name", ""))
-		if nm == "연경(청)": yj = k
+		if nm == "등주(청)": yj = k
 		elif nm == "화란": holland = k
 	if yj < 0 or holland < 0:
 		return false
@@ -468,7 +468,7 @@ func _resolve() -> void:
 			var pool: Array = cfg.get("talks", StoryData.talks(main.chapter))
 			if _at_sea(pos):   # 바다 위에선 마을 사람 대신 배 안 사람들 (그림 없이)
 				pool = StoryData.SEA_TALKS + (StoryData.SEA_TALKS_HOME if main.chapter >= 9 else [])
-			elif main.chapter >= 9 and _near_yanjing(pos):   # 돌아오는 길 청나라 해안: 연경 약재 상인
+			elif main.chapter >= 9 and _near_yanjing(pos):   # 돌아오는 길 청나라 해안: 등주 약재 상인
 				pool = StoryData.SHORE_TALKS
 			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
