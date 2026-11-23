@@ -327,7 +327,9 @@ func _show_pose(pose: String) -> void:
 	portrait.texture = t
 	# 키 비율: 발끝은 그대로, 위쪽만 줄임
 	var fsc: float = main.fig_scale(pose)
-	portrait.offset_top = -BOX_H + 60 - 1040.0 * fsc
+	var lift := 68.0 if pose == "dutch_child_sick" else 0.0   # 주저앉은 아이: 발이 대화창 바로 위에 보이게
+	portrait.offset_bottom = -BOX_H + 60 - lift
+	portrait.offset_top = -BOX_H + 60 - lift - 1040.0 * fsc
 	var old := portrait.get_node_or_null("PlaceholderTag")
 	if old:
 		old.queue_free()
