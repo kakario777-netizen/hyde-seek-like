@@ -1800,7 +1800,7 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 		return goods_count(g["id"])
 	var show_have := func():
 		var n: int = have_n.call()
-		have.text = "" if n < 0 else "가진 것 %d" % n
+		have.text = "" if n < 0 else "(가진 것 %d)" % n
 	show_have.call()
 	top.add_child(have)
 	var d := make_label(g["desc"], 21, INK_SOFT)
