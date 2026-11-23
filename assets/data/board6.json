@@ -107,9 +107,25 @@
   {
    "x": 0.6741,
    "y": 0.6251,
-   "type": "story",
-   "sid": "C7_ISLAND",
-   "name": "바타비아"
+   "type": "voyage",
+   "name": "바타비아",
+   "pre": "C7_ISLAND_PRE",
+   "pre_text": "아이 동생에게 쓸 약재를 모으며\n마을 안쪽 오두막까지 가야 한다.",
+   "stage": {
+    "map": "v_batavia",
+    "name": "바타비아 섬마을",
+    "bg": "island",
+    "after": "C7_ISLAND",
+    "foes": {
+     "walpae": "rat",
+     "pojol": "rat"
+    },
+    "errand": [
+     "생강",
+     "구아바 잎",
+     "맑은 샘물"
+    ]
+   }
   },
   {
    "x": 0.6604,
@@ -328,8 +344,32 @@
   {
    "x": 0.0444,
    "y": 0.4022,
-   "type": "empty",
-   "name": "카나리아 제도"
+   "type": "voyage",
+   "name": "카나리아 제도",
+   "pre": "C7_CANARY_PRE",
+   "pre_text": "열병 난 일꾼들을 돌보며\n언덕 위 약초집까지 가야 한다.",
+   "stage": {
+    "map": "v_canary",
+    "name": "카나리아 사탕수수밭",
+    "bg": "canary_island",
+    "after": "C7_CANARY",
+    "foes": {
+     "walpae": "haejeok",
+     "pojol": "haejeok"
+    },
+    "patients": 3,
+    "patient_pic": "dutch_sick_man",
+    "patient_who": "열병 난 일꾼",
+    "patient_text": "(일꾼이 끓는 이마를 짚고, 바싹 마른 입술을 가리킨다.)\n으으… 아구아… 아구아…",
+    "talks": [
+     {
+      "who": "약초 할머니",
+      "pic": "maria_healer",
+      "text": "(약초 바구니를 든 할머니가 쓰러진 일꾼들을 가리키더니,\n언덕 위 하얀 집을 가리키며 손짓한다. 저리로 오라는 듯하다.)",
+      "potion": 1
+     }
+    ]
+   }
   },
   {
    "type": "rest",

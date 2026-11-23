@@ -68,8 +68,9 @@
   {
    "x": 0.0444,
    "y": 0.4022,
-   "type": "empty",
-   "name": "카나리아 제도"
+   "type": "story",
+   "name": "카나리아 제도",
+   "sid": "C9_CANARY_RET"
   },
   {
    "x": 0.0283,

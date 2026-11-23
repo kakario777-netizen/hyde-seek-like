@@ -705,18 +705,61 @@ const C7_PORT := [
 	{"who": "", "text": "(선의 자리를 얻었다: 엽전 +5냥, 약병 +1)", "coin": 5, "potion": 1},
 ]
 
-const C7_ISLAND := [
+const C7_ISLAND_PRE := [
 	{"who": "", "bg": "island", "text": "배가 물을 채우러 남쪽 섬 바타비아에 닿았다.\n숨이 막힐 듯 더운 한낮."},
 	{"who": "섬마을 아이", "pic": "island_child_sad", "text": "의원님…? 우리 동생이 며칠째 열이 나고 배가 아파요.\n아무도 못 고쳐요…"},
-	{"who": "{alias}", "pic": "hero_disguise", "text": "가 보자.\n…더위를 먹은 데다 물이 나빠서 탈이 났구나.",
+	{"who": "{alias}", "pic": "hero_disguise", "text": "집이 어디니? 가는 길에 약재부터 구해 가자.\n배를 덥히는 생강, 설사를 멎게 하는 잎… 그리고 맑은 물."},
+]
+
+const C7_ISLAND := [
+	{"who": "", "bg": "island", "text": "야자수 숲 너머, 마을 안쪽 작은 오두막.\n아이의 동생이 거적 위에서 배를 움켜쥐고 있었다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "…더위를 먹은 데다 물이 나빠서 탈이 났구나.\n모아 온 약재를 달이자.",
 		"choices": [{"text": "아껴 둔 귀한 약을 아이에게 쓴다", "set": "c7_gave"}, {"text": "약초만 달여 주고 귀한 약은 아껴 둔다", "set": ""}]},
 	{"if": "c7_gave", "who": "", "text": "{alias}는 품에 아껴 둔 약을 아이의 입에 흘려 넣었다.\n저녁 무렵, 아이가 눈을 뜨고 배시시 웃었다."},
 	{"if": "c7_gave", "who": "섬마을 아이", "pic": "island_child", "text": "이거, 할머니가 준 행운의 부적이에요.\n의원님이 가져가요!"},
 	{"if": "c7_gave", "who": "", "text": "(섬 아이의 부적: 최대 체력 +8)", "maxhp": 8},
 	{"ifnot": "c7_gave", "who": "", "text": "밤새 달인 약초 물에 아이의 열이 천천히 내렸다.\n아이 어머니가 말린 열매를 한 바구니 내밀었다."},
 	{"ifnot": "c7_gave", "who": "", "text": "(말린 열매: 체력 +10)", "heal": 10},
+	{"who": "", "text": "{alias|은} 마을 우물물을 한 바가지 떠 보았다. 누런 흙탕물이었다.\n탈이 난 건 이 아이만이 아닐 것이다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "물은 꼭 이렇게, 펄펄 끓였다가 식혀서 마셔요.\n…알겠죠? 끓여서!"},
+	{"who": "", "text": "마을 사람들이 솥 주위로 모여들어,\n김이 오르는 물을 보며 하나둘 고개를 끄덕였다."},
 	{"who": "섬마을 아이", "pic": "island_child", "text": "고마워요, 의원님!\n…아, 저 배 선원들이 그러는데, 화란 바닷가 마을에 무서운 병이 돈대요."},
 	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(역병…? 서휘가 있는 곳일지도 몰라.\n서둘러야 해.)"},
+]
+
+# ── 카나리아 제도 (가는 길: 사탕수수밭 맵 / 돌아오는 길: 이야기 칸) ──
+const C7_CANARY_PRE := [
+	{"who": "", "bg": "canary_island", "text": "배가 물과 식량을 싣느라 화산섬 카나리아에 닻을 내렸다.\n섬 한가운데 눈 덮인 봉우리가 구름 위로 솟아 있었다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님! 큰일 났어요.\n섬 사탕수수밭 일꾼들이 열병으로 줄줄이 쓰러졌대요!"},
+	{"who": "선장", "pic": "dutch_captain", "text": "섬엔 약초 할멈 하나뿐이라더군.\n…게다가 일손 빠진 틈을 타 해적 졸개들까지 창고를 털러 들어왔다네."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "물 싣는 동안만이라도 다녀올게요.\n아픈 사람들을 두고 그냥 지나칠 순 없어요."},
+]
+
+const C7_CANARY := [
+	{"who": "", "bg": "canary_island", "text": "언덕 위, 하얀 회벽의 작은 약초집.\n마당 한가운데 우산처럼 가지를 펼친 거대한 나무가 서 있었다."},
+	{"who": "약초 할머니", "pic": "maria_healer", "text": "……! ……?\n(할머니가 빠르게 무어라 묻는다. 한마디도 알아들을 수 없다.)"},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "(말은 안 통해도… 약재는 통하겠지.)"},
+	{"who": "", "text": "{alias|은} 보따리에서 감초 한 조각을 꺼내 보였다.\n할머니는 냄새를 맡아 보더니, 버드나무 껍질 다발을 내밀었다."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "버드나무 껍질… 열을 내리는 거군요.\n여기에 감초를 더하면, 쓴맛도 덜고 기운도 북돋을 거예요."},
+	{"who": "", "text": "둘은 해 질 녘까지 말 한마디 없이,\n손짓과 약재만으로 일꾼들의 탕약을 함께 달였다."},
+	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "마리아.\n(할머니가 제 가슴을 두드리며 웃더니, 마당의 큰 나무 앞으로 이끌었다.)"},
+	{"who": "", "text": "할머니가 나무껍질에 칼집을 내자,\n핏빛 진이 천천히 배어 나왔다."},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "이건… 혈갈(血竭)!\n조선에선 금보다 귀한 약재인데, 이런 나무에서 나는 거였구나!"},
+	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "(할머니가 굳은 진 한 덩이를 손바닥에 올려 내민다.)"},
+	{"who": "", "text": "{alias|은} 남은 감초를 할머니의 약장 한 칸에 넣어 두고 배로 돌아왔다."},
+	{"who": "", "text": "(마리아 할머니의 혈갈: 약병 +1 · 최대 체력 +5)", "potion": 1, "maxhp": 5},
+]
+
+const C9_CANARY_RET := [
+	{"bg": "canary_island", "who": "", "text": "다시 찾은 카나리아. 부두에 닿자,\n지팡이를 짚은 할머니가 느릿느릿 마중을 나와 있었다."},
+	{"who": "마리아 할머니", "pic": "maria_healer", "text": "……?\n(할머니가 머리를 길게 늘어뜨린 {name}의 얼굴을 한참 들여다본다.)"},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "할머니, 저예요.\n그때 혈갈을 주셨던…"},
+	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "……!\n(할머니가 활짝 웃으며 {name}의 손바닥에 제 손바닥을 마주 댔다.)"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 섬 말은 서툴지만, 대강은 알아듣겠군.\n네가 놓고 간 감초 덕에, 그해 겨울 마을 기침병을 이겨 냈다는구나."},
+	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "(할머니가 작은 화분 하나를 내밀며 무어라 말했다.)"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "'당신 나라 약장 한 칸에, 우리 섬 약도 하나 넣어 두라'고 한다.\n…용혈수 묘목이군."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "고맙습니다, 마리아 할머니.\n조선 약방 마당에 꼭 심을게요."},
+	{"who": "", "text": "(마리아 할머니의 선물: 체력 +15 · 약병 +1)", "heal": 15, "potion": 1},
 ]
 
 const C7_PIRATE_PRE := [
@@ -1829,7 +1872,7 @@ const ALL := {
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_NEWDEN": C3_NEWDEN, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
 	"CH5_INTRO": CH5_INTRO, "CH5_PALACE": CH5_PALACE, "CH5_SUMMON": CH5_SUMMON, "CH5_REUNION": CH5_REUNION, "C5_LESSON_END": C5_LESSON_END, "C5_HEAL": C5_HEAL, "C5_SEOHWI": C5_SEOHWI, "C5_HASUO": C5_HASUO,
-	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_SEA_PRE": C7_SEA_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
+	"CH6_INTRO": CH6_INTRO, "C6_STORM": C6_STORM, "C7_FERRY": C7_FERRY, "C7_YANJING_PRE": C7_YANJING_PRE, "C7_YANJING_POST": C7_YANJING_POST, "C7_PORT_PRE": C7_PORT_PRE, "C7_SEA_PRE": C7_SEA_PRE, "C7_PORT": C7_PORT, "C7_ISLAND": C7_ISLAND, "C7_ISLAND_PRE": C7_ISLAND_PRE, "C7_CANARY_PRE": C7_CANARY_PRE, "C7_CANARY": C7_CANARY, "C9_CANARY_RET": C9_CANARY_RET, "C7_PIRATE_PRE": C7_PIRATE_PRE, "C7_PIRATE_POST": C7_PIRATE_POST, "CH6_END": CH6_END,
 	"CH7_INTRO": CH7_INTRO, "C7_MEET": C7_MEET, "C7_MID": C7_MID, "C7_NIGHT_B": C7_NIGHT_B, "C7_NIGHT": C7_NIGHT, "CH7_END": CH7_END, "EPILOGUE": EPILOGUE, "C5_DOGYEOL": C5_DOGYEOL, "CH5_GOAL": CH5_GOAL, "CH5_END": CH5_END,
 }
 
