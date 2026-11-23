@@ -1437,12 +1437,12 @@ func _resolve() -> void:
 				main.popup("길섶에서 약초 주머니를 주웠다!\n곧 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", func(): _after_land(false), "약초")
 			return
 		"buff":
-			_clear(pos); _apply_event(_pick_ev(GameData.SEA_BUFFS if _on_deck() else GameData.BUFFS)); return
+			_clear(pos); _apply_event(_deck_ev(_pick_ev(GameData.SEA_BUFFS if _on_deck() else GameData.BUFFS))); return
 		"debuff":
-			_clear(pos); _apply_event(_pick_ev(GameData.SEA_DEBUFFS if _on_deck() else GameData.DEBUFFS)); return
+			_clear(pos); _apply_event(_deck_ev(_pick_ev(GameData.SEA_DEBUFFS if _on_deck() else GameData.DEBUFFS))); return
 		"trap":
 			comp_say("trap")
-			_clear(pos); _apply_event(main.pick_event(GameData.SEA_TRAPS if _on_deck() else GameData.TRAPS)); return
+			_clear(pos); _apply_event(_deck_ev(main.pick_event(GameData.SEA_TRAPS if _on_deck() else GameData.TRAPS))); return
 		"rest":
 			_clear(pos); _apply_event(main.rest_event(data.get("bg", ""))); return
 		"shop":
@@ -1536,6 +1536,14 @@ const BLOCK_REPLY := {
 ## 배 갑판 맵(바다 위)일 때
 func _on_deck() -> bool:
 	return str(stage_cfg.get("bg", data.get("bg", ""))) == "deck"
+
+## 갑판 맵에선 남은 '날' 대신 남은 '시각'
+func _deck_ev(ev: Dictionary) -> Dictionary:
+	if not _on_deck():
+		return ev
+	var e := ev.duplicate()
+	e["text"] = str(e.get("text", "")).replace("남은 날", "남은 시각").replace("하루를 잃었다", "시간을 잃었다")
+	return e
 
 const SEA_BLOCK_LINES := {
 	"haejeok": "갈고리를 건 해적 졸개들이 갑판으로 기어올랐다!\n\"배에 실린 건 전부 우리 거다!\"",
