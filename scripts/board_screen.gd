@@ -105,6 +105,7 @@ func _ready() -> void:
 		if cleared.has(i):
 			m.modulate = Color(0.7, 0.68, 0.65, 0.6)
 
+	_place_plaques.call_deferred()
 	token = _make_token()
 	token.position = _node_px(pos)
 	world.add_child(token)
@@ -190,7 +191,40 @@ func _make_marker(i: int) -> Control:
 		p.add_child(l)
 		p.position = Vector2(-70, sz.y / 2 + 2)
 		m.add_child(p)
+		m.set_meta("plaque", p)
+		m.set_meta("half", sz.y / 2)
 	return m
+
+## 이름패는 칸·다른 이름패와 겹치지 않는 자리(아래 → 위 → 오른쪽 → 왼쪽 …)에 놓는다
+func _place_plaques() -> void:
+	await get_tree().process_frame
+	var blocks: Array[Rect2] = []
+	for i in markers:
+		var h: float = markers[i].get_meta("half", 27.0) if markers[i].has_meta("half") else (27.0 if _ntype(i) in ["goal", "start", "story", "boss", "voyage"] else 20.0)
+		var c := _node_px(i)
+		blocks.append(Rect2(c.x - h, c.y - h - 48, h * 2, h * 2 + 48))
+	for i in markers:
+		var m: Control = markers[i]
+		if not m.has_meta("plaque"):
+			continue
+		var p: PanelContainer = m.get_meta("plaque")
+		var w := p.size.x; var ph := p.size.y; var s: float = m.get_meta("half")
+		var c := _node_px(i)
+		var cands := [Vector2(-w / 2, s + 2), Vector2(-w / 2, -s - 52 - ph), Vector2(s + 6, -ph / 2), Vector2(-s - 6 - w, -ph / 2),
+			Vector2(s + 4, s + 2), Vector2(-s - 4 - w, s + 2), Vector2(s + 4, -s - 52 - ph), Vector2(-s - 4 - w, -s - 52 - ph),
+			Vector2(-w / 2, s + ph + 8), Vector2(s + 30, -ph / 2), Vector2(-s - 30 - w, -ph / 2)]
+		var best: Vector2 = cands[0]; var best_ov := INF
+		for o in cands:
+			var r := Rect2(c + o, Vector2(w, ph)).grow(2)
+			var ov := 0.0
+			for b in blocks:
+				ov += r.intersection(b).get_area()
+			if ov < best_ov:
+				best_ov = ov; best = o
+			if ov == 0.0:
+				break
+		p.position = best
+		blocks.append(Rect2(c + best, Vector2(w, ph)))
 
 func _make_token() -> Control:
 	var root := Control.new()
