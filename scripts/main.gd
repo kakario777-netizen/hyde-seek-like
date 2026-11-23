@@ -1411,7 +1411,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 		tag_placeholder(r, pic)
 		create_tween().tween_property(fig, "modulate:a", 1.0, 0.4)
 	var center: Container
-	if pt:   # 전신 인물이 나올 때만 대화창을 아래로, 아니면 가운데
+	if pt and title != "전투":   # 전신 인물이 나올 때만 대화창을 아래로, 아니면 가운데 (싸우기 직전 창은 늘 가운데)
 		# 그림이 있는 대화창은 화면 맨 아래에
 		var col := VBoxContainer.new()
 		col.alignment = BoxContainer.ALIGNMENT_END
