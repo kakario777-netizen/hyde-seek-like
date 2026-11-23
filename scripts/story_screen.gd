@@ -327,7 +327,7 @@ func _show_pose(pose: String) -> void:
 	portrait.texture = t
 	# 키 비율: 발끝은 그대로, 위쪽만 줄임
 	var fsc: float = main.fig_scale(pose)
-	var lift := 68.0 if pose == "dutch_child_sick" else 0.0   # 주저앉은 아이: 발이 대화창 바로 위에 보이게
+	var lift := _feet_lift(t, fsc)   # 발끝이 대화창 바로 위에 오도록
 	portrait.offset_bottom = -BOX_H + 60 - lift
 	portrait.offset_top = -BOX_H + 60 - lift - 1040.0 * fsc
 	var old := portrait.get_node_or_null("PlaceholderTag")
@@ -338,6 +338,19 @@ func _show_pose(pose: String) -> void:
 	create_tween().tween_property(portrait, "modulate:a", 1.0, 0.25)
 
 var type_acc := 0.0
+var _feet: Dictionary = {}
+
+## 그림 아래 투명 여백까지 따져, 발끝이 대화창 위 8px에 서도록 올릴 높이
+func _feet_lift(t: Texture2D, fsc: float) -> float:
+	if _feet.is_empty():
+		var j = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/fig_feet.json"))
+		_feet = j if j is Dictionary else {"_": 0}
+	var m: float = float(_feet.get(t.resource_path.get_file().get_basename(), 0.0))
+	var w: float = t.get_width(); var h: float = t.get_height()
+	var rw := 760.0; var rh := 1040.0 * fsc
+	var sc: float = min(rw / w, rh / h)
+	var gap: float = (rh - h * sc) / 2.0 + m * h * sc   # 그림 칸 바닥과 발끝 사이
+	return max(0.0, 68.0 - gap)
 
 func _process(delta: float) -> void:
 	if typing:
