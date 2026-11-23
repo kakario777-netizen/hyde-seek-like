@@ -928,7 +928,7 @@ func hero_pose() -> String:
 
 ## 한양 땅에 다시 발을 디딘 뒤(마지막 장 도착 장면부터) 어른 모습
 func grown() -> bool:
-	return chapter >= 10 or (chapter == 9 and (stage_idx >= 3 or flags.has("grown")))
+	return chapter >= 10 or (chapter == 9 and (stage_idx >= 4 or flags.has("grown")))   # 9장: 약초 들판·왕진·항구·만리길 뒤
 
 func token_name() -> String:
 	return "token_disguise" if disguised() else "token_hero"
