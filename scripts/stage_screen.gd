@@ -1356,6 +1356,8 @@ func _resolve() -> void:
 			main.sfx("alarm")
 			var podo: bool = stage_cfg.has("me_name")   # 서휘가 주인공인 맵(포도청 수련)
 			var bl: String = (PODO_LINES if podo else BLOCK_LINES).get(eid, "%s이(가) 길을 막아섰다!" % e["name"])
+			if _on_deck() and SEA_BLOCK_LINES.has(eid):
+				bl = SEA_BLOCK_LINES[eid]
 			var bparts: PackedStringArray = bl.split("\n", false, 1)
 			# 상황 설명은 이름 없이, 따옴표 대사만 그 사람 이름으로
 			# 상황 설명은 그림 없이 (그림이 있으면 그 사람이 말하는 것처럼 보임)
@@ -1363,7 +1365,10 @@ func _resolve() -> void:
 			if bparts.size() > 1:
 				talk.append({"who": e["name"], "pic": e["sprite"], "text": bparts[1].replace("\"", "")})
 			var disg: bool = main.disguised()
-			for ln in (PODO_REPLY.get(eid, PODO_REPLY["_"]) if podo else BLOCK_REPLY.get(eid, BLOCK_REPLY["_"])):
+			var replies: Array = PODO_REPLY.get(eid, PODO_REPLY["_"]) if podo else BLOCK_REPLY.get(eid, BLOCK_REPLY["_"])
+			if _on_deck() and SEA_BLOCK_REPLY.has(eid):
+				replies = SEA_BLOCK_REPLY[eid]
+			for ln in replies:
 				var l2: Dictionary = ln.duplicate()
 				if not str(l2["who"]).begins_with("{") and l2["who"] != "서휘":
 					# 상대 대사는 실제로 길을 막은 그 적의 이름·그림으로
@@ -1426,15 +1431,18 @@ func _resolve() -> void:
 			_clear(pos)
 			main.potions += 1
 			main.sfx("item")
-			main.popup("길섶에서 약초 주머니를 주웠다!\n곧 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", func(): _after_land(false), "약초")
+			if _on_deck():
+				main.popup(GameData.SEA_ITEM, "챙긴다", func(): _after_land(false), "약상자")
+			else:
+				main.popup("길섶에서 약초 주머니를 주웠다!\n곧 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", func(): _after_land(false), "약초")
 			return
 		"buff":
-			_clear(pos); _apply_event(_pick_ev(GameData.BUFFS)); return
+			_clear(pos); _apply_event(_pick_ev(GameData.SEA_BUFFS if _on_deck() else GameData.BUFFS)); return
 		"debuff":
-			_clear(pos); _apply_event(_pick_ev(GameData.DEBUFFS)); return
+			_clear(pos); _apply_event(_pick_ev(GameData.SEA_DEBUFFS if _on_deck() else GameData.DEBUFFS)); return
 		"trap":
 			comp_say("trap")
-			_clear(pos); _apply_event(main.pick_event(GameData.TRAPS)); return
+			_clear(pos); _apply_event(main.pick_event(GameData.SEA_TRAPS if _on_deck() else GameData.TRAPS)); return
 		"rest":
 			_clear(pos); _apply_event(main.rest_event(data.get("bg", ""))); return
 		"shop":
@@ -1523,6 +1531,18 @@ const BLOCK_REPLY := {
 		{"who": "복면 하수인", "pic": "masked_henchman", "text": "살아서 궁 밖으로 나갈 생각은 버려라."}],
 	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "역병 도는 마을에 약을 가져가는 길이에요. 비켜요!"},
 		{"who": "뱃사람", "pic": "haejeok_young", "text": "약이라고? 그럼 더 값나가겠군. 내놔라!"}],
+}
+
+## 배 갑판 맵(바다 위)일 때
+func _on_deck() -> bool:
+	return str(stage_cfg.get("bg", data.get("bg", ""))) == "deck"
+
+const SEA_BLOCK_LINES := {
+	"haejeok": "갈고리를 건 해적 졸개들이 갑판으로 기어올랐다!\n\"배에 실린 건 전부 우리 거다!\"",
+}
+const SEA_BLOCK_REPLY := {
+	"haejeok": [{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 배엔 다친 선원들뿐이에요. 물러가요!"},
+		{"who": "해적", "pic": "haejeok_young", "text": "흐흐, 다친 놈들 짐도 짐이지. 갑판째 털어 주마!"}],
 }
 
 const BLOCK_LINES := {

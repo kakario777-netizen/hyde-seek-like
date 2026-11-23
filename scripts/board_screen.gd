@@ -517,19 +517,21 @@ func _resolve() -> void:
 			_clear(pos)
 			main.potions += 1
 			main.sfx("item")
-			if main.companion() == "darae" or main.chapter == 2:
+			if _at_sea(pos):
+				main.popup(GameData.SEA_ITEM, "챙긴다", _end_turn, "약상자", "")
+			elif main.companion() == "darae" or main.chapter == 2:
 				main.popup("길섶에서 약초 주머니를 주웠다!\n다래가 금세 약병 하나로 달여 냈다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "friend")
 			else:   # 다래가 곁에 없는 길에서는 혼자 달인다
 				main.popup("길섶에서 약초 주머니를 주웠다!\n주운 약초로 약병 하나를 달였다.\n\n(약병 +1)", "챙긴다", _end_turn, "약초", "")
 		"buff":
 			_clear(pos)
-			_apply_event(_sea_ev(main.pick_event(GameData.BUFFS)))
+			_apply_event(_sea_ev(main.pick_event(GameData.SEA_BUFFS if _at_sea(pos) else GameData.BUFFS)))
 		"debuff":
 			_clear(pos)
-			_apply_event(_sea_ev(main.pick_event(GameData.DEBUFFS)))
+			_apply_event(_sea_ev(main.pick_event(GameData.SEA_DEBUFFS if _at_sea(pos) else GameData.DEBUFFS)))
 		"trap":
 			_clear(pos)
-			_apply_event(_sea_ev(main.pick_event(GameData.TRAPS)))
+			_apply_event(_sea_ev(main.pick_event(GameData.SEA_TRAPS if _at_sea(pos) else GameData.TRAPS)))
 		"rest":
 			_clear(pos)
 			_apply_event(main.rest_event("deck" if _at_sea(pos) else ""))
@@ -588,6 +590,7 @@ const ENEMY_LINES := {
 	"rival": "흑룡파 왈패들이 몰려왔다!\n\"청안파 꼬마 의원이 너냐? 따라와라!\"",
 	"sanjeok": "고갯길 수풀에서 산적이 뛰쳐나왔다!\n\"가진 것 다 내놓고 가라!\"",
 	"mob": "청심보명단에 중독된 사내가 달려든다!\n\"약… 약을 내놔…!\"",
+	"haejeok": "검은 돛의 해적선이 뱃전에 갈고리를 걸었다!\n\"배를 대라! 짐을 전부 내놔라!\"",
 }
 
 ## 목적지: 이야기 → (싸움) → 장 끝
