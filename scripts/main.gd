@@ -1790,6 +1790,19 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 	var nm := make_label(g["name"], 28, RED)
 	nm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	top.add_child(nm)
+	# 지금 가진 개수
+	var have := make_label("", 21, INK_SOFT)
+	var have_n := func() -> int:
+		match g["id"]:
+			"potion_small": return potions_small
+			"potion_big": return potions
+			"ginseng": return -1
+		return goods_count(g["id"])
+	var show_have := func():
+		var n: int = have_n.call()
+		have.text = "" if n < 0 else "가진 것 %d" % n
+	show_have.call()
+	top.add_child(have)
 	var d := make_label(g["desc"], 21, INK_SOFT)
 	d.custom_minimum_size = Vector2(0, 58)
 	v.add_child(d)
@@ -1823,6 +1836,7 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 			goods[g["id"]] = goods_count(g["id"]) + 1
 			msg.text = "〈%s〉을(를) 샀습니다! (가진 것 %d개)" % [g["name"], goods_count(g["id"])]
 		# 장수를 만날 때마다 물건마다 하나씩만
+		show_have.call()
 		buy.disabled = true
 		buy.text = "샀음"
 		pc.modulate = Color(0.8, 0.8, 0.8)
