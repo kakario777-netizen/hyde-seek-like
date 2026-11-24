@@ -214,13 +214,13 @@ func _next() -> void:
 		_show_pose("")
 	main.line_music(line)
 	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 5)
-	if cur_bg in SCENE_ILLUST:   # 한 장면 그림 위: 글줄 수만큼만 대화창을 올린다
-		box.anchor_top = 1.0; box.anchor_bottom = 1.0
-		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
-	elif who == "" and last_pose == "":   # 인물 없는 해설·설명은 화면 가운데에
+	if who == "":   # 해설·설명은 무조건 화면 가운데에 (대사는 아래)
 		box.anchor_top = 0.5; box.anchor_bottom = 0.5
 		var nh := 150.0 + 45.0 * (text_lbl.text.count("\n") + 1)   # 글줄 수에 맞춘 높이
 		box.offset_top = -nh / 2.0; box.offset_bottom = nh / 2.0
+	elif cur_bg in SCENE_ILLUST:   # 한 장면 그림 위 대사: 글줄 수만큼만 대화창을 올린다
+		box.anchor_top = 1.0; box.anchor_bottom = 1.0
+		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
 	else:
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
 		box.offset_top = -BOX_H; box.offset_bottom = -16

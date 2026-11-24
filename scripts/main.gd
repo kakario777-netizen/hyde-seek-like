@@ -1378,6 +1378,7 @@ func step_card(v: int, w := 196, h := 270) -> Button:
 # ── 겹창 ────────────────────────────────────────────────
 ## bg: 뒤에 깔 배경 그림 이름, pic: 위쪽에 세울 인물 일러스트 이름
 ## 인물이 서는 겹창 대화창의 고정 크기
+var _overlay_speech := false   # 다음 _overlay 가 사람 대사인지 (그림이 없어도 아래로)
 const OVERLAY_TALK_W := 660
 const OVERLAY_TALK_H := 480   # 제목+글 4줄+버튼이 딱 들어가는 높이
 
@@ -1419,7 +1420,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 		tag_placeholder(r, pic)
 		create_tween().tween_property(fig, "modulate:a", 1.0, 0.4)
 	var center: Container
-	if pt:   # 전신 인물이 나올 때만 대화창을 아래로, 아니면 가운데 (싸우기 직전 창은 그림 없이 가운데)
+	if pt or _overlay_speech:   # 인물 대사는 무조건 아래로, 설명·알림은 가운데 (싸우기 직전 창은 그림 없이 가운데)
 		# 그림이 있는 대화창은 화면 맨 아래에
 		var col := VBoxContainer.new()
 		col.alignment = BoxContainer.ALIGNMENT_END
@@ -1467,8 +1468,10 @@ func _note(text: String, color := INK_SOFT) -> Label:
 	l.custom_minimum_size = Vector2(540, 0)
 	return l
 
-func popup(text: String, button_text := "확인", cb := Callable(), title := "", pic := "", bg := "", centered := false) -> void:
+func popup(text: String, button_text := "확인", cb := Callable(), title := "", pic := "", bg := "", centered := false, speech := false) -> void:
+	_overlay_speech = speech
 	var o := _overlay(title, bg, pic, not centered)
+	_overlay_speech = false
 	var layer: CanvasLayer = o[0]
 	var vb: VBoxContainer = o[1]
 	var l := make_label(smart_breaks(fmt(text), 30, 520.0), 30, GOAL_BROWN if text.begins_with("【목표】") else INK)
