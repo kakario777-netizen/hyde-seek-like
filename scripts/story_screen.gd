@@ -22,7 +22,7 @@ var goal_panel: PanelContainer
 var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
-const BOX_H := 400
+const BOX_H := 380
 const SCENE_BOX_H := 360
 
 func _ready() -> void:
@@ -53,6 +53,10 @@ func _ready() -> void:
 	box.offset_top = -BOX_H; box.offset_bottom = -16
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(box)
+	# 대사 4줄이 딱 들어가게 위아래 여백을 줄인다
+	var bs: StyleBoxTexture = main.panel_style()
+	bs.content_margin_top = 50; bs.content_margin_bottom = 30
+	box.add_theme_stylebox_override("panel", bs)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 12)
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -69,12 +73,16 @@ func _ready() -> void:
 	text_lbl = main.make_label("", 33)
 	text_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text_lbl.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	text_lbl.add_theme_constant_override("line_spacing", 12)
+	text_lbl.add_theme_constant_override("line_spacing", 8)
 	vb.add_child(text_lbl)
 
 	arrow = main.make_label("▼", 26, main.RED)
 	arrow.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	vb.add_child(arrow)
+	arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# 넘김 표시는 줄을 차지하지 않고 대화창 오른쪽 아래 모퉁이에
+	arrow.anchor_left = 1.0; arrow.anchor_right = 1.0; arrow.anchor_top = 1.0; arrow.anchor_bottom = 1.0
+	arrow.offset_left = -92; arrow.offset_right = -60; arrow.offset_top = -74; arrow.offset_bottom = -40
+	add_child(arrow)
 
 	choice_box = VBoxContainer.new()
 	choice_box.add_theme_constant_override("separation", 16)
@@ -213,7 +221,7 @@ func _next() -> void:
 	elif who == "":
 		_show_pose("")
 	main.line_music(line)
-	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 5)
+	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 4)
 	if cur_bg in SCENE_ILLUST:   # 한 장면 그림 위: 글줄 수만큼만 대화창을 올린다
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
 		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
