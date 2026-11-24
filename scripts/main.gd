@@ -149,7 +149,7 @@ func _debug_capture() -> void:
 			await get_tree().create_timer(1.5).timeout
 			if args.has("next"):
 				for b in get_tree().root.find_children("*", "Button", true, false):
-					if b.text == "다음":
+					if b.text == "다음" or b.name == "TapNext":
 						b.pressed.emit(); break
 				await get_tree().create_timer(0.8).timeout
 		"stagewalk":
@@ -996,6 +996,15 @@ func dialog_chain(lines: Array, cb: Callable, i := 0, bg := "") -> void:
 			cb.call()
 		return
 	var line: Dictionary = lines[i]
+	if not line.has("choices") and not line.get("_paged", false) and not line["text"].begins_with("【목표】"):
+		var pages: Array = paginate(smart_breaks(fmt(line["text"]), 30, 540.0), 30, 530.0, 4)
+		if pages.size() > 1:
+			lines = lines.duplicate()
+			lines.remove_at(i)
+			var parts: Array = split_line(line, pages)
+			for k in parts.size():
+				lines.insert(i + k, parts[k])
+			line = lines[i]
 	var nbg: String = line.get("bg", bg)
 	if line.has("bg"):
 		last_dialog_bg = line["bg"]   # 싸우기 직전 대화 장소 = 전투 배경
@@ -1480,6 +1489,34 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 		l.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	vb.add_child(l)
+	if button_text == "다음":   # 이어지는 대화: 버튼 없이 화면 아무 데나 누르면 다음, 창 모서리에 붉은 ▼
+		var panel: Control = vb.get_parent()
+		var holder := Control.new()
+		holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_child(holder)
+		var arw := make_label("▼", 32, RED)
+		arw.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		arw.anchor_left = 1.0; arw.anchor_right = 1.0; arw.anchor_top = 1.0; arw.anchor_bottom = 1.0
+		arw.offset_left = -44; arw.offset_right = -8; arw.offset_top = -40; arw.offset_bottom = -4   # 붉은 안쪽 테두리 안 오른쪽 아래
+		holder.add_child(arw)
+		var tap := Button.new()
+		tap.name = "TapNext"
+		tap.flat = true
+		tap.focus_mode = Control.FOCUS_NONE
+		tap.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		var empty := StyleBoxEmpty.new()
+		for st in ["normal", "hover", "pressed", "focus", "disabled"]:
+			tap.add_theme_stylebox_override(st, empty)
+		layer.add_child(tap)
+		var done := [false]
+		tap.pressed.connect(func():
+			if done[0]:
+				return
+			done[0] = true
+			layer.queue_free()
+			if cb.is_valid():
+				cb.call())
+		return
 	var b := make_button(button_text)
 	b.custom_minimum_size = Vector2(0, 96)
 	vb.add_child(b)
@@ -1487,6 +1524,77 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 		layer.queue_free()
 		if cb.is_valid():
 			cb.call())
+
+## 긴 글을 창에 들어가는 줄 수(max_lines)씩 나눈다. 다 들어가면 그대로 한 장.
+## 문단(\n)째로 넣다가 넘치면 다음 장으로, 한 문단이 너무 길면 줄 단위로 자른다.
+func paginate(t: String, fsize: int, width: float, max_lines := 4) -> Array:
+	var font: Font = ThemeDB.fallback_font
+	var wrap := func(para: String) -> Array:
+		var out := []
+		var cur := ""
+		for word in para.split(" "):
+			var cand: String = word if cur == "" else cur + " " + word
+			if cur == "" or font.get_string_size(cand, HORIZONTAL_ALIGNMENT_LEFT, -1, fsize).x <= width:
+				cur = cand
+			else:
+				out.append(cur)
+				cur = word
+		out.append(cur)
+		return out
+	var paras := []
+	var total := 0
+	for para in t.split("\n"):
+		var wl: Array = wrap.call(para)
+		paras.append(wl)
+		total += wl.size()
+	if total <= max_lines:
+		return [t]
+	var pages := []
+	var cur_lines := []
+	var cur_paras := []
+	for wl in paras:
+		if cur_lines.size() + wl.size() <= max_lines:
+			cur_lines.append_array(wl)
+			cur_paras.append(" ".join(wl))
+			continue
+		if not cur_paras.is_empty():
+			pages.append("\n".join(cur_paras))
+			cur_lines = []; cur_paras = []
+		if wl.size() <= max_lines:
+			cur_lines.append_array(wl)
+			cur_paras.append(" ".join(wl))
+		else:   # 한 문단이 창보다 길면 줄 단위로 나눈다
+			var k := 0
+			while k < wl.size():
+				var chunk: Array = wl.slice(k, k + max_lines)
+				if chunk.size() == max_lines or k + max_lines < wl.size():
+					pages.append(" ".join(chunk))
+				else:
+					cur_lines = chunk.duplicate(); cur_paras = [" ".join(chunk)]
+				k += max_lines
+	if not cur_paras.is_empty():
+		pages.append("\n".join(cur_paras))
+	return pages
+
+## 이야기 한 줄을 여러 장으로 나눌 때: 첫 장은 배경·음악·인물, 마지막 장은 보상 등 효과
+func split_line(line: Dictionary, pages: Array) -> Array:
+	var out := []
+	for i in pages.size():
+		var d: Dictionary
+		if i == pages.size() - 1:
+			d = line.duplicate()
+			if i > 0:
+				for k in ["bg", "music", "label"]:
+					d.erase(k)
+		else:
+			d = {}
+			for k in ["who", "pic", "pose", "if", "ifnot"] + (["bg", "music", "label"] if i == 0 else []):
+				if line.has(k):
+					d[k] = line[k]
+		d["text"] = pages[i]
+		d["_paged"] = true
+		out.append(d)
+	return out
 
 # ── 전투 보상: 상소 셋 중 하나 ───────────────────────────
 func choose_reward(cb: Callable) -> void:

@@ -215,6 +215,19 @@ func _next() -> void:
 		_finish()
 		return
 	var line: Dictionary = lines[idx]
+	# 창에 4줄이 넘으면 창을 늘리지 않고 다음 장으로 넘겨서 이어 보여 준다
+	if not line.has("choices") and not line.get("_paged", false):
+		var raw0: String = str(line.get("text", ""))
+		if not (raw0.begins_with("― ") and raw0.ends_with(" ―")):
+			var tw_px: float = text_lbl.size.x if text_lbl.size.x > 100.0 else get_viewport_rect().size.x - 16.0 - 160.0
+			var pages: Array = main.paginate(main.smart_breaks(main.fmt(raw0), 33, 640.0, 4), 33, tw_px - 6.0, 4)
+			if pages.size() > 1:
+				lines = lines.duplicate()
+				lines.remove_at(idx)
+				var parts: Array = main.split_line(line, pages)
+				for k in parts.size():
+					lines.insert(idx + k, parts[k])
+				line = lines[idx]
 	main.apply_line_effects(line)
 	if line.has("bg"):
 		_set_bg(line["bg"])
@@ -226,10 +239,10 @@ func _next() -> void:
 	elif who == "":
 		_show_pose("")
 	main.line_music(line)
-	text_lbl.text = main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 4)
+	text_lbl.text = line["text"] if line.get("_paged", false) else main.smart_breaks(main.fmt(line["text"]), 33, 640.0, 4)
 	if cur_bg in SCENE_ILLUST:   # 한 장면 그림 위: 글줄 수만큼만 대화창을 올린다
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
-		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
+		box.offset_top = -BOX_H; box.offset_bottom = -16   # 대사창과 같은 크기 (넘김 표시가 붉은 테두리 안에)
 	elif who == "" and last_pose == "":   # 인물 없는 해설·설명은 화면 가운데에
 		box.anchor_top = 0.5; box.anchor_bottom = 0.5
 		var nh := 150.0 + 45.0 * (text_lbl.text.count("\n") + 1)   # 글줄 수에 맞춘 높이
