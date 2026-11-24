@@ -115,7 +115,7 @@ const CHAPTERS := {
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}},
 			{"map": "s10_palace", "goal": "윤도결과 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true, "hero_chibi": "hero_adult_court",
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "dogyeol"},
-			{"map": "s10_ferry", "goal": "날이 밝는 대로 홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
+			{"map": "s10_ferry", "goal": "홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
 				"foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true, "hero_chibi": "hero_adult_court",
 				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
@@ -2013,9 +2013,10 @@ const C10_YONGNOE := [
 	{"who": "약재 상인", "pose": "cheong_merchant", "text": "값은 됐소. 그때 내 가짜 인삼을 들춰 준 덕에\n지금은 정직하게 장사해서 배까지 부리게 됐으니. …진 빚 갚는 셈 치리다."},
 	{"who": "약재 상인", "pose": "cheong_merchant", "text": "그런데 의원 양반, 요즘 조선 내의원 사람 하나가\n청나라 약재 중에 독한 것들만 골라 몰래 사 간다오. 마포 뒤쪽 창고를 빌려 쓴다던데… 조심하시오."},
 	{"who": "", "text": "(용뇌 한 상자를 얻었다)"},
-	{"bg": "jumak_street", "music": "lonely_night", "who": "", "text": "해가 기울 무렵, 나루 앞 주막의 작은 방.\n{name|은} 허 의원의 환심단 처방에 백운의 해독법대로 용뇌를 더해 갈았다."},
+	{"bg": "jumak_street", "music": "lonely_night", "who": "", "text": "그날부터 {name|은} 나루 앞 주막의 작은 방에 머물렀다.\n허 의원의 환심단 처방에 백운의 해독법대로 용뇌를 더해, 갈고 또 갈았다."},
 	{"who": "", "text": "허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다.\n새 환심단 세 알. {name|은} 그것을 무명천에 싸서 품 깊숙이 넣었다."},
-	{"who": "", "text": "어스름이 내리자, 윤도결이 포졸들을 이끌고 나루에 닿았다."},
+	{"who": "", "text": "밤마다 창 너머 마포 뒤쪽 창고에서 희미한 불빛이 켜졌다 꺼졌다.\n정 의관은 아직 저 어둠 어딘가에서 검은 약을 빚고 있었다."},
+	{"who": "", "text": "닷새째, 보름날 저녁.\n어스름이 내리자 뱃사람 차림의 포졸들이 하나둘 나루에 모여들었다. 맨 앞에 윤도결이 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "약은 빚었느냐. …좋다.\n보름달이 뜨기 전에 창고를 친다. 내 뒤에서 떨어지지 마라."},
 	{"who": "", "text": "【목표】\n윤도결과 함께\n마포 나루 청 상인 창고까지 가라."},
 ]
@@ -2094,13 +2095,13 @@ const C10_JEONG1_POST := [
 const C10_CLUE := [
 	{"bg": "naeuiwon", "music": "dread_shadow", "who": "", "text": "정 의관이 버리고 간 서랍에는 장부 한 권이 남아 있었다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "'마포 나루, 청 상인에게서 약재 값 은 백 냥'.\n흑심단에 더할 청나라 약재를 이자가 몰래 사들인 기록이다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 마지막 줄… '보름날 밤, 마포 창고에서 남은 흑심단을 모두 빚는다.'\n내일이 보름이다."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그리고 마지막 줄… '보름날 밤, 마포 창고에서 남은 흑심단을 모두 빚는다.'\n보름은 닷새 뒤다."},
 	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "마포 나루에 청 상선이 들어와 있다는 거예요…!\n그럼 용뇌도 거기서 구할 수 있어요."},
 	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "흑심단이 남아 있는 한, 환심단을 먹여도 또 삼켜 버릴 거예요.\n의원님이 만드신 검은 것은… 이번엔 제 손으로 끝낼 거예요."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "장부와 흑심단 병은 포졸을 시켜 서휘에게 보낸다.\n증거가 사라지면 다래의 누명도 못 벗긴다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "나는 포졸들을 모아 내일 해가 지면 마포로 간다.\n{name}, 너는 그 전에 용뇌를 구해 새 약을 빚어 두어라."},
-	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "네, 나리. 해 지기 전에 꼭 빚어 둘게요."},
-	{"who": "", "text": "【목표】\n날이 밝는 대로 홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그때까지 포졸들을 뱃사람으로 꾸며 마포 곳곳에 심어 두겠다.\n{name}, 너는 그 전에 용뇌를 구해 새 약을 빚어 두어라."},
+	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "네, 나리. 보름 전까지 꼭 빚어 둘게요."},
+	{"who": "", "text": "【목표】\n홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라."},
 ]
 
 const C10_JEONG_PRE := [
