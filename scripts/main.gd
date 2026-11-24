@@ -1379,7 +1379,7 @@ func step_card(v: int, w := 196, h := 270) -> Button:
 ## bg: 뒤에 깔 배경 그림 이름, pic: 위쪽에 세울 인물 일러스트 이름
 ## 인물이 서는 겹창 대화창의 고정 크기
 const OVERLAY_TALK_W := 660
-const OVERLAY_TALK_H := 600
+const OVERLAY_TALK_H := 480   # 제목+글 4줄+버튼이 딱 들어가는 높이
 
 func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	var layer := CanvasLayer.new()
