@@ -271,7 +271,7 @@ func _build_world() -> void:
 ## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
 const MAP_H := 150.0
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
-const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "hero_adult_court": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "haejeok_young": 0.84, "redhair_sailor": 0.95, "pojol": 1.06, "dutch_baker": 0.88, "dutch_sick_man": 0.8, "dutch_sick_woman": 0.78, "maria_healer": 0.76, "dutch_fisherman": 0.86, "dutch_woman": 0.82, "dutch_miller": 0.88, "addict": 0.88, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
+const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "hero_adult_court": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "haejeok_young": 0.84, "redhair_sailor": 0.95, "pojol": 1.06, "dutch_baker": 0.88, "dutch_sick_man": 0.8, "dutch_sick_woman": 0.78, "maria_healer": 0.76, "dutch_fisherman": 0.86, "dutch_woman": 0.82, "dutch_miller": 0.88, "addict": 0.88, "mapo_thug": 0.9, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.78, "seohwi_calm": 0.96, "seohwi_return": 0.96, "seohwi_podo": 1.0, "seohwi_chief": 1.0, "shadow": 1.04, "dogyeol": 1.0, "heo": 1.04, "yeotjangsu": 0.98, "masked_henchman": 0.96}
 
 func _sprite(pic: String, h: float) -> TextureRect:
