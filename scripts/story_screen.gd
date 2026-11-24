@@ -86,7 +86,7 @@ func _ready() -> void:
 	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(holder)
 	arrow.anchor_left = 1.0; arrow.anchor_right = 1.0; arrow.anchor_top = 1.0; arrow.anchor_bottom = 1.0
-	arrow.offset_left = -40; arrow.offset_right = 0; arrow.offset_top = 2; arrow.offset_bottom = 40
+	arrow.offset_left = -40; arrow.offset_right = 0; arrow.offset_top = -12; arrow.offset_bottom = 26   # 붉은 줄에 걸치지 않게 조금 위로
 	holder.add_child(arrow)
 
 	choice_box = VBoxContainer.new()
@@ -191,6 +191,24 @@ func _advance() -> void:
 	else:
 		_next()
 
+## 대화창 안에서 실제로 몇 줄이 되는지 (자동 줄바꿈 포함)
+func _wrapped_lines(t: String) -> int:
+	var font: Font = text_lbl.get_theme_font("font")
+	var w: float = text_lbl.size.x if text_lbl.size.x > 100.0 else get_viewport_rect().size.x - 16.0 - 148.0
+	var n := 0
+	for para in t.split("\n"):
+		var cur := ""
+		var lines_p := 1
+		for word in para.split(" "):
+			var cand: String = word if cur == "" else cur + " " + word
+			if cur != "" and font.get_string_size(cand, HORIZONTAL_ALIGNMENT_LEFT, -1, 33).x > w:
+				lines_p += 1
+				cur = word
+			else:
+				cur = cand
+		n += lines_p
+	return n
+
 func _finish() -> void:
 	ended = true
 	if on_done.is_valid():
@@ -245,7 +263,9 @@ func _next() -> void:
 		box.offset_top = -BOX_H; box.offset_bottom = -16   # 대사창과 같은 크기 (넘김 표시가 붉은 테두리 안에)
 	elif who == "" and last_pose == "":   # 인물 없는 해설·설명은 화면 가운데에
 		box.anchor_top = 0.5; box.anchor_bottom = 0.5
-		var nh := 150.0 + 45.0 * (text_lbl.text.count("\n") + 1)   # 글줄 수에 맞춘 높이
+		# 자동 줄바꿈까지 센 실제 줄 수에 맞춘 높이 (글이 넘쳐 넘김 ▼와 겹치지 않게)
+		var lh: float = text_lbl.get_theme_font("font").get_height(33) + 8.0
+		var nh := 52.0 + 78.0 + 20.0 + lh * _wrapped_lines(text_lbl.text)
 		box.offset_top = -nh / 2.0; box.offset_bottom = nh / 2.0
 	else:
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
