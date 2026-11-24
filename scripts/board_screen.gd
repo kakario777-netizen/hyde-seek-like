@@ -512,7 +512,7 @@ func _resolve() -> void:
 				main.coins += talk["coin"]; extra += "\n\n(엽전 +%d냥)" % talk["coin"]
 			if talk.has("potion"):
 				main.potions += talk["potion"]; extra += "\n\n(약병 +%d)" % talk["potion"]
-			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"], talk.get("pic", ""), "", false, true)
+			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"], talk.get("pic", ""))
 		"item":
 			_clear(pos)
 			main.potions += 1
