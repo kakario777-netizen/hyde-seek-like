@@ -1389,6 +1389,7 @@ func step_card(v: int, w := 196, h := 270) -> Button:
 ## 인물이 서는 겹창 대화창의 고정 크기
 const OVERLAY_TALK_W := 660
 const OVERLAY_TALK_H := 480   # 제목+글 4줄+버튼이 딱 들어가는 높이
+const OVERLAY_TALK_H_TAP := 372   # 버튼 없는 이어지는 대화: 이름+글 4줄이 딱 들어가는 높이
 
 func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	var layer := CanvasLayer.new()
@@ -1485,7 +1486,10 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
 	l.add_theme_constant_override("line_spacing", 8)
-	if pic != "":   # 고정 크기 창: 남는 칸은 글이 채우고 글은 세로 가운데
+	if pic != "" and button_text == "다음":   # 이어지는 대화: 이름 바로 아래부터 글 4줄, 창은 한 칸 낮게
+		vb.get_parent().custom_minimum_size.y = OVERLAY_TALK_H_TAP
+		vb.add_theme_constant_override("separation", 6)
+	elif pic != "":   # 고정 크기 창: 남는 칸은 글이 채우고 글은 세로 가운데
 		l.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	vb.add_child(l)
@@ -1497,7 +1501,7 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 		var arw := make_label("▼", 32, RED)
 		arw.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		arw.anchor_left = 1.0; arw.anchor_right = 1.0; arw.anchor_top = 1.0; arw.anchor_bottom = 1.0
-		arw.offset_left = -44; arw.offset_right = -8; arw.offset_top = -40; arw.offset_bottom = -4   # 붉은 안쪽 테두리 안 오른쪽 아래
+		arw.offset_left = -12; arw.offset_right = 20; arw.offset_top = -42; arw.offset_bottom = -8   # 붉은 안쪽 테두리 바로 안, 가장 구석
 		holder.add_child(arw)
 		var tap := Button.new()
 		tap.name = "TapNext"
