@@ -22,7 +22,7 @@ var goal_panel: PanelContainer
 var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
-const BOX_H := 380
+const BOX_H := 396
 const SCENE_BOX_H := 360
 
 func _ready() -> void:
@@ -55,7 +55,8 @@ func _ready() -> void:
 	add_child(box)
 	# 대사 4줄이 딱 들어가게 위아래 여백을 줄인다
 	var bs: StyleBoxTexture = main.panel_style()
-	bs.content_margin_top = 50; bs.content_margin_bottom = 30
+	bs.content_margin_top = 50; bs.content_margin_bottom = 46
+	bs.content_margin_left = 82; bs.content_margin_right = 82   # 글이 붉은 안쪽 테두리 안에 넉넉히
 	box.add_theme_stylebox_override("panel", bs)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 12)
