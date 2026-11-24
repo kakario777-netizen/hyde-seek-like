@@ -973,7 +973,7 @@ func _update_hud() -> void:
 	if errand_lbl:
 		var parts := []
 		for n in stage_cfg["errand"]:
-			parts.append(("✔ " if str(n) in errand_names else "○ ") + str(n))
+			parts.append(("✓ " if str(n) in errand_names else "○ ") + str(n))
 		errand_lbl.text = "   ".join(parts)
 	if brew_btn:
 		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_SMALL else Color.WHITE
