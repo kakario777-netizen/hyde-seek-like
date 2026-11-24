@@ -22,7 +22,7 @@ var goal_panel: PanelContainer
 var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
-const BOX_H := 396
+const BOX_H := 410
 const SCENE_BOX_H := 360
 
 func _ready() -> void:
@@ -55,8 +55,8 @@ func _ready() -> void:
 	add_child(box)
 	# 대사 4줄이 딱 들어가게 위아래 여백을 줄인다
 	var bs: StyleBoxTexture = main.panel_style()
-	bs.content_margin_top = 50; bs.content_margin_bottom = 46
-	bs.content_margin_left = 82; bs.content_margin_right = 82   # 글이 붉은 안쪽 테두리 안에 넉넉히
+	bs.content_margin_top = 50; bs.content_margin_bottom = 60
+	bs.content_margin_left = 90; bs.content_margin_right = 90   # 글이 붉은 안쪽 테두리 안에 넉넉히
 	box.add_theme_stylebox_override("panel", bs)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 12)
@@ -233,6 +233,9 @@ func _next() -> void:
 	else:
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
 		box.offset_top = -BOX_H; box.offset_bottom = -16
+	# 넘김 표시는 어느 자리에 뜬 대화창이든 그 창의 오른쪽 아래 모퉁이에
+	arrow.anchor_top = box.anchor_bottom; arrow.anchor_bottom = box.anchor_bottom
+	arrow.offset_bottom = box.offset_bottom - 24; arrow.offset_top = arrow.offset_bottom - 34
 	var raw: String = line["text"]
 	if raw.begins_with("― ") and raw.ends_with(" ―"):   # 장 제목: 한눈에 보이는 큰 제목 판
 		_show_chapter_card(raw.substr(2, raw.length() - 4))
