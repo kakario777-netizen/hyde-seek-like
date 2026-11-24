@@ -117,7 +117,7 @@ const CHAPTERS := {
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}},
 			{"map": "s10_palace", "goal": "윤도결과 함께 밤의 궁궐에 잠입해\n단서를 찾아라.", "name": "밤의 궁궐 잠입", "after": "C10_CLUE", "after_story": true, "hero_chibi": "hero_adult_court",
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "dogyeol"},
-			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true,
+			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true, "hero_chibi": "hero_adult_court",
 				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
 			{"map": "s9_1", "goal": "운종가에서 청계천까지\n추억이 깃든 길을 걸어라.", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],
 		"goal_text": "남산 아래, 볕 잘 드는 언덕.\n마침내 둘만의 보금자리에 닿았다.", "goal_title": "새 보금자리", "goal_pic": "", "goal_bg": ""},
@@ -2099,9 +2099,9 @@ const C10_CLUE := [
 
 const C10_JEONG_PRE := [
 	{"bg": "mapo_warehouse", "music": "dread_shadow", "who": "", "text": "청나라 글씨가 적힌 약재 궤짝이 쌓인 창고 안쪽.\n검게 그을린 약솥과 빚다 만 검은 환약들이 바닥에 널려 있었다."},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "여기서 흑심단을 빚었던 거야…!"},
+	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "여기서 흑심단을 빚었던 거야…!"},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "흐흐흐… 또 왔느냐, 어의 나리. 오늘도 포도대장을 달고 왔구나.\n남은 흑심단은 전부 내 배 속에 넣었다. 이번엔 끝장을 내주마!"},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "이번엔 달라요. 의원님의 약과, 백운 선생님의 해독법이 다 여기 있어요.\n나리, 마지막이에요!"},
+	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "이번엔 달라요. 의원님의 약과, 백운 선생님의 해독법이 다 여기 있어요.\n나리, 마지막이에요!"},
 ]
 
 const C10_JEONG_POST := [
@@ -2109,7 +2109,7 @@ const C10_JEONG_POST := [
 	{"who": "", "text": "{name|은} 품에서 무명천에 싼 환약 한 알을 꺼냈다.\n마포 나루 주막에서 용뇌를 더해 미리 빚어 둔 새 환심단이었다."},
 	{"who": "", "text": "{name|은} 무릎 꿇은 정 의관의 입에 새 환심단을 밀어 넣었다."},
 	{"who": "정 의관", "pose": "jeong_shadow", "text": "크윽…! 이, 이건…! 안 돼… 힘이… 빠져나간다…"},
-	{"who": "{name}", "pose": "hero_adult_tense", "text": "떼어 낸 검은 것은 사라지지 않아요. 더 큰 미움이 되어 돌아올 뿐.\n그러니까… 돌려놓는 거예요. 원래 있던 자리로."},
+	{"who": "{name}", "pose": "hero_adult_court_tense", "text": "떼어 낸 검은 것은 사라지지 않아요. 더 큰 미움이 되어 돌아올 뿐.\n그러니까… 돌려놓는 거예요. 원래 있던 자리로."},
 	{"who": "", "text": "검은 연기가 걷히자, 바닥에 주저앉은 것은 지친 늙은 의관 하나였다."},
 	{"who": "정 의관", "pose": "jeong_uigwan", "text": "…서른 해. 나도 처음엔… 아픈 사람을 살리고 싶어서 의관이 되었는데.\n언제부터 남의 자리만 시샘하게 됐을까."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "장부, 책장, 흑심단 병, 그리고 지금 네 입으로 한 말.\n이제야 증거가 말하는군. 포도대장 윤도결이다. 정 의관, 너를 포박한다."},
