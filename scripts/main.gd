@@ -1025,6 +1025,9 @@ func popup_choices(text: String, choices: Array, cb: Callable, title := "", pic 
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
 	l.add_theme_constant_override("line_spacing", 8)
+	if pic != "":   # 고정 크기 창: 남는 칸은 글이 채우고 글은 세로 가운데
+		l.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	vb.add_child(l)
 	for k in choices.size():
 		var b := make_button(fmt(choices[k]["text"]), 28)
@@ -1374,6 +1377,10 @@ func step_card(v: int, w := 196, h := 270) -> Button:
 
 # ── 겹창 ────────────────────────────────────────────────
 ## bg: 뒤에 깔 배경 그림 이름, pic: 위쪽에 세울 인물 일러스트 이름
+## 인물이 서는 겹창 대화창의 고정 크기
+const OVERLAY_TALK_W := 660
+const OVERLAY_TALK_H := 600
+
 func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	var layer := CanvasLayer.new()
 	layer.layer = 10
@@ -1426,6 +1433,8 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 	var panel := PanelContainer.new()
 	panel.add_theme_stylebox_override("panel", panel_style())
 	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	if fig:   # 인물이 서는 대화창은 글 길이와 상관없이 크기 고정 (창이 들쑥날쑥하면 인물 키도 따라 바뀌므로)
+		panel.custom_minimum_size = Vector2(OVERLAY_TALK_W, OVERLAY_TALK_H)
 	center.add_child(panel)
 	if fig:
 		var fsc: float = fig_scale(pic)
@@ -1467,6 +1476,9 @@ func popup(text: String, button_text := "확인", cb := Callable(), title := "",
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.custom_minimum_size = Vector2(540, 0)
 	l.add_theme_constant_override("line_spacing", 8)
+	if pic != "":   # 고정 크기 창: 남는 칸은 글이 채우고 글은 세로 가운데
+		l.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	vb.add_child(l)
 	var b := make_button(button_text)
 	b.custom_minimum_size = Vector2(0, 96)
