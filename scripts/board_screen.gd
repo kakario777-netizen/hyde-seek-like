@@ -386,20 +386,23 @@ func _build_hud() -> void:
 	up.pressed.connect(func():
 		if not busy:
 			main.show_bag())
-	place_label = main.make_label("", 24, Color("e9c9a0"))
-	vb.add_child(place_label)
+	# 1줄: 장 제목 ― 오른쪽에 지금 있는 곳·남은 칸
+	place_label = main.make_label("", 22, Color("e9c9a0"))
+	place_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	head.add_child(place_label)
 	var row := HBoxContainer.new()
 	vb.add_child(row)
 	day_label = main.make_label("", 26, main.LIGHT, true)
 	day_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(day_label)
-	hp_label = main.make_label("", 24, main.LIGHT)
+	hp_label = main.make_label("", 22, main.LIGHT)
+	hp_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	row.add_child(hp_label)
 
 func _update_hud() -> void:
 	day_label.text = "남은 날  %d일" % days_left
 	day_label.add_theme_color_override("font_color", main.LIGHT if days_left > 7 else Color("ff8a70"))
-	hp_label.text = "체력 %d/%d · 엽전 %d · 약병 %d" % [main.hp, main.max_hp, main.coins, main.potions + main.potions_small]
+	hp_label.text = "체력 %d/%d    엽전 %d    약병 %d" % [main.hp, main.max_hp, main.coins, main.potions + main.potions_small]
 	place_label.text = "%s 부근 · %s까지 %d칸" % [place_name(), cfg.get("goal", "화엄골"), nodes.size() - 1 - pos]
 
 func _build_tray() -> void:

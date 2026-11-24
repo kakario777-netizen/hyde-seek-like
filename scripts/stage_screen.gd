@@ -41,6 +41,7 @@ var hud: PanelContainer
 var tray: PanelContainer
 var title_lbl: Label
 var info_lbl: Label
+var errand_lbl: Label = null
 var clock_lbl: Label
 var hint_label: Label
 var card_row: HBoxContainer
@@ -947,23 +948,33 @@ func _build_hud() -> void:
 	up.pressed.connect(func():
 		if not busy:
 			main.show_bag())
-	var sname: Label = main.make_label(("〈%s〉  만리길" % stage_cfg["name"]) if not main.sub_stage.is_empty() else ("〈%s〉  %d / %d" % [stage_cfg["name"], main.stage_idx + 1, cfg["stages"].size()]), 24, Color("e9c9a0"))
-	vb.add_child(sname)
+	# 1줄: 장 제목 ― 오른쪽에 맵 이름·순서
+	var sname: Label = main.make_label(("〈%s〉 만리길" % stage_cfg["name"]) if not main.sub_stage.is_empty() else ("〈%s〉 %d/%d" % [stage_cfg["name"], main.stage_idx + 1, cfg["stages"].size()]), 22, Color("e9c9a0"))
+	sname.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	head.add_child(sname)
+	# 2줄: 남은 시각 ― 오른쪽에 체력·엽전·약병·약초
 	var row := HBoxContainer.new()
 	vb.add_child(row)
 	clock_lbl = main.make_label("", 26, main.LIGHT, true)
 	clock_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(clock_lbl)
 	info_lbl = main.make_label("", 22, main.LIGHT)
+	info_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	row.add_child(info_lbl)
+	# 심부름 맵: 첫째 줄 오른쪽에 맵 이름 대신 모을 약재와 모은 것 표시
+	if stage_cfg.has("errand"):
+		errand_lbl = sname
 	_update_hud()
 
 func _update_hud() -> void:
 	clock_lbl.text = "남은 시각 %d" % turns_left
 	clock_lbl.add_theme_color_override("font_color", main.LIGHT if turns_left > 3 else Color("ff8a70"))
-	info_lbl.text = "약초 %d · 체력 %d/%d · 엽전 %d · 약병 %d" % [main.herbs, main.hp, main.max_hp, main.coins, main.potions + main.potions_small]
-	if stage_cfg.has("errand"):
-		info_lbl.text = "심부름 약재 %d/%d · " % [errand_names.size(), stage_cfg["errand"].size()] + info_lbl.text
+	info_lbl.text = "체력 %d/%d    엽전 %d    약병 %d    약초 %d" % [main.hp, main.max_hp, main.coins, main.potions + main.potions_small, main.herbs]
+	if errand_lbl:
+		var parts := []
+		for n in stage_cfg["errand"]:
+			parts.append(("✔ " if str(n) in errand_names else "○ ") + str(n))
+		errand_lbl.text = "   ".join(parts)
 	if brew_btn:
 		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_SMALL else Color.WHITE
 
