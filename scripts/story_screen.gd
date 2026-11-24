@@ -24,6 +24,24 @@ var goal_lbl: Label
 const TYPE_SPEED := 28.0  # 초당 글자 수
 const BOX_H := 410
 const SCENE_BOX_H := 360
+const LINE_H := 49.0   # 대사 한 줄 높이 (글자 33 + 줄 간격)
+var cur_box_h := float(BOX_H)
+var _pf_lift := 0.0
+var _pf_fsc := 1.0
+
+## 전신 그림: 발끝이 지금 대화창 바로 위에
+func _place_portrait() -> void:
+	portrait.offset_bottom = -cur_box_h + 60 - _pf_lift
+	portrait.offset_top = -cur_box_h + 60 - _pf_lift - 1040.0 * _pf_fsc
+
+## 대화창 안에서 실제로 몇 줄이 되는지 (자동 줄바꿈 포함)
+func _wrapped_lines(t: String) -> int:
+	var font: Font = text_lbl.get_theme_font("font")
+	var w: float = get_viewport_rect().size.x - 16.0 - 180.0
+	var n := 0
+	for para in t.split("\n"):
+		n += maxi(1, int(ceil(font.get_string_size(para, HORIZONTAL_ALIGNMENT_LEFT, -1, 33).x / maxf(1.0, w))))
+	return n
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -228,11 +246,13 @@ func _next() -> void:
 		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
 	elif who == "" and last_pose == "":   # 인물 없는 해설·설명은 화면 가운데에
 		box.anchor_top = 0.5; box.anchor_bottom = 0.5
-		var nh := 150.0 + 45.0 * (text_lbl.text.count("\n") + 1)   # 글줄 수에 맞춘 높이
+		var nh := 150.0 + 45.0 * _wrapped_lines(text_lbl.text)   # 글줄 수(자동 줄바꿈 포함)에 맞춘 높이
 		box.offset_top = -nh / 2.0; box.offset_bottom = nh / 2.0
-	else:
+	else:   # 대사: 글줄 수만큼만 높이 (넘김 표시가 글 바로 아래에 오게), 인물은 창 바로 위에
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
-		box.offset_top = -BOX_H; box.offset_bottom = -16
+		cur_box_h = BOX_H - LINE_H * (4 - clampi(_wrapped_lines(text_lbl.text), 1, 4))
+		box.offset_top = -cur_box_h; box.offset_bottom = -16
+		_place_portrait()
 	# 넘김 표시는 어느 자리에 뜬 대화창이든 그 창의 오른쪽 아래 모퉁이에
 	arrow.anchor_top = box.anchor_bottom; arrow.anchor_bottom = box.anchor_bottom
 	arrow.offset_bottom = box.offset_bottom - 24; arrow.offset_top = arrow.offset_bottom - 34
@@ -341,8 +361,8 @@ func _show_pose(pose: String) -> void:
 	# 키 비율: 발끝은 그대로, 위쪽만 줄임
 	var fsc: float = main.fig_scale(pose)
 	var lift := _feet_lift(t, fsc)   # 발끝이 대화창 바로 위에 오도록
-	portrait.offset_bottom = -BOX_H + 60 - lift
-	portrait.offset_top = -BOX_H + 60 - lift - 1040.0 * fsc
+	_pf_lift = lift; _pf_fsc = fsc
+	_place_portrait()
 	var old := portrait.get_node_or_null("PlaceholderTag")
 	if old:
 		old.queue_free()
