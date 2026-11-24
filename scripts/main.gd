@@ -1441,7 +1441,7 @@ func _overlay(title: String, bg := "", pic := "", bottom := false) -> Array:
 		var fit := func():
 			if is_instance_valid(fig) and is_instance_valid(panel):
 				# 발끝은 대화창 위, 키는 인물마다 (여자·아이는 조금 작게)
-				var bottom_y: float = panel.global_position.y + 6
+				var bottom_y: float = panel.global_position.y - 6   # 발끝이 대화창 테두리에 가리지 않게
 				fig.anchor_top = 0.0; fig.anchor_bottom = 0.0
 				fig.offset_bottom = bottom_y
 				fig.offset_top = 40 + (bottom_y - 40) * (1.0 - fsc)
