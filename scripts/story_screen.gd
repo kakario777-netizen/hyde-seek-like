@@ -22,7 +22,7 @@ var goal_panel: PanelContainer
 var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
-const BOX_H := 520
+const BOX_H := 400
 const SCENE_BOX_H := 360
 
 func _ready() -> void:
@@ -219,7 +219,8 @@ func _next() -> void:
 		box.offset_top = -maxf(SCENE_BOX_H, 230.0 + 50.0 * text_lbl.text.count("\n") + 50.0); box.offset_bottom = -16
 	elif who == "" and last_pose == "":   # 인물 없는 해설·설명은 화면 가운데에
 		box.anchor_top = 0.5; box.anchor_bottom = 0.5
-		box.offset_top = -BOX_H / 2.0; box.offset_bottom = BOX_H / 2.0 - 16
+		var nh := 150.0 + 45.0 * (text_lbl.text.count("\n") + 1)   # 글줄 수에 맞춘 높이
+		box.offset_top = -nh / 2.0; box.offset_bottom = nh / 2.0
 	else:
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
 		box.offset_top = -BOX_H; box.offset_bottom = -16
