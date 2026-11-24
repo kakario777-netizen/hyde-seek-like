@@ -118,7 +118,7 @@ const CHAPTERS := {
 			{"map": "s10_ferry", "goal": "홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
 				"foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true, "hero_chibi": "hero_adult_court",
-				"foes": {"walpae": "mapo_thug", "pojol": "merchant_gang"}, "ally": "dogyeol"},
+				"foes": {"walpae": "mapo_thug", "pojol": "walpae"}, "ally": "dogyeol"},
 			{"map": "s9_1", "goal": "운종가에서 청계천까지\n추억이 깃든 길을 걸어라.", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],
 		"goal_text": "남산 아래, 볕 잘 드는 언덕.\n마침내 둘만의 보금자리에 닿았다.", "goal_title": "새 보금자리", "goal_pic": "", "goal_bg": ""},
 }
