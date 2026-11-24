@@ -22,7 +22,7 @@ var goal_panel: PanelContainer
 var goal_lbl: Label
 
 const TYPE_SPEED := 28.0  # 초당 글자 수
-const BOX_H := 410
+const BOX_H := 430
 const SCENE_BOX_H := 360
 
 func _ready() -> void:
@@ -55,8 +55,8 @@ func _ready() -> void:
 	add_child(box)
 	# 대사 4줄이 딱 들어가게 위아래 여백을 줄인다
 	var bs: StyleBoxTexture = main.panel_style()
-	bs.content_margin_top = 50; bs.content_margin_bottom = 60
-	bs.content_margin_left = 90; bs.content_margin_right = 90   # 글이 붉은 안쪽 테두리 안에 넉넉히
+	bs.content_margin_top = 52; bs.content_margin_bottom = 78   # 이름칸은 위로, 아래는 넘김 화살표 자리를 비워 글을 가리지 않게   # 위·아래·좌우 모두 붉은 안쪽 테두리와 같은 간격
+	bs.content_margin_left = 74; bs.content_margin_right = 74   # 글이 붉은 안쪽 테두리 안에 넉넉히
 	box.add_theme_stylebox_override("panel", bs)
 	var vb := VBoxContainer.new()
 	vb.add_theme_constant_override("separation", 12)
@@ -77,13 +77,17 @@ func _ready() -> void:
 	text_lbl.add_theme_constant_override("line_spacing", 8)
 	vb.add_child(text_lbl)
 
-	arrow = main.make_label("▼", 26, main.RED)
+	arrow = main.make_label("▼", 32, main.RED)
 	arrow.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	arrow.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# 넘김 표시는 줄을 차지하지 않고 대화창 오른쪽 아래 모퉁이에
+	# 대화창 글 칸에 붙여 두는 판: 넘김 화살표는 글 바로 아래 오른쪽 (테두리·글을 가리지 않게)
+	var holder := Control.new()
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(holder)
 	arrow.anchor_left = 1.0; arrow.anchor_right = 1.0; arrow.anchor_top = 1.0; arrow.anchor_bottom = 1.0
-	arrow.offset_left = -92; arrow.offset_right = -60; arrow.offset_top = -74; arrow.offset_bottom = -40
-	add_child(arrow)
+	arrow.offset_left = -40; arrow.offset_right = 0; arrow.offset_top = 2; arrow.offset_bottom = 40
+	holder.add_child(arrow)
 
 	choice_box = VBoxContainer.new()
 	choice_box.add_theme_constant_override("separation", 16)
@@ -233,9 +237,6 @@ func _next() -> void:
 	else:
 		box.anchor_top = 1.0; box.anchor_bottom = 1.0
 		box.offset_top = -BOX_H; box.offset_bottom = -16
-	# 넘김 표시는 어느 자리에 뜬 대화창이든 그 창의 오른쪽 아래 모퉁이에
-	arrow.anchor_top = box.anchor_bottom; arrow.anchor_bottom = box.anchor_bottom
-	arrow.offset_bottom = box.offset_bottom - 24; arrow.offset_top = arrow.offset_bottom - 34
 	var raw: String = line["text"]
 	if raw.begins_with("― ") and raw.ends_with(" ―"):   # 장 제목: 한눈에 보이는 큰 제목 판
 		_show_chapter_card(raw.substr(2, raw.length() - 4))
