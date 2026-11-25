@@ -515,7 +515,7 @@ const CH5_SUMMON := [
 	{"who": "주모", "pose": "jumo", "text": "아이고, 그 약방 아이 아니냐! 누명 벗었다며?\n장하다, 장해!"},
 	{"who": "엿장수", "pose": "yeotjangsu", "text": "축하해요! 오늘 엿은 공짜예요.\n우리 동네 의원님한테 돈을 어떻게 받아요."},
 	{"who": "밤톨", "pose": "bamtol_happy", "text": "누나 최고!\n나도 커서 누나 같은 의원 될 거야!"},
-	{"who": "{name}", "pose": "hero", "text": "다들… 고마워요.\n(의원님께도 얼른 알려 드려야지.)"},
+	{"who": "{name}", "pose": "hero", "text": "다들… 고마워요."},
 	{"who": "", "text": "그때, 사람들 틈으로 낯익은 얼굴이 다가왔다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 기다리고 있었다.\n너의 누명은 모두 벗겨졌다. 그리고… 전하께서 너를 부르신다."},
 	{"who": "{name}", "pose": "hero", "text": "전하께서… 저를요?"},
