@@ -389,7 +389,7 @@ const CH3_END := [
 
 # ── 제4장 「대대장」 ─────────────────────────────────────
 const CH4_INTRO := [
-	{"bg": "den2", "who": "", "text": "― 제4장 「대대장」 ―"},
+	{"bg": "den2_night", "who": "", "text": "― 제4장 「대대장」 ―"},
 	{"bg": "stream", "who": "", "text": "같은 밤, 인적 끊긴 청계천 둑 아래.\n서휘는 한참을 말없이 물만 바라보았다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…다 들었지. 대대장이 널 '허가 놈의 계집아이'라더군."},
 	{"who": "{alias}", "pose": "hero_disguise_sad", "text": "……"},
