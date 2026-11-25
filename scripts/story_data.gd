@@ -86,7 +86,7 @@ const CHAPTERS := {
 			{"map": "h_port", "goal": "배웅 나온 마을 사람들 사이를 지나\n항구에 정박한 상선까지 가라.", "ally_pic": "seohwi_dutch", "name": "화란 항구, 떠나는 날", "after": "C9_SHIP", "foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"board": "board7", "world": true, "days": 36, "name": "귀향의 만리길", "goal": "한양", "after": "C9_RETURN", "after_story": true, "ally_pic": "seohwi_dutch", "foes": {"walpae": "haejeok", "pojol": "haejeok"},
 				"goal_text": "강 건너 산마루 너머로 낯익은 산세가 보인다.\n마침내 조선 땅에 돌아왔다!", "goal_title": "조선 땅", "goal_pic": "", "goal_bg": "spring_path",
-				"talks": [{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 광주 항구까지는 이 배가 꼭 모셔다드릴게요!\n…멀미약은 이번에도 의원님 거 주세요.", "potion": 1},
+				"talks": [{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 등주까지는 이 배가 꼭 모셔다드릴게요!\n…멀미약은 이번에도 의원님 거 주세요.", "potion": 1},
 					{"who": "선장", "pic": "dutch_captain", "text": "갈 때 받은 선의 품삯일세. 올 때 몫까지 미리 주지.\n조선에 닿거든 좋은 약방 차리게나.", "coin": 4},
 					{"who": "서휘", "pic": "seohwi_dutch", "text": "…돌아가는 바닷길은 갈 때보다 짧게 느껴지는군.\n네가 옆에 있어서 그런가.", "potion": 1},
 					{"who": "얀", "pic": "redhair_sailor", "text": "남쪽 바다 해적들, 선생님이 지난번에 혼쭐을 내서\n요즘은 잠잠하대요! 그래도 조심하세요.", "coin": 2}]},
@@ -714,10 +714,18 @@ const C7_YANJING_POST := [
 	{"who": "노인", "pic": "yanjing_elder", "text": "우리 손주가 밤마다 기침이 멎질 않아서…"},
 	{"who": "", "text": "{alias|은} 손주에게 맞는 약재와 달이는 법을 일러 주고,\n바다 건너 화란으로 가는 길이라며 작별 인사를 건넸다."},
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "…화, 화란? 마침 화란 배 한 척이 지금 이 등주 부두에 닻을 내리고 있소.\n그 배 선장을 내가 잘 아오. 가짜 판 죄를 갚는 셈 치고, 내가 직접 소개해 드리리다."},
-	{"bg": "port", "who": "", "text": "상인을 따라 부두 끝으로 가자,\n돛대 셋 달린 화란 상선이 정박해 있었다."},
-	{"who": "선장", "pic": "dutch_captain", "text": "이 친구가 남 부탁을 다 하다니 별일이군.\n하지만 우리 배엔 빈자리가 없네."},
-	{"who": "선장", "pic": "dutch_captain", "text": "…다만, 배 의사가 지난 항구에서 내려 버렸지.\n게다가 선원 몇 놈이 열병으로 앓아누웠어."},
-	{"who": "선장", "pic": "dutch_captain", "text": "광주 항구까지는 태워 주지. 거기서 짐을 싣는 동안 앓는 녀석들을 다 고쳐 내면,\n선의(船醫)로 화란까지 데려가겠네."},
+	{"bg": "port", "who": "", "text": "상인을 따라 부두 끝으로 가자, 돛대 셋 달린 화란 상선이 정박해 있었다.\n갑판 위에서 덩치 큰 선장이 짐 싣는 선원들을 지켜보고 있었다."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "선장 양반! 내가 사람 하나 데려왔소.\n조선에서 온 의원인데, 화란까지 가겠다는구려."},
+	{"who": "선장", "pic": "dutch_captain", "text": "의원? 이렇게 어린 녀석이?\n…자네가 남 부탁을 다 하다니 별일이군. 무슨 약점이라도 잡혔나?"},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "크흠… 그, 그런 셈이오."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "화란에 꼭 가야 해요. 그곳 의술을 배워서 사람들을 살리고 싶어요.\n배삯은 일을 해서라도 갚을게요."},
+	{"who": "선장", "pic": "dutch_captain", "text": "화란까지는 일 년 가까운 뱃길이다. 폭풍도, 해적도, 열병도 만나지.\n어린애가 장난삼아 탈 배가 아니야."},
+	{"who": "선장", "pic": "dutch_captain", "text": "게다가 우리 배엔 빈자리가 없네.\n…다만, 배 의사가 지난 항구에서 내려 버렸지."},
+	{"who": "선장", "pic": "dutch_captain", "text": "그 바람에 선원 몇 놈이 열병으로 앓아누웠는데,\n고칠 사람이 없어 골치를 앓고 있네."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "그럼 제가 고칠게요!"},
+	{"who": "선장", "pic": "dutch_captain", "text": "말로는 누구나 하지. 광주 항구까지는 태워 주겠네.\n거기서 짐을 싣는 동안 앓는 녀석들을 다 고쳐 내면, 선의(船醫)로 화란까지 데려가지."},
+	{"who": "{alias}", "pic": "hero_disguise", "text": "약속하신 거예요!"},
+	{"who": "선장", "pic": "dutch_captain", "text": "허허, 배짱 하나는 마음에 드는군.\n해 지기 전에 배에 오르게."},
 	{"who": "", "text": "(노인의 사례: 엽전 +6냥)", "coin": 6},
 ]
 
@@ -1368,6 +1376,12 @@ const C9_ISLAND_RET := [
 ]
 
 const C9_YANJING_RET := [
+	{"bg": "port", "who": "", "text": "등주 부두.\n처음 화란 배에 올랐던 그 부두에, 배가 다시 닻을 내렸다."},
+	{"who": "선장", "pic": "dutch_captain", "text": "갈 때도 올 때도 우리 배의 선의였지.\n이건 그동안의 품삯일세. 조선에 가거든 좋은 약방 차리게."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "선장님, 얀… 정말 고마웠어요.\n두 분 덕분에 서쪽 끝까지 갔다가 돌아올 수 있었어요."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "선생님! 의원님 잘 지켜 드려야 해요.\n…또 넋 놓고 쳐다보다가 바다에 빠지지 마시고요!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "시, 시끄럽다. 어서 배로 돌아가라."},
+	{"who": "", "text": "(선장의 품삯: 엽전 +6냥, 약병 +1)", "coin": 6, "potion": 1},
 	{"bg": "yanjing", "who": "", "text": "다시 찾은 등주 포구 장터.\n시장 어귀에서 낯익은 노인이 손을 번쩍 들었다."},
 	{"who": "노인", "pic": "yanjing_elder", "text": "아이고, 그때 가짜 인삼에서 날 구해 준 조선 의원 아니오!\n…허허, 고운 아가씨였구먼. 어쩐지 손끝이 곱더라니."},
 	{"who": "노인", "pic": "yanjing_elder", "text": "그때 지킨 돈으로 손주 약을 지어 먹였지.\n저 녀석 보시오. 이제 약재 짐을 저렇게 번쩍번쩍 나른다오."},
@@ -1392,13 +1406,8 @@ const C9_FERRY_RET := [
 ]
 
 const C9_PORT_RET := [
-	{"bg": "port", "who": "", "text": "다시 찾은 광주 항구.\n화란 상선은 여기서 짐을 내리고, 다시 서쪽으로 떠난다."},
-	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 여기서부턴 청나라 배로 갈아타고 북쪽으로 가시죠?\n…같이 가고 싶은데, 저는 이 배 돛잡이니까요."},
-	{"who": "선장", "pic": "dutch_captain", "text": "갈 때도 올 때도 우리 배의 선의였지.\n이건 그동안의 품삯일세. 조선에 가거든 좋은 약방 차리게."},
-	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "선장님, 얀… 정말 고마웠어요.\n두 분 덕분에 서쪽 끝까지 갔다가 돌아올 수 있었어요."},
-	{"who": "얀", "pic": "redhair_sailor", "text": "선생님! 의원님 잘 지켜 드려야 해요.\n…또 넋 놓고 쳐다보다가 바다에 빠지지 마시고요!"},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "시, 시끄럽다. 어서 배로 돌아가라."},
-	{"who": "", "text": "(선장의 품삯: 엽전 +6냥, 약병 +1)", "coin": 6, "potion": 1},
+	{"bg": "port", "who": "", "text": "다시 찾은 광주 항구.\n화란 상선이 짐을 내리는 동안, 잠시 부두에 머물렀다."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 짐 다 내리면 북쪽 등주로 올라가요.\n처음 의원님을 태운 그 부두요!"},
 ]
 
 const C9_ARRIVE := [
