@@ -450,14 +450,13 @@ const C4_STREAM := [
 const C4_CLUE := [
 	{"who": "", "bg": "gunsan_port", "text": "어느 포구의 객주.\n장부를 뒤지던 서휘가 손가락으로 한 줄을 짚었다."},
 	{"who": "서휘", "pic": "seohwi", "text": "'청심보명단 대금, 은 삼백 냥. 화엄골 백(白) 노인 앞.'\n…화엄골. 다래라는 아이의 고향 아닌가?"},
-	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "백… 노인…? 그날 밤 그 목소리…\n설마, 정말 다래 할아버지가…"},
+	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "화엄골 백 노인… 역시 백운 할아버지예요.\n돈이 다래 고향으로 흘러가고 있었어."},
 	{"who": "서휘", "pic": "seohwi", "text": "아직 모른다. 하지만 각오는 해 두는 게 좋겠군."},
 ]
 
 const CH4_GOAL := [
 	{"who": "", "bg": "cheonsugak", "text": "백운의 성 4층, 천수각.\n금칠한 기둥 사이로 화엄골 골짜기가 발아래 펼쳐졌다."},
-	{"who": "???", "pic": "baegun_boss", "text": "기어이 여기까지 왔구나. 서휘, 그리고… 허가 놈의 계집아이."},
-	{"who": "", "text": "삿갓 그늘 아래로 하얗게 센 수염 한 자락이 흘러내렸다.\n그리고 그 목소리… 자애롭게 웃던 다래의 할아버지였다."},
+	{"who": "백운", "pic": "baegun_boss", "text": "기어이 여기까지 왔구나. 서휘, 그리고… 허가 놈의 계집아이."},
 	{"who": "백운", "pic": "baegun_boss", "text": "흑심단은 원래 내 처방이었다. 마음의 검은 것을 떼어 내는 약?\n그건 허가 놈의 헛된 꿈이었지. 나는 그 약으로 사람을 길들이는 법을 알아냈을 뿐."},
 	{"who": "백운", "pic": "baegun_boss", "text": "허가 놈이 제 몸에 흑심단을 시험하도록 부추긴 것도 나다.\n그 검은 사내는 내가 쓰기 좋은 개였지. 흐흐흐…"},
 	{"who": "백운", "pose": "baegun_boss", "text": "그리고 서휘야. 다리 밑에서 굶어 죽어 가던 너를 거둬 먹인 게 누구냐.\n그 은혜도 모르고 내게 이빨을 드러내?"},
@@ -1080,25 +1079,33 @@ const C3_SHADOW_FLEE := [
 
 const C4_MASK1 := [
 	{"bg": "gunsan_port", "who": "", "text": "포구 뒷길. 은 궤짝을 실은 수레 곁에 삿갓 쓴 노인이 서 있었다."},
-	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "…청안파의 서휘로구나. 그리고 그 꼬마 의원.\n내 돈길을 캐고 다니는 쥐새끼들이 있다더니."},
-	{"who": "서휘", "pic": "seohwi_battle", "text": "…대대장. 그 은 궤짝, 청심보명단으로 번 돈이지.\n한 푼도 산으로 못 가져가오."},
+	{"who": "백운", "pic": "baegun_boss", "text": "…청안파의 서휘로구나. 그리고 그 꼬마 의원.\n내 돈길을 캐고 다니는 쥐새끼들이 있다더니."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "그 목소리… 백운 할아버지 맞죠?\n그날 밤 벽장 안에서 다 들었어요."},
+	{"who": "백운", "pic": "baegun_boss", "text": "허허… 그 쥐새끼가 너였구나.\n패랭이를 씌워 줄 때부터 눈치 하나는 빠른 아이였지."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "왜 그러셨어요?\n다래는 할아버지가 세상에서 제일 좋은 의원이라고…"},
+	{"who": "백운", "pic": "baegun_boss", "text": "다래 얘기는 꺼내지 마라.\n…그 아이는 아무것도 몰라도 된다."},
+	{"who": "서휘", "pic": "seohwi_battle", "text": "대대장. 그 은 궤짝, 아이들한테 독을 팔게 해서 번 돈이지.\n한 푼도 산으로 못 가져가오."},
+	{"who": "백운", "pic": "baegun_boss", "text": "서휘야, 너까지 이 늙은이를 막겠다는 게냐.\n좋다. 어디 한번 덤벼 보거라."},
 ]
 
 const C4_MASK1_FLEE := [
 	{"who": "", "text": "노인의 소매에서 흰 가루가 터졌다.\n매캐한 약 연기 속에서, 수레와 노인은 감쪽같이 사라졌다."},
-	{"who": "서휘", "pic": "seohwi", "text": "연막약이군. …약을 아는 자다. 그것도 아주 깊이."},
-	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "약초를 그렇게 잘 다루는 사람은…\n내가 아는 사람 중엔 한 분밖에 없어."},
+	{"who": "서휘", "pic": "seohwi", "text": "연막약이군. …역시 약을 아는 자다."},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "할아버지는 약을 너무 잘 알아요. 그래서 더 무서워요.\n…그 손으로 다래 머리를 쓰다듬던 분인데."},
+	{"who": "서휘", "pic": "seohwi", "text": "수레바퀴 자국이 남쪽으로 나 있다. 지리산 쪽이야."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "다래 고향… 화엄골.\n다래는 아직 아무것도 모를 거예요. 우리가 먼저 가야 해요."},
 ]
 
 const C4_MASK2 := [
 	{"bg": "mungyeong_pass", "who": "", "text": "지리산 어귀, 화엄골로 드는 산길."},
-	{"who": "삿갓 노인", "pic": "baegun_boss", "text": "질긴 아이들이로구나. 여기서 돌아가거라.\n이 산은 너희가 들어올 곳이 아니다."},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 산은 다래의 고향이에요! 비켜 주세요!"},
+	{"who": "백운", "pic": "baegun_boss", "text": "질긴 아이들이로구나. 여기서 돌아가거라.\n이 산은 너희가 들어올 곳이 아니다."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이 산은 다래의 고향이에요!\n할아버지가 그 고향에 뭘 숨겼는지, 제 눈으로 볼 거예요. 비켜 주세요!"},
 ]
 
 const C4_MASK2_FLEE := [
 	{"who": "", "text": "삿갓이 반쯤 찢겨 나갔다.\n노인은 얼굴을 가린 채 골짜기 쪽으로 몸을 날렸다."},
-	{"who": "{alias}", "pic": "hero_disguise_surprised", "text": "방금… 하얀 수염…\n그리고 웃을 때 부채처럼 접히던 그 눈가 주름…"},
+	{"who": "백운", "pic": "baegun_boss", "text": "…허가 놈 제자답구나.\n끝까지 따라와 보거라!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "할아버지…! 거기 서세요!"},
 	{"who": "서휘", "pic": "seohwi", "text": "쫓자. 놈의 소굴이 이 골짜기에 있다."},
 ]
 
