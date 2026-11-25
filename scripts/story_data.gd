@@ -54,7 +54,7 @@ const CHAPTERS := {
 			{"map": "s5_3", "goal": "궁궐 담장 아래를 지나\n남은 약재를 모아라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "궁궐 담장 아래", "after": "C5_DOGYEOL"},
 			{"map": "s5_4", "goal": "윤도결과 함께 허 의원의 약방,\n그 검은 사내가 기다리는 곳으로 가라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원 약방으로", "ally": "dogyeol",
 				"after_battle": {"battle": "shadow", "pre": "CH5_GOAL", "post": "CH5_REUNION"}},
-			{"map": "s5_t", "goal": "허 의원과 함께 북촌 골목을 돌며\n마지막 왕진을 다녀와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원과 마지막 왕진", "ally": "heo", "after": "C5_LESSON_END",
+			{"map": "s5_t", "goal": "허 의원과 함께 북촌 골목을 돌며\n왕진을 다녀와라.", "foes": {"walpae": "walpae", "pojol": "walpae"}, "name": "허 의원과 왕진", "ally": "heo", "after": "C5_LESSON_END",
 				"talks": [{"who": "허 의원", "pic": "heo", "text": "{name|아}, 저 할멈 손톱을 봐라. 하얗게 질렸지?\n맥보다 손이 먼저 말해 줄 때가 있다.", "potion": 1},
 					{"who": "물장수", "pic": "muljangsu", "text": "허 의원님! 일어나셨구먼요!\n아이고, 이렇게 다시 뵈니… 우리 막내 기침 좀 봐 주시오.", "potion": 1},
 					{"who": "허 의원", "pic": "heo", "text": "약은 병에 쓰는 게 아니라 사람에게 쓰는 거다.\n같은 기침이라도, 저 사람이 오늘 무얼 먹었는지부터 물어라."},
@@ -636,7 +636,7 @@ const CH5_REUNION := [
 	{"who": "허 의원", "pose": "heo", "text": "허허, 네 손이 더 야무지다.\n…그래도 아직 못 가르친 게 하나 남았지."},
 	{"who": "허 의원", "pose": "heo", "text": "오늘은 나와 왕진을 다녀오자. 북촌 골목 끝, 내가 늘 돌보던 사람들이 있다.\n의원이 사람을 어떻게 보는지, 보여 주마."},
 	{"who": "{name}", "pose": "hero", "text": "…네! 얼른 왕진 보따리 챙길게요!"},
-	{"who": "", "text": "【목표】\n허 의원과 함께 북촌 골목을 돌며\n마지막 왕진을 다녀와라."},
+	{"who": "", "text": "【목표】\n허 의원과 함께 북촌 골목을 돌며\n왕진을 다녀와라."},
 ]
 
 const C5_LESSON_END := [
