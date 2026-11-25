@@ -271,6 +271,7 @@ func _build_world() -> void:
 
 ## 맵 위 인물은 모두 같은 키로 (보스만 조금 크게)
 const MAP_H := 150.0
+const BADGE_GAP := 58.0   # 머리 위 표시: 표시 높이(약 54) + 틈 4
 ## 데포르메마다 그림 높이 = 몸 키가 되도록 보정 (앉은 자세·아이·소품이 머리 위로 솟은 그림)
 const CHIBI_SCALE := {"friend": 0.92, "darae_travel": 0.92, "darae_adult": 0.92, "hero": 0.92, "hero_disguise": 0.92, "hero_court": 0.92, "hero_adult": 0.92, "hero_adult_court": 0.92, "cheong_merchant": 0.98, "pirate_captain": 1.04, "haejeok_young": 0.84, "redhair_sailor": 0.95, "pojol": 1.06, "dutch_baker": 0.88, "dutch_sick_man": 0.8, "dutch_sick_woman": 0.78, "maria_healer": 0.76, "dutch_fisherman": 0.86, "dutch_woman": 0.82, "dutch_miller": 0.88, "addict": 0.88, "mapo_thug": 1.0, "walpae": 1.1, "baegun": 0.86, "dutch_child": 0.75, "dutch_child_sick": 0.66,
 	"rat": 0.62, "king": 1.04, "seohwi": 0.78, "seohwi_calm": 0.96, "seohwi_return": 0.96, "seohwi_podo": 1.0, "seohwi_chief": 1.0, "shadow": 1.04, "dogyeol": 1.0, "heo": 1.04, "yeotjangsu": 0.98, "masked_henchman": 0.96}
@@ -310,32 +311,35 @@ func _make_tile_ent(i: int) -> void:
 			var spr: TextureRect = _sprite(GameData.ENEMIES[eid]["sprite"], 170)
 			root.add_child(spr)
 			# 적 표시는 그림 머리 바로 위에 (쥐처럼 작은 적은 그만큼 낮게)
-			var by: float = spr.position.y - 40.0   # 머리끝에 살짝 걸치게
+			var by: float = spr.position.y - BADGE_GAP   # 머리 위에 띄워서 (그림과 안 겹치게)
 			# 꼭 싸워야 하는 적: 일반 적은 몽둥이, 중간보스는 창끝 표시
 			root.add_child(_badge("pojol" if GameData.ENEMIES[eid].get("boss", false) else "walpae", Vector2(-22, by), Color("f3d0c8")))
 		"boss":
 			var bspr: TextureRect = _sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210)
 			root.add_child(bspr)
-			root.add_child(_badge("pojol", Vector2(-22, bspr.position.y - 40.0), Color("ffb0a0")))   # 보스: 창끝 표시, 머리 바로 위
+			root.add_child(_badge("pojol", Vector2(-22, bspr.position.y - BADGE_GAP), Color("ffb0a0")))   # 보스: 창끝 표시, 머리 바로 위
 		"talk":
 			var tk: Dictionary = _talk_at(i)
 			var pic: String = tk.get("pic", WHO_PIC.get(tk.get("who", ""), ""))
 			if _is_companion_pic(pic):
 				pic = ""   # 이미 뒤따라오는 동행은 맵 위에 한 번 더 세우지 않는다
 			if pic != "" and main.illust(pic) != null:
-				root.add_child(_sprite(pic, 165))
-				root.add_child(_badge("talk", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
+				var tspr := _sprite(pic, 165)
+				root.add_child(tspr)
+				root.add_child(_badge("talk", Vector2(-24, tspr.position.y - BADGE_GAP), Color("f3e6c8")))
 			else:
 				root.add_child(_badge("talk", Vector2(-24, -28), Color("f3e6c8")))
 		"patient":
-			if stage_cfg.get("patient_nopic", false):   # 그림 없이 칸 표시만
-				root.add_child(_badge("rest", Vector2(-24, -28), Color("f3e6c8")))
+			if _pt_forced():   # 그림 없이 칸 표시만: 약탕기 (칸은 주황빛으로 칠함)
+				root.add_child(_badge("yak", Vector2(-24, -28), Color("f3e6c8")))
 			else:
-				root.add_child(_sprite(_patient_pic(i), 160))
-				root.add_child(_badge("rest", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
+				var pspr := _sprite(_patient_pic(i), 160)
+				root.add_child(pspr)
+				root.add_child(_badge("rest", Vector2(-24, pspr.position.y - BADGE_GAP), Color("f3e6c8")))
 		"shop":
-			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
-			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
+			var sspr: Control = _sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new()
+			root.add_child(sspr)
+			root.add_child(_badge("shop", Vector2(-24, (sspr.position.y if sspr is TextureRect else -MAP_H + 8.0) - BADGE_GAP), Color("f3e6c8")))
 		"item", "buff", "debuff", "trap", "rest":
 			root.add_child(_badge(typ, Vector2(-24, -28), Color("f3e6c8")))
 	if t.has("errand"):
@@ -425,6 +429,11 @@ func _draw_overlay() -> void:
 			continue
 		for k in guards[gi]["zone"]:
 			overlay.draw_colored_polygon(_diamond(tile_center(int(k)), 6), Color(0.85, 0.15, 0.1, 0.45))
+	if _pt_forced():   # 꼭 치료해야 하는 환자 칸: 주황빛
+		for i in tiles.size():
+			if tiles[i]["type"] == "patient" and not cleared.has(i):
+				overlay.draw_colored_polygon(_diamond(tile_center(i), 6), Color(0.95, 0.55, 0.1, 0.5))
+				overlay.draw_polyline(_closed(_diamond(tile_center(i), 6)), Color(1, 0.7, 0.25, 0.95), 3.0)
 	for i in visited:
 		if i != pos:
 			overlay.draw_colored_polygon(_diamond(tile_center(i), 30), Color(0.15, 0.1, 0.05, 0.25))
@@ -619,7 +628,7 @@ func _randomize_layout(s: int) -> void:
 			for i in order:
 				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, pss[0]):
 					continue
-				if (kind in ["walpae", "pojol"] or (kind == "patient" and stage_cfg.get("patients_block", false))) and not must.has(i):
+				if (kind in ["walpae", "pojol"] or (kind == "patient" and _pt_forced())) and not must.has(i):
 					continue
 				if pss[1] and _hidden_by_any(i, occupied):
 					continue
@@ -725,7 +734,7 @@ func _icon_clash(i: int, icons: Array, occupied: Array) -> bool:
 		var ds: int = (int(tiles[o[0]]["x"]) + int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) + int(tiles[i]["y"]))
 		var dd: int = absi((int(tiles[o[0]]["x"]) - int(tiles[o[0]]["y"])) - (int(tiles[i]["x"]) - int(tiles[i]["y"])))
 		# 인물 몸·머리 위 표시에 가려지는 뒤 칸, 인물 발치를 가리는 바로 앞 칸
-		if o[0] == i or (dd == 0 and ds >= 1 and ds <= 4) or (dd == 1 and ds >= -1 and ds <= 2):
+		if o[0] == i or (dd == 0 and ds >= 1 and ds <= 5) or (dd == 1 and ds >= -1 and ds <= 3):   # 머리·어깨 옆까지 넉넉히
 			return true
 	return false
 
@@ -804,25 +813,25 @@ func _treat_patient() -> void:
 	var man: bool = at % 2 == 0
 	var pic := _patient_pic(at)
 	var who := "앓는 어부" if man else "앓는 여인"
-	var text := "물… 물 좀 주시오…\n열이 펄펄 끓어 일어설 수가 없소…" if man else "몸이… 불덩이 같아요…\n아이들 밥도 못 해 줬는데…"
+	var text := "골목 담벼락 아래, 어부 하나가 쓰러져 길을 막고 있다.\n이마가 불덩이 같다.\n\n\"물… 물 좀 주시오…\n열이 펄펄 끓어 일어설 수가 없소…\"" if man else "문간에 여인 하나가 주저앉아 길을 막고 있다.\n얼굴이 벌겋게 달아올라 있다.\n\n\"몸이… 불덩이 같아요…\n아이들 밥도 못 해 줬는데…\""
 	if stage_cfg.has("patient_pic") or stage_cfg.has("patient_who"):
 		who = stage_cfg.get("patient_who", "앓는 사람")
 		text = stage_cfg.get("patient_text", "열이… 열이 내리질 않아…")
-	if stage_cfg.get("patient_nopic", false):
+	if _pt_forced():
 		pic = ""
-	var forced: bool = stage_cfg.get("patients_block", false)
+	var forced: bool = _pt_forced()
 	var ch: Array = [{"text": "약초 1개로 탕약을 달여 준다" + ("" if main.herbs >= 1 else " (약초 없음)")},
 		{"text": "엽전 3냥으로 약을 사 준다" + ("" if main.coins >= 3 else " (엽전 부족)")},
 		{"text": "물수건으로 열을 식히며 곁을 지킨다 (남은 시각 -1)" if forced else "갈 길이 바빠 지나친다"}]
 	main.popup_choices(text, ch, func(k: int):
 		if k == 0 and main.herbs >= 1:
-			main.herbs -= 1; main.coins += 5
+			main.herbs -= 1
 			_clear(at); main.sfx("good")
-			main.popup("탕약을 마신 %s의 열이 조금씩 내렸다.\n\"고맙소, 동양 의원님…\"\n\n(약초 -1 · 감사의 엽전 +5냥)" % who, "다행이다", func(): _after_land(false), who, pic)
+			main.popup("탕약을 마신 %s의 열이 조금씩 내렸다.\n\"고맙소, 동양 의원님…\"\n\n(약초 -1)" % who, "다행이다", func(): _after_land(false), who, pic)
 		elif k == 1 and main.coins >= 3:
-			main.coins -= 3; main.max_hp += 2; main.hp += 2
+			main.coins -= 3
 			_clear(at); main.sfx("good")
-			main.popup("시장에서 해열 약을 사다 먹였다.\n%s가 겨우 웃어 보였다.\n\n(엽전 -3냥 · 마을의 믿음: 최대 체력 +2)" % who, "다행이다", func(): _after_land(false), who, pic)
+			main.popup("시장에서 해열 약을 사다 먹였다.\n%s가 겨우 웃어 보였다.\n\n(엽전 -3냥)" % who, "다행이다", func(): _after_land(false), who, pic)
 		elif k == 2 and forced:
 			turns_left = max(0, turns_left - 1)
 			_clear(at); main.sfx("good")
@@ -974,7 +983,7 @@ func _build_hud() -> void:
 	info_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	row.add_child(info_lbl)
 	# 심부름 맵: 첫째 줄 오른쪽에 맵 이름 대신 모을 약재와 모은 것 표시
-	if stage_cfg.has("errand"):
+	if stage_cfg.has("errand") or _pt_forced():
 		errand_lbl = sname
 	_update_hud()
 
@@ -982,7 +991,7 @@ func _update_hud() -> void:
 	clock_lbl.text = "남은 시각 %d" % turns_left
 	clock_lbl.add_theme_color_override("font_color", main.LIGHT if turns_left > 3 else Color("ff8a70"))
 	info_lbl.text = "체력 %d/%d    엽전 %d    약병 %d    약초 %d" % [main.hp, main.max_hp, main.coins, main.potions + main.potions_small, main.herbs]
-	if errand_lbl:
+	if errand_lbl and stage_cfg.has("errand"):
 		var parts := []
 		var seen := []
 		var all_e: Array = stage_cfg["errand"]
@@ -997,6 +1006,16 @@ func _update_hud() -> void:
 			else:
 				parts.append(("✓ " if got > 0 else "○ ") + str(n))
 		errand_lbl.text = "   ".join(parts)
+	elif errand_lbl:   # 환자 맵: 고친 사람 수
+		var tot := _pt_total()
+		var done := 0
+		for i in tiles.size():
+			if tiles[i]["type"] == "patient" and cleared.has(i):
+				done += 1
+		var marks := []
+		for k in tot:
+			marks.append("✓" if k < done else "○")
+		errand_lbl.text = "치료  %s  (%d/%d)" % [" ".join(marks), done, tot]
 	if brew_btn:
 		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_SMALL else Color.WHITE
 
@@ -1098,8 +1117,19 @@ func _deal() -> void:
 	hint_label.text = "행보 상소를 고르십시오 · 대문까지 %d칸" % dist_goal[pos]
 
 # ── 이동 ────────────────────────────────────────────────
+## 환자 돌보는 맵: 환자는 그림 없이 약탕기 칸으로, 길을 막아 꼭 치료하게
+func _pt_forced() -> bool:
+	return int(stage_cfg.get("patients", 0)) > 0
+
+func _pt_total() -> int:
+	var n := 0
+	for t in tiles:
+		if t["type"] == "patient":
+			n += 1
+	return n
+
 func _blocks(i: int) -> bool:
-	if tiles[i]["type"] == "patient" and stage_cfg.get("patients_block", false):
+	if tiles[i]["type"] == "patient" and _pt_forced():
 		return not cleared.has(i)   # 꼭 고쳐야 하는 환자: 지나가지 못하고 멈춰 선다
 	return tiles[i]["type"] in BLOCKERS and not cleared.has(i)
 
@@ -1168,6 +1198,9 @@ func _play(steps: int, chosen: Button) -> void:
 		await get_tree().create_timer(STEP_PAUSE).timeout
 		if _blocks(pos):
 			break
+	if tiles[pos]["type"] == "patient" and _pt_forced() and not cleared.has(pos):
+		turns_left += 1   # 환자 앞에서 멈춰 선 걸음은 시각을 쓰지 않는다
+		_update_hud()
 	await get_tree().create_timer(0.35).timeout
 	_pick_herb(pos)  # 약초는 그 칸에 딱 멈춰야 얻는다
 	_resolve()
@@ -1639,6 +1672,10 @@ func _apply_event(ev: Dictionary) -> void:
 func _clear(i: int) -> void:
 	cleared[i] = true
 	_hide_ent(i, true)
+	if errand_lbl:
+		_update_hud()
+	if overlay:
+		overlay.queue_redraw()
 
 func _hide_ent(i: int, animate: bool) -> void:
 	if not ent_nodes.has(i):

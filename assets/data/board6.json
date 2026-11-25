@@ -94,9 +94,7 @@
     },
     "patients": 2,
     "patient_who": "열병 난 선원",
-    "patient_text": "부두 바닥에 화란 선원 하나가 쓰러져 길을 막고 있다.\n이마는 불덩이 같고, 입술은 바싹 말라 갈라졌다.\n\n\"으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…\"",
-    "patient_nopic": true,
-    "patients_block": true
+    "patient_text": "부두 바닥에 화란 선원 하나가 쓰러져 길을 막고 있다.\n이마는 불덩이 같고, 입술은 바싹 말라 갈라졌다.\n\n\"으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…\""
    },
    "pre": "C7_PORT_PRE"
   },
@@ -359,9 +357,8 @@
      "pojol": "haejeok"
     },
     "patients": 3,
-    "patient_pic": "dutch_sick_man",
     "patient_who": "열병 난 일꾼",
-    "patient_text": "(일꾼이 끓는 이마를 짚고, 바싹 마른 입술을 가리킨다.)\n으으… 아구아… 아구아…",
+    "patient_text": "길가에 일꾼 하나가 쓰러져 길을 막고 있다.\n끓는 이마를 짚고, 바싹 마른 입술을 가리킨다.\n\n\"으으… 아구아… 아구아…\"",
     "talks": [
      {
       "who": "약초 할머니",
