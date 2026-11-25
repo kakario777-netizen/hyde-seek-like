@@ -349,7 +349,7 @@ const C3_BOSS := [
 	{"who": "서휘", "pic": "seohwi_battle", "text": "왔군. 그 어른께 여쭤봤다. 독이 아니라더군.\n네가 약을 망쳐 놓고 핑계를 댄 거라고. …덕분에 손님이 반으로 줄었다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "그 사람 말만 믿는 거예요?\n아이들이 그 약 먹고 어떻게 되는지 직접 보고도요?"},
 	{"who": "서휘", "pic": "seohwi_battle", "text": "…내가 믿을 사람은 그 어른뿐이다.\n증명하고 싶으면 실력으로 해 봐라."},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "이번엔 안 져!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "좋아요. 내가 이기면 그 사람 말 말고, 제 말을 믿어 줘요!"},
 ]
 const C3_BOSS_WIN := [
 	{"who": "서휘", "pic": "seohwi", "text": "…하. 처음 왔을 때랑은 딴사람이로군.\n…네 눈은 거짓말하는 눈이 아니야. 그 어른께 다시 물어봤자 같은 대답일 거다."},
