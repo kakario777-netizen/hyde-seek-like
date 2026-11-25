@@ -1055,11 +1055,12 @@ const C3_DG_AFTER := [
 const C3_SHADOW := [
 	{"bg": "alley", "who": "", "text": "종로 뒷골목, 통금 인경이 울린 뒤.\n등불이 하나씩 꺼졌다."},
 	{"who": "검은 사내", "pic": "shadow", "text": "흐흐… 냄새가 나는구나. 사내 옷을 입어도 약방 냄새는 못 감추지, 꼬마야."},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…그 목소리. 화엄골 대숲에서 만났던…!"},
-	{"who": "검은 사내", "pic": "shadow", "text": "그 늙은이 초당에서 날 쫓아낸 게 너였지.\n허가 녀석의 몸은 아주 편하단다. 이 녀석이 평생 감춰 온 미움이 가득하거든."},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "…의원님!"},
+	{"who": "{alias}", "pic": "hero_disguise_sad", "text": "(대숲에서 본 그 붉은 눈…\n얼굴은 분명 의원님인데, 의원님이 아니야.)"},
+	{"who": "검은 사내", "pic": "shadow", "text": "화엄골 대숲에서 날 쫓아낸 게 너였지. 꼬마야, 네 의원님은 이제 없다.\n허가 녀석의 몸은 아주 편하단다. 이 녀석이 평생 감춰 온 미움이 가득하거든."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "거짓말! 의원님은 누구도 미워하지 않으셨어!"},
 	{"who": "검은 사내", "pic": "shadow", "text": "흐흐흐… 정말 그렇게 믿느냐? 그럼 와서 확인해 봐라, 꼬마야."},
-	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "의원님 몸에서 나가!"},
+	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "의원님, 정신 차리세요…!\n의원님 몸에서 나가!"},
 ]
 
 const C3_SHADOW_FLEE := [
