@@ -1056,7 +1056,7 @@ func icon(name: String) -> Texture2D:
 
 ## 맵 위에 서는 데포르메(SD) 그림. 없으면 null
 const CHIBI_OF := {"hero_adult": "hero_adult", "hero_angry": "hero", "hero_sad": "hero", "hero_surprised": "hero", "hero_disguise_angry": "hero_disguise", "hero_disguise_sad": "hero_disguise", "hero_disguise_surprised": "hero_disguise",
-	"seohwi": "seohwi_calm", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "jongsagwan": "dogyeol", "jongsagwan_battle": "dogyeol", "jongsagwan_blush": "dogyeol",
+	"seohwi": "seohwi_calm", "seohwi_battle": "seohwi", "seohwi_dutch": "seohwi_dutch", "seohwi_sad": "seohwi_calm", "seohwi_dutch_sad": "seohwi_dutch", "seohwi_return_sad": "seohwi_return", "jongsagwan": "dogyeol", "jongsagwan_battle": "dogyeol", "jongsagwan_blush": "dogyeol",
 	"heo": "heo", "heo_ill": "heo", "pojol_battle": "pojol", "friend_worried": "friend", "darae_court": "friend", "baegun_boss": "baegun_boss", "addict": "addict", "bamtol_happy": "bamtol", "bamtol_scared": "bamtol", "shadow": "shadow", "jumo": "jumo", "yakjae": "yakjae"}
 
 ## 진짜 데포르메 그림만 (없으면 null)
@@ -1064,6 +1064,10 @@ const CHIBI_OF := {"hero_adult": "hero_adult", "hero_angry": "hero", "hero_sad":
 func _ret(name: String) -> String:
 	if chapter == 8 and name in ["seohwi", "seohwi_battle"]:
 		return "seohwi_dutch"   # 화란의 서휘는 화란 옷차림
+	if chapter == 8 and name == "seohwi_sad":
+		return "seohwi_dutch_sad"
+	if chapter >= 9 and name == "seohwi_sad":
+		return "seohwi_return_sad"
 	if chapter >= 9 and name in ["seohwi", "seohwi_battle"]:
 		return "seohwi_return"
 	if chapter >= 9 and name == "friend":
@@ -1165,7 +1169,7 @@ func fig_scale(name: String) -> float:
 		return 0.8    # 허리 숙여 책 내미는 모습: 얼굴을 바구니 든 모습과 맞춤
 	if name.begins_with("baegun_exile"):
 		return 0.95
-	if name in ["seohwi", "seohwi_battle", "seohwi_return"]:
+	if name in ["seohwi", "seohwi_battle", "seohwi_return", "seohwi_sad", "seohwi_return_sad"]:
 		return 0.94   # 모자 없는 서휘: 윤도결(갓 포함)보다 조금 작게
 	if name == "walpae":
 		return 0.92

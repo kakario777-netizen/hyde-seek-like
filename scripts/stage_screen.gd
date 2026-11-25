@@ -1198,7 +1198,7 @@ func _is_companion_pic(pic: String) -> bool:
 	var cpic: String = StoryData.COMPANION.get(comp, {}).get("pic", comp)
 	var same := [comp, cpic, main.CHIBI_OF.get(cpic, cpic)]
 	if comp == "seohwi":
-		same += ["seohwi_return", "seohwi_dutch", "seohwi_podo", "seohwi_chief"]
+		same += ["seohwi_return", "seohwi_dutch", "seohwi_podo", "seohwi_chief", "seohwi_sad", "seohwi_dutch_sad", "seohwi_return_sad"]
 	if comp == "darae":
 		same += ["friend", "darae_adult", "friend_worried"]
 	if comp == "dogyeol":
