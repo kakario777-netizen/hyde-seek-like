@@ -45,6 +45,7 @@ var p_hp_bar: ProgressBar
 var p_hp_lbl: Label
 var energy_lbl: Label
 var shield_lbl: Label
+var poison_lbl: Label
 var potion_btn: Button
 var end_btn: Button
 var flash: ColorRect
@@ -192,7 +193,10 @@ func _ready() -> void:
 	me.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	r1.add_child(me)
 	shield_lbl = main.make_label("", 26, Color("b8d4f0"), true)
+	poison_lbl = main.make_label("", 26, Color("d89cff"), true)   # 이름 칸 오른쪽: 중독 남은 턴 (막기 앞)
+	r1.add_child(poison_lbl)
 	r1.add_child(shield_lbl)
+	r1.add_theme_constant_override("separation", 14)
 	p_hp_bar = _bar(Color("4f7a4a"), 24)
 	info.add_child(p_hp_bar)
 	p_hp_lbl = main.make_label("", 22, main.LIGHT)
@@ -323,6 +327,8 @@ var is_mid := false
 var e_turn_no := 0
 var sap_next := 0
 var glare_next := 0
+var poison_turns := 0   # 중독: 내 차례 시작마다 체력 -POISON_DMG
+const POISON_DMG := 3
 
 func _pick_intent() -> void:
 	if is_mid and e_turn_no % 3 == 2 and e_charge < int(enemy["charge"]):
@@ -347,6 +353,8 @@ func _intent_text() -> String:
 		s += "공격 %d" % intent["v"]
 	else:
 		s += "막기 %d" % intent["v"]
+	if intent.has("poison"):
+		s += " · 중독"
 	if intent.get("heavy", false):
 		s = "필살! " + s
 	if intent.has("sp"):
@@ -364,6 +372,16 @@ func _begin_my_turn(bonus := 0) -> void:
 	if sap_next > 0:
 		_float_text("기력을 빼앗겼다! (-%d)" % sap_next, Vector2(size.x / 2, size.y * 0.6), Color("ff9a80"))
 		sap_next = 0
+	if poison_turns > 0:   # 독으로는 쓰러지지 않음 (체력 1 남김)
+		poison_turns -= 1
+		var pd: int = min(POISON_DMG, main.hp - 1)
+		main.hp -= pd
+		main.sfx("hurt")
+		flash.color = Color(0.5, 0.1, 0.6, 0.3)
+		create_tween().tween_property(flash, "color:a", 0.0, 0.45)
+		_float_text("독이 퍼진다! -%d" % pd, Vector2(size.x / 2, size.y * 0.62), Color("c890f0"))
+		_refresh()
+		await get_tree().create_timer(0.5).timeout
 	var hand_n: int = HAND_SIZE - glare_next
 	if glare_next > 0:
 		_float_text("애체 빛에 눈이 부시다! (상소 -1장)", Vector2(size.x / 2, size.y * 0.55), Color("ffe08a"))
@@ -480,6 +498,9 @@ func _drink(big: bool) -> void:
 	main.hp = min(main.max_hp, main.hp + (40 if big else 20))
 	main.sfx("potion")
 	_float_text("+%d" % (main.hp - before), Vector2(size.x / 2, size.y * 0.62), Color("8fd0a0"))
+	if poison_turns > 0:
+		poison_turns = 0
+		_float_text("중독이 풀렸다!", Vector2(size.x / 2, size.y * 0.56), Color("c890f0"))
 	_refresh()
 
 func _end_my_turn() -> void:
@@ -547,13 +568,16 @@ func _enemy_turn() -> void:
 		if act.get("sp", "") == "drain" and dmg > 0:
 			e_hp = min(int(enemy["hp"]), e_hp + dmg)
 			_float_text("+%d" % dmg, enemy_sprite.position + Vector2(enemy_sprite.size.x / 2, 120), Color("9ae08a"))
+		if act.has("poison") and dmg > 0:
+			poison_turns = int(act["poison"])
+			_float_text("중독되었다! (%d턴)" % poison_turns, Vector2(size.x / 2, size.y * 0.58), Color("c890f0"))
 		if act.get("sp", "") == "sap":
 			sap_next = 1
 		if act.get("sp", "") == "glare":
 			glare_next = 1
 		main.sfx("hurt_heavy" if act.get("heavy", false) else ("hurt" if dmg > 0 else "block"))
 		if dmg > 0:
-			flash.color.a = 0.45 if act.get("heavy", false) else 0.3
+			flash.color = Color(0.7, 0.08, 0.05, 0.45 if act.get("heavy", false) else 0.3)
 			create_tween().tween_property(flash, "color:a", 0.0, 0.45)
 			_float_text("-%d" % dmg, Vector2(size.x / 2, size.y * 0.66), Color("ff6a5a"))
 		else:
@@ -638,6 +662,7 @@ func _refresh() -> void:
 	p_hp_lbl.text = "체력 %d / %d · 남은 상소 %d" % [main.hp, main.max_hp, draw_pile.size()]
 	energy_lbl.text = "기력 " + "●".repeat(energy) + "○".repeat(max(0, BASE_ENERGY - energy))
 	shield_lbl.text = "막기 %d" % shield if shield > 0 else ""
+	poison_lbl.text = "중독 %d" % poison_turns if poison_turns > 0 else ""
 	potion_btn.text = "약병 %d" % (main.potions + main.potions_small)
 	potion_btn.disabled = not my_turn or main.potions + main.potions_small <= 0
 	end_btn.disabled = not my_turn
