@@ -30,7 +30,7 @@ const CHAPTERS := {
 			{"map": "s3_k", "goal": "서휘와 함께 청계천 하류 소금 창고로 숨어들어\n흑룡파 두목을 쓰러뜨리고 아이들을 구하라.", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "goal": "약 보따리를 들고\n종로 뒷골목을 지나 왈패 소굴로 돌아가라.", "name": "종로 뒷골목", "after": "C3_TRUTH"},
 			{"map": "s3_3", "goal": "서휘가 기다리는\n남산 아래 공터로 가라.", "name": "남산 아래 결투", "after": "C3_GLOOM"},
-			{"map": "s3_e", "goal": "서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라.", "name": "소굴 안쪽 방으로", "bg": "den2_night", "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}}],
+			{"map": "s3_e", "goal": "서휘와 함께 대대장의 복면 호위꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라.", "name": "소굴 안쪽 방으로", "bg": "den2_night", "ally": "seohwi", "foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
@@ -357,12 +357,13 @@ const C3_BOSS_WIN := [
 ]
 
 const C3_GLOOM := [
-	{"bg": "den2_night", "who": "", "text": "며칠 뒤, 달도 없는 그믐밤.\n소굴 사람들이 모두 잠든 시각, 서휘가 {alias}의 어깨를 가만히 흔들었다."},
-	{"who": "서휘", "pose": "seohwi", "text": "…일어나라. 오늘 밤이다.\n그 어른이 손님을 안쪽 방으로 들였다."},
-	{"who": "{alias}", "pose": "hero_disguise", "text": "안쪽 방 앞엔 흑룡파 파수꾼들이 지키고 있잖아요.\n들키면 어떡해요?"},
-	{"who": "서휘", "pose": "seohwi", "text": "그 방 옆 벽장은 내가 어릴 때 숨던 곳이다. 파수꾼들은 모르지.\n발소리 죽이고 내 뒤만 따라와라."},
+	{"bg": "den2_night", "who": "", "text": "며칠 뒤, 달도 없는 그믐밤.\n서휘가 {alias}를 소굴 뒤편 어두운 골목으로 조용히 불러냈다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…오늘 밤이다.\n그 어른이 방금 손님을 안쪽 방으로 들였다."},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "안쪽 방 앞엔 지키는 사람들이 있잖아요.\n들키면 어떡해요?"},
+	{"who": "서휘", "pose": "seohwi", "text": "그 어른이 데려온 복면 호위꾼들이 곳곳을 돌고 있다.\n마주치면… 소리 나기 전에 재빨리 쓰러뜨려야지."},
+	{"who": "서휘", "pose": "seohwi", "text": "그 방 옆 벽장은 내가 어릴 때 숨던 곳이라, 호위꾼들은 모른다.\n거기까지만 가면 된다. 내 뒤만 따라와라."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "(…무슨 말이 오가든, 오늘 밤 다 알게 되겠지.)"},
-	{"who": "", "text": "【목표】\n서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라."},
+	{"who": "", "text": "【목표】\n서휘와 함께 대대장의 복면 호위꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라."},
 ]
 
 const CH3_END := [
