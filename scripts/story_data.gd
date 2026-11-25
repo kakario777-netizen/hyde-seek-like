@@ -1118,9 +1118,15 @@ const C4_MASK2_FLEE := [
 ]
 
 const C5_SHADOW := [
-	{"bg": "palace_night", "who": "", "text": "궁궐 담장 아래, 달빛이 끊긴 골목."},
-	{"who": "검은 사내", "pic": "shadow", "text": "어의가 되었다지? 출세했구나, 꼬마야.\n그 환심단 냄새… 역겹다. 당장 버려라!"},
-	{"who": "{name}", "pic": "hero_angry", "text": "버릴 거면 처음부터 만들지도 않았어!"},
+	{"bg": "palace_night", "who": "", "text": "궁궐 담장 아래, 달빛이 끊긴 골목.\n약재 보따리를 안고 돌아가던 길, 등 뒤에서 낮은 웃음소리가 들렸다."},
+	{"who": "검은 사내", "pic": "shadow", "text": "어의가 되었다지? 출세했구나, 꼬마야."},
+	{"who": "{name}", "pic": "hero", "text": "(이 목소리… 의원님…?)"},
+	{"who": "검은 사내", "pic": "shadow", "text": "그 보따리에서 냄새가 난다. 환심단… 허가 놈을 깨우려는 약이로구나.\n역겹다. 당장 버려라!"},
+	{"who": "{name}", "pic": "hero_angry", "text": "의원님 몸을 빌려서 사람들을 해친 건 당신이잖아요."},
+	{"who": "검은 사내", "pic": "shadow", "text": "해쳤다? 허가 놈이 평생 눌러 두던 걸 내가 꺼내 준 것뿐이다.\n그 늙은이도 속으로는 지쳐 있었던 게야."},
+	{"who": "{name}", "pic": "hero_angry", "text": "거짓말! 의원님은 지친 사람한테 먼저 손 내미는 분이에요."},
+	{"who": "{name}", "pic": "hero_angry", "text": "버릴 거면 처음부터 만들지도 않았어!\n이 약으로 반드시 의원님을 되찾을 거야!"},
+	{"who": "검은 사내", "pic": "shadow", "text": "흐흐… 그럼 그 약을 쥔 손부터 꺾어 주마!"},
 ]
 
 const C5_SHADOW_FLEE := [
@@ -1134,6 +1140,9 @@ const C5_SHADOW_FLEE := [
 	{"who": "{name}", "pic": "hero", "text": "나리, 그 사내가 달아나면서\n그믐밤에 의원님 약방으로 오라고 했어요."},
 	{"who": "윤도결", "pic": "jongsagwan", "text": "그믐밤, 약방이라…\n놈이 판 함정일 수도 있다."},
 	{"who": "{name}", "pic": "hero", "text": "그래도 가야 해요.\n의원님을 되찾을 마지막 기회예요."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "…말린다고 들을 너였으면,\n애초에 여기까지 오지도 않았겠지."},
+	{"who": "윤도결", "pic": "jongsagwan", "text": "좋다. 그믐밤까지 포졸들을 약방 골목에 숨겨 두겠다.\n대신 약속해라. 혼자 먼저 뛰어들지 않겠다고."},
+	{"who": "{name}", "pic": "hero", "text": "…네, 약속할게요."},
 ]
 
 const CH6F_INTRO := [
