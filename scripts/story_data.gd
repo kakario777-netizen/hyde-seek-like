@@ -420,7 +420,7 @@ const C4_STREAM := [
 	{"bg": "stream", "who": "", "pose": "hero_disguise", "text": "그날 밤, 장맛비가 억수같이 쏟아졌다.\n불어난 청계천에 한 아이가 휩쓸려 가고 있었다."},
 	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "안 돼!"},
 	{"who": "", "pose": "hero_disguise_surprised", "text": "{alias}는 망설임 없이 물에 뛰어들었다.\n아이를 둑으로 밀어 올린 순간, 거센 물살이 {alias}를 삼켰다."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "{alias}!!"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "패랭이…! 그 약초꾼이다!!"},
 	{"who": "", "pose": "jongsagwan", "text": "철릭을 벗어 던진 윤도결이 뒤따라 뛰어들었다.\n흙탕물 속에서 겨우 소매 끝을 붙잡았다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "잡았다…! 조금만 버텨라!"},
 	{"who": "", "pose": "jongsagwan", "text": "한참 뒤, 둑 위로 끌어올린 {alias}의 얼굴은 하얗게 질려 있었다.\n입술은 파랗고, 가슴은 움직이지 않았다."},
