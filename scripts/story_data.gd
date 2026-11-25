@@ -1104,7 +1104,7 @@ const C4_MASK2 := [
 
 const C4_MASK2_FLEE := [
 	{"who": "", "text": "삿갓이 반쯤 찢겨 나갔다.\n노인은 얼굴을 가린 채 골짜기 쪽으로 몸을 날렸다."},
-	{"who": "백운", "pic": "baegun_boss", "text": "…허가 놈 제자답구나.\n끝까지 따라와 보거라!"},
+	{"who": "백운", "pic": "baegun_boss", "text": "…허가 놈 제자답구나.\n이 골짜기에 발을 들이면, 살아서는 못 나간다."},
 	{"who": "{alias}", "pic": "hero_disguise_angry", "text": "할아버지…! 거기 서세요!"},
 	{"who": "서휘", "pic": "seohwi", "text": "쫓자. 놈의 소굴이 이 골짜기에 있다."},
 ]
