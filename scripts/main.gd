@@ -474,7 +474,15 @@ func comp_pic() -> String:
 
 var last_dialog_bg := ""
 var comp_k := 0
+## 동행이 말없이 따라오는 맵 (예: 6장 비 내리는 밤길의 서휘)
+func quiet_ally() -> bool:
+	var ch: Dictionary = StoryData.CHAPTERS.get(chapter, {})
+	var sts: Array = ch.get("stages", [])
+	return stage_idx >= 0 and stage_idx < sts.size() and sts[stage_idx].get("quiet_ally", false)
+
 func comp_line(kind: String) -> String:
+	if quiet_ally():
+		return ""
 	var c: Dictionary = StoryData.COMPANION.get(companion(), {})
 	var arr: Array = c.get(kind, [])
 	if arr.is_empty():
@@ -493,7 +501,7 @@ func start_battle(enemy_id: String, on_win: Callable, opts := {}) -> void:
 	var comp := companion()
 	if enemy_id == "shadow_s":
 		comp = ""   # 화엄골 대숲의 한밤: 주인공 혼자 검은 사내와 맞선다 (동행 대사 없음)
-	if comp != "" and not opts.get("comp_done", false) and not opts.has("me_name"):
+	if comp != "" and not opts.get("comp_done", false) and not opts.has("me_name") and not quiet_ally():
 		var c: Dictionary = StoryData.COMPANION.get(comp, {})
 		opts = opts.duplicate(); opts["comp_done"] = true
 		var me := "{alias}" if disguised() else "{name}"

@@ -61,7 +61,7 @@ const CHAPTERS := {
 					{"who": "주막 주모", "pic": "jumo", "text": "의원님, 약값은 다음 장에 꼭…\n아이고, 또 안 받으신다고요? 이 은혜를 어찌…", "potion": 1}]}],
 		"goal_text": "노을 진 골목 끝에 약방 대문이 보인다.\n허 의원의 걸음이 조금씩 느려졌다.", "goal_title": "허 의원 약방", "goal_pic": "", "goal_bg": "yakbang"},
 	6: {"title": "제6장  작별", "goal": "산마루 약초밭", "intro": "CH6F_INTRO", "end": "CH6F_END", "stage_ally": "darae",
-		"stages": [{"map": "s6_r", "goal": "비 내리는 밤길을 걸어라.", "name": "비 내리는 밤길", "after": "C6_RAIN", "after_story": true, "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}},
+		"stages": [{"map": "s6_r", "goal": "비 내리는 밤길을 걸어라.", "name": "비 내리는 밤길", "after": "C6_RAIN", "after_story": true, "ally": "seohwi", "quiet_ally": true, "foes": {"walpae": "walpae", "pojol": "walpae"}},
 			{"map": "s6_2", "goal": "다래와 함께 북한산에 올라 약초를 가르치며\n산마루 약초밭까지 가라.", "name": "산마루 약초밭으로"}],
 		"goal_text": "산마루, 볕 잘 드는 비탈에 닿았다.\n여기라면 약초가 잘 자라겠다!", "goal_title": "산마루 약초밭", "goal_pic": "friend", "goal_bg": "mountain"},
 	7: {"title": "제7장  만리길", "world": true, "board": "board6", "days": 36, "goal": "화란", "intro": "CH6_INTRO", "end": "CH6_END",
