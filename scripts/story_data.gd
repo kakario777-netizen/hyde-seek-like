@@ -30,7 +30,7 @@ const CHAPTERS := {
 			{"map": "s3_k", "goal": "서휘와 함께 청계천 하류 소금 창고로 숨어들어\n흑룡파 두목을 쓰러뜨리고 아이들을 구하라.", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "goal": "약 보따리를 들고\n종로 뒷골목을 지나 왈패 소굴로 돌아가라.", "name": "종로 뒷골목", "after": "C3_TRUTH"},
 			{"map": "s3_3", "goal": "서휘가 기다리는\n남산 아래 공터로 가라.", "name": "남산 아래 결투"},
-			{"map": "s3_e", "goal": "서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라.", "name": "소굴 안쪽 방으로", "bg": "den2_night", "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}}],
+			{"map": "s3_e", "goal": "며칠 뒤, 달도 없는 그믐밤.\n서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라.", "name": "소굴 안쪽 방으로", "bg": "den2_night", "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
@@ -354,7 +354,6 @@ const C3_BOSS := [
 const C3_BOSS_WIN := [
 	{"who": "서휘", "pic": "seohwi", "text": "…하. 처음 왔을 때랑은 딴사람이로군.\n…네 눈은 거짓말하는 눈이 아니야. 그 어른께 다시 물어봤자 같은 대답일 거다."},
 	{"who": "서휘", "pic": "seohwi", "text": "며칠 뒤 밤, 그 어른이 소굴 안쪽 방에서 귀한 손님을 만난다더군.\n그날 내 눈으로 직접 보겠다. …너도 와라."},
-	{"who": "", "text": "며칠 뒤, 달도 없는 그믐밤."},
 ]
 
 const CH3_END := [
