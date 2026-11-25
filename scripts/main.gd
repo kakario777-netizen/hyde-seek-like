@@ -1842,7 +1842,7 @@ const SHOP_GOODS := [
 	{"id": "hat", "name": "삿갓 그늘", "price": 15, "icon": "debuff", "desc": "감시꾼에게\n한 번 들켜도 무사"},
 	{"id": "charm", "name": "호신 부적", "price": 17, "icon": "buff", "desc": "다음 전투 시작 때\n막기 10"},
 	{"id": "pill", "name": "각성 환", "price": 19, "icon": "yak", "desc": "다음 전투 첫 차례\n기력 +1"},
-	{"id": "ginseng", "name": "인삼 뿌리", "price": 25, "icon": "herb", "desc": "최대 체력 +5\n(장마다 1개)"},
+	{"id": "ginseng", "name": "백 년 묵은 산삼", "price": 25, "icon": "herb", "desc": "최대 체력 +5\n(장마다 1개)"},
 ]
 var goods := {}   # 가지고 있는 물건 개수
 
@@ -1941,7 +1941,7 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 			msg.add_theme_color_override("font_color", RED)
 			return
 		if g["id"] == "ginseng" and int(flags.get("ginseng_ch", 0)) == chapter:
-			msg.text = "인삼 뿌리는 이번 장에 이미 샀습니다."
+			msg.text = "백 년 묵은 산삼은 이번 장에 이미 샀습니다."
 			msg.add_theme_color_override("font_color", RED)
 			return
 		coins -= int(g["price"])
@@ -1955,7 +1955,7 @@ func _goods_tile(g: Dictionary, msg: Label, refresh: Callable) -> Control:
 		elif g["id"] == "ginseng":
 			flags["ginseng_ch"] = chapter
 			max_hp += 5; hp += 5
-			msg.text = "인삼 뿌리를 달여 먹었다! 최대 체력 +5 (지금 %d)" % max_hp
+			msg.text = "백 년 묵은 산삼을 달여 먹었다! 최대 체력 +5 (지금 %d)" % max_hp
 		else:
 			goods[g["id"]] = goods_count(g["id"]) + 1
 			msg.text = "〈%s〉을(를) 샀습니다! (가진 것 %d개)" % [g["name"], goods_count(g["id"])]

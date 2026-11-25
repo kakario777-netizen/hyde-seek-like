@@ -339,12 +339,14 @@ func _make_tile_ent(i: int) -> void:
 		var eb := PanelContainer.new()
 		eb.add_theme_stylebox_override("panel", main.plaque_style())
 		eb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var el: Label = main.make_label("약재\n" + str(t["errand"]), 22, main.GOLD, true)
+		var el: Label = main.make_label(str(t["errand"]), 22, main.GOLD, true)
 		el.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		eb.add_child(el)
-		eb.position = Vector2(-40, -96)
 		eb.name = "Errand"
 		root.add_child(eb)
+		var _center_eb := func():   # 칸 바닥 한가운데에 붙임 (글꼴 적용 뒤 크기로)
+			eb.reset_size(); eb.position = Vector2(-eb.size.x / 2.0, TH / 2.0 - eb.size.y - 4.0)   # 아래 끝을 칸 앞쪽 모서리에
+		_center_eb.call_deferred()
 		if str(t["errand"]) in errand_names:
 			eb.visible = false
 	if t.get("herb", false):
