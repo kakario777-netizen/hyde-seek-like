@@ -286,7 +286,7 @@ const ENEMIES := {
 	"pirate_boss": {"name": "해적 두목", "sprite": "pirate_captain", "hp": 70, "coin": 14, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 13, "n": "갈고리 휘두르기"}, {"t": "def", "v": 10, "n": "돛줄 타고 피하기"}, {"t": "atk", "v": 15, "n": "단검 난도질"}],
 		"heavy": {"t": "atk", "v": 23, "n": "선상 칼춤"}},
-	"qing_soldier": {"name": "청나라 국경 군졸", "sprite": "sumunjang", "hp": 34, "coin": 5, "charge": 3,
+	"qing_soldier": {"name": "청나라 국경 군졸", "sprite": "qing_soldier", "hp": 34, "coin": 5, "charge": 3,
 		"moves": [{"t": "atk", "v": 11, "n": "창 찌르기"}, {"t": "def", "v": 8, "n": "창대로 막기"}, {"t": "atk", "v": 12, "n": "창대 휘두르기"}],
 		"heavy": {"t": "atk", "v": 19, "n": "국경 수비 돌격"}},
 	"mapo_thug": {"name": "마포 나루 짐꾼패", "sprite": "mapo_thug", "hp": 34, "coin": 6, "charge": 3,
