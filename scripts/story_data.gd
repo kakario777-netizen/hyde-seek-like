@@ -492,7 +492,7 @@ const CH4_AFTER_DUEL := [
 	{"who": "다래", "pose": "friend_worried", "text": "…{alias}, 아니, {name|아}. 미안해. 정말 미안해…"},
 	{"who": "{name}", "pose": "hero_disguise_sad", "text": "나도 미안해. 더 일찍 말했어야 했는데.\n…우리, 아직 친구지?"},
 	{"who": "다래", "pose": "friend", "text": "당연하지, 바보야!"},
-	{"who": "서휘", "pose": "seohwi", "text": "…{name}. 이제 다래도 너를 진짜 이름으로 부르는군.\n(수상한 씨앗을 건넨 나를 끝까지 믿어 준 사람. …잊지 못하겠군.)"},
+	{"who": "서휘", "pose": "seohwi", "text": "…다행이군. 둘이 다시 웃으니.\n(수상한 씨앗을 건넨 나를 끝까지 믿어 준 사람. …잊지 못하겠군.)"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 그리고 서휘.\n너희 덕분에 삿갓 노인을 잡을 수 있었다. …고맙다."},
 	{"who": "", "text": "― 제4장 「대대장」 끝 ―", "end": true},
 ]
