@@ -29,8 +29,8 @@ const CHAPTERS := {
 			{"map": "s3_d", "goal": "서휘와 함께 포졸들의 눈을 피해\n광통교 아래 새 소굴로 가라.", "name": "새 소굴로", "after": "C3_NEWDEN", "ally": "seohwi", "foes": {"walpae": "pojol", "pojol": "pojol"}},
 			{"map": "s3_k", "goal": "서휘와 함께 청계천 하류 소금 창고로 숨어들어\n흑룡파 두목을 쓰러뜨리고 아이들을 구하라.", "name": "소금 창고의 아이들", "after": "C3_HK2", "ally": "seohwi"},
 			{"map": "s3_2", "goal": "약 보따리를 들고\n종로 뒷골목을 지나 왈패 소굴로 돌아가라.", "name": "종로 뒷골목", "after": "C3_TRUTH"},
-			{"map": "s3_3", "goal": "서휘가 기다리는\n남산 아래 공터로 가라.", "name": "남산 아래 결투"},
-			{"map": "s3_e", "goal": "며칠 뒤, 달도 없는 그믐밤.\n서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라.", "name": "소굴 안쪽 방으로", "bg": "den2_night", "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}}],
+			{"map": "s3_3", "goal": "서휘가 기다리는\n남산 아래 공터로 가라.", "name": "남산 아래 결투", "after": "C3_GLOOM"},
+			{"map": "s3_e", "goal": "서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라.", "name": "소굴 안쪽 방으로", "bg": "den2_night", "ally": "seohwi", "foes": {"walpae": "walpae", "pojol": "walpae"}}],
 		"goal_text": "청계천 다리 밑, 왈패 소굴로 돌아왔다.\n안쪽 방에서 낮은 목소리가 새어 나온다…", "goal_title": "왈패 소굴", "goal_pic": "", "goal_bg": "den"},
 	4: {"title": "제4장  대대장", "goal": "천수각", "intro": "CH4_INTRO", "end": "CH4_END",
 		"stages": [{"map": "s4_0", "goal": "서휘와 함께 성 밖 병든 마을을 돌며\n앓는 이들을 살펴라.", "foes": {"walpae": "walpae", "pojol": "pojol"}, "name": "성 밖 병든 마을", "after": "C4_PLAGUE", "ally": "seohwi"},
@@ -354,6 +354,15 @@ const C3_BOSS := [
 const C3_BOSS_WIN := [
 	{"who": "서휘", "pic": "seohwi", "text": "…하. 처음 왔을 때랑은 딴사람이로군.\n…네 눈은 거짓말하는 눈이 아니야. 그 어른께 다시 물어봤자 같은 대답일 거다."},
 	{"who": "서휘", "pic": "seohwi", "text": "며칠 뒤 밤, 그 어른이 소굴 안쪽 방에서 귀한 손님을 만난다더군.\n그날 내 눈으로 직접 보겠다. …너도 와라."},
+]
+
+const C3_GLOOM := [
+	{"bg": "den2_night", "who": "", "text": "며칠 뒤, 달도 없는 그믐밤.\n소굴 사람들이 모두 잠든 시각, 서휘가 {alias}의 어깨를 가만히 흔들었다."},
+	{"who": "서휘", "pose": "seohwi", "text": "…일어나라. 오늘 밤이다.\n그 어른이 손님을 안쪽 방으로 들였다."},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "안쪽 방 앞엔 흑룡파 파수꾼들이 지키고 있잖아요.\n들키면 어떡해요?"},
+	{"who": "서휘", "pose": "seohwi", "text": "그 방 옆 벽장은 내가 어릴 때 숨던 곳이다. 파수꾼들은 모르지.\n발소리 죽이고 내 뒤만 따라와라."},
+	{"who": "{alias}", "pose": "hero_disguise", "text": "(…무슨 말이 오가든, 오늘 밤 다 알게 되겠지.)"},
+	{"who": "", "text": "【목표】\n서휘와 함께 흑룡파 파수꾼 눈을 피해\n소굴 안쪽 방 벽장까지 숨어들어라."},
 ]
 
 const CH3_END := [
@@ -1915,7 +1924,7 @@ const ALL := {
 	"C4_CASTLE": C4_CASTLE, "C4_F1_PRE": C4_F1_PRE, "C4_F1_POST": C4_F1_POST, "C4_F1": C4_F1, "C4_F2_PRE": C4_F2_PRE, "C4_F2_POST": C4_F2_POST, "C4_F2": C4_F2, "C4_F3_PRE": C4_F3_PRE, "C4_F3_POST": C4_F3_POST, "C4_F3": C4_F3, "C4_F5_PRE": C4_F5_PRE, "C4_F5_POST": C4_F5_POST, "C4_F4": C4_F4,
 	"C7_SICK": C7_SICK, "C7_SICK_B": C7_SICK_B,
 	"C3_HEUK": C3_HEUK,
-	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6_RAIN": C6_RAIN, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_DUNE": C9_DUNE, "C9_LEAVE2": C9_LEAVE2, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
+	"CH1_AFTER_SHADOW": CH1_AFTER_SHADOW, "C2_DG_FIGHT": C2_DG_FIGHT, "C2_DG_FLEE": C2_DG_FLEE, "C3_DG_FIGHT": C3_DG_FIGHT, "C3_DG_AFTER": C3_DG_AFTER, "C3_GLOOM": C3_GLOOM, "C3_SHADOW": C3_SHADOW, "C3_SHADOW_FLEE": C3_SHADOW_FLEE, "C4_MASK1": C4_MASK1, "C4_MASK1_FLEE": C4_MASK1_FLEE, "C4_MASK2": C4_MASK2, "C4_MASK2_FLEE": C4_MASK2_FLEE, "C5_SHADOW": C5_SHADOW, "C5_SHADOW_FLEE": C5_SHADOW_FLEE, "CH6F_INTRO": CH6F_INTRO, "C6_RAIN": C6_RAIN, "C6F_LESSON": C6F_LESSON, "CH6F_END": CH6F_END, "C9_LEAVE": C9_LEAVE, "C9_SHIP": C9_SHIP, "C9_DUNE": C9_DUNE, "C9_LEAVE2": C9_LEAVE2, "C9_SEA_NIGHT": C9_SEA_NIGHT, "C9_ISLAND_RET": C9_ISLAND_RET, "C9_YANJING_RET": C9_YANJING_RET, "C9_FERRY_RET": C9_FERRY_RET, "C9_PORT_RET": C9_PORT_RET, "C9_ARRIVE": C9_ARRIVE, "C9_PIRATE_PRE": C9_PIRATE_PRE, "C9_PIRATE_POST": C9_PIRATE_POST, "C9_SPAR_PRE": C9_SPAR_PRE, "C4_GATE_PRE": C4_GATE_PRE, "C4_GATE_POST": C4_GATE_POST, "C9_SPAR_POST": C9_SPAR_POST, "CH9_INTRO": CH9_INTRO, "C9_MEM": C9_MEM, "CH9_END": CH9_END, "C10_CLUE": C10_CLUE, "C10_CHOICE": C10_CHOICE, "C10_WED": C10_WED, "C10_JEONG1_PRE": C10_JEONG1_PRE, "C10_JEONG1_POST": C10_JEONG1_POST, "C10_JEONG_PRE": C10_JEONG_PRE, "C10_JEONG_POST": C10_JEONG_POST,
 	"CH2_INTRO": CH2_INTRO, "C2_DOGYEOL": C2_DOGYEOL, "C4_PLAGUE": C4_PLAGUE, "C4_RAINY": C4_RAINY, "CH2_GOAL": CH2_GOAL, "CH2_END": CH2_END,
 	"CH3_INTRO": CH3_INTRO, "C3_DOGYEOL": C3_DOGYEOL, "C3_CHASE": C3_CHASE, "C3_NEWDEN": C3_NEWDEN, "C3_TRUTH": C3_TRUTH, "C3_BREW": C3_BREW, "C3_BOSS": C3_BOSS, "C3_BOSS_WIN": C3_BOSS_WIN, "CH3_END": CH3_END,
 	"CH4_INTRO": CH4_INTRO, "C4_STREAM": C4_STREAM, "C4_CLUE": C4_CLUE, "CH4_GOAL": CH4_GOAL, "CH4_END": CH4_END, "CH4_AFTER_DUEL": CH4_AFTER_DUEL,
