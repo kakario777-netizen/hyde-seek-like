@@ -118,6 +118,8 @@ const CHAPTERS := {
 				"foes": {"walpae": "masked_henchman", "pojol": "masked_henchman"}, "ally": "dogyeol"},
 			{"map": "s10_ferry", "goal": "홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
 				"foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
+			{"map": "s10_ginseng", "goal": "마포 장터 약재전을 돌며 진짜 고려 인삼 다섯 뿌리를 구해\n청 상선으로 돌아와라.", "name": "마포 장터 인삼 구하기", "after": "C10_YONGNOE2", "after_story": true, "ally": "",
+				"errand": ["인삼", "인삼", "인삼", "인삼", "인삼"], "foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true, "hero_chibi": "hero_adult_court",
 				"foes": {"walpae": "mapo_thug", "pojol": "walpae"}, "ally": "dogyeol"},
 			{"map": "s9_1", "goal": "운종가에서 청계천까지\n추억이 깃든 길을 걸어라.", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],
@@ -153,6 +155,7 @@ static func lines(key: String) -> Array:
 		"C10_ISLE": return C10_EXILE + C10_BACK
 		"C10_BACKED": return C10_FALL
 		"C10_FERRY": return C10_YONGNOE
+		"C10_YONGNOE2": return C10_YONGNOE2
 		"C10_PODO": return C10_PODO_RET
 		"C10_CURE_WED": return C10_CURE + C10_CHOICE + C10_WED
 		"CHAPTER1_END": return GameData.CHAPTER1_END
@@ -2096,10 +2099,20 @@ const C10_YONGNOE := [
 	{"bg": "ferry", "music": "yakbang_day", "who": "", "text": "마포 나루. 붉은 돛을 단 청 상선 앞에서\n낯익은 사내가 짐을 부리고 있었다."},
 	{"who": "약재 상인", "pose": "cheong_merchant", "text": "아니, 이게 누구요! 조선 의원 양반 아니오?\n화란은 잘 다녀왔소?"},
 	{"who": "{name}", "pose": "hero_adult_tense", "text": "어르신…! 등주에서 뵙던…\n혹시, 용뇌 있으세요? 사람을 살릴 약에 꼭 필요해요."},
-	{"who": "약재 상인", "pose": "cheong_merchant", "text": "용뇌라… 청에서도 금값인 물건인데.\n…허, 하필 이번 배에 딱 한 상자 실었소."},
-	{"who": "약재 상인", "pose": "cheong_merchant", "text": "값은 됐소. 그때 내 가짜 인삼을 들춰 준 덕에\n지금은 정직하게 장사해서 배까지 부리게 됐으니. …진 빚 갚는 셈 치리다."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "용뇌라… 청에서도 금값인 물건인데.\n마침 이번 배에 조금 실어 왔소."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "빚은 그때 화란 배에 태워 드린 걸로 다 갚았으니, 이번엔 장사요.\n…그 대신 내 부탁 하나만 들어주시오."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "이번엔 청에 진짜 고려 인삼을 들고 가고 싶소. 가짜 팔던 놈 눈을 누가 믿겠소.\n의원 양반이 골라 준 거라면 믿을 수 있지. 진짜 고려 인삼 다섯 뿌리만 구해 주시오."},
+	{"who": "{name}", "pose": "hero_adult_tense", "text": "진짜 고려 인삼 다섯 뿌리요…\n마포 장터 약재전이라면 있을 거예요. 제가 골라 올게요."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "허허, 기다리겠소. 용뇌는 그때 내 드리리다."},
+	{"who": "", "text": "【목표】\n마포 장터 약재전을 돌며 진짜 고려 인삼 다섯 뿌리를 구해\n청 상선으로 돌아와라."},
+]
+
+const C10_YONGNOE2 := [
+	{"bg": "ferry", "music": "yakbang_day", "who": "", "text": "{name|이} 내민 인삼 다섯 뿌리를\n상인이 하나하나 이리저리 들여다보았다."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "다섯 뿌리 모두 잔뿌리 끝까지 멀쩡하고, 향이 코를 찌르는구먼.\n…이게 진짜지."},
+	{"who": "약재 상인", "pose": "cheong_merchant", "text": "약속대로요. 환약 몇 알, 탕약 며칠 치는 될 거요."},
 	{"who": "약재 상인", "pose": "cheong_merchant", "text": "그런데 의원 양반, 요즘 조선 내의원 사람 하나가\n청나라 약재 중에 독한 것들만 골라 몰래 사 간다오. 마포 뒤쪽 창고를 빌려 쓴다던데… 조심하시오."},
-	{"who": "", "text": "(용뇌 한 상자를 얻었다)"},
+	{"who": "", "text": "(용뇌 한 봉지를 얻었다)"},
 	{"bg": "jumak_street", "music": "lonely_night", "who": "", "text": "그날부터 {name|은} 나루 앞 주막의 작은 방에 머물렀다.\n허 의원의 환심단 처방에 백운의 해독법대로 용뇌를 더해, 갈고 또 갈았다."},
 	{"who": "", "text": "허 의원의 처방과 백운의 해독법이 한 알 안에서 섞였다.\n새 환심단 세 알. {name|은} 그것을 무명천에 싸서 품 깊숙이 넣었다."},
 	{"who": "", "text": "밤마다 창 너머 마포 뒤쪽 창고에서 희미한 불빛이 켜졌다 꺼졌다.\n정 의관은 아직 저 어둠 어딘가에서 검은 약을 빚고 있었다."},

@@ -350,7 +350,7 @@ func _make_tile_ent(i: int) -> void:
 		var _center_eb := func():   # 칸 바닥 한가운데에 붙임 (글꼴 적용 뒤 크기로)
 			eb.reset_size(); eb.position = Vector2(-eb.size.x / 2.0, TH / 2.0 - eb.size.y - 4.0)   # 아래 끝을 칸 앞쪽 모서리에
 		_center_eb.call_deferred()
-		if str(t["errand"]) in errand_names:
+		if _errand_taken(i):
 			eb.visible = false
 	if t.get("herb", false):
 		var h: TextureRect = main.tex_rect(load("res://assets/ui/tiles/deco_herb.png"), Vector2(64, 78))
@@ -984,8 +984,18 @@ func _update_hud() -> void:
 	info_lbl.text = "체력 %d/%d    엽전 %d    약병 %d    약초 %d" % [main.hp, main.max_hp, main.coins, main.potions + main.potions_small, main.herbs]
 	if errand_lbl:
 		var parts := []
-		for n in stage_cfg["errand"]:
-			parts.append(("✓ " if str(n) in errand_names else "○ ") + str(n))
+		var seen := []
+		var all_e: Array = stage_cfg["errand"]
+		for n in all_e:
+			if str(n) in seen:
+				continue
+			seen.append(str(n))
+			var tot: int = all_e.count(n)
+			var got: int = errand_names.count(str(n))
+			if tot > 1:
+				parts.append(("✓ " if got >= tot else "") + "%s %d/%d" % [str(n), mini(got, tot), tot])
+			else:
+				parts.append(("✓ " if got > 0 else "○ ") + str(n))
 		errand_lbl.text = "   ".join(parts)
 	if brew_btn:
 		brew_btn.modulate = Color(1.25, 1.15, 0.8) if main.herbs >= main.BREW_SMALL else Color.WHITE
@@ -1188,8 +1198,19 @@ func _brew_hint() -> void:
 		tw.tween_property(brew_btn, "scale", Vector2.ONE, 0.25)
 
 var errand_names: Array = []
+## 같은 약재를 여러 개 모으는 심부름도 있다 (예: 인삼 다섯 뿌리): 길 순서대로 앞의 것부터 주운 것으로 센다
+func _errand_taken(i: int) -> bool:
+	if not tiles[i].has("errand"):
+		return false
+	var nm := str(tiles[i]["errand"])
+	var before := 0
+	for j in i:
+		if tiles[j].has("errand") and str(tiles[j]["errand"]) == nm:
+			before += 1
+	return errand_names.count(nm) > before
+
 func _pick_errand(i: int) -> void:
-	if not tiles[i].has("errand") or str(tiles[i]["errand"]) in errand_names:
+	if not tiles[i].has("errand") or _errand_taken(i):
 		return
 	errand_names.append(str(tiles[i]["errand"]))
 	main.sfx("item")
@@ -1652,7 +1673,12 @@ func _stage_clear() -> void:
 	var last: bool = main.stage_idx >= stages.size() - 1
 	var msg: String = "〈%s〉 통과!\n\n남은 시각 보너스 엽전 +%d냥\n이번 길에서 캔 약초 %d/%d (약초 주머니 %d개)" % [stage_cfg["name"], bonus, herbs_got, herbs_total, main.herbs]
 	if errand_names.size() > 0:
-		msg += "\n구한 약재: %s" % " · ".join(errand_names)
+		var eparts := []
+		for nm in errand_names:
+			var lab: String = str(nm) if errand_names.count(nm) == 1 else "%s %d" % [nm, errand_names.count(nm)]
+			if not lab in eparts:
+				eparts.append(lab)
+		msg += "\n구한 약재: %s" % " · ".join(eparts)
 	if not main.sub_stage.is_empty():
 		main.popup(msg, "계속", func():
 			main.dialog_chain(StoryData.lines(stage_cfg.get("after", "")), main.end_voyage), "", "", data.get("bg", ""), true)

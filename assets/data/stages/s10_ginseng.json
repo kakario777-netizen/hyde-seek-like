@@ -1,0 +1,318 @@
+{
+ "id": "s10_ginseng",
+ "name": "마포 장터 인삼 구하기",
+ "tile": "wood",
+ "bg": "jangteo",
+ "turns": 20,
+ "tiles": [
+  {
+   "x": 0,
+   "y": 0,
+   "type": "start"
+  },
+  {
+   "x": 0,
+   "y": -1,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -2,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -3,
+   "type": "empty"
+  },
+  {
+   "x": 0,
+   "y": -4,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -2,
+   "y": -4,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -4,
+   "type": "spike"
+  },
+  {
+   "x": -3,
+   "y": -5,
+   "type": "empty"
+  },
+  {
+   "x": -3,
+   "y": -6,
+   "type": "debuff"
+  },
+  {
+   "x": -4,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -5,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -6,
+   "y": -6,
+   "type": "buff"
+  },
+  {
+   "x": -7,
+   "y": -6,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -7,
+   "type": "trap"
+  },
+  {
+   "x": -7,
+   "y": -8,
+   "type": "empty"
+  },
+  {
+   "x": -7,
+   "y": -9,
+   "type": "debuff"
+  },
+  {
+   "x": -8,
+   "y": -9,
+   "type": "empty"
+  },
+  {
+   "x": -9,
+   "y": -9,
+   "type": "shop"
+  },
+  {
+   "x": -10,
+   "y": -9,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -10,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -10,
+   "y": -11,
+   "type": "empty"
+  },
+  {
+   "x": -10,
+   "y": -12,
+   "type": "debuff"
+  },
+  {
+   "x": -10,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -11,
+   "y": -13,
+   "type": "empty",
+   "herb": true
+  },
+  {
+   "x": -12,
+   "y": -13,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -13,
+   "type": "debuff"
+  },
+  {
+   "x": -13,
+   "y": -14,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -15,
+   "type": "empty"
+  },
+  {
+   "x": -13,
+   "y": -16,
+   "type": "item"
+  },
+  {
+   "x": -14,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -16,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -17,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "type": "empty"
+  },
+  {
+   "x": -15,
+   "y": -19,
+   "type": "buff"
+  },
+  {
+   "x": -15,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -16,
+   "y": -20,
+   "type": "spike"
+  },
+  {
+   "x": -17,
+   "y": -20,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -20,
+   "type": "pojol"
+  },
+  {
+   "x": -18,
+   "y": -21,
+   "type": "empty"
+  },
+  {
+   "x": -18,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -22,
+   "type": "rest"
+  },
+  {
+   "x": -20,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "buff"
+  },
+  {
+   "x": -21,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -25,
+   "type": "buff"
+  },
+  {
+   "x": -21,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -26,
+   "type": "pojol"
+  },
+  {
+   "x": -24,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -27,
+   "type": "goal"
+  }
+ ],
+ "guards": [
+  {
+   "x": -12,
+   "y": -13,
+   "at": 25,
+   "zone": [
+    24,
+    25
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "at": 5,
+   "zone": [
+    4,
+    5,
+    6
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -21,
+   "y": -24,
+   "at": 45,
+   "zone": [
+    45
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "at": 33,
+   "zone": [
+    33
+   ],
+   "kind": "walpae",
+   "on_path": true
+  }
+ ]
+}
