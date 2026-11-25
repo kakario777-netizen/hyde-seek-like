@@ -307,7 +307,7 @@ const ENEMIES := {
 	"jeong_shadow": {"name": "흑화한 정 의관", "sprite": "jeong_shadow", "hp": 110, "coin": 20, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 14, "n": "검은 침 놓기"}, {"t": "def", "v": 12, "n": "먹물 연기 두르기"}, {"t": "atk", "v": 16, "n": "흑심단 뿌리기"}],
 		"heavy": {"t": "atk", "v": 27, "n": "서른 해의 미움"}},
-	"merchant_gang": {"name": "약재상 패거리", "sprite": "cheong_merchant", "hp": 32, "coin": 6, "charge": 3,
+	"merchant_gang": {"name": "약재상 패거리", "sprite": "merchant_gang", "hp": 32, "coin": 6, "charge": 3,
 		"moves": [{"t": "atk", "v": 11, "n": "몽둥이 휘두르기"}, {"t": "def", "v": 7, "n": "약재 자루로 막기"}, {"t": "atk", "v": 12, "n": "몽둥이 내려찍기"}],
 		"heavy": {"t": "atk", "v": 18, "n": "패거리 몰매"}},
 	"rat": {"name": "역병 쥐떼", "sprite": "rat", "hp": 26, "coin": 2, "charge": 2,
