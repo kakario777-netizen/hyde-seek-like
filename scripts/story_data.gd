@@ -442,7 +442,7 @@ const C4_STREAM := [
 	{"who": "", "pose": "jongsagwan_blush", "text": "그날 이후, 윤도결은 {name}를 볼 때마다 남몰래 가슴께를 누르곤 했다."},
 	{"who": "윤도결", "pose": "jongsagwan_blush", "text": "(…진정해라, 윤도결. 심장이 왜 이리 시끄러운 거냐.)"},
 	{"who": "", "text": "(윤도결이 몰래 뒤를 봐주기로 했다. 다음 전투 시작 시 막기 10)", "guard": 10},
-	{"bg": "den2", "who": "", "text": "흠뻑 젖은 채 소굴로 돌아오자,\n아이들을 다 피신시킨 서휘가 기다리고 있었다."},
+	{"bg": "den2_night", "who": "", "text": "흠뻑 젖은 채 소굴로 돌아오자,\n아이들을 다 피신시킨 서휘가 기다리고 있었다."},
 	{"who": "서휘", "pose": "seohwi", "text": "…물에 빠진 생쥐 꼴이군. 무슨 일 있었나?"},
 	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "아, 아무것도 아니에요!\n비, 비가 너무 와서…"},
 ]
