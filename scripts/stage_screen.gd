@@ -328,8 +328,11 @@ func _make_tile_ent(i: int) -> void:
 			else:
 				root.add_child(_badge("talk", Vector2(-24, -28), Color("f3e6c8")))
 		"patient":
-			root.add_child(_sprite(_patient_pic(i), 160))
-			root.add_child(_badge("rest", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
+			if stage_cfg.get("patient_nopic", false):   # 그림 없이 칸 표시만
+				root.add_child(_badge("rest", Vector2(-24, -28), Color("f3e6c8")))
+			else:
+				root.add_child(_sprite(_patient_pic(i), 160))
+				root.add_child(_badge("rest", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
 		"shop":
 			root.add_child(_sprite("yakjae", 150) if main.illust("yakjae") != null else Control.new())
 			root.add_child(_badge("shop", Vector2(-24, -MAP_H - 40), Color("f3e6c8")))
@@ -616,7 +619,7 @@ func _randomize_layout(s: int) -> void:
 			for i in order:
 				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, pss[0]):
 					continue
-				if kind in ["walpae", "pojol"] and not must.has(i):
+				if (kind in ["walpae", "pojol"] or (kind == "patient" and stage_cfg.get("patients_block", false))) and not must.has(i):
 					continue
 				if pss[1] and _hidden_by_any(i, occupied):
 					continue
@@ -802,12 +805,15 @@ func _treat_patient() -> void:
 	var pic := _patient_pic(at)
 	var who := "앓는 어부" if man else "앓는 여인"
 	var text := "물… 물 좀 주시오…\n열이 펄펄 끓어 일어설 수가 없소…" if man else "몸이… 불덩이 같아요…\n아이들 밥도 못 해 줬는데…"
-	if stage_cfg.has("patient_pic"):
+	if stage_cfg.has("patient_pic") or stage_cfg.has("patient_who"):
 		who = stage_cfg.get("patient_who", "앓는 사람")
 		text = stage_cfg.get("patient_text", "열이… 열이 내리질 않아…")
+	if stage_cfg.get("patient_nopic", false):
+		pic = ""
+	var forced: bool = stage_cfg.get("patients_block", false)
 	var ch: Array = [{"text": "약초 1개로 탕약을 달여 준다" + ("" if main.herbs >= 1 else " (약초 없음)")},
 		{"text": "엽전 3냥으로 약을 사 준다" + ("" if main.coins >= 3 else " (엽전 부족)")},
-		{"text": "갈 길이 바빠 지나친다"}]
+		{"text": "물수건으로 열을 식히며 곁을 지킨다 (남은 시각 -1)" if forced else "갈 길이 바빠 지나친다"}]
 	main.popup_choices(text, ch, func(k: int):
 		if k == 0 and main.herbs >= 1:
 			main.herbs -= 1; main.coins += 5
@@ -817,6 +823,10 @@ func _treat_patient() -> void:
 			main.coins -= 3; main.max_hp += 2; main.hp += 2
 			_clear(at); main.sfx("good")
 			main.popup("시장에서 해열 약을 사다 먹였다.\n%s가 겨우 웃어 보였다.\n\n(엽전 -3냥 · 마을의 믿음: 최대 체력 +2)" % who, "다행이다", func(): _after_land(false), who, pic)
+		elif k == 2 and forced:
+			turns_left = max(0, turns_left - 1)
+			_clear(at); main.sfx("good")
+			main.popup("찬물에 적신 수건을 몇 번이고 갈아 대며 밤을 새웠다.\n새벽녘, %s의 열이 겨우 내렸다.\n\n(남은 시각 -1)" % who, "다행이다", func(): _after_land(false), who, pic)
 		elif k == 2:
 			turns_left = max(0, turns_left - 1)
 			main.sfx("hurt")
@@ -1079,6 +1089,8 @@ func _deal() -> void:
 
 # ── 이동 ────────────────────────────────────────────────
 func _blocks(i: int) -> bool:
+	if tiles[i]["type"] == "patient" and stage_cfg.get("patients_block", false):
+		return not cleared.has(i)   # 꼭 고쳐야 하는 환자: 지나가지 못하고 멈춰 선다
 	return tiles[i]["type"] in BLOCKERS and not cleared.has(i)
 
 func _play(steps: int, chosen: Button) -> void:

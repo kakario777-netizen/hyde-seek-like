@@ -82,20 +82,21 @@
    "y": 0.5695,
    "name": "광주 항구",
    "type": "voyage",
-   "pre_text": "열병 난 선원들을 돌보며\n부두 끝 화란 상선까지 가야 한다.",
+   "pre_text": "열병으로 쓰러진 선원들을 모두 치료하고\n부두 끝 화란 상선까지 가야 한다.\n선원들이 쓰러진 틈에, 부두 왈패들이 배 짐을 노린다.",
    "stage": {
     "map": "v_port",
     "name": "광주 항구",
     "bg": "port",
     "after": "C7_PORT",
     "foes": {
-     "walpae": "haejeok",
-     "pojol": "haejeok"
+     "walpae": "merchant_gang",
+     "pojol": "merchant_gang"
     },
     "patients": 2,
-    "patient_pic": "redhair_sailor",
     "patient_who": "열병 난 선원",
-    "patient_text": "으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…"
+    "patient_text": "부두 바닥에 화란 선원 하나가 쓰러져 길을 막고 있다.\n이마는 불덩이 같고, 입술은 바싹 말라 갈라졌다.\n\n\"으으… 사흘째 열이 안 내려…\n배가 곧 뜨는데, 이대로면 못 타…\"",
+    "patient_nopic": true,
+    "patients_block": true
    },
    "pre": "C7_PORT_PRE"
   },
