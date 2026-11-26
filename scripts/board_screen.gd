@@ -573,7 +573,12 @@ func _resolve() -> void:
 				line = "포졸이 두 소녀를 수상하게 노려본다!\n\"거기 계집아이들, 잠깐 서 봐라!\""
 			var idx := pos
 			main.sfx("alarm")
-			main.popup(line, "맞서 싸운다", func(): _fight(eid, idx), "전투", e["sprite"])
+			var talk: Array = _fight_talk(eid)
+			main.popup(line, "맞서 싸운다", func():
+				if talk.is_empty():
+					_fight(eid, idx)
+				else:
+					main.dialog_chain(talk, func(): _fight(eid, idx)), "전투", e["sprite"])
 		"shop":
 			if _at_sea(pos):
 				main.popup("선상 장터.\n선원들이 항구마다 사 모은 약재와 물건을 내놓았다.", "둘러본다", func():
@@ -586,6 +591,17 @@ func _resolve() -> void:
 			_reach_goal()
 		_:
 			_end_turn()
+
+## 바다에서 해적을 만났을 때 오가는 말 (갈 때: 얀·선장 / 올 때: 서휘)
+func _fight_talk(eid: String) -> Array:
+	if eid != "haejeok":
+		return []
+	if str(cfg.get("ally_pic", "")).begins_with("seohwi"):
+		return [{"who": "서휘", "pic": "seohwi_dutch", "text": "또 해적이군.\n…내 뒤에 있어라."},
+			{"who": "{name}", "pic": "hero_adult_ribbon", "text": "이번엔 같이 싸워요.\n갈 때는 저 혼자서도 막아 냈다고요!"}]
+	return [{"who": "얀", "pic": "redhair_sailor", "text": "해적이다!\n의원님, 선실로 숨어요!"},
+		{"who": "{alias}", "pic": "hero_disguise_angry", "text": "다친 선원들이 저 안에 있어요.\n숨어 있을 수만은 없어요!"},
+		{"who": "선장", "pic": "dutch_captain", "text": "칼 쥘 수 있는 놈은 다 갑판으로!\n(선장이 칼을 뽑아 들고 {alias}에게 고개를 끄덕였다.)"}]
 
 const ENEMY_LINES := {
 	"pojol": "포졸이 수상하다는 듯 노려본다!\n\"거기 너, 잠깐 서 봐라!\"",
