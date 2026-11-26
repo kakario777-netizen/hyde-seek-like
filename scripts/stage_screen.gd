@@ -1637,13 +1637,8 @@ func _resolve() -> void:
 			var talk: Dictionary = _talk_at(pos)
 			talk_idx += 1
 			main.stat_add("talks")
-			var extra := ""
 			main.sfx("coin" if talk.has("coin") else "item")
-			if talk.has("coin"):
-				main.coins += talk["coin"]; extra += "\n\n(엽전 +%d냥)" % talk["coin"]
-			if talk.has("potion"):
-				main.potions += talk["potion"]; extra += "\n\n(약병 +%d)" % talk["potion"]
-			main.popup(talk["text"] + extra, "고맙습니다", func(): _after_land(false), talk["who"], talk.get("pic", ""))
+			main.talk_chain(talk, func(): _after_land(false))
 			return
 		"patient":
 			_treat_patient()

@@ -977,6 +977,19 @@ func apply_line_effects(line: Dictionary) -> void:
 	if line.has("coin") or line.has("potion") or line.has("maxhp"):
 		sfx("good")
 
+## 맵 대화칸: 이야기 대화창(이름 바로 아래 4줄, 화면 눌러 넘김) + 받은 것은 따로 한 줄
+func talk_chain(talk: Dictionary, cb: Callable) -> void:
+	var lines := [{"who": talk["who"], "pic": talk.get("pic", ""), "text": talk["text"]}]
+	var got := []
+	if talk.has("coin"): got.append("엽전 +%d냥" % talk["coin"])
+	if talk.has("potion"): got.append("약병 +%d" % talk["potion"])
+	if not got.is_empty():
+		var r := {"who": "", "text": "(" + " · ".join(got) + ")"}
+		for k in ["coin", "potion"]:
+			if talk.has(k): r[k] = talk[k]
+		lines.append(r)
+	dialog_chain(lines, cb)
+
 ## 팝업으로 이어지는 짧은 이야기. line: {who, pic, text, bg, choices:[{text,set}], if, ifnot}
 ## 장면 배경음: 검은 사내·삿갓 백운이 나오면 무서운 곡, "music" 줄은 그 곡으로
 const SCENE_MUSIC := {"shadow": "dread_shadow", "baegun_boss": "dread_sakgat"}

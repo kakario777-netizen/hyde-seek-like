@@ -507,13 +507,8 @@ func _resolve() -> void:
 				pool = StoryData.SEA_TALKS + (StoryData.SEA_TALKS_HOME if main.chapter >= 9 else [])
 			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
-			var extra := ""
 			main.sfx("coin" if talk.has("coin") else "item")
-			if talk.has("coin"):
-				main.coins += talk["coin"]; extra += "\n\n(엽전 +%d냥)" % talk["coin"]
-			if talk.has("potion"):
-				main.potions += talk["potion"]; extra += "\n\n(약병 +%d)" % talk["potion"]
-			main.popup(talk["text"] + extra, "고맙습니다", _end_turn, talk["who"], talk.get("pic", ""))
+			main.talk_chain(talk, _end_turn)
 		"item":
 			_clear(pos)
 			main.potions += 1
