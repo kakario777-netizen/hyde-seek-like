@@ -182,7 +182,125 @@ func tile_center(i: int) -> Vector2:
 func _guard_center(g: Dictionary) -> Vector2:
 	return _iso(g["x"], g["y"]) + Vector2(0, TH / 2.0)
 
+## 아이콘·팻말·인물이 화면에서 절대 겹치지 않게: 칸마다 차지하는 네모를 계산해 겹치면 덜 중요한 것을 치운다
+func _ent_rects(i: int) -> Array:   # [[네모, 우선순위(높을수록 중요), 종류]]
+	var c := Vector2((tiles[i]["x"] - tiles[i]["y"]) * TW / 2.0, (tiles[i]["x"] + tiles[i]["y"]) * TH / 2.0 + TH / 2.0)
+	var out := []
+	var typ: String = tiles[i]["type"]
+	var ch := MAP_H * 1.2
+	if typ in ["walpae", "pojol", "boss", "talk", "shop"] or (typ == "patient" and not _pt_forced()):
+		out.append([Rect2(c.x - 48, c.y - ch, 96, ch + 8), 5, "char"])   # 인물
+		out.append([Rect2(c.x - 30, c.y - ch - 62, 60, 62), 5, "char"])   # 머리 위 표시
+	elif typ in ["item", "buff", "debuff", "trap", "rest"]:
+		out.append([Rect2(c.x - 30, c.y - 32, 60, 62), 1, "icon"])
+	elif typ == "patient":
+		out.append([Rect2(c.x - 30, c.y - 32, 60, 62), 3, "icon"])
+	if tiles[i].get("herb", false):
+		out.append([Rect2(c.x - 34, c.y - 70, 68, 82), 0, "herb"])
+	if tiles[i].has("errand"):
+		out.append([Rect2(c.x - 60, c.y + TH / 2.0 - 66, 120, 62), 2, "errand"])
+	return out
+
+func _guard_rect(g: Dictionary) -> Rect2:
+	var c := Vector2((g["x"] - g["y"]) * TW / 2.0, (g["x"] + g["y"]) * TH / 2.0 + TH / 2.0)
+	var ch := MAP_H * 1.2
+	return Rect2(c.x - 48, c.y - ch, 96, ch + 8)
+
+func _resolve_overlaps() -> void:
+	for _round in 80:
+		var ents := []   # [네모, 우선순위, 종류, 칸]
+		for i in tiles.size():
+			if i == pos:
+				continue
+			for r in _ent_rects(i):
+				ents.append([r[0], r[1], r[2], i])
+		for g in guards:
+			ents.append([_guard_rect(g), 6, "guard", -1])
+		var changed := false
+		for a in ents.size():
+			for b in range(a + 1, ents.size()):
+				var A: Array = ents[a]; var B: Array = ents[b]
+				if A[3] == B[3] and A[3] != -1:
+					continue   # 같은 칸 안의 것끼리는 이미 자리가 나뉘어 있다
+				if not (A[0] as Rect2).grow(-2).intersects((B[0] as Rect2).grow(-2)):
+					continue
+				var lo: Array = A if A[1] <= B[1] else B
+				var hi: Array = B if lo == A else A
+				var k: int = lo[3]
+				if k < 0:
+					continue
+				match lo[2]:
+					"herb":
+						tiles[k].erase("herb"); changed = true
+					"icon":
+						if lo[1] < 3:
+							tiles[k]["type"] = "empty"; changed = true
+						elif _move_thing(k, "patient"):
+							changed = true
+						elif hi[2] == "char" and hi[3] >= 0 and tiles[hi[3]]["type"] in ["walpae", "pojol"]:
+							tiles[hi[3]]["type"] = "empty"; changed = true
+					"errand":
+						if _move_thing(k, "errand"):
+							changed = true
+						elif hi[2] == "char" and hi[3] >= 0 and tiles[hi[3]]["type"] in ["walpae", "pojol"]:
+							tiles[hi[3]]["type"] = "empty"; changed = true   # 옮길 데가 없으면 막아선 왈패를 뺀다
+			if changed:
+				break
+		if not changed:
+			return
+
+func _move_thing(k: int, what: String) -> bool:   # 심부름 팻말·환자를 본길의 빈 칸으로 옮김
+	var nm = tiles[k].get("errand", "")
+	var order := []
+	for j in range(3, main_len - 2):
+		order.append(j)
+	order.sort_custom(func(a, b): return absi(a - k) < absi(b - k))
+	for j in order:
+		if j == k or tiles[j].has("errand") or j == pos or not tiles[j]["type"] in ["empty", "item", "buff", "debuff", "trap", "rest"]:
+			continue
+		var in_fork := false
+		for f in fork_list:
+			if j > int(f["p"]) and j < int(f["q"]):
+				in_fork = true
+		for g in guards:
+			if int(g.get("at", -99)) == j:
+				in_fork = true   # 감시꾼이 선 칸에는 두지 않는다
+		if in_fork:
+			continue
+		var old_t: String = tiles[j]["type"]
+		if what == "errand":
+			tiles[j]["errand"] = nm
+			tiles[j]["type"] = "empty"
+		else:
+			tiles[j]["type"] = "patient"
+		var had_herb: bool = tiles[j].get("herb", false)
+		tiles[j].erase("herb")
+		var ok := true
+		for r in _ent_rects(j):
+			for i2 in tiles.size():
+				if i2 == j or i2 == k or i2 == pos:
+					continue
+				for r2 in _ent_rects(i2):
+					if r2[1] >= 2 and (r[0] as Rect2).grow(-2).intersects((r2[0] as Rect2).grow(-2)):
+						ok = false   # 약초·작은 아이콘은 다음 차례에 치워지니 괜찮다
+			for g in guards:
+				if (r[0] as Rect2).grow(-2).intersects(_guard_rect(g).grow(-2)):
+					ok = false
+		if ok:
+			if what == "errand":
+				tiles[k].erase("errand")
+			else:
+				tiles[k]["type"] = "empty"
+			return true
+		if what == "errand":
+			tiles[j].erase("errand")
+		tiles[j]["type"] = old_t
+		if had_herb:
+			tiles[j]["herb"] = true
+	return false
+
 func _build_world() -> void:
+	_resolve_overlaps()
 	var cells := []
 	for i in tiles.size():
 		cells.append({"x": tiles[i]["x"], "y": tiles[i]["y"], "i": i})
@@ -458,6 +576,7 @@ func _enemy_id(t: String) -> String:
 ## 칸 수는 그대로 두고, 길 2~3군데를 두 갈래로 갈라졌다 다시 합쳐지게 만든다.
 var map_seed := 0
 var shoes_used := false
+var fork_list: Array = []   # 갈림길 [p, q]
 var main_len := 0          # 본길 칸 수 (0..main_len-1, 마지막이 대문)
 var dist_goal: Array = []  # 각 칸에서 대문까지 최단 칸 수
 var visited := {}
@@ -514,6 +633,7 @@ func _randomize_layout(s: int) -> void:
 	_shuffle(rng, corners)
 	var want := 2 + rng.randi() % 2
 	var forks: Array = []
+	fork_list = forks
 	var extra := 0
 	for minside in [2, 1]:
 		for c: int in corners:

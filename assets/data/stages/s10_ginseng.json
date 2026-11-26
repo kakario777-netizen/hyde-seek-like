@@ -281,38 +281,6 @@
    ],
    "kind": "walpae",
    "on_path": true
-  },
-  {
-   "x": -1,
-   "y": -4,
-   "at": 5,
-   "zone": [
-    4,
-    5,
-    6
-   ],
-   "kind": "pojol",
-   "on_path": true
-  },
-  {
-   "x": -21,
-   "y": -24,
-   "at": 45,
-   "zone": [
-    45
-   ],
-   "kind": "walpae",
-   "on_path": true
-  },
-  {
-   "x": -15,
-   "y": -18,
-   "at": 33,
-   "zone": [
-    33
-   ],
-   "kind": "walpae",
-   "on_path": true
   }
  ]
 }
