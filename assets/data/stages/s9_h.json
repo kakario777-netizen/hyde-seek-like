@@ -3,7 +3,7 @@
  "name": "마지막 왕진 길",
  "tile": "grass",
  "bg": "holland",
- "turns": 24,
+ "turns": 28,
  "tiles": [
   {
    "x": 0,

@@ -724,6 +724,10 @@ func _randomize_layout(s: int) -> void:
 		chars.erase(blk.pop_back())
 	while blk.size() < keep:
 		blk.append("walpae"); chars.append("walpae")
+	if stage_cfg.get("talks_block", false):   # 왕진 맵: 만날 마을 사람 수만큼 말 걸 사람을 세운다
+		var want_t: int = maxi(3, stage_cfg.get("talks", []).size())
+		while chars.count("talk") < want_t:
+			chars.append("talk")
 	var must := {}
 	for i in tiles.size():
 		if _must_pass(i):
@@ -752,7 +756,7 @@ func _randomize_layout(s: int) -> void:
 			for i in order:
 				if not _char_ok(i, kind == "guard", occupied, reserved, dist_start, pss[0]):
 					continue
-				if (kind in ["walpae", "pojol"] or (kind == "patient" and _pt_forced())) and not must.has(i):
+				if (kind in ["walpae", "pojol"] or (kind == "patient" and _pt_forced()) or (kind == "talk" and stage_cfg.get("talks_block", false))) and not must.has(i):
 					continue
 				if pss[1] and _hidden_by_any(i, occupied):
 					continue
@@ -1265,6 +1269,8 @@ func _pt_total() -> int:
 	return n
 
 func _blocks(i: int) -> bool:
+	if tiles[i]["type"] == "talk" and stage_cfg.get("talks_block", false):
+		return not cleared.has(i)   # 왕진 맵: 마을 사람 앞에서 꼭 멈춰 선다
 	if tiles[i]["type"] == "patient" and _pt_forced():
 		return not cleared.has(i)   # 꼭 고쳐야 하는 환자: 지나가지 못하고 멈춰 선다
 	return tiles[i]["type"] in BLOCKERS and not cleared.has(i)
@@ -1334,8 +1340,8 @@ func _play(steps: int, chosen: Button) -> void:
 		await get_tree().create_timer(STEP_PAUSE).timeout
 		if _blocks(pos):
 			break
-	if tiles[pos]["type"] == "patient" and _pt_forced() and not cleared.has(pos):
-		turns_left += 1   # 환자 앞에서 멈춰 선 걸음은 시각을 쓰지 않는다
+	if not cleared.has(pos) and ((tiles[pos]["type"] == "patient" and _pt_forced()) or (tiles[pos]["type"] == "talk" and stage_cfg.get("talks_block", false))):
+		turns_left += 1   # 환자·마을 사람 앞에서 멈춰 선 걸음은 시각을 쓰지 않는다
 		_update_hud()
 	await get_tree().create_timer(0.35).timeout
 	_pick_herb(pos)  # 약초는 그 칸에 딱 멈춰야 얻는다
