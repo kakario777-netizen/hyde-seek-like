@@ -821,6 +821,7 @@ func _patient_pic(i: int) -> String:
 ## 화란: 앓는 마을 사람 칸 — 약초나 엽전으로 치료하거나, 지나치면 역병이 번진다
 func _treat_patient() -> void:
 	var at := pos
+	comp_say("patient")   # 동행(화란의 서휘 등)이 환자 말을 옮겨 준다
 	var man: bool = at % 2 == 0
 	var pic := _patient_pic(at)
 	var who := "앓는 어부" if man else "앓는 여인"
@@ -1111,7 +1112,7 @@ var said_start := false
 func _deal() -> void:
 	if not said_start and (follower == null or follower.visible):   # 동행이 보일 때 말주머니로
 		said_start = true
-		comp_say("start")
+		comp_say("start_nl" if main.chapter == 8 and main.companion() == "seohwi" else "start")
 	for c in card_row.get_children():
 		c.queue_free()
 	for i in 3:
