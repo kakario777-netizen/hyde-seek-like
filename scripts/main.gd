@@ -255,13 +255,6 @@ func _debug_capture() -> void:
 					if all_l[j].has("bg"):
 						sl[0] = sl[0].duplicate(); sl[0]["bg"] = all_l[j]["bg"]; break
 			play_story(sl, show_title)
-		"b7":
-			chapter = 9
-			stage_idx = 3
-			start_board()
-			await get_tree().create_timer(2.5).timeout
-			board.token.visible = false
-			board._focus(board._node_px(int(args.get("f","62"))), false, 0.0)
 		"chpop":
 			chapter = int(args.get("ch", "2"))
 			start_board()
