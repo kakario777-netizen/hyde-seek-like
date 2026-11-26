@@ -819,13 +819,13 @@ const C7_CANARY := [
 
 const C9_CANARY_RET := [
 	{"bg": "canary_island", "who": "", "text": "다시 찾은 카나리아. 부두에 닿자,\n지팡이를 짚은 할머니가 느릿느릿 마중을 나와 있었다."},
-	{"who": "마리아 할머니", "pic": "maria_healer", "text": "……?\n(할머니가 머리를 길게 늘어뜨린 {name}의 얼굴을 한참 들여다본다.)"},
-	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "할머니, 저예요.\n그때 혈갈을 주셨던…"},
-	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "……!\n(할머니가 활짝 웃으며 {name}의 손바닥에 제 손바닥을 마주 댔다.)"},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 섬 말은 서툴지만, 대강은 알아듣겠군.\n네가 놓고 간 감초 덕에, 그해 겨울 마을 기침병을 이겨 냈다는구나."},
-	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "(할머니가 작은 화분 하나를 내밀며 무어라 말했다.)"},
-	{"who": "서휘", "pic": "seohwi_dutch", "text": "'당신 나라 약장 한 칸에, 우리 섬 약도 하나 넣어 두라'고 한다.\n…용혈수 묘목이군."},
-	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "고맙습니다, 마리아 할머니.\n조선 약방 마당에 꼭 심을게요."},
+	{"who": "마리아 할머니", "pic": "maria_healer", "text": "……? 그때 그 조선 의원이우? 머리를 풀고 오니 몰라봤네!\n(할머니가 {name}의 얼굴을 한참 들여다보더니, 활짝 웃으며 손바닥을 마주 댔다.)"},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "할머니, 저예요. 그때 혈갈을 주셨던…\n(가슴에 손을 얹고 고개를 숙였다.)"},
+	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "자네가 두고 간 감초 덕에, 그해 겨울 마을 기침병을 다 이겨 냈다오!\n(할머니가 콜록콜록 기침하는 시늉을 하더니, 감초 한 조각을 들어 보이며 엄지를 치켜세웠다.)"},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "(감초가 기침병에 잘 들었다는 거구나.)\n다행이에요, 할머니!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…이 섬 말은 나도 한마디도 모르겠는데.\n둘이 잘도 통하는군."},
+	{"who": "마리아 할머니", "pic": "maria_healer_smile", "text": "자네 나라 약장 한 칸에, 우리 섬 약도 하나 넣어 두우.\n(할머니가 작은 화분 하나를 내밀더니, 해 뜨는 동쪽 하늘을 가리켰다.)"},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "용혈수 묘목…! 고맙습니다, 마리아 할머니.\n조선 약방 마당에 꼭 심을게요."},
 	{"who": "", "text": "(마리아 할머니의 선물: 체력 +15 · 약병 +1)", "heal": 15, "potion": 1},
 ]
 
