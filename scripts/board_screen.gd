@@ -505,8 +505,6 @@ func _resolve() -> void:
 			var pool: Array = cfg.get("talks", StoryData.talks(main.chapter))
 			if _at_sea(pos):   # 바다 위에선 마을 사람 대신 배 안 사람들 (그림 없이)
 				pool = StoryData.SEA_TALKS + (StoryData.SEA_TALKS_HOME if main.chapter >= 9 else [])
-			elif main.chapter >= 9 and _near_yanjing(pos):   # 돌아오는 길 청나라 해안: 등주 약재 상인
-				pool = StoryData.SHORE_TALKS
 			var talk: Dictionary = pool[talk_idx % pool.size()]
 			talk_idx += 1
 			var extra := ""

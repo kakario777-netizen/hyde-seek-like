@@ -1991,11 +1991,7 @@ const TALKS := {
 const SEA_TALKS := [
 	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 갈매기가 제 모자를 물어 갔다가 돛대 꼭대기에 걸어 놨어요!\n…올라가서 찾아왔는데, 망대 구석에 누가 숨겨 둔 엽전 꾸러미가 있지 뭐예요!\n선장님이 의원님 몫도 나눠 드리래요.", "coin": 2},
 	{"who": "선장", "pic": "dutch_captain", "text": "바람이 좋군. 이대로면 예정보다 빨리 닿겠어.\n선의 양반, 이걸로 약상자 좀 채워 두게.", "potion": 1},
-	{"who": "얀", "pic": "redhair_sailor", "text": "의원님 나라 말 하나만 더 가르쳐 주세요!\n'고맙습니다'… 고, 마, 씁, 니, 다! 맞죠?", "potion": 1},
-]
-## 돌아오는 길, 등주 앞 청나라 해안에 내렸을 때
-const SHORE_TALKS := [
-	{"who": "약재 상인", "pic": "cheong_merchant", "text": "아니, 조선 의원 양반! 정말 화란까지 다녀왔구려!\n…나? 요즘은 진짜 인삼만 판다오. 이건 그때 일 사과 겸 선물이오.", "potion": 1},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님 나라 말 하나만 더 가르쳐 주세요! 선원들이 앓을 때 전해 드리려고요.\n\"배가… 아, 파, 요!\" 맞죠? 헤헤, 이제 저도 통역할 수 있어요!", "potion": 1},
 ]
 const SEA_TALKS_HOME := [
 	{"who": "얀", "pic": "redhair_sailor", "text": "서휘 선생님이 뱃멀미 하시는 거 처음 봐요!\n…쉿, 제가 말했다고 하지 마세요.", "potion": 1},
