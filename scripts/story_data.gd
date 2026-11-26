@@ -1460,7 +1460,15 @@ const C9_FERRY_RET := [
 
 const C9_PORT_RET := [
 	{"bg": "port", "who": "", "text": "다시 찾은 광주 항구.\n화란 상선이 짐을 내리는 동안, 잠시 부두에 머물렀다."},
-	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 짐 다 내리면 북쪽 등주로 올라가요.\n처음 의원님을 태운 그 부두요!"},
+	{"who": "얀", "pic": "redhair_sailor", "text": "의원님, 여기 기억나요? 제가 열병으로 저 부두에 누워 있던 데요.\n눈 떠 보니까 의원님이 제 이마에 물수건을 얹고 있었어요."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "기억하지. 열이 내리자마자\n'나, 얀. 조선말 조금 해요!' 했잖아."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "헤헤. 그때 제가 서휘 선생님 얘기 안 했으면…\n의원님, 그 바닷가 마을 못 찾아갔을지도 몰라요."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "그러니까 두 분 다시 만난 거, 반은 제 덕이에요!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…반이나?"},
+	{"who": "얀", "pic": "redhair_sailor", "text": "그럼요! 그러니까 조선 가서도 저 잊으면 안 돼요.\n두 분 다요!"},
+	{"who": "서휘", "pic": "seohwi_dutch", "text": "…잊을 리가 있나. 그 시끄러운 목소리를."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "후후. 얀, 우리 둘 다 절대 안 잊을게."},
+	{"who": "얀", "pic": "redhair_sailor", "text": "약속이에요! …자, 짐 다 내리면 북쪽 등주로 올라가요.\n처음 의원님을 태운 그 부두요!"},
 ]
 
 const C9_ARRIVE := [
