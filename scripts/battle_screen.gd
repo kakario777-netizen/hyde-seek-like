@@ -482,8 +482,8 @@ func _use_potion() -> void:
 		return
 	potion_at = Time.get_ticks_msec()
 	if main.potions > 0 and main.potions_small > 0:
-		main.popup_choices("어떤 약을 마실까요?", [{"text": "진한 탕약 · 체력 +40 (%d병)" % main.potions},
-			{"text": "묽은 탕약 · 체력 +20 (%d병)" % main.potions_small}, {"text": "그만두기"}], func(k: int):
+		main.popup_choices("어떤 약을 마실까요?", [{"text": "진한 탕약 · 체력 회복 +40 (%d병)" % main.potions},
+			{"text": "묽은 탕약 · 체력 회복 +20 (%d병)" % main.potions_small}, {"text": "그만두기"}], func(k: int):
 				if k < 2:
 					_drink(k == 0))
 		return

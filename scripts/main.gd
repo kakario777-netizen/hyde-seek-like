@@ -54,8 +54,8 @@ func _process(delta: float) -> void:
 static func fmt_time(sec: float) -> String:
 	var m := int(sec) / 60
 	return "%d시간 %d분" % [m / 60, m % 60] if m >= 60 else "%d분" % m
-var potions := 2        # 진한 탕약(3단계, 체력 +40)
-var potions_small := 0  # 묽은 탕약(2단계, 체력 +20)
+var potions := 2        # 진한 탕약(3단계, 체력 회복 +40)
+var potions_small := 0  # 묽은 탕약(2단계, 체력 회복 +20)
 var herbs := 0          # 약초 주머니 (맵에서 주운 약초가 계속 쌓임)
 var deck: Array = []
 var chapter := 1
@@ -546,16 +546,16 @@ func rest_event(bg := "") -> Dictionary:
 	var ev: Dictionary = GameData.REST.duplicate()
 	if bg in ["deck", "deck_night", "sea", "port", "holland_port"]:
 		ev["title"] = "선실"; ev.erase("pic")
-		ev["text"] = "선실 해먹에 몸을 누이고 한숨 푹 잤다.\n뱃사람이 끓여 준 수프에 기운이 돈다.\n\n(체력 +20)"
+		ev["text"] = "선실 해먹에 몸을 누이고 한숨 푹 잤다.\n뱃사람이 끓여 준 수프에 기운이 돈다.\n\n(체력 회복 +20)"
 	elif chapter == 7 or bg in ["yanjing"]:
 		ev["title"] = "객잔"; ev.erase("pic")
-		ev["text"] = "길가 객잔에서 하룻밤 묵어 갔다.\n낯선 땅의 따뜻한 국수에 기운이 돈다.\n\n(체력 +20)"
+		ev["text"] = "길가 객잔에서 하룻밤 묵어 갔다.\n낯선 땅의 따뜻한 국수에 기운이 돈다.\n\n(체력 회복 +20)"
 	elif chapter == 8 or bg in ["holland"]:
 		ev["title"] = "여관"; ev.erase("pic")
-		ev["text"] = "풍차 옆 작은 여관에서 하룻밤 묵어 갔다.\n따끈한 빵과 수프에 기운이 돈다.\n\n(체력 +20)"
+		ev["text"] = "풍차 옆 작은 여관에서 하룻밤 묵어 갔다.\n따끈한 빵과 수프에 기운이 돈다.\n\n(체력 회복 +20)"
 	elif bg in ["castle", "vault", "corridor", "cheonsugak"]:
 		ev["title"] = "숨 고르기"; ev.erase("pic")
-		ev["text"] = "빈 곳간 구석에 몸을 숨기고 잠시 숨을 골랐다.\n\n(체력 +20)"
+		ev["text"] = "빈 곳간 구석에 몸을 숨기고 잠시 숨을 골랐다.\n\n(체력 회복 +20)"
 	return ev
 
 ## 맵 사건 고르기: 다래가 곁에 없으면 다래가 나오는 사건은 빼고
@@ -1847,8 +1847,8 @@ const POTION_PRICE := 10
 
 ## 보따리장수가 파는 물건
 const SHOP_GOODS := [
-	{"id": "potion_small", "name": "묽은 탕약", "price": 8, "icon": "potion", "desc": "약병 1개\n체력 +20"},
-	{"id": "potion_big", "name": "진한 탕약", "price": 14, "icon": "potion", "desc": "약병 1개\n체력 +40"},
+	{"id": "potion_small", "name": "묽은 탕약", "price": 8, "icon": "potion", "desc": "약병 1개\n체력 회복 +20"},
+	{"id": "potion_big", "name": "진한 탕약", "price": 14, "icon": "potion", "desc": "약병 1개\n체력 회복 +40"},
 	{"id": "shoes", "name": "새 짚신", "price": 16, "icon": "step", "desc": "다음 맵 남은 시각 +3"},
 	{"id": "smoke", "name": "연막 주머니", "price": 18, "icon": "gochu", "desc": "길막이 하나를\n싸우지 않고 지나감"},
 	{"id": "hat", "name": "삿갓 그늘", "price": 15, "icon": "debuff", "desc": "감시꾼에게\n한 번 들켜도 무사"},
