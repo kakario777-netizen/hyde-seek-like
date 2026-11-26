@@ -1443,6 +1443,9 @@ const C9_YANJING_RET := [
 	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "서휘 찾으러 가는 길이었잖아요.\n무모해도 가야 했어요."},
 	{"who": "노인", "pic": "yanjing_elder", "text": "자, 이건 손주 녀석이랑 산에서 캐다 말린 감초요. 조선 가는 길에 쓰시오.\n(노인이 감초 꾸러미를 {name}의 품에 안겨 주었다.)"},
 	{"who": "약재 상인", "pic": "cheong_merchant", "text": "손주랑 산에서 캐다 말린 감초랍니다.\n조선 가는 길에 쓰라는구려."},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "할아버지, 고맙습니다. 손주 녀석이랑 캔 거라니 더 귀하네요.\n(감초 꾸러미를 두 손으로 받쳐 들고 깊이 고개를 숙였다.)"},
+	{"who": "{name}", "pic": "hero_adult_ribbon", "text": "손주한테도 꼭 전해 주세요. 앞으로도 씩씩하게 크라고요."},
+	{"who": "약재 상인", "pic": "cheong_merchant", "text": "(상인이 노인에게 무어라 옮기자, 노인이 껄껄 웃으며 {name}의 어깨를 두드렸다.)\n…영감이 그러는데, 조선 가서도 꼭 좋은 의원 되라는구려."},
 	{"who": "", "text": "(노인의 선물: 약병 +1, 엽전 +3냥)", "potion": 1, "coin": 3},
 ]
 
