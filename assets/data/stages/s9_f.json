@@ -3,7 +3,7 @@
  "name": "봄 들판 약초 캐기",
  "tile": "grass",
  "bg": "holland_coast",
- "turns": 16,
+ "turns": 19,
  "tiles": [
   {
    "x": 0,
@@ -215,8 +215,68 @@
    "type": "empty"
   },
   {
+   "x": -19,
+   "y": -22,
+   "type": "empty"
+  },
+  {
+   "x": -19,
+   "y": -23,
+   "type": "empty"
+  },
+  {
    "x": -20,
-   "y": -21,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -21,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -23,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -24,
+   "type": "empty"
+  },
+  {
+   "x": -22,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -23,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -25,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -26,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -27,
    "type": "goal"
   }
  ],

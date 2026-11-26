@@ -3,7 +3,7 @@
  "name": "마포 장터 인삼 구하기",
  "tile": "wood",
  "bg": "jangteo",
- "turns": 20,
+ "turns": 24,
  "tiles": [
   {
    "x": 0,
@@ -267,6 +267,96 @@
   {
    "x": -24,
    "y": -27,
+   "type": "empty"
+  },
+  {
+   "x": -24,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -25,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -26,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -28,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -29,
+   "type": "empty"
+  },
+  {
+   "x": -27,
+   "y": -30,
+   "type": "empty"
+  },
+  {
+   "x": -28,
+   "y": -30,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -30,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -31,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -32,
+   "type": "empty"
+  },
+  {
+   "x": -29,
+   "y": -33,
+   "type": "empty"
+  },
+  {
+   "x": -30,
+   "y": -33,
+   "type": "empty"
+  },
+  {
+   "x": -31,
+   "y": -33,
+   "type": "empty"
+  },
+  {
+   "x": -31,
+   "y": -34,
+   "type": "empty"
+  },
+  {
+   "x": -32,
+   "y": -34,
+   "type": "empty"
+  },
+  {
+   "x": -33,
+   "y": -34,
+   "type": "empty"
+  },
+  {
+   "x": -33,
+   "y": -35,
+   "type": "empty"
+  },
+  {
+   "x": -34,
+   "y": -35,
    "type": "goal"
   }
  ],
@@ -278,6 +368,38 @@
    "zone": [
     24,
     25
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -1,
+   "y": -4,
+   "at": 5,
+   "zone": [
+    4,
+    5,
+    6
+   ],
+   "kind": "pojol",
+   "on_path": true
+  },
+  {
+   "x": -21,
+   "y": -24,
+   "at": 45,
+   "zone": [
+    45
+   ],
+   "kind": "walpae",
+   "on_path": true
+  },
+  {
+   "x": -15,
+   "y": -18,
+   "at": 33,
+   "zone": [
+    33
    ],
    "kind": "walpae",
    "on_path": true

@@ -242,6 +242,8 @@ func _resolve_overlaps() -> void:
 					"errand":
 						if _move_thing(k, "errand"):
 							changed = true
+						elif hi[2] == "char" and hi[3] >= 0 and tiles[hi[3]]["type"] in ["talk", "shop"] and _move_thing(hi[3], "char"):
+							changed = true   # 팻말을 못 옮기면 말 걸 사람·장사꾼 쪽을 옮긴다
 						elif hi[2] == "char" and hi[3] >= 0 and tiles[hi[3]]["type"] in ["walpae", "pojol"]:
 							tiles[hi[3]]["type"] = "empty"; changed = true   # 옮길 데가 없으면 막아선 왈패를 뺀다
 			if changed:
@@ -271,6 +273,8 @@ func _move_thing(k: int, what: String) -> bool:   # 심부름 팻말·환자를 
 		if what == "errand":
 			tiles[j]["errand"] = nm
 			tiles[j]["type"] = "empty"
+		elif what == "char":
+			tiles[j]["type"] = tiles[k]["type"]
 		else:
 			tiles[j]["type"] = "patient"
 		var had_herb: bool = tiles[j].get("herb", false)
