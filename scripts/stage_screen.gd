@@ -676,6 +676,17 @@ func _randomize_layout(s: int) -> void:
 		for i in range(4, main_len - 3):
 			if tiles[i]["type"] == "empty" and not reserved.has(i) and not inside.has(i) and not tiles[i].get("herb", false) and not _icon_clash(i, [], occupied):
 				ec.append(i)
+		# 자리가 모자라면 조건을 풀어서라도 꼭 놓는다 (심부름 약재가 빠지면 맵을 끝낼 수 없다)
+		if ec.size() < errands.size():
+			for i in range(3, main_len - 2):
+				if not ec.has(i) and tiles[i]["type"] == "empty" and not reserved.has(i) and not inside.has(i):
+					ec.append(i)
+		if ec.size() < errands.size():
+			for i in range(3, main_len - 2):
+				if not ec.has(i) and not inside.has(i) and not occupied.any(func(o): return o[0] == i) \
+						and not tiles[i]["type"] in ["walpae", "pojol", "boss", "patient", "talk", "shop", "goal"]:
+					tiles[i]["type"] = "empty"
+					ec.append(i)
 		# 심부름 약재는 꼭 놓여야 하니, 겹치는 약초가 있으면 그 약초를 치우고 놓는다
 		for k in errands.size():
 			if ec.is_empty():
