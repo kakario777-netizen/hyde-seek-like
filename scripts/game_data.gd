@@ -121,7 +121,7 @@ const CHAPTER1_END := [
 	{"who": "", "text": "그날 밤, 초당의 등잔 아래.\n백운 노인은 {name}에게 약초 보는 법을 하나하나 일러 주었다."},
 	{"who": "백운", "pose": "baegun", "text": "이건 산삼과 닮았지만 독이 있는 미치광이풀이다. 잎맥을 보거라.\n좋은 의원은 약보다 독을 먼저 알아보는 사람이다."},
 	{"who": "{name}", "pose": "hero", "choices": [{"text": "가르침을 마음에 새긴다", "set": "baegun_lesson"}, {"text": "할아버지 손에 묻은 붉은 가루를 본다", "set": "baegun_doubt"}], "text": "약보다… 독을 먼저."},
-	{"who": "백운", "pose": "baegun", "if": "baegun_lesson", "potion": 2, "maxhp": 5, "text": "허허, 그 눈빛이면 됐다. 옜다, 내가 지은 약이다. 먼 길에 쓰거라."},
+	{"who": "백운", "pose": "baegun", "if": "baegun_lesson", "potion": 2, "heal": 5, "text": "허허, 그 눈빛이면 됐다. 옜다, 내가 지은 약이다. 먼 길에 쓰거라."},
 	{"who": "백운", "pose": "baegun", "if": "baegun_doubt", "potion": 2, "text": "…이것 말이냐? 약을 빻다 묻은 주사(朱砂)다. 눈이 밝구나.\n옜다, 먼 길에 쓰거라."},
 	{"who": "", "text": "(백운의 가르침: 약병 +2)"},
 	{"who": "백운", "pose": "baegun", "text": "…허가 녀석이 둘이 되었다는 건 이 늙은이도 짐작하고 있었다.\n그 아이가 만든 해독약은 한양 약방 지하에 있다. 그것만 있으면 아직 늦지 않았어."},
