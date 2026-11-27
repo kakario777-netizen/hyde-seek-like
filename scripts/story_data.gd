@@ -120,7 +120,7 @@ const CHAPTERS := {
 			{"map": "s10_ferry", "goal": "홀로 마포 나루로 가서\n청 상선을 찾아 용뇌를 구하라.", "name": "마포 나루 청 상선", "after": "C10_FERRY", "after_story": true, "ally": "",
 				"foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
 			{"map": "s10_ginseng", "goal": "마포 장터 약재전을 돌며 진짜 고려 인삼 다섯 뿌리를 구해\n청 상선으로 돌아와라.", "name": "마포 장터 인삼 구하기", "after": "C10_YONGNOE2", "after_story": true, "ally": "",
-				"errand": ["인삼", "인삼", "인삼", "인삼", "인삼"], "foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
+				"errand": ["인삼", "인삼", "인삼", "인삼", "인삼"], "no_herbs": true, "foes": {"walpae": "mapo_thug", "pojol": "mapo_thug"}},
 			{"map": "s10_mapo", "goal": "윤도결과 함께\n마포 나루 청 상인 창고까지 가라.", "name": "마포 나루 청 상인 창고", "after": "C10_CURE_WED", "after_story": true, "hero_chibi": "hero_adult_court",
 				"foes": {"walpae": "mapo_thug", "pojol": "walpae"}, "ally": "dogyeol"},
 			{"map": "s9_1", "goal": "운종가에서 청계천까지\n추억이 깃든 길을 걸어라.", "name": "운종가에서 청계천까지", "after": "C9_MEM"}],

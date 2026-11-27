@@ -135,6 +135,15 @@ func _ready() -> void:
 			if _icon_clash(icl[a], icl.slice(a + 1), occ):
 				iclash += 1
 		print("MAPTEST icon_clash=", iclash)
+		var ez := 0
+		var en := 0
+		for i in tiles.size():
+			if tiles[i].has("errand"):
+				en += 1
+				for g in guards:
+					if g["zone"].has(i):
+						ez += 1
+		print("MAPTEST errand=", en, " errand_in_zone=", ez)
 		print("MAPTEST zones=", guards.map(func(g): return [_enemy_id(g["kind"]), g["zone"].size(), g["at"]]))
 		print("MAPTEST guards_kind=", guards.map(func(g): return _enemy_id(g["kind"])), " blockers=", range(tiles.size()).filter(func(i): return tiles[i]["type"] in ["walpae","pojol"]).map(func(i): return _enemy_id(tiles[i]["type"])))
 		print("MAPTEST hidden_icons=", hid, " char_overlap=", ch_hid, " events=", evn, "/", orig_ev, " herbs=", herbs_total)
@@ -265,7 +274,7 @@ func _move_thing(k: int, what: String) -> bool:   # 심부름 팻말·환자를 
 			if j > int(f["p"]) and j < int(f["q"]):
 				in_fork = true
 		for g in guards:
-			if int(g.get("at", -99)) == j:
+			if int(g.get("at", -99)) == j or (what == "errand" and g.get("zone", []).has(j)):   # 약재는 감시칸에 절대 안 둠
 				in_fork = true   # 감시꾼이 선 칸에는 두지 않는다
 		if in_fork:
 			continue
@@ -786,6 +795,8 @@ func _randomize_layout(s: int) -> void:
 			hc.append(i)
 	_shuffle(rng, hc)
 	herb_cnt += 2   # 맵마다 약초 두 개 더
+	if stage_cfg.get("no_herbs", false):
+		herb_cnt = 0   # 인삼 구하기처럼 구할 것만 있는 맵엔 다른 약초를 깔지 않는다
 	var icons: Array = []   # 아이콘(약초·약재·사건)이 놓인 칸 — 서로, 그리고 인물과 화면에서 겹치지 않게
 	var put := 0
 	for i in hc:
@@ -812,7 +823,7 @@ func _randomize_layout(s: int) -> void:
 					ec.append(i)
 		if ec.size() < errands.size():
 			for i in range(3, main_len - 2):
-				if not ec.has(i) and not inside.has(i) and not occupied.any(func(o): return o[0] == i) \
+				if not ec.has(i) and not inside.has(i) and not reserved.has(i) and not occupied.any(func(o): return o[0] == i) \
 						and not tiles[i]["type"] in ["walpae", "pojol", "boss", "patient", "talk", "shop", "goal"]:
 					tiles[i]["type"] = "empty"
 					ec.append(i)
