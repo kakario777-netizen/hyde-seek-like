@@ -110,6 +110,7 @@ const CHAPTERS := {
 				"talks": [{"who": "약초 캐는 할머니", "text": "아이고, 다래 아가씨가 삼 년 내내 물 주던 그 밭에 가는구먼.\n어여 가 봐요. 올해 꽃이 아주 곱게 폈어. 이것도 가져가고.", "potion": 1},
 					{"who": "나무꾼", "text": "허허, 그 비탈 도라지밭 말이오? 누가 손대면 저 아가씨가\n불같이 화를 내서 나도 근처엔 얼씬 안 했소.", "coin": 2}]},
 			{"map": "s10_isle", "goal": "다래와 함께 바닷길을 건너\n남쪽 유배 섬까지 가라.", "name": "남쪽 유배 섬 가는 길", "after": "C10_ISLE", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel",
+				"talks": [{"who": "섬 뱃사람", "pic": "baetsaram", "text": "저 언덕 초가 노인 말이오? 귀양 온 몸인데도 섬사람들 병은 다 봐 준다오.\n우리 애 종기도 그 양반이 짜 줬지. 이 해송 진액 한 병 가져가시오.", "potion": 1}],
 				"foes": {"walpae": "haejeok", "pojol": "haejeok"}},
 			{"map": "s10_back", "goal": "다래와 함께\n궁으로 돌아가라.", "name": "궁으로 돌아가는 길", "after": "C10_BACKED", "after_story": true, "ally": "darae", "ally_chibi": "darae_travel"},
 			{"map": "s10_podo", "goal": "다래의 누명을 벗길 증거를 찾아\n새벽 포도청까지 가라.", "name": "포도청 가는 새벽길", "after": "C10_PODO", "after_story": true, "ally": "",
