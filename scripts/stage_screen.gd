@@ -1729,7 +1729,7 @@ const PODO_REPLY := {
 }
 const PODO_TALKS := [
 	{"who": "물장수", "pic": "muljangsu", "text": "푸른 눈 포졸 나리라니, 세상 참 좋아졌구먼!\n약수 한 병 들고 가시오.", "potion": 1},
-	{"who": "엿장수", "pic": "yeotjangsu", "text": "어라, 어릴 때 우리 엿판 기웃대던 그 녀석이 포졸이 됐네?\n…옛날에 내 엿판 지켜 준 품삯이다. 받아 둬.", "coin": 2},
+	{"who": "엿장수", "pic": "yeotjangsu", "text": "어라, 어릴 때 우리 엿판 기웃대던 그 녀석이 포졸이 됐네?\n…포졸 된 기념이다. 받아 둬.", "coin": 2},
 	{"who": "약재 상인", "pic": "yakjae", "text": "허 의원님 제자 아가씨가 기다리겠소.\n순찰 끝나면 이 감초 좀 전해 주시오.", "potion": 1},
 	{"who": "밤톨", "pic": "bamtol_happy", "text": "형님 포졸 옷 진짜 잘 어울려요!\n다들 형님 보러 나왔어요!", "coin": 3},
 ]
