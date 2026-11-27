@@ -1884,12 +1884,16 @@ func show_goods(cb := Callable()) -> void:
 	var vb: VBoxContainer = o[1]
 	var cp := coin_plaque()
 	vb.add_child(cp[0])
-	vb.add_child(_note("물건은 필요할 때 저절로 쓰입니다."))
+	vb.add_child(_note("탕약은 [마시기]로 바로 마실 수 있고, 다른 물건은 필요할 때 저절로 쓰입니다.\n체력 %d/%d" % [hp, max_hp]))
 	var any := false
 	for g in SHOP_GOODS:
 		if g["id"] == "ginseng":
 			continue   # 인삼은 사는 즉시 먹음
 		var n := goods_count(g["id"])
+		if g["id"] == "potion_small":
+			n = potions_small   # 약탕관에서 달인 것·이야기에서 받은 것까지 모두
+		elif g["id"] == "potion_big":
+			n = potions
 		var pc := PanelContainer.new()
 		var sb := StyleBoxFlat.new()
 		sb.bg_color = Color("f3e6c8") if n > 0 else Color("d8d2c6"); sb.border_color = Color("9a7a4a")
@@ -1906,6 +1910,23 @@ func show_goods(cb := Callable()) -> void:
 		col.add_child(make_label(g["name"], 26, RED if n > 0 else INK_SOFT))
 		col.add_child(make_label(str(g["desc"]).replace("\n", " "), 20, INK_SOFT))
 		row.add_child(make_label("×%d" % n, 32, INK if n > 0 else INK_SOFT))
+		if g["id"] in ["potion_small", "potion_big"] and n > 0:
+			var big: bool = g["id"] == "potion_big"
+			var drink := make_button("마시기", 22)
+			drink.custom_minimum_size = Vector2(104, 60)
+			drink.disabled = hp >= max_hp
+			row.add_child(drink)
+			drink.pressed.connect(func():
+				if big:
+					potions -= 1
+				else:
+					potions_small -= 1
+				hp = mini(max_hp, hp + (40 if big else 20))
+				sfx("potion")
+				if current and current.has_method("_update_hud"):
+					current._update_hud()
+				layer.queue_free()
+				show_goods(cb))
 		pc.modulate = Color.WHITE if n > 0 else Color(1, 1, 1, 0.6)
 		vb.add_child(pc)
 		if n > 0:
