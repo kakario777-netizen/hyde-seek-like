@@ -143,7 +143,7 @@ static func lines(key: String) -> Array:
 			var n: int = GameData.PROLOGUE_B.size()
 			return [GameData.PROLOGUE_B[n - 2]] + GameData.STORY1 + GameData.STORY2 + [GameData.PROLOGUE_B[n - 1]]
 		"C9_RETURN": return C9_ARRIVE
-		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 10) + [{"who": "", "text": "이튿날 아침. {name|은} 홀로 입궐 길에 나섰다.\n【목표】\n운종가를 지나 경복궁 광화문까지 가라."}]
+		"C9_GRAVE_RET": return C9_GRAVE + CH9_INTRO.slice(2, 11) + [{"who": "", "text": "이튿날 아침. {name|은} 홀로 입궐 길에 나섰다.\n【목표】\n운종가를 지나 경복궁 광화문까지 가라."}]
 		"C9_PALACE_RET": return C9_KING + C9_DARAE + C9_CALL
 		"C9_BRIDGE": return C9_BRIDGE
 		"C9_PODO_RET": return C9_PODO.slice(0, 11) + C9_DG_GATE + C9_DORAJI_GO
@@ -1655,7 +1655,8 @@ const CH9_INTRO := [
 	{"who": "서휘", "pose": "seohwi", "text": "…오랜만이다, 다래. 여전히 시끄럽군."},
 	{"who": "다래", "pose": "darae_adult", "text": "어머, 말하는 것 좀 봐! 몇 년 만에 만나서 한다는 소리가!\n…흥. 그래도 무사히 돌아와서 다행이네."},
 	{"who": "다래", "pose": "darae_adult", "text": "아 맞다, 그 도라지 말이야! 올봄에 꽃이 피었어!\n너 돌아오면 같이 캐려고 아껴 뒀지!"},
-	{"who": "다래", "pose": "darae_adult", "text": "…아, 근데 그 전에! 전하께서 너 돌아오는 대로\n입궐하라고 하셨어. 도라지는 궁에 다녀와서 같이 캐자. 도망가면 안 돼!"},
+	{"who": "다래", "pose": "darae_adult", "text": "…아, 근데 그 전에! 며칠 전에 도결 나리가 그러는데,\n의주 나루에서 네가 강을 건넜다는 기별이 포도청에 왔대."},
+	{"who": "다래", "pose": "darae_adult", "text": "그 얘길 전하께서도 들으시고, 돌아오는 대로 입궐하라고 하셨대.\n도라지는 궁에 다녀와서 같이 캐자. 도망가면 안 돼!"},
 	{"who": "", "text": "문 곁에는 포도대장 윤도결이 서 있었다.\n마치 그날부터 줄곧 거기 서 있었던 것처럼."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…돌아왔구나, {name}. 기다리겠다고 했었지.\n매일 아침 순찰 길을 일부러 이 문 앞으로 돌렸다."},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…서휘도 같이 왔군. 흠. 둘 다 무사해서 다행이다."},
