@@ -1683,9 +1683,9 @@ const CH9_INTRO := [
 
 const C9_MEM := [
 	{"bg": "stream_day", "who": "", "text": "볕 좋은 한낮, 청계천 수표교 아래.\n옛 왈패 소굴은 이제 아이들 글방이 되어 있었다."},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "여기서 네가 처음 내 애체를 노렸지. 한 번도 못 맞혔지만."},
-	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그땐 사람을 때려 본 적이 없었으니까!\n…지금은 다르다는 거, 아까 그 왈패들한테서 봤지?"},
-	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "봤다. 등을 맡길 수 있는 사람이 생긴다는 게 이런 거로군."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "여기서 네가 처음 내 애체를 노렸지.\n…마지막 한 방에 애체가 비뚤어지고, 내가 한 걸음 물러섰다."},
+	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그땐 저도 놀랐어요. 사람을 때려 본 적이 한 번도 없었는데.\n다래를 지켜야 한다는 생각뿐이었거든요."},
+	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "그래서 졌지. 그날 알았다.\n등을 맡겨도 될 사람이라는 걸."},
 	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "그날 밤 당신은 다래를 붙잡고 날 협박했죠.\n소굴의 의원이 되어 달라고."},
 	{"ifnot": "wed_dogyeol", "who": "서휘", "pic": "seohwi", "text": "…협박이 아니라 거래였다.\n아이들이 열에 들떠 있었으니까."},
 	{"ifnot": "wed_dogyeol", "who": "{name}", "pic": "hero_adult", "text": "알아요. 그래서 따라간 거예요.\n아이들 이마를 짚는 당신 손이… 떨리고 있었거든요."},
