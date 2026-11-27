@@ -981,11 +981,12 @@ func apply_line_effects(line: Dictionary) -> void:
 func talk_chain(talk: Dictionary, cb: Callable) -> void:
 	var lines := [{"who": talk["who"], "pic": talk.get("pic", ""), "text": talk["text"]}]
 	var got := []
+	if talk.has("heal"): got.append("체력 회복 +%d" % talk["heal"])
 	if talk.has("coin"): got.append("엽전 +%d냥" % talk["coin"])
 	if talk.has("potion"): got.append("약병 +%d" % talk["potion"])
 	if not got.is_empty():
 		var r := {"who": "", "text": "(" + " · ".join(got) + ")"}
-		for k in ["coin", "potion"]:
+		for k in ["heal", "coin", "potion"]:
 			if talk.has(k): r[k] = talk[k]
 		lines.append(r)
 	dialog_chain(lines, cb)
