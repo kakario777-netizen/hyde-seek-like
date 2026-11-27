@@ -437,7 +437,8 @@ func _make_tile_ent(i: int) -> void:
 			# 꼭 싸워야 하는 적: 일반 적은 몽둥이, 중간보스는 창끝 표시
 			root.add_child(_badge("pojol" if GameData.ENEMIES[eid].get("boss", false) else "walpae", Vector2(-22, by), Color("f3d0c8")))
 		"boss":
-			var bspr: TextureRect = _sprite(GameData.ENEMIES[t["battle"]]["sprite"], 210)
+			var be: Dictionary = GameData.ENEMIES[t["battle"]]
+			var bspr: TextureRect = _sprite(be.get("map_sprite", be["sprite"]), 210)   # 맵에선 아직 변하기 전 모습
 			root.add_child(bspr)
 			root.add_child(_badge("pojol", Vector2(-22, bspr.position.y - BADGE_GAP), Color("ffb0a0")))   # 보스: 창끝 표시, 머리 바로 위
 		"talk":

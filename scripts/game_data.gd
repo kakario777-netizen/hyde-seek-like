@@ -301,7 +301,7 @@ const ENEMIES := {
 	"naegeumwi": {"name": "내금위 순라군", "sprite": "pojol_battle", "hp": 34, "coin": 5, "charge": 4,
 		"moves": [{"t": "atk", "v": 11, "n": "육모방망이"}, {"t": "def", "v": 9, "n": "등롱 비추기"}, {"t": "atk", "v": 12, "n": "창대 찌르기"}],
 		"heavy": {"t": "atk", "v": 19, "n": "호루라기 불기"}},
-	"jeong_shadow1": {"name": "흑화한 정 의관", "sprite": "jeong_shadow", "hp": 80, "coin": 12, "charge": 3, "boss": true,
+	"jeong_shadow1": {"name": "흑화한 정 의관", "sprite": "jeong_shadow", "map_sprite": "jeong_uigwan", "hp": 80, "coin": 12, "charge": 3, "boss": true,
 		"moves": [{"t": "atk", "v": 12, "n": "검은 침 놓기"}, {"t": "def", "v": 10, "n": "먹물 연기 두르기"}, {"t": "atk", "v": 14, "n": "흑심단 뿌리기"}],
 		"heavy": {"t": "atk", "v": 23, "n": "서른 해의 미움"}},
 	"jeong_shadow": {"name": "흑화한 정 의관", "sprite": "jeong_shadow", "hp": 110, "coin": 20, "charge": 3, "boss": true,
