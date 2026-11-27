@@ -3,3 +3,4 @@ build/
 *.apk
 *.keystore
 assets_src/raw/
+signing/

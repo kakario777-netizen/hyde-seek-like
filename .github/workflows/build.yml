@@ -55,11 +55,14 @@ jobs:
       - name: 버전 번호 자동 증가 (빌드마다 커져야 업데이트 설치 가능)
         run: sed -i "s/^version\/code=.*/version\/code=$((100 + ${{ github.run_number }}))/" export_presets.cfg
 
+      - name: 서명 키 꺼내기 (Secret에만 보관)
+        run: echo "${{ secrets.HANYANG_KEYSTORE_B64 }}" | base64 -d > "${{ runner.temp }}/hanyang.jks"
+
       - name: APK 내보내기 (항상 같은 키로 서명 → 덮어쓰기 설치 가능)
         env:
-          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ github.workspace }}/signing/hanyang.jks
+          GODOT_ANDROID_KEYSTORE_RELEASE_PATH: ${{ runner.temp }}/hanyang.jks
           GODOT_ANDROID_KEYSTORE_RELEASE_USER: hanyang
-          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: REMOVED
+          GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD: ${{ secrets.HANYANG_KEYSTORE_PASS }}
         run: |
           mkdir -p build
           timeout 300 ~/godot/godot --headless --editor --quit || true
