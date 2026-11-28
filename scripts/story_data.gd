@@ -535,7 +535,7 @@ const CH5_SUMMON := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "(…늘 사내 옷에 머리 질끈 묶고 뛰어다니던 녀석이,\n치마저고리를 입으니 이리 고울 줄은 몰랐군.)"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "(…심장이 왜 이리 뛰는 거냐. 칼을 맞대고도 떨린 적이 없거늘.\n정신 차려라, 윤도결.)"},
 	{"who": "{name}", "pose": "hero", "text": "나리? 왜 그렇게 서 계세요?\n얼굴이 좀 붉으신데요."},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "…볕이 따가워서다. 흠, 흠."},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "…볕이 따가워서다.\n(윤도결이 갓 챙을 슬쩍 눌러 눈가를 가렸다.)"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 기다리고 있었다.\n너의 누명은 모두 벗겨졌다. 그리고… 전하께서 너를 부르신다."},
 	{"who": "{name}", "pose": "hero", "text": "전하께서… 저를요?"},
 	{"who": "{name}", "pose": "hero", "text": "그런데 나리, 아까부터 포졸들이 나리께\n허리를 깊이 숙이던데요?"},
