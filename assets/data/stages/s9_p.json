@@ -153,8 +153,7 @@
    "type": "boss",
    "battle": "dogyeol",
    "pre": "C9_SPAR_PRE",
-   "post": "C9_SPAR_POST",
-   "lose_ok": true
+   "post": "C9_SPAR_POST"
   },
   {
    "x": -15,

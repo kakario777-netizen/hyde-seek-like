@@ -808,9 +808,13 @@ func _end_duel(cfg: Dictionary) -> void:
 	var holder := Control.new()
 	board = holder
 	add_child(holder)
-	start_battle(cfg["end_battle"], func():
+	retry_cb = func():   # 지면 이 싸움부터 다시
 		holder.queue_free(); board = null
-		play_story(StoryData.lines(cfg.get("end_after", "")), _next_chapter), {"lose_ok": true, "no_reward": true})
+		_end_duel(cfg)
+	start_battle(cfg["end_battle"], func():
+		retry_cb = Callable()
+		holder.queue_free(); board = null
+		play_story(StoryData.lines(cfg.get("end_after", "")), _next_chapter), {"no_reward": true})
 
 ## 작은 맵 하나를 끝내고 다음 맵으로
 func next_stage() -> void:
@@ -831,8 +835,20 @@ func _next_chapter() -> void:
 		phase = "title"
 		show_title()
 
+var retry_cb := Callable()   # 장 끝 싸움처럼 맵 밖에서 진 경우: 그 싸움부터 다시
+
 func game_over(reason: String, pic := "") -> void:
 	popup(reason + "\n\n다시 도전하시겠습니까?", "다시 하기", func():
+		if retry_cb.is_valid():
+			var cb := retry_cb
+			retry_cb = Callable()
+			if current and current != board:
+				current.queue_free()
+			current = null
+			hp = max_hp
+			stat_add("losses")
+			cb.call()
+			return
 		if board and current != board:
 			current.queue_free()
 		if board:
