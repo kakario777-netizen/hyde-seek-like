@@ -1766,8 +1766,10 @@ const C3_HEUK := [
 const C3_ORDER := [
 	{"bg": "den", "who": "", "text": "그날 밤, 다리 밑 소굴.\n서휘가 붕대 감은 손으로 약탕관을 툭 건드렸다."},
 	{"who": "서휘", "pose": "seohwi", "text": "의원, 너에게 맡길 일이 하나 있다. 대대장 어른께서 시키신 일이다.\n먹으면 기운이 펄펄 나는 자양강장 환약. 그걸 만들어 팔면 내가 거둔 아이들이 겨울을 난다."},
-	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "처방은요? 무슨 약재를 얼마나 넣는지 알려 주셔야…"},
-	{"who": "서휘", "pose": "seohwi", "text": "처방 같은 건 없다. 의원이라며?\n네 머리로, 네 손으로 만들어 봐라. 약재는 직접 구해 오고."},
+	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "대대장 어른이요…?"},
+	{"who": "서휘", "pose": "seohwi", "text": "우리 청안파 위의 어른이다. 얼굴은 나도 제대로 본 적 없지."},
+	{"who": "{alias}", "pose": "hero_disguise_surprised", "text": "…처방은요? 무슨 약재를 얼마나 넣는지 알려 주셔야…"},
+	{"who": "서휘", "pose": "seohwi", "text": "처방 같은 건 없다. 의원이라며?\n그 어른이 꼭 네 손으로 빚어야 한다더군. 약재도 직접 구해 오고."},
 	{"who": "{alias}", "pose": "hero_disguise", "text": "(기운을 북돋는 약이라면… 인삼, 황기, 감초.\n의원님 어깨 너머로 본 것만으로 될까…)"},
 	{"who": "", "text": "【목표】\n도성 밖 산기슭을 돌며\n인삼·황기·감초를 모두 구해 소굴로 돌아와라."},
 ]
