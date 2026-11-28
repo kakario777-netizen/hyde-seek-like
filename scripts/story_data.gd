@@ -545,9 +545,7 @@ const CH5_SUMMON := [
 	{"who": "윤도결", "pose": "jongsagwan", "text": "…볕이 따가워서다.\n(윤도결이 갓 챙을 슬쩍 눌러 눈가를 가렸다.)"},
 	{"who": "윤도결", "pose": "jongsagwan", "text": "{name}, 기다리고 있었다.\n너의 누명은 모두 벗겨졌다. 그리고… 전하께서 너를 부르신다."},
 	{"who": "{name}", "pose": "hero", "text": "전하께서… 저를요?"},
-	{"who": "{name}", "pose": "hero", "text": "그런데 나리, 아까부터 포졸들이 나리께\n허리를 깊이 숙이던데요?"},
-	{"who": "윤도결", "pose": "jongsagwan", "text": "…이번 일로 전하께서 품계를 한 단계 올려 주시고,\n친히 환도 한 자루를 내리셨다. 네 덕이 크지."},
-	{"who": "{name}", "pose": "hero", "text": "와… 축하드려요, 나리!"},
+	{"who": "윤도결", "pose": "jongsagwan", "text": "그래. 궁까지 내가 함께 가마.\n…가자."},
 	{"who": "", "text": "【목표】\n윤도결과 함께 경복궁 강녕전까지 가라.", "end": true},
 ]
 
