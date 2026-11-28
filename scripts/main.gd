@@ -401,7 +401,7 @@ func show_title() -> void:
 func new_game() -> void:
 	ask_name(func():
 		track_stats = false
-		max_hp = 50; hp = 50; coins = 0; potions = 2; potions_small = 0; herbs = 0
+		max_hp = 50; hp = 50; coins = 20; potions = 2; potions_small = 0; herbs = 0
 		play_sec = 0.0; stats = {}; track_stats = true
 		chapter = 1; stage_idx = 0; flags = {"hp_plus10": true}; next_energy = 0; next_guard = 0; goods = {}
 		deck = make_deck(GameData.START_DECK)
