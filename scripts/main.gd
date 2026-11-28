@@ -1692,7 +1692,7 @@ const UPGRADE_COST := [0, 5, 10, 15, 20]   # ★1→★2 5냥 … ★4→★5 20
 ## ── 약탕관: 약초 4개 + 엽전으로 탕약 달이기 ──────────────
 const BREW_HERBS := 4
 const BREW_SMALL := 2
-const HERB_MAX := 8   # 약탕관에 보관할 수 있는 약초 수
+const HERB_MAX := 12   # 약탕관에 보관할 수 있는 약초 수
 const BREWS := [{"key": "small", "name": "묽은 탕약", "lv": "2단계", "heal": 20, "cost": 3, "herbs": 2},
 	{"key": "big", "name": "진한 탕약", "lv": "3단계", "heal": 40, "cost": 6, "herbs": 4}]
 

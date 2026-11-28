@@ -1533,7 +1533,7 @@ func _pick_herb(i: int) -> void:
 	main.stat_add("herbs")
 	if herbs_got == 1:
 		comp_say("herb")
-	main.herbs = mini(main.herbs + 1, main.HERB_MAX)   # 약탕관에는 8개까지
+	main.herbs = mini(main.herbs + 1, main.HERB_MAX)   # 약탕관에는 12개까지
 	main.coins += 2
 	if main.herbs == main.BREW_SMALL or main.herbs == main.BREW_HERBS:
 		_brew_hint()
