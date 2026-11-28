@@ -1,6 +1,6 @@
 {
  "id": "s5_1",
- "name": "내의원 환자 돌보기",
+ "name": "내의원 약재 창고",
  "tile": "palace",
  "bg": "palace",
  "turns": 20,
@@ -115,7 +115,7 @@
   {
    "x": -11,
    "y": -10,
-   "type": "talk"
+   "type": "empty"
   },
   {
    "x": -11,
