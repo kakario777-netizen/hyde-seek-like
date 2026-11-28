@@ -854,7 +854,7 @@ func game_over(reason: String, pic := "") -> void:
 		if board:
 			board.queue_free(); board = null
 		current = null
-		max_hp = 50   # 다시 하기: 엽전·약병·탕약·약초는 그대로 둔다
+		# 다시 하기: 최대 체력·엽전·약병·탕약·약초는 그대로 둔다
 		stat_add("losses")
 		start_board(), "", pic, "", true)
 
